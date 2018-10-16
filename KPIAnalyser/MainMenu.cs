@@ -12,9 +12,9 @@ using System.Globalization;
 
 namespace KPIAnalyser
 {
-    public partial class MainMenu : Form
+    public partial class r : Form
     {
-        public MainMenu()
+        public r()
         {
             InitializeComponent();
         }
@@ -65,19 +65,34 @@ namespace KPIAnalyser
                 txtSlimlineEstimating.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["SlimlineEstimating"]);
                 txtSlimlineTurnaround.Text = reader["SlimlineQuotationTurnaround"].ToString();
                 txtFreehandSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["FreehandSales"]);
+                txtUniqueCustomers.Text = reader["UniqueCustomers"].ToString();
+                txtNewCustomer.Text = reader["NewCustomers"].ToString();
+                txtNonReturning.Text = reader["LostCustomers"].ToString();
+
+
 
                 txtPipelineEntries.Text = reader["PipelineAdditions"].ToString();
                 txtPipelineValues.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["PipelineValue"]);
                 txtMeetings.Text = reader["MeetingCount"].ToString();
                 txtOATurnaround.Text = reader["OrderAcknowledgementTurnaround"].ToString();
 
+
+                //Install related
                 txtReturnInternal.Text = reader["NumberOfReturnVisitsInternal"].ToString();
                 txtReturnExternal.Text = reader["NumberOfReturnVisitsExternal"].ToString();
                 txtReturnValue.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["ValueOfReturnVisits"]);
                 txtBookingInDelay.Text = reader["BookingInDelay"].ToString();
 
+
+                //Production related
                 txtRemakeCount.Text = reader["RemakeCount"].ToString();
                 txtRepaintCount.Text = reader["RepaintCount"].ToString();
+                txtDoorsPunched.Text = reader["DoorsPunched"].ToString();
+                txtDoorsBent.Text = reader["DoorsBent"].ToString();
+                txtDoorsWelded.Text = reader["DoorsWelded"].ToString();
+                txtDoorsBuffed.Text = reader["DoorsBuffed"].ToString();
+                txtDoorsPainted.Text = reader["DoorsPainted"].ToString();
+                txtDoorsPacked.Text = reader["DoorsPacked"].ToString();
 
             }
             conn.Close();
@@ -190,6 +205,93 @@ namespace KPIAnalyser
         private void groupBox5_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox14_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox25_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox13_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label42_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnViewNew_Click(object sender, EventArgs e)
+        {
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+
+            //dateString = Convert.ToDateTime("23/08/2018");
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+
+
+            SqlCommand cmd = new SqlCommand("usp_new_customer_view", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            SqlParameter param = new SqlParameter();
+            param = cmd.Parameters.Add("@start_Date", SqlDbType.DateTime);
+            param.Direction = ParameterDirection.Input;
+            param.Value = dateString;
+
+            SqlDataAdapter adap = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adap.Fill(dt);
+            dgvCustomer.DataSource = dt;
+
+
+        }
+
+        private void btnLost_Click(object sender, EventArgs e)
+        {
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+
+            //dateString = Convert.ToDateTime("23/08/2018");
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+
+
+            SqlCommand cmd = new SqlCommand("usp_lost_customer_view", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            SqlParameter param = new SqlParameter();
+            param = cmd.Parameters.Add("@start_Date", SqlDbType.DateTime);
+            param.Direction = ParameterDirection.Input;
+            param.Value = dateString;
+
+            SqlDataAdapter adap = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adap.Fill(dt);
+            dgvCustomer.DataSource = dt;
         }
     }
 }
