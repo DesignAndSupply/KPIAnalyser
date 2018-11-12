@@ -12,9 +12,9 @@ using System.Globalization;
 
 namespace KPIAnalyser
 {
-    public partial class r : Form
+    public partial class txtTraditionalConversionRate : Form
     {
-        public r()
+        public txtTraditionalConversionRate()
         {
             InitializeComponent();
         }
@@ -61,9 +61,16 @@ namespace KPIAnalyser
                 txtTraditionalSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["TraditionalSales"]);
                 txtTraditionalEstimating.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["TraditionalEstimating"]);
                 txtTraditionalTurnaround.Text = reader["TraditionalQuotationTurnaround"].ToString();
+                txtTraditionalConversion.Text = reader["TraditionalConversion"].ToString() + '%';
+                txtTraditionalQuoteCount.Text = reader["TraditionalQuoteCount"].ToString();
+
+
                 txtSlimlineSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["SlimlineSales"]);
                 txtSlimlineEstimating.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["SlimlineEstimating"]);
                 txtSlimlineTurnaround.Text = reader["SlimlineQuotationTurnaround"].ToString();
+                txtSlimlineConversion.Text = reader["SlimlineConversion"].ToString() + '%';
+                txtSlimlineQuoteCount.Text = reader["SlimlineQuoteCount"].ToString();
+
                 txtFreehandSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["FreehandSales"]);
                 txtUniqueCustomers.Text = reader["UniqueCustomers"].ToString();
                 txtNewCustomer.Text = reader["NewCustomers"].ToString();
@@ -74,7 +81,7 @@ namespace KPIAnalyser
                 txtPipelineEntries.Text = reader["PipelineAdditions"].ToString();
                 txtPipelineValues.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["PipelineValue"]);
                 txtMeetings.Text = reader["MeetingCount"].ToString();
-                txtOATurnaround.Text = reader["OrderAcknowledgementTurnaround"].ToString();
+                txtOATurnaround.Text = reader["OATurnaround"].ToString();
 
 
                 //Install related
@@ -93,6 +100,9 @@ namespace KPIAnalyser
                 txtDoorsBuffed.Text = reader["DoorsBuffed"].ToString();
                 txtDoorsPainted.Text = reader["DoorsPainted"].ToString();
                 txtDoorsPacked.Text = reader["DoorsPacked"].ToString();
+                txtDiffToOA.Text = reader["DifferenceToOA"].ToString();
+                txtAverageSlimlineLeadtime.Text = reader["SlimlineLeadTime"].ToString();
+                txtAverageTraditionalLeadtime.Text = reader["TraditionalLeadTime"].ToString();
 
             }
             conn.Close();
@@ -142,15 +152,7 @@ namespace KPIAnalyser
 
         private void paint()
         {
-            if (Convert.ToDouble(txtTraditionalSales.Text) < Convert.ToDouble(txtTraditionalSalesT.Text))
-            {
-                txtTraditionalSales.ForeColor = Color.Red;
-            }
-
-            if (Convert.ToDouble(txtSlimlineSales.Text) < Convert.ToDouble(txtSlimlineSalesT.Text))
-            {
-                txtSlimlineSales.ForeColor = Color.Red;
-            }
+            
 
         }
 
@@ -161,7 +163,7 @@ namespace KPIAnalyser
 
             getCurrent();
             getTarget();
-            //paint();
+            paint();
 
 
           
@@ -235,7 +237,7 @@ namespace KPIAnalyser
         private void btnViewNew_Click(object sender, EventArgs e)
         {
             DateTime dateString;
-
+            lblMessage.Visible = false;
             DateConversion DC = new DateConversion();
             dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
@@ -264,6 +266,13 @@ namespace KPIAnalyser
 
         }
 
+
+        private void dgvCustomer_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+        }
+
+
         private void btnLost_Click(object sender, EventArgs e)
         {
             DateTime dateString;
@@ -272,7 +281,7 @@ namespace KPIAnalyser
             dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
             //dateString = Convert.ToDateTime("23/08/2018");
-
+            lblMessage.Visible = true;
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
@@ -292,6 +301,37 @@ namespace KPIAnalyser
             DataTable dt = new DataTable();
             adap.Fill(dt);
             dgvCustomer.DataSource = dt;
+            paintGrid();
+        }
+
+
+        private void paintGrid()
+        {
+            foreach (DataGridViewRow row in dgvCustomer.Rows)
+            {
+                if (Convert.ToInt32(row.Cells["FirstAndLast"].Value) == -1)
+                {
+                    row.Cells["FirstAndLast"].Style.BackColor = Color.PaleVioletRed;
+                    row.Cells["FirstAndLast"].Style.ForeColor = Color.PaleVioletRed;
+                    row.Cells["Last Time Ordered"].Style.BackColor = Color.PaleVioletRed;
+                    row.Cells["Customer"].Style.BackColor = Color.PaleVioletRed;
+                    row.Cells["Trade_Contact"].Style.BackColor = Color.PaleVioletRed;
+                    row.Cells["Telephone"].Style.BackColor = Color.PaleVioletRed;
+                    row.Cells["Telephone_2"].Style.BackColor = Color.PaleVioletRed;
+                }
+                else
+                {
+                    // row.DefaultCellStyle.BackColor = Color.LightSalmon; // Use it in order to colorize all cells of the row
+
+                    row.Cells["FirstAndLast"].Style.BackColor = Color.White;
+                    row.Cells["FirstAndLast"].Style.ForeColor = Color.White;
+                }
+            }
+        }
+
+        private void Sales_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

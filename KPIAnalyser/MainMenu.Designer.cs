@@ -1,6 +1,6 @@
 ﻿namespace KPIAnalyser
 {
-    partial class r
+    partial class txtTraditionalConversionRate
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(r));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(txtTraditionalConversionRate));
             this.cmbMonth = new System.Windows.Forms.ComboBox();
             this.cmbYear = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.label53 = new System.Windows.Forms.Label();
+            this.textBox22 = new System.Windows.Forms.TextBox();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.textBox18 = new System.Windows.Forms.TextBox();
+            this.txtTraditionalQuoteCountTarget = new System.Windows.Forms.TextBox();
+            this.txtTraditionalQuoteCount = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.txtTraditionalConversionTarget = new System.Windows.Forms.TextBox();
+            this.txtTraditionalConversion = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.txtTraditionalTurnaroundT = new System.Windows.Forms.TextBox();
@@ -47,7 +59,13 @@
             this.txtTraditionalEstimating = new System.Windows.Forms.TextBox();
             this.txtTraditionalSales = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtSlimlineQuoteCountTarget = new System.Windows.Forms.TextBox();
+            this.txtSlimlineConversionTarget = new System.Windows.Forms.TextBox();
+            this.txtSlimlineQuoteCount = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
+            this.txtSlimlineConversion = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.txtSlimlineTurnaroundT = new System.Windows.Forms.TextBox();
             this.txtSlimlineEstimatingT = new System.Windows.Forms.TextBox();
@@ -109,6 +127,15 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.textBox29 = new System.Windows.Forms.TextBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.txtAverageTraditionalLeadtime = new System.Windows.Forms.TextBox();
+            this.textBox27 = new System.Windows.Forms.TextBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.txtAverageSlimlineLeadtime = new System.Windows.Forms.TextBox();
+            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.txtDiffToOA = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
@@ -140,7 +167,6 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
             this.btnLost = new System.Windows.Forms.Button();
-            this.btnUnique = new System.Windows.Forms.Button();
             this.btnViewNew = new System.Windows.Forms.Button();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.label47 = new System.Windows.Forms.Label();
@@ -175,6 +201,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -277,6 +304,18 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox20);
+            this.groupBox1.Controls.Add(this.label53);
+            this.groupBox1.Controls.Add(this.textBox22);
+            this.groupBox1.Controls.Add(this.textBox16);
+            this.groupBox1.Controls.Add(this.label52);
+            this.groupBox1.Controls.Add(this.textBox18);
+            this.groupBox1.Controls.Add(this.txtTraditionalQuoteCountTarget);
+            this.groupBox1.Controls.Add(this.txtTraditionalQuoteCount);
+            this.groupBox1.Controls.Add(this.label50);
+            this.groupBox1.Controls.Add(this.txtTraditionalConversionTarget);
+            this.groupBox1.Controls.Add(this.txtTraditionalConversion);
+            this.groupBox1.Controls.Add(this.label48);
             this.groupBox1.Controls.Add(this.label21);
             this.groupBox1.Controls.Add(this.label20);
             this.groupBox1.Controls.Add(this.txtTraditionalTurnaroundT);
@@ -290,10 +329,112 @@
             this.groupBox1.Controls.Add(this.txtTraditionalSales);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(417, 138);
+            this.groupBox1.Size = new System.Drawing.Size(417, 229);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Traditional Sales";
+            // 
+            // textBox20
+            // 
+            this.textBox20.Location = new System.Drawing.Point(295, 88);
+            this.textBox20.Name = "textBox20";
+            this.textBox20.Size = new System.Drawing.Size(116, 20);
+            this.textBox20.TabIndex = 22;
+            this.textBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(17, 91);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(157, 13);
+            this.label53.TabIndex = 21;
+            this.label53.Text = "Total Sales(Existing Customers):";
+            // 
+            // textBox22
+            // 
+            this.textBox22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.textBox22.Location = new System.Drawing.Point(175, 88);
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new System.Drawing.Size(116, 20);
+            this.textBox22.TabIndex = 20;
+            this.textBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(295, 62);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(116, 20);
+            this.textBox16.TabIndex = 19;
+            this.textBox16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(17, 65);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(143, 13);
+            this.label52.TabIndex = 18;
+            this.label52.Text = "Total Sales(New Customers):";
+            // 
+            // textBox18
+            // 
+            this.textBox18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.textBox18.Location = new System.Drawing.Point(175, 62);
+            this.textBox18.Name = "textBox18";
+            this.textBox18.Size = new System.Drawing.Size(116, 20);
+            this.textBox18.TabIndex = 17;
+            this.textBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtTraditionalQuoteCountTarget
+            // 
+            this.txtTraditionalQuoteCountTarget.Location = new System.Drawing.Point(295, 165);
+            this.txtTraditionalQuoteCountTarget.Name = "txtTraditionalQuoteCountTarget";
+            this.txtTraditionalQuoteCountTarget.Size = new System.Drawing.Size(116, 20);
+            this.txtTraditionalQuoteCountTarget.TabIndex = 16;
+            this.txtTraditionalQuoteCountTarget.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtTraditionalQuoteCount
+            // 
+            this.txtTraditionalQuoteCount.Location = new System.Drawing.Point(175, 165);
+            this.txtTraditionalQuoteCount.Name = "txtTraditionalQuoteCount";
+            this.txtTraditionalQuoteCount.Size = new System.Drawing.Size(116, 20);
+            this.txtTraditionalQuoteCount.TabIndex = 15;
+            this.txtTraditionalQuoteCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(17, 169);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(70, 13);
+            this.label50.TabIndex = 14;
+            this.label50.Text = "Quote Count:";
+            // 
+            // txtTraditionalConversionTarget
+            // 
+            this.txtTraditionalConversionTarget.Location = new System.Drawing.Point(295, 139);
+            this.txtTraditionalConversionTarget.Name = "txtTraditionalConversionTarget";
+            this.txtTraditionalConversionTarget.Size = new System.Drawing.Size(116, 20);
+            this.txtTraditionalConversionTarget.TabIndex = 13;
+            this.txtTraditionalConversionTarget.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtTraditionalConversion
+            // 
+            this.txtTraditionalConversion.Location = new System.Drawing.Point(175, 139);
+            this.txtTraditionalConversion.Name = "txtTraditionalConversion";
+            this.txtTraditionalConversion.Size = new System.Drawing.Size(116, 20);
+            this.txtTraditionalConversion.TabIndex = 12;
+            this.txtTraditionalConversion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(17, 143);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(84, 13);
+            this.label48.TabIndex = 11;
+            this.label48.Text = "Conversion rate:";
             // 
             // label21
             // 
@@ -315,7 +456,7 @@
             // 
             // txtTraditionalTurnaroundT
             // 
-            this.txtTraditionalTurnaroundT.Location = new System.Drawing.Point(295, 88);
+            this.txtTraditionalTurnaroundT.Location = new System.Drawing.Point(295, 190);
             this.txtTraditionalTurnaroundT.Name = "txtTraditionalTurnaroundT";
             this.txtTraditionalTurnaroundT.Size = new System.Drawing.Size(116, 20);
             this.txtTraditionalTurnaroundT.TabIndex = 8;
@@ -323,7 +464,7 @@
             // 
             // txtTraditionalEstimatingT
             // 
-            this.txtTraditionalEstimatingT.Location = new System.Drawing.Point(295, 62);
+            this.txtTraditionalEstimatingT.Location = new System.Drawing.Point(295, 114);
             this.txtTraditionalEstimatingT.Name = "txtTraditionalEstimatingT";
             this.txtTraditionalEstimatingT.Size = new System.Drawing.Size(116, 20);
             this.txtTraditionalEstimatingT.TabIndex = 7;
@@ -342,7 +483,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 91);
+            this.label6.Location = new System.Drawing.Point(17, 194);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(155, 13);
             this.label6.TabIndex = 5;
@@ -351,7 +492,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 65);
+            this.label5.Location = new System.Drawing.Point(17, 117);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 13);
             this.label5.TabIndex = 4;
@@ -362,13 +503,13 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(17, 39);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.Size = new System.Drawing.Size(93, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Sales Value:";
+            this.label4.Text = "Total Sales Value:";
             // 
             // txtTraditionalTurnaround
             // 
-            this.txtTraditionalTurnaround.Location = new System.Drawing.Point(175, 88);
+            this.txtTraditionalTurnaround.Location = new System.Drawing.Point(175, 190);
             this.txtTraditionalTurnaround.Name = "txtTraditionalTurnaround";
             this.txtTraditionalTurnaround.Size = new System.Drawing.Size(116, 20);
             this.txtTraditionalTurnaround.TabIndex = 2;
@@ -376,7 +517,7 @@
             // 
             // txtTraditionalEstimating
             // 
-            this.txtTraditionalEstimating.Location = new System.Drawing.Point(175, 62);
+            this.txtTraditionalEstimating.Location = new System.Drawing.Point(175, 114);
             this.txtTraditionalEstimating.Name = "txtTraditionalEstimating";
             this.txtTraditionalEstimating.Size = new System.Drawing.Size(116, 20);
             this.txtTraditionalEstimating.TabIndex = 1;
@@ -395,7 +536,13 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtSlimlineQuoteCountTarget);
+            this.groupBox2.Controls.Add(this.txtSlimlineConversionTarget);
+            this.groupBox2.Controls.Add(this.txtSlimlineQuoteCount);
+            this.groupBox2.Controls.Add(this.label51);
             this.groupBox2.Controls.Add(this.label22);
+            this.groupBox2.Controls.Add(this.txtSlimlineConversion);
+            this.groupBox2.Controls.Add(this.label49);
             this.groupBox2.Controls.Add(this.label23);
             this.groupBox2.Controls.Add(this.txtSlimlineTurnaroundT);
             this.groupBox2.Controls.Add(this.txtSlimlineEstimatingT);
@@ -406,13 +553,46 @@
             this.groupBox2.Controls.Add(this.txtSlimlineTurnaround);
             this.groupBox2.Controls.Add(this.txtSlimlineEstimating);
             this.groupBox2.Controls.Add(this.txtSlimlineSales);
-            this.groupBox2.Location = new System.Drawing.Point(6, 150);
+            this.groupBox2.Location = new System.Drawing.Point(6, 241);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(417, 138);
+            this.groupBox2.Size = new System.Drawing.Size(417, 167);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slimline Sales";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // txtSlimlineQuoteCountTarget
+            // 
+            this.txtSlimlineQuoteCountTarget.Location = new System.Drawing.Point(295, 112);
+            this.txtSlimlineQuoteCountTarget.Name = "txtSlimlineQuoteCountTarget";
+            this.txtSlimlineQuoteCountTarget.Size = new System.Drawing.Size(116, 20);
+            this.txtSlimlineQuoteCountTarget.TabIndex = 19;
+            this.txtSlimlineQuoteCountTarget.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtSlimlineConversionTarget
+            // 
+            this.txtSlimlineConversionTarget.Location = new System.Drawing.Point(295, 88);
+            this.txtSlimlineConversionTarget.Name = "txtSlimlineConversionTarget";
+            this.txtSlimlineConversionTarget.Size = new System.Drawing.Size(116, 20);
+            this.txtSlimlineConversionTarget.TabIndex = 16;
+            this.txtSlimlineConversionTarget.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtSlimlineQuoteCount
+            // 
+            this.txtSlimlineQuoteCount.Location = new System.Drawing.Point(175, 112);
+            this.txtSlimlineQuoteCount.Name = "txtSlimlineQuoteCount";
+            this.txtSlimlineQuoteCount.Size = new System.Drawing.Size(116, 20);
+            this.txtSlimlineQuoteCount.TabIndex = 18;
+            this.txtSlimlineQuoteCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(17, 116);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(70, 13);
+            this.label51.TabIndex = 17;
+            this.label51.Text = "Quote Count:";
             // 
             // label22
             // 
@@ -422,6 +602,23 @@
             this.label22.Size = new System.Drawing.Size(38, 13);
             this.label22.TabIndex = 12;
             this.label22.Text = "Target";
+            // 
+            // txtSlimlineConversion
+            // 
+            this.txtSlimlineConversion.Location = new System.Drawing.Point(175, 88);
+            this.txtSlimlineConversion.Name = "txtSlimlineConversion";
+            this.txtSlimlineConversion.Size = new System.Drawing.Size(116, 20);
+            this.txtSlimlineConversion.TabIndex = 15;
+            this.txtSlimlineConversion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(17, 92);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(84, 13);
+            this.label49.TabIndex = 14;
+            this.label49.Text = "Conversion rate:";
             // 
             // label23
             // 
@@ -434,7 +631,7 @@
             // 
             // txtSlimlineTurnaroundT
             // 
-            this.txtSlimlineTurnaroundT.Location = new System.Drawing.Point(295, 88);
+            this.txtSlimlineTurnaroundT.Location = new System.Drawing.Point(295, 136);
             this.txtSlimlineTurnaroundT.Name = "txtSlimlineTurnaroundT";
             this.txtSlimlineTurnaroundT.Size = new System.Drawing.Size(116, 20);
             this.txtSlimlineTurnaroundT.TabIndex = 8;
@@ -451,7 +648,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 91);
+            this.label7.Location = new System.Drawing.Point(17, 139);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(155, 13);
             this.label7.TabIndex = 5;
@@ -485,7 +682,7 @@
             // 
             // txtSlimlineTurnaround
             // 
-            this.txtSlimlineTurnaround.Location = new System.Drawing.Point(175, 88);
+            this.txtSlimlineTurnaround.Location = new System.Drawing.Point(175, 136);
             this.txtSlimlineTurnaround.Name = "txtSlimlineTurnaround";
             this.txtSlimlineTurnaround.Size = new System.Drawing.Size(116, 20);
             this.txtSlimlineTurnaround.TabIndex = 2;
@@ -722,7 +919,7 @@
             this.groupBox5.Controls.Add(this.txtPipelineValues);
             this.groupBox5.Controls.Add(this.txtPipelineEntries);
             this.groupBox5.Controls.Add(this.txtMeetings);
-            this.groupBox5.Location = new System.Drawing.Point(6, 294);
+            this.groupBox5.Location = new System.Drawing.Point(6, 414);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(417, 157);
             this.groupBox5.TabIndex = 7;
@@ -984,6 +1181,15 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.textBox29);
+            this.groupBox7.Controls.Add(this.label56);
+            this.groupBox7.Controls.Add(this.txtAverageTraditionalLeadtime);
+            this.groupBox7.Controls.Add(this.textBox27);
+            this.groupBox7.Controls.Add(this.label55);
+            this.groupBox7.Controls.Add(this.txtAverageSlimlineLeadtime);
+            this.groupBox7.Controls.Add(this.textBox24);
+            this.groupBox7.Controls.Add(this.label54);
+            this.groupBox7.Controls.Add(this.txtDiffToOA);
             this.groupBox7.Controls.Add(this.label41);
             this.groupBox7.Controls.Add(this.label40);
             this.groupBox7.Controls.Add(this.label39);
@@ -1016,6 +1222,81 @@
             this.groupBox7.TabIndex = 17;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Production";
+            // 
+            // textBox29
+            // 
+            this.textBox29.Location = new System.Drawing.Point(289, 302);
+            this.textBox29.Name = "textBox29";
+            this.textBox29.Size = new System.Drawing.Size(108, 20);
+            this.textBox29.TabIndex = 40;
+            this.textBox29.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(17, 305);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(127, 13);
+            this.label56.TabIndex = 39;
+            this.label56.Text = "AVG Traditional Leadtime";
+            // 
+            // txtAverageTraditionalLeadtime
+            // 
+            this.txtAverageTraditionalLeadtime.Location = new System.Drawing.Point(175, 302);
+            this.txtAverageTraditionalLeadtime.Name = "txtAverageTraditionalLeadtime";
+            this.txtAverageTraditionalLeadtime.Size = new System.Drawing.Size(108, 20);
+            this.txtAverageTraditionalLeadtime.TabIndex = 38;
+            this.txtAverageTraditionalLeadtime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox27
+            // 
+            this.textBox27.Location = new System.Drawing.Point(289, 276);
+            this.textBox27.Name = "textBox27";
+            this.textBox27.Size = new System.Drawing.Size(108, 20);
+            this.textBox27.TabIndex = 37;
+            this.textBox27.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(17, 279);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(113, 13);
+            this.label55.TabIndex = 36;
+            this.label55.Text = "AVG Slimline Leadtime";
+            // 
+            // txtAverageSlimlineLeadtime
+            // 
+            this.txtAverageSlimlineLeadtime.Location = new System.Drawing.Point(175, 276);
+            this.txtAverageSlimlineLeadtime.Name = "txtAverageSlimlineLeadtime";
+            this.txtAverageSlimlineLeadtime.Size = new System.Drawing.Size(108, 20);
+            this.txtAverageSlimlineLeadtime.TabIndex = 35;
+            this.txtAverageSlimlineLeadtime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox24
+            // 
+            this.textBox24.Location = new System.Drawing.Point(289, 249);
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(108, 20);
+            this.textBox24.TabIndex = 34;
+            this.textBox24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(17, 252);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(144, 13);
+            this.label54.TabIndex = 33;
+            this.label54.Text = "AVG Difference to Order Ack";
+            // 
+            // txtDiffToOA
+            // 
+            this.txtDiffToOA.Location = new System.Drawing.Point(175, 249);
+            this.txtDiffToOA.Name = "txtDiffToOA";
+            this.txtDiffToOA.Size = new System.Drawing.Size(108, 20);
+            this.txtDiffToOA.TabIndex = 32;
+            this.txtDiffToOA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label41
             // 
@@ -1250,7 +1531,7 @@
             this.tabCtrl.Location = new System.Drawing.Point(30, 121);
             this.tabCtrl.Name = "tabCtrl";
             this.tabCtrl.SelectedIndex = 0;
-            this.tabCtrl.Size = new System.Drawing.Size(1643, 564);
+            this.tabCtrl.Size = new System.Drawing.Size(1643, 635);
             this.tabCtrl.TabIndex = 18;
             // 
             // Sales
@@ -1262,16 +1543,17 @@
             this.Sales.Location = new System.Drawing.Point(4, 22);
             this.Sales.Name = "Sales";
             this.Sales.Padding = new System.Windows.Forms.Padding(3);
-            this.Sales.Size = new System.Drawing.Size(1635, 538);
+            this.Sales.Size = new System.Drawing.Size(1635, 609);
             this.Sales.TabIndex = 0;
             this.Sales.Text = "Sales";
             this.Sales.UseVisualStyleBackColor = true;
+            this.Sales.Click += new System.EventHandler(this.Sales_Click);
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.lblMessage);
             this.groupBox8.Controls.Add(this.dgvCustomer);
             this.groupBox8.Controls.Add(this.btnLost);
-            this.groupBox8.Controls.Add(this.btnUnique);
             this.groupBox8.Controls.Add(this.btnViewNew);
             this.groupBox8.Controls.Add(this.textBox12);
             this.groupBox8.Controls.Add(this.label47);
@@ -1289,7 +1571,7 @@
             this.groupBox8.Controls.Add(this.txtNewCustomer);
             this.groupBox8.Location = new System.Drawing.Point(429, 6);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(459, 445);
+            this.groupBox8.Size = new System.Drawing.Size(643, 565);
             this.groupBox8.TabIndex = 11;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Customer Information";
@@ -1300,12 +1582,13 @@
             this.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCustomer.Location = new System.Drawing.Point(7, 144);
             this.dgvCustomer.Name = "dgvCustomer";
-            this.dgvCustomer.Size = new System.Drawing.Size(444, 295);
+            this.dgvCustomer.RowHeadersVisible = false;
+            this.dgvCustomer.Size = new System.Drawing.Size(630, 415);
             this.dgvCustomer.TabIndex = 18;
             // 
             // btnLost
             // 
-            this.btnLost.Location = new System.Drawing.Point(293, 112);
+            this.btnLost.Location = new System.Drawing.Point(351, 112);
             this.btnLost.Name = "btnLost";
             this.btnLost.Size = new System.Drawing.Size(40, 21);
             this.btnLost.TabIndex = 17;
@@ -1313,18 +1596,9 @@
             this.btnLost.UseVisualStyleBackColor = true;
             this.btnLost.Click += new System.EventHandler(this.btnLost_Click);
             // 
-            // btnUnique
-            // 
-            this.btnUnique.Location = new System.Drawing.Point(293, 61);
-            this.btnUnique.Name = "btnUnique";
-            this.btnUnique.Size = new System.Drawing.Size(40, 21);
-            this.btnUnique.TabIndex = 15;
-            this.btnUnique.Text = "View";
-            this.btnUnique.UseVisualStyleBackColor = true;
-            // 
             // btnViewNew
             // 
-            this.btnViewNew.Location = new System.Drawing.Point(293, 35);
+            this.btnViewNew.Location = new System.Drawing.Point(351, 35);
             this.btnViewNew.Name = "btnViewNew";
             this.btnViewNew.Size = new System.Drawing.Size(40, 21);
             this.btnViewNew.TabIndex = 14;
@@ -1334,7 +1608,7 @@
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(335, 113);
+            this.textBox12.Location = new System.Drawing.Point(393, 113);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(116, 20);
             this.textBox12.TabIndex = 13;
@@ -1361,7 +1635,7 @@
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(377, 16);
+            this.label42.Location = new System.Drawing.Point(433, 16);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(38, 13);
             this.label42.TabIndex = 10;
@@ -1379,7 +1653,7 @@
             // 
             // textBox13
             // 
-            this.textBox13.Location = new System.Drawing.Point(335, 88);
+            this.textBox13.Location = new System.Drawing.Point(393, 88);
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(116, 20);
             this.textBox13.TabIndex = 8;
@@ -1388,7 +1662,7 @@
             // 
             // textBox14
             // 
-            this.textBox14.Location = new System.Drawing.Point(335, 62);
+            this.textBox14.Location = new System.Drawing.Point(393, 62);
             this.textBox14.Name = "textBox14";
             this.textBox14.Size = new System.Drawing.Size(116, 20);
             this.textBox14.TabIndex = 7;
@@ -1397,7 +1671,7 @@
             // 
             // textBox25
             // 
-            this.textBox25.Location = new System.Drawing.Point(335, 36);
+            this.textBox25.Location = new System.Drawing.Point(393, 36);
             this.textBox25.Name = "textBox25";
             this.textBox25.Size = new System.Drawing.Size(116, 20);
             this.textBox25.TabIndex = 6;
@@ -1462,7 +1736,7 @@
             this.Installation.Location = new System.Drawing.Point(4, 22);
             this.Installation.Name = "Installation";
             this.Installation.Padding = new System.Windows.Forms.Padding(3);
-            this.Installation.Size = new System.Drawing.Size(1635, 538);
+            this.Installation.Size = new System.Drawing.Size(1635, 609);
             this.Installation.TabIndex = 1;
             this.Installation.Text = "Installation";
             this.Installation.UseVisualStyleBackColor = true;
@@ -1473,7 +1747,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1635, 538);
+            this.tabPage1.Size = new System.Drawing.Size(1635, 609);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Programming";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1484,7 +1758,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1635, 538);
+            this.tabPage2.Size = new System.Drawing.Size(1635, 609);
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Admin";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1500,7 +1774,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1635, 538);
+            this.tabPage3.Size = new System.Drawing.Size(1635, 609);
             this.tabPage3.TabIndex = 4;
             this.tabPage3.Text = "Production";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1600,7 +1874,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1635, 538);
+            this.tabPage4.Size = new System.Drawing.Size(1635, 609);
             this.tabPage4.TabIndex = 5;
             this.tabPage4.Text = "Accounts";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1610,7 +1884,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1635, 538);
+            this.tabPage5.Size = new System.Drawing.Size(1635, 609);
             this.tabPage5.TabIndex = 6;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1639,11 +1913,22 @@
             this.targetsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.targetsToolStripMenuItem.Text = "Targets";
             // 
-            // r
+            // lblMessage
+            // 
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lblMessage.Location = new System.Drawing.Point(541, 128);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(96, 13);
+            this.lblMessage.TabIndex = 19;
+            this.lblMessage.Text = "First and only order";
+            this.lblMessage.Visible = false;
+            // 
+            // txtTraditionalConversionRate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1685, 701);
+            this.ClientSize = new System.Drawing.Size(1685, 772);
             this.Controls.Add(this.tabCtrl);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.label18);
@@ -1656,8 +1941,9 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "r";
+            this.Name = "txtTraditionalConversionRate";
             this.Text = "KPI Analyser";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1845,9 +2131,36 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button btnLost;
-        private System.Windows.Forms.Button btnUnique;
         private System.Windows.Forms.Button btnViewNew;
         private System.Windows.Forms.DataGridView dgvCustomer;
+        private System.Windows.Forms.TextBox txtTraditionalConversion;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox txtTraditionalConversionTarget;
+        private System.Windows.Forms.TextBox txtSlimlineConversionTarget;
+        private System.Windows.Forms.TextBox txtSlimlineConversion;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.TextBox txtTraditionalQuoteCountTarget;
+        private System.Windows.Forms.TextBox txtTraditionalQuoteCount;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.TextBox txtSlimlineQuoteCountTarget;
+        private System.Windows.Forms.TextBox txtSlimlineQuoteCount;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.TextBox textBox20;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.TextBox textBox22;
+        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.TextBox txtDiffToOA;
+        private System.Windows.Forms.TextBox textBox29;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.TextBox txtAverageTraditionalLeadtime;
+        private System.Windows.Forms.TextBox textBox27;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.TextBox txtAverageSlimlineLeadtime;
+        private System.Windows.Forms.Label lblMessage;
     }
 }
 

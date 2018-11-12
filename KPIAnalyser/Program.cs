@@ -16,7 +16,7 @@ namespace KPIAnalyser
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new r());
+            Application.Run(new txtTraditionalConversionRate());
         }
     }
 }
