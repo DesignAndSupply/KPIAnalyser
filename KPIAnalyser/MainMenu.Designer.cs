@@ -35,12 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox20 = new System.Windows.Forms.TextBox();
-            this.label53 = new System.Windows.Forms.Label();
-            this.textBox22 = new System.Windows.Forms.TextBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.label52 = new System.Windows.Forms.Label();
-            this.textBox18 = new System.Windows.Forms.TextBox();
             this.txtTraditionalQuoteCountTarget = new System.Windows.Forms.TextBox();
             this.txtTraditionalQuoteCount = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
@@ -165,6 +159,7 @@
             this.tabCtrl = new System.Windows.Forms.TabControl();
             this.Sales = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
             this.btnLost = new System.Windows.Forms.Button();
             this.btnViewNew = new System.Windows.Forms.Button();
@@ -173,13 +168,12 @@
             this.txtNonReturning = new System.Windows.Forms.TextBox();
             this.label42 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.textBox25 = new System.Windows.Forms.TextBox();
             this.label44 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
-            this.textBox26 = new System.Windows.Forms.TextBox();
+            this.txtTop3Dependancy = new System.Windows.Forms.TextBox();
             this.txtUniqueCustomers = new System.Windows.Forms.TextBox();
             this.txtNewCustomer = new System.Windows.Forms.TextBox();
             this.Installation = new System.Windows.Forms.TabPage();
@@ -201,7 +195,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblMessage = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.txtTop3Sales = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -304,12 +299,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox20);
-            this.groupBox1.Controls.Add(this.label53);
-            this.groupBox1.Controls.Add(this.textBox22);
-            this.groupBox1.Controls.Add(this.textBox16);
             this.groupBox1.Controls.Add(this.label52);
-            this.groupBox1.Controls.Add(this.textBox18);
+            this.groupBox1.Controls.Add(this.txtTop3Sales);
             this.groupBox1.Controls.Add(this.txtTraditionalQuoteCountTarget);
             this.groupBox1.Controls.Add(this.txtTraditionalQuoteCount);
             this.groupBox1.Controls.Add(this.label50);
@@ -322,8 +313,10 @@
             this.groupBox1.Controls.Add(this.txtTraditionalEstimatingT);
             this.groupBox1.Controls.Add(this.txtTraditionalSalesT);
             this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label44);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtTop3Dependancy);
             this.groupBox1.Controls.Add(this.txtTraditionalTurnaround);
             this.groupBox1.Controls.Add(this.txtTraditionalEstimating);
             this.groupBox1.Controls.Add(this.txtTraditionalSales);
@@ -333,58 +326,6 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Traditional Sales";
-            // 
-            // textBox20
-            // 
-            this.textBox20.Location = new System.Drawing.Point(295, 88);
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(116, 20);
-            this.textBox20.TabIndex = 22;
-            this.textBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(17, 91);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(157, 13);
-            this.label53.TabIndex = 21;
-            this.label53.Text = "Total Sales(Existing Customers):";
-            // 
-            // textBox22
-            // 
-            this.textBox22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.textBox22.Location = new System.Drawing.Point(175, 88);
-            this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new System.Drawing.Size(116, 20);
-            this.textBox22.TabIndex = 20;
-            this.textBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox16
-            // 
-            this.textBox16.Location = new System.Drawing.Point(295, 62);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(116, 20);
-            this.textBox16.TabIndex = 19;
-            this.textBox16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(17, 65);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(143, 13);
-            this.label52.TabIndex = 18;
-            this.label52.Text = "Total Sales(New Customers):";
-            // 
-            // textBox18
-            // 
-            this.textBox18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.textBox18.Location = new System.Drawing.Point(175, 62);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(116, 20);
-            this.textBox18.TabIndex = 17;
-            this.textBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtTraditionalQuoteCountTarget
             // 
@@ -1560,13 +1501,10 @@
             this.groupBox8.Controls.Add(this.txtNonReturning);
             this.groupBox8.Controls.Add(this.label42);
             this.groupBox8.Controls.Add(this.label43);
-            this.groupBox8.Controls.Add(this.textBox13);
             this.groupBox8.Controls.Add(this.textBox14);
             this.groupBox8.Controls.Add(this.textBox25);
-            this.groupBox8.Controls.Add(this.label44);
             this.groupBox8.Controls.Add(this.label45);
             this.groupBox8.Controls.Add(this.label46);
-            this.groupBox8.Controls.Add(this.textBox26);
             this.groupBox8.Controls.Add(this.txtUniqueCustomers);
             this.groupBox8.Controls.Add(this.txtNewCustomer);
             this.groupBox8.Location = new System.Drawing.Point(429, 6);
@@ -1576,19 +1514,30 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Customer Information";
             // 
+            // lblMessage
+            // 
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lblMessage.Location = new System.Drawing.Point(541, 96);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(96, 13);
+            this.lblMessage.TabIndex = 19;
+            this.lblMessage.Text = "First and only order";
+            this.lblMessage.Visible = false;
+            // 
             // dgvCustomer
             // 
             this.dgvCustomer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCustomer.Location = new System.Drawing.Point(7, 144);
+            this.dgvCustomer.Location = new System.Drawing.Point(7, 117);
             this.dgvCustomer.Name = "dgvCustomer";
             this.dgvCustomer.RowHeadersVisible = false;
-            this.dgvCustomer.Size = new System.Drawing.Size(630, 415);
+            this.dgvCustomer.Size = new System.Drawing.Size(630, 442);
             this.dgvCustomer.TabIndex = 18;
             // 
             // btnLost
             // 
-            this.btnLost.Location = new System.Drawing.Point(351, 112);
+            this.btnLost.Location = new System.Drawing.Point(351, 88);
             this.btnLost.Name = "btnLost";
             this.btnLost.Size = new System.Drawing.Size(40, 21);
             this.btnLost.TabIndex = 17;
@@ -1608,7 +1557,7 @@
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(393, 113);
+            this.textBox12.Location = new System.Drawing.Point(393, 89);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(116, 20);
             this.textBox12.TabIndex = 13;
@@ -1618,7 +1567,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(17, 116);
+            this.label47.Location = new System.Drawing.Point(17, 92);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(125, 13);
             this.label47.TabIndex = 12;
@@ -1626,7 +1575,7 @@
             // 
             // txtNonReturning
             // 
-            this.txtNonReturning.Location = new System.Drawing.Point(175, 113);
+            this.txtNonReturning.Location = new System.Drawing.Point(175, 89);
             this.txtNonReturning.Name = "txtNonReturning";
             this.txtNonReturning.Size = new System.Drawing.Size(116, 20);
             this.txtNonReturning.TabIndex = 11;
@@ -1651,15 +1600,6 @@
             this.label43.TabIndex = 9;
             this.label43.Text = "Actual";
             // 
-            // textBox13
-            // 
-            this.textBox13.Location = new System.Drawing.Point(393, 88);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(116, 20);
-            this.textBox13.TabIndex = 8;
-            this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox13.TextChanged += new System.EventHandler(this.textBox13_TextChanged);
-            // 
             // textBox14
             // 
             this.textBox14.Location = new System.Drawing.Point(393, 62);
@@ -1681,7 +1621,7 @@
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(17, 91);
+            this.label44.Location = new System.Drawing.Point(17, 88);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(102, 13);
             this.label44.TabIndex = 5;
@@ -1705,13 +1645,13 @@
             this.label46.TabIndex = 3;
             this.label46.Text = "New Customers:";
             // 
-            // textBox26
+            // txtTop3Dependancy
             // 
-            this.textBox26.Location = new System.Drawing.Point(175, 88);
-            this.textBox26.Name = "textBox26";
-            this.textBox26.Size = new System.Drawing.Size(116, 20);
-            this.textBox26.TabIndex = 2;
-            this.textBox26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTop3Dependancy.Location = new System.Drawing.Point(175, 86);
+            this.txtTop3Dependancy.Name = "txtTop3Dependancy";
+            this.txtTop3Dependancy.Size = new System.Drawing.Size(116, 20);
+            this.txtTop3Dependancy.TabIndex = 2;
+            this.txtTop3Dependancy.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtUniqueCustomers
             // 
@@ -1913,16 +1853,22 @@
             this.targetsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.targetsToolStripMenuItem.Text = "Targets";
             // 
-            // lblMessage
+            // label52
             // 
-            this.lblMessage.AutoSize = true;
-            this.lblMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lblMessage.Location = new System.Drawing.Point(541, 128);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(96, 13);
-            this.lblMessage.TabIndex = 19;
-            this.lblMessage.Text = "First and only order";
-            this.lblMessage.Visible = false;
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(17, 63);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(126, 13);
+            this.label52.TabIndex = 18;
+            this.label52.Text = "Sales to top 3 customers:";
+            // 
+            // txtTop3Sales
+            // 
+            this.txtTop3Sales.Location = new System.Drawing.Point(175, 61);
+            this.txtTop3Sales.Name = "txtTop3Sales";
+            this.txtTop3Sales.Size = new System.Drawing.Size(116, 20);
+            this.txtTop3Sales.TabIndex = 17;
+            this.txtTop3Sales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtTraditionalConversionRate
             // 
@@ -2103,13 +2049,12 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.TextBox textBox25;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.Label label46;
-        private System.Windows.Forms.TextBox textBox26;
+        private System.Windows.Forms.TextBox txtTop3Dependancy;
         private System.Windows.Forms.TextBox txtUniqueCustomers;
         private System.Windows.Forms.TextBox txtNewCustomer;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -2145,12 +2090,6 @@
         private System.Windows.Forms.TextBox txtSlimlineQuoteCountTarget;
         private System.Windows.Forms.TextBox txtSlimlineQuoteCount;
         private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.TextBox textBox20;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.TextBox textBox22;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.TextBox textBox18;
         private System.Windows.Forms.TextBox textBox24;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.TextBox txtDiffToOA;
@@ -2161,6 +2100,8 @@
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.TextBox txtAverageSlimlineLeadtime;
         private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.TextBox txtTop3Sales;
     }
 }
 

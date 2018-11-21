@@ -76,6 +76,8 @@ namespace KPIAnalyser
                 txtNewCustomer.Text = reader["NewCustomers"].ToString();
                 txtNonReturning.Text = reader["LostCustomers"].ToString();
 
+                txtTop3Sales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["Top3Sales"]);
+                txtTop3Dependancy.Text = string.Format("{0:0.0%}", reader["Top3Dependancy"]);
 
 
                 txtPipelineEntries.Text = reader["PipelineAdditions"].ToString();
