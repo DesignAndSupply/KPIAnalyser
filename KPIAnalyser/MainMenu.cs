@@ -176,6 +176,11 @@ namespace KPIAnalyser
 
         }
 
+        private void dgvCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
+        }
+
         private void txtTraditionalSalesT_TextChanged(object sender, EventArgs e)
         {
 
@@ -238,8 +243,9 @@ namespace KPIAnalyser
 
         private void btnViewNew_Click(object sender, EventArgs e)
         {
+            clearGrid();
             DateTime dateString;
-            lblMessage.Visible = false;
+            
             DateConversion DC = new DateConversion();
             dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
@@ -274,16 +280,36 @@ namespace KPIAnalyser
 
         }
 
+        private void clearGrid()
+        {
+            try
+            {
+                dgvCustomer.Columns.Remove("Button1");
+               
+            }
+            catch
+            {
 
+            }
+        }
         private void btnLost_Click(object sender, EventArgs e)
         {
+
+            populateLostCustomers();
+
+
+        }
+
+        private void populateLostCustomers()
+        {
+            clearGrid();
             DateTime dateString;
 
             DateConversion DC = new DateConversion();
             dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
             //dateString = Convert.ToDateTime("23/08/2018");
-            lblMessage.Visible = true;
+
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
@@ -303,7 +329,26 @@ namespace KPIAnalyser
             DataTable dt = new DataTable();
             adap.Fill(dt);
             dgvCustomer.DataSource = dt;
+
+            //Color the datagrid
+
             paintGrid();
+
+
+
+            //Add button to data grid
+            DataGridViewButtonColumn button = new DataGridViewButtonColumn();
+            {
+                button.Name = "Button1";
+                button.HeaderText = "Do Not Contact";
+                button.Text = "Do Not Contact";
+                button.UseColumnTextForButtonValue = true; //dont forget this line
+                if (dgvCustomer.Columns["Do Not Contact"] == null)
+                {
+                    this.dgvCustomer.Columns.Add(button);
+                }
+            }
+
         }
 
 
@@ -311,28 +356,181 @@ namespace KPIAnalyser
         {
             foreach (DataGridViewRow row in dgvCustomer.Rows)
             {
-                if (Convert.ToInt32(row.Cells["FirstAndLast"].Value) == -1)
+
+                string rowNotes = row.Cells["Notes"].Value.ToString();
+
+
+
+
+
+                if (string.IsNullOrWhiteSpace(rowNotes) == false)
                 {
-                    row.Cells["FirstAndLast"].Style.BackColor = Color.PaleVioletRed;
-                    row.Cells["FirstAndLast"].Style.ForeColor = Color.PaleVioletRed;
-                    row.Cells["Last Time Ordered"].Style.BackColor = Color.PaleVioletRed;
-                    row.Cells["Customer"].Style.BackColor = Color.PaleVioletRed;
-                    row.Cells["Trade_Contact"].Style.BackColor = Color.PaleVioletRed;
-                    row.Cells["Telephone"].Style.BackColor = Color.PaleVioletRed;
-                    row.Cells["Telephone_2"].Style.BackColor = Color.PaleVioletRed;
+                    row.Cells["FirstAndLast"].Style.BackColor = Color.LawnGreen;
+                    row.Cells["FirstAndLast"].Style.ForeColor = Color.LawnGreen;
+                    row.Cells["Last Time Ordered"].Style.BackColor = Color.LawnGreen;
+                    row.Cells["Customer"].Style.BackColor = Color.LawnGreen;
+                    row.Cells["Trade_Contact"].Style.BackColor = Color.LawnGreen;
+                    row.Cells["Telephone"].Style.BackColor = Color.LawnGreen;
+                    row.Cells["Telephone_2"].Style.BackColor = Color.LawnGreen;
+                    row.Cells["AccRef"].Style.BackColor = Color.LawnGreen;
+                    row.Cells["Contact?"].Style.BackColor = Color.LawnGreen;
+                    row.Cells["Notes"].Style.BackColor = Color.LawnGreen;
                 }
                 else
                 {
-                    // row.DefaultCellStyle.BackColor = Color.LightSalmon; // Use it in order to colorize all cells of the row
+                    if (row.Cells["Contact?"].Value.ToString() == "Do not contact")
+                    {
+                        row.Cells["FirstAndLast"].Style.BackColor = Color.DarkOrange;
+                        row.Cells["FirstAndLast"].Style.ForeColor = Color.DarkOrange;
+                        row.Cells["Last Time Ordered"].Style.BackColor = Color.DarkOrange;
+                        row.Cells["Customer"].Style.BackColor = Color.DarkOrange;
+                        row.Cells["Trade_Contact"].Style.BackColor = Color.DarkOrange;
+                        row.Cells["Telephone"].Style.BackColor = Color.DarkOrange;
+                        row.Cells["Telephone_2"].Style.BackColor = Color.DarkOrange;
+                        row.Cells["AccRef"].Style.BackColor = Color.DarkOrange;
+                        row.Cells["Contact?"].Style.BackColor = Color.DarkOrange;
+                        row.Cells["Notes"].Style.BackColor = Color.DarkOrange;
+                    }
+                    else
+                    if (Convert.ToInt32(row.Cells["FirstAndLast"].Value) == -1)
+                    {
 
-                    row.Cells["FirstAndLast"].Style.BackColor = Color.White;
-                    row.Cells["FirstAndLast"].Style.ForeColor = Color.White;
+                        row.Cells["FirstAndLast"].Style.BackColor = Color.PaleVioletRed;
+                        row.Cells["FirstAndLast"].Style.ForeColor = Color.PaleVioletRed;
+                        row.Cells["Last Time Ordered"].Style.BackColor = Color.PaleVioletRed;
+                        row.Cells["Customer"].Style.BackColor = Color.PaleVioletRed;
+                        row.Cells["Trade_Contact"].Style.BackColor = Color.PaleVioletRed;
+                        row.Cells["Telephone"].Style.BackColor = Color.PaleVioletRed;
+                        row.Cells["Telephone_2"].Style.BackColor = Color.PaleVioletRed;
+                        row.Cells["AccRef"].Style.BackColor = Color.PaleVioletRed;
+                        row.Cells["Contact?"].Style.BackColor = Color.PaleVioletRed;
+                        row.Cells["Notes"].Style.BackColor = Color.PaleVioletRed;
+
+
+                    }
+                    else
+                    {
+                        // row.DefaultCellStyle.BackColor = Color.LightSalmon; // Use it in order to colorize all cells of the row
+
+                        row.Cells["FirstAndLast"].Style.BackColor = Color.White;
+                        row.Cells["FirstAndLast"].Style.ForeColor = Color.White;
+                    }
                 }
+
+
+
             }
         }
 
         private void Sales_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void groupBox8_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvCustomer_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+            string accRef;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                int selectedrowindex = dgvCustomer.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = dgvCustomer.Rows[selectedrowindex];
+
+                accRef = Convert.ToString(selectedRow.Cells["AccRef"].Value);
+
+
+                SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+                conn.Open();
+                if (checkDoNotOrder(accRef) == true)
+                {
+                    SqlCommand cmd = new SqlCommand("delete from dbo.crm_do_not_contact where customer_acc_ref=@accRef", conn);
+                    cmd.Parameters.AddWithValue("@accRef", accRef);    //NEEDS THE ACC REF FROM THE CELL
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    SqlCommand cmd = new SqlCommand("insert into dbo.crm_do_not_contact (customer_acc_ref, do_not_contact) values (@accRef,'Do not contact')", conn);
+                    cmd.Parameters.AddWithValue("@accRef", accRef);    //NEEDS THE ACC REF FROM THE CELL
+                    cmd.ExecuteNonQuery();
+                }
+
+                populateLostCustomers();
+            }
+        }
+
+        private bool checkDoNotOrder(string custAccRef)
+        {
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * from dbo.crm_do_not_contact where customer_acc_ref =@accRef",conn);
+            cmd.Parameters.AddWithValue("@accRef", custAccRef);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            if (rdr.Read())
+            {
+                return true;
+               
+
+            }
+            else
+            {
+                return false;
+            }
+
+            
+        }
+
+        private void btnRankedCustomerOrders_Click(object sender, EventArgs e)
+        {
+            clearGrid();
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+
+            //dateString = Convert.ToDateTime("23/08/2018");
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+
+
+            SqlCommand cmd = new SqlCommand("usp_ranked_customer_orders", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            SqlParameter param = new SqlParameter();
+            param = cmd.Parameters.Add("@start_Date", SqlDbType.DateTime);
+            param.Direction = ParameterDirection.Input;
+            param.Value = dateString;
+
+            SqlDataAdapter adap = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adap.Fill(dt);
+            dgvCustomer.DataSource = dt;
+        }
+
+        private void dgvCustomer_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int selectedrowindex = dgvCustomer.SelectedCells[0].RowIndex;
+
+            DataGridViewRow selectedRow = dgvCustomer.Rows[selectedrowindex];
+
+            string accRef = Convert.ToString(selectedRow.Cells["AccRef"].Value);
+            string cust = Convert.ToString(selectedRow.Cells["Customer"].Value);
+
+            frmNonReturningCustomerDetails frmNRCD = new frmNonReturningCustomerDetails(accRef,cust);
+            frmNRCD.ShowDialog();
 
         }
     }
