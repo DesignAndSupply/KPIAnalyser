@@ -35,6 +35,109 @@ namespace KPIAnalyser
 
             DateConversion DC = new DateConversion();
             dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+           
+            //dateString = Convert.ToDateTime("23/08/2018");
+
+
+
+
+            
+      
+
+
+
+
+            using (SqlConnection con = new SqlConnection(ConnectionStrings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("usp_kpi_analysis", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@start_Date", SqlDbType.DateTime).Value = dateString;
+                   
+
+                    con.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        txtTraditionalSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["TraditionalSales"]);
+                        txtTraditionalEstimating.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["TraditionalEstimating"]);
+                        txtTraditionalTurnaround.Text = reader["TraditionalQuotationTurnaround"].ToString();
+                        txtTraditionalConversion.Text = reader["TraditionalConversion"].ToString() + '%';
+                        txtTraditionalQuoteCount.Text = reader["TraditionalQuoteCount"].ToString();
+
+
+                        txtSlimlineSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["SlimlineSales"]);
+                        txtSlimlineEstimating.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["SlimlineEstimating"]);
+                        txtSlimlineTurnaround.Text = reader["SlimlineQuotationTurnaround"].ToString();
+                        txtSlimlineConversion.Text = reader["SlimlineConversion"].ToString() + '%';
+                        txtSlimlineQuoteCount.Text = reader["SlimlineQuoteCount"].ToString();
+
+                        txtFreehandSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["FreehandSales"]);
+                        txtUniqueCustomers.Text = reader["UniqueCustomers"].ToString();
+                        txtNewCustomer.Text = reader["NewCustomers"].ToString();
+                        txtNonReturning.Text = reader["LostCustomers"].ToString();
+
+                        txtTop3Sales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["Top3Sales"]);
+                        txtTop3Dependancy.Text = string.Format("{0:0.0%}", reader["Top3Dependancy"]);
+
+
+                        txtPipelineEntries.Text = reader["PipelineAdditions"].ToString();
+                        txtPipelineValues.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["PipelineValue"]);
+                        txtMeetings.Text = reader["MeetingCount"].ToString();
+                        txtOATurnaround.Text = reader["OATurnaround"].ToString();
+
+
+                        //Install related
+                        txtReturnInternal.Text = reader["NumberOfReturnVisitsInternal"].ToString();
+                        txtReturnExternal.Text = reader["NumberOfReturnVisitsExternal"].ToString();
+                        txtReturnValue.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["ValueOfReturnVisits"]);
+                        txtBookingInDelay.Text = reader["BookingInDelay"].ToString();
+
+
+                        //Production related
+                        txtRemakeCount.Text = reader["RemakeCount"].ToString();
+                        txtRepaintCount.Text = reader["RepaintCount"].ToString();
+                        txtDoorsPunched.Text = reader["DoorsPunched"].ToString();
+                        txtDoorsBent.Text = reader["DoorsBent"].ToString();
+                        txtDoorsWelded.Text = reader["DoorsWelded"].ToString();
+                        txtDoorsBuffed.Text = reader["DoorsBuffed"].ToString();
+                        txtDoorsPainted.Text = reader["DoorsPainted"].ToString();
+                        txtDoorsPacked.Text = reader["DoorsPacked"].ToString();
+                        txtDiffToOA.Text = reader["DifferenceToOA"].ToString();
+                        txtAverageSlimlineLeadtime.Text = reader["SlimlineLeadTime"].ToString();
+                        txtAverageTraditionalLeadtime.Text = reader["TraditionalLeadTime"].ToString();
+
+                    }
+                    con.Close();
+
+                    //Populate accounts data
+                    fillAccounts();
+
+
+                }
+            }
+
+
+
+
+
+
+
+            
+
+
+
+
+        }
+        private void populateBuffTimingsGrid()
+        {
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
             //dateString = Convert.ToDateTime("23/08/2018");
 
@@ -43,7 +146,7 @@ namespace KPIAnalyser
             conn.Open();
 
 
-            SqlCommand cmd = new SqlCommand("usp_kpi_analysis", conn);
+            SqlCommand cmd = new SqlCommand("usp_kpi_buff_timings_grid", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
 
@@ -52,65 +155,106 @@ namespace KPIAnalyser
             param.Direction = ParameterDirection.Input;
             param.Value = dateString;
 
+            SqlDataAdapter adap = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adap.Fill(dt);
+            dgBuffTimings.DataSource = dt;
+        }
+        private void populateWeldTimingsGrid()
+        {
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+
+            //dateString = Convert.ToDateTime("23/08/2018");
 
 
-            SqlDataReader reader = cmd.ExecuteReader();
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
 
-            while (reader.Read())
+
+            SqlCommand cmd = new SqlCommand("usp_kpi_weld_timings_grid", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            SqlParameter param = new SqlParameter();
+            param = cmd.Parameters.Add("@start_Date", SqlDbType.DateTime);
+            param.Direction = ParameterDirection.Input;
+            param.Value = dateString;
+
+            SqlDataAdapter adap = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adap.Fill(dt);
+            dgWeldTimings.DataSource = dt;
+        }
+
+
+        private void populatePackTimingsGrid()
+        {
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+
+            //dateString = Convert.ToDateTime("23/08/2018");
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+
+
+            SqlCommand cmd = new SqlCommand("usp_kpi_pack_timings_grid", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            SqlParameter param = new SqlParameter();
+            param = cmd.Parameters.Add("@start_Date", SqlDbType.DateTime);
+            param.Direction = ParameterDirection.Input;
+            param.Value = dateString;
+
+            SqlDataAdapter adap = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adap.Fill(dt);
+            dgPackTimings.DataSource = dt;
+        }
+
+
+
+        private void fillAccounts()
+        {
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("select * from dbo.kpi_accounts where [Month]=@month and [Year]=@year", conn);
+            cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
+            cmd.Parameters.AddWithValue("@year", cmbYear.Text);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+
+            while (rdr.Read())
             {
-                txtTraditionalSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["TraditionalSales"]);
-                txtTraditionalEstimating.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["TraditionalEstimating"]);
-                txtTraditionalTurnaround.Text = reader["TraditionalQuotationTurnaround"].ToString();
-                txtTraditionalConversion.Text = reader["TraditionalConversion"].ToString() + '%';
-                txtTraditionalQuoteCount.Text = reader["TraditionalQuoteCount"].ToString();
-
-
-                txtSlimlineSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["SlimlineSales"]);
-                txtSlimlineEstimating.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["SlimlineEstimating"]);
-                txtSlimlineTurnaround.Text = reader["SlimlineQuotationTurnaround"].ToString();
-                txtSlimlineConversion.Text = reader["SlimlineConversion"].ToString() + '%';
-                txtSlimlineQuoteCount.Text = reader["SlimlineQuoteCount"].ToString();
-
-                txtFreehandSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["FreehandSales"]);
-                txtUniqueCustomers.Text = reader["UniqueCustomers"].ToString();
-                txtNewCustomer.Text = reader["NewCustomers"].ToString();
-                txtNonReturning.Text = reader["LostCustomers"].ToString();
-
-                txtTop3Sales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["Top3Sales"]);
-                txtTop3Dependancy.Text = string.Format("{0:0.0%}", reader["Top3Dependancy"]);
-
-
-                txtPipelineEntries.Text = reader["PipelineAdditions"].ToString();
-                txtPipelineValues.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["PipelineValue"]);
-                txtMeetings.Text = reader["MeetingCount"].ToString();
-                txtOATurnaround.Text = reader["OATurnaround"].ToString();
-
-
-                //Install related
-                txtReturnInternal.Text = reader["NumberOfReturnVisitsInternal"].ToString();
-                txtReturnExternal.Text = reader["NumberOfReturnVisitsExternal"].ToString();
-                txtReturnValue.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["ValueOfReturnVisits"]);
-                txtBookingInDelay.Text = reader["BookingInDelay"].ToString();
-
-
-                //Production related
-                txtRemakeCount.Text = reader["RemakeCount"].ToString();
-                txtRepaintCount.Text = reader["RepaintCount"].ToString();
-                txtDoorsPunched.Text = reader["DoorsPunched"].ToString();
-                txtDoorsBent.Text = reader["DoorsBent"].ToString();
-                txtDoorsWelded.Text = reader["DoorsWelded"].ToString();
-                txtDoorsBuffed.Text = reader["DoorsBuffed"].ToString();
-                txtDoorsPainted.Text = reader["DoorsPainted"].ToString();
-                txtDoorsPacked.Text = reader["DoorsPacked"].ToString();
-                txtDiffToOA.Text = reader["DifferenceToOA"].ToString();
-                txtAverageSlimlineLeadtime.Text = reader["SlimlineLeadTime"].ToString();
-                txtAverageTraditionalLeadtime.Text = reader["TraditionalLeadTime"].ToString();
+                txtTurnover.Text = rdr["turnover"].ToString();
+                txtGrossProfit.Text = rdr["gross_profit"].ToString();
+                txtDebtorsCurrent.Text = rdr["debt_current"].ToString();
+                txtDebtors30.Text = rdr["debt_30"].ToString();
+                txtDebtors60.Text = rdr["debt_60"].ToString();
+                txtDebtors90.Text = rdr["debt_90"].ToString();
+                txtDebtorsOlder.Text = rdr["debt_older"].ToString();
+                txtCreditorsCurrent.Text = rdr["credit_current"].ToString();
+                txtCreditors30.Text = rdr["credit_30"].ToString();
+                txtCreditors60.Text = rdr["credit_60"].ToString();
+                txtCreditors90.Text = rdr["credit_90"].ToString();
+                txtCreditorsOlder.Text = rdr["credit_older"].ToString();
 
             }
+
             conn.Close();
 
         }
-
         private void getTarget()
         {
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
@@ -134,7 +278,7 @@ namespace KPIAnalyser
                 txtSlimlineTurnaroundT.Text =  reader["slimline_quotation_turnaround"] + " Hours" ;
 
 
-                txtFreehandSalesT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["freehand_sales_target"]);
+               
                 txtMeetingsT.Text = reader["meeting_target"].ToString(); ;
                 txtPipelineEntriesT.Text = reader["pipeline_entry_target"].ToString();
                 txtPipelineValuesT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["pipeline_value_target"]);
@@ -165,6 +309,9 @@ namespace KPIAnalyser
 
             getCurrent();
             getTarget();
+            populateWeldTimingsGrid();
+            populatePackTimingsGrid();
+            populateBuffTimingsGrid();
             paint();
 
 
@@ -532,6 +679,84 @@ namespace KPIAnalyser
             frmNonReturningCustomerDetails frmNRCD = new frmNonReturningCustomerDetails(accRef,cust);
             frmNRCD.ShowDialog();
 
+        }
+
+        private void groupBox14_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCommitAccounts_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(cmbMonth.Text) || string.IsNullOrWhiteSpace(cmbYear.Text))
+            {
+                MessageBox.Show("Please ensure you have a month and a year selected", "Missing month or year", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+
+                try
+                {
+                    SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE dbo.kpi_accounts set turnover=@turnover,gross_profit=@grossProfit," +
+                        "debt_current=@debtCurrent,debt_30=@debt30, debt_60=@debt60,debt_90=@debt90,debt_older=@debtOlder," +
+                        "credit_current=@creditCurrent, credit_30=@credit30, credit_60 =@credit60, credit_90=@credit90, credit_older =@creditOlder " +
+                        "where [Month] = @month and [Year]=@year", conn);
+
+                    cmd.Parameters.AddWithValue("@turnover", txtTurnover.Text);
+                    cmd.Parameters.AddWithValue("@grossProfit", txtGrossProfit.Text);
+                    cmd.Parameters.AddWithValue("@debtCurrent", txtDebtorsCurrent.Text);
+                    cmd.Parameters.AddWithValue("@debt30", txtDebtors30.Text);
+                    cmd.Parameters.AddWithValue("@debt60", txtDebtors60.Text);
+                    cmd.Parameters.AddWithValue("@debt90", txtDebtors90.Text);
+                    cmd.Parameters.AddWithValue("@debtOlder", txtDebtorsOlder.Text);
+
+                    cmd.Parameters.AddWithValue("@CreditCurrent", txtCreditorsCurrent.Text);
+                    cmd.Parameters.AddWithValue("@Credit30", txtCreditors30.Text);
+                    cmd.Parameters.AddWithValue("@Credit60", txtCreditors60.Text);
+                    cmd.Parameters.AddWithValue("@Credit90", txtCreditors90.Text);
+                    cmd.Parameters.AddWithValue("@CreditOlder", txtCreditorsOlder.Text);
+
+                    cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
+                    cmd.Parameters.AddWithValue("@year", cmbYear.Text);
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                    MessageBox.Show("Accounts data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch
+                {
+                    MessageBox.Show("An error has occured, if this error persists please contact IT", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+
+            }
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnWeldStaffTimingBreakdown_Click(object sender, EventArgs e)
+        {
+            ProductionStaffTimings pst = new ProductionStaffTimings("Welding", this.cmbMonth.Text, this.cmbYear.Text);
+            pst.ShowDialog();
+        }
+
+        private void btnPackStaffTimingBreakdown_Click(object sender, EventArgs e)
+        {
+            ProductionStaffTimings pst = new ProductionStaffTimings("Packing", this.cmbMonth.Text, this.cmbYear.Text);
+            pst.ShowDialog();
+        }
+
+        private void btnBuffStaffTimingBreakdown_Click(object sender, EventArgs e)
+        {
+            ProductionStaffTimings pst = new ProductionStaffTimings("Buffing", this.cmbMonth.Text, this.cmbYear.Text);
+            pst.ShowDialog();
         }
     }
 }

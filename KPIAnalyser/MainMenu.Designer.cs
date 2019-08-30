@@ -99,7 +99,6 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
-            this.txtFreehandSalesT = new System.Windows.Forms.TextBox();
             this.txtPipelineValuesT = new System.Windows.Forms.TextBox();
             this.txtPipelineEntriesT = new System.Windows.Forms.TextBox();
             this.txtMeetingsT = new System.Windows.Forms.TextBox();
@@ -183,21 +182,49 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label67 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.dataGridView5 = new System.Windows.Forms.DataGridView();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.dgPackTimings = new System.Windows.Forms.DataGridView();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dgBuffTimings = new System.Windows.Forms.DataGridView();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnWeldStaffTimingBreakdown = new System.Windows.Forms.Button();
+            this.dgWeldTimings = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnCommitAccounts = new System.Windows.Forms.Button();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.txtGrossProfit = new System.Windows.Forms.TextBox();
+            this.txtTurnover = new System.Windows.Forms.TextBox();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.txtCreditorsOlder = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.txtCreditors90 = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.txtCreditors60 = new System.Windows.Forms.TextBox();
+            this.txtCreditors30 = new System.Windows.Forms.TextBox();
+            this.txtCreditorsCurrent = new System.Windows.Forms.TextBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.txtDebtorsOlder = new System.Windows.Forms.TextBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.txtDebtors90 = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.txtDebtors60 = new System.Windows.Forms.TextBox();
+            this.txtDebtors30 = new System.Windows.Forms.TextBox();
+            this.txtDebtorsCurrent = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPackStaffTimingBreakdown = new System.Windows.Forms.Button();
+            this.btnBuffStaffTimingBreakdown = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -215,15 +242,15 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
-            this.groupBox12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgPackTimings)).BeginInit();
             this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBuffTimings)).BeginInit();
             this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgWeldTimings)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            this.groupBox16.SuspendLayout();
+            this.groupBox15.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -244,7 +271,7 @@
             "October",
             "November",
             "December"});
-            this.cmbMonth.Location = new System.Drawing.Point(1552, 38);
+            this.cmbMonth.Location = new System.Drawing.Point(1726, 38);
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(121, 21);
             this.cmbMonth.TabIndex = 0;
@@ -262,7 +289,7 @@
             "2023",
             "2024",
             "2025"});
-            this.cmbYear.Location = new System.Drawing.Point(1552, 65);
+            this.cmbYear.Location = new System.Drawing.Point(1726, 65);
             this.cmbYear.Name = "cmbYear";
             this.cmbYear.Size = new System.Drawing.Size(121, 21);
             this.cmbYear.TabIndex = 1;
@@ -271,7 +298,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1511, 41);
+            this.label1.Location = new System.Drawing.Point(1685, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 2;
@@ -282,7 +309,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1511, 68);
+            this.label2.Location = new System.Drawing.Point(1685, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 3;
@@ -292,7 +319,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1554, 9);
+            this.label3.Location = new System.Drawing.Point(1728, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(119, 13);
             this.label3.TabIndex = 4;
@@ -894,7 +921,6 @@
             // 
             this.groupBox5.Controls.Add(this.label24);
             this.groupBox5.Controls.Add(this.label25);
-            this.groupBox5.Controls.Add(this.txtFreehandSalesT);
             this.groupBox5.Controls.Add(this.txtPipelineValuesT);
             this.groupBox5.Controls.Add(this.txtPipelineEntriesT);
             this.groupBox5.Controls.Add(this.txtMeetingsT);
@@ -931,14 +957,6 @@
             this.label25.Size = new System.Drawing.Size(37, 13);
             this.label25.TabIndex = 13;
             this.label25.Text = "Actual";
-            // 
-            // txtFreehandSalesT
-            // 
-            this.txtFreehandSalesT.Location = new System.Drawing.Point(295, 35);
-            this.txtFreehandSalesT.Name = "txtFreehandSalesT";
-            this.txtFreehandSalesT.Size = new System.Drawing.Size(116, 20);
-            this.txtFreehandSalesT.TabIndex = 11;
-            this.txtFreehandSalesT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtPipelineValuesT
             // 
@@ -1035,7 +1053,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(1598, 92);
+            this.btnUpdate.Location = new System.Drawing.Point(1772, 92);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 9;
@@ -1203,9 +1221,9 @@
             this.groupBox7.Controls.Add(this.label36);
             this.groupBox7.Controls.Add(this.txtRepaintCount);
             this.groupBox7.Controls.Add(this.txtRemakeCount);
-            this.groupBox7.Location = new System.Drawing.Point(6, 6);
+            this.groupBox7.Location = new System.Drawing.Point(6, 26);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(414, 526);
+            this.groupBox7.Size = new System.Drawing.Size(414, 506);
             this.groupBox7.TabIndex = 17;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Production";
@@ -1518,7 +1536,7 @@
             this.tabCtrl.Location = new System.Drawing.Point(30, 121);
             this.tabCtrl.Name = "tabCtrl";
             this.tabCtrl.SelectedIndex = 0;
-            this.tabCtrl.Size = new System.Drawing.Size(1643, 818);
+            this.tabCtrl.Size = new System.Drawing.Size(1817, 818);
             this.tabCtrl.TabIndex = 18;
             // 
             // Sales
@@ -1532,7 +1550,7 @@
             this.Sales.Location = new System.Drawing.Point(4, 22);
             this.Sales.Name = "Sales";
             this.Sales.Padding = new System.Windows.Forms.Padding(3);
-            this.Sales.Size = new System.Drawing.Size(1635, 792);
+            this.Sales.Size = new System.Drawing.Size(1809, 792);
             this.Sales.TabIndex = 0;
             this.Sales.Text = "Sales";
             this.Sales.UseVisualStyleBackColor = true;
@@ -1715,7 +1733,7 @@
             this.Installation.Location = new System.Drawing.Point(4, 22);
             this.Installation.Name = "Installation";
             this.Installation.Padding = new System.Windows.Forms.Padding(3);
-            this.Installation.Size = new System.Drawing.Size(1635, 792);
+            this.Installation.Size = new System.Drawing.Size(1809, 792);
             this.Installation.TabIndex = 1;
             this.Installation.Text = "Installation";
             this.Installation.UseVisualStyleBackColor = true;
@@ -1726,7 +1744,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1635, 792);
+            this.tabPage1.Size = new System.Drawing.Size(1809, 792);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Programming";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1737,133 +1755,382 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1635, 792);
+            this.tabPage2.Size = new System.Drawing.Size(1809, 792);
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Admin";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label67);
             this.tabPage3.Controls.Add(this.groupBox13);
-            this.tabPage3.Controls.Add(this.groupBox12);
             this.tabPage3.Controls.Add(this.groupBox11);
             this.tabPage3.Controls.Add(this.groupBox10);
-            this.tabPage3.Controls.Add(this.groupBox9);
             this.tabPage3.Controls.Add(this.groupBox7);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1635, 792);
+            this.tabPage3.Size = new System.Drawing.Size(1809, 792);
             this.tabPage3.TabIndex = 4;
             this.tabPage3.Text = "Production";
             this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.ForeColor = System.Drawing.Color.Red;
+            this.label67.Location = new System.Drawing.Point(791, 10);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(432, 13);
+            this.label67.TabIndex = 37;
+            this.label67.Text = "ALL TIMINGS BELOW EXCLUDE DOORS THAT HAVE BEEN PAUSED AT ANY POINT";
             // 
             // groupBox13
             // 
-            this.groupBox13.Controls.Add(this.dataGridView5);
-            this.groupBox13.Location = new System.Drawing.Point(1370, 6);
+            this.groupBox13.Controls.Add(this.btnPackStaffTimingBreakdown);
+            this.groupBox13.Controls.Add(this.dgPackTimings);
+            this.groupBox13.Location = new System.Drawing.Point(1279, 26);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(236, 526);
+            this.groupBox13.Size = new System.Drawing.Size(415, 640);
             this.groupBox13.TabIndex = 36;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Pack Timings";
             // 
-            // dataGridView5
+            // dgPackTimings
             // 
-            this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView5.Location = new System.Drawing.Point(7, 20);
-            this.dataGridView5.Name = "dataGridView5";
-            this.dataGridView5.Size = new System.Drawing.Size(223, 500);
-            this.dataGridView5.TabIndex = 0;
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.dataGridView4);
-            this.groupBox12.Location = new System.Drawing.Point(1134, 6);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(236, 526);
-            this.groupBox12.TabIndex = 35;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Paint timings";
-            // 
-            // dataGridView4
-            // 
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(7, 20);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(223, 500);
-            this.dataGridView4.TabIndex = 0;
+            this.dgPackTimings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgPackTimings.Location = new System.Drawing.Point(15, 39);
+            this.dgPackTimings.Name = "dgPackTimings";
+            this.dgPackTimings.RowHeadersVisible = false;
+            this.dgPackTimings.Size = new System.Drawing.Size(386, 595);
+            this.dgPackTimings.TabIndex = 0;
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.dataGridView3);
-            this.groupBox11.Location = new System.Drawing.Point(898, 6);
+            this.groupBox11.Controls.Add(this.btnBuffStaffTimingBreakdown);
+            this.groupBox11.Controls.Add(this.dgBuffTimings);
+            this.groupBox11.Location = new System.Drawing.Point(872, 26);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(236, 526);
+            this.groupBox11.Size = new System.Drawing.Size(401, 640);
             this.groupBox11.TabIndex = 34;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Buff Timings";
             // 
-            // dataGridView3
+            // dgBuffTimings
             // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(7, 20);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(223, 500);
-            this.dataGridView3.TabIndex = 0;
+            this.dgBuffTimings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgBuffTimings.Location = new System.Drawing.Point(6, 39);
+            this.dgBuffTimings.Name = "dgBuffTimings";
+            this.dgBuffTimings.RowHeadersVisible = false;
+            this.dgBuffTimings.Size = new System.Drawing.Size(386, 595);
+            this.dgBuffTimings.TabIndex = 0;
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.dataGridView2);
-            this.groupBox10.Location = new System.Drawing.Point(662, 6);
+            this.groupBox10.Controls.Add(this.btnWeldStaffTimingBreakdown);
+            this.groupBox10.Controls.Add(this.dgWeldTimings);
+            this.groupBox10.Location = new System.Drawing.Point(426, 26);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(236, 526);
+            this.groupBox10.Size = new System.Drawing.Size(440, 640);
             this.groupBox10.TabIndex = 33;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Weld Timings";
             // 
-            // dataGridView2
+            // btnWeldStaffTimingBreakdown
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(7, 20);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(223, 500);
-            this.dataGridView2.TabIndex = 0;
+            this.btnWeldStaffTimingBreakdown.Location = new System.Drawing.Point(353, 12);
+            this.btnWeldStaffTimingBreakdown.Name = "btnWeldStaffTimingBreakdown";
+            this.btnWeldStaffTimingBreakdown.Size = new System.Drawing.Size(75, 20);
+            this.btnWeldStaffTimingBreakdown.TabIndex = 1;
+            this.btnWeldStaffTimingBreakdown.Text = "By Staff";
+            this.btnWeldStaffTimingBreakdown.UseVisualStyleBackColor = true;
+            this.btnWeldStaffTimingBreakdown.Click += new System.EventHandler(this.btnWeldStaffTimingBreakdown_Click);
             // 
-            // groupBox9
+            // dgWeldTimings
             // 
-            this.groupBox9.Controls.Add(this.dataGridView1);
-            this.groupBox9.Location = new System.Drawing.Point(426, 6);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(236, 526);
-            this.groupBox9.TabIndex = 32;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Bend Timings";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(7, 20);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(223, 500);
-            this.dataGridView1.TabIndex = 0;
+            this.dgWeldTimings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgWeldTimings.Location = new System.Drawing.Point(7, 39);
+            this.dgWeldTimings.Name = "dgWeldTimings";
+            this.dgWeldTimings.RowHeadersVisible = false;
+            this.dgWeldTimings.Size = new System.Drawing.Size(421, 595);
+            this.dgWeldTimings.TabIndex = 0;
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.btnCommitAccounts);
+            this.tabPage4.Controls.Add(this.groupBox16);
+            this.tabPage4.Controls.Add(this.groupBox15);
+            this.tabPage4.Controls.Add(this.groupBox14);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1635, 792);
+            this.tabPage4.Size = new System.Drawing.Size(1809, 792);
             this.tabPage4.TabIndex = 5;
             this.tabPage4.Text = "Accounts";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btnCommitAccounts
+            // 
+            this.btnCommitAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCommitAccounts.Location = new System.Drawing.Point(1523, 763);
+            this.btnCommitAccounts.Name = "btnCommitAccounts";
+            this.btnCommitAccounts.Size = new System.Drawing.Size(106, 23);
+            this.btnCommitAccounts.TabIndex = 11;
+            this.btnCommitAccounts.Text = "Save Accounts";
+            this.btnCommitAccounts.UseVisualStyleBackColor = true;
+            this.btnCommitAccounts.Click += new System.EventHandler(this.btnCommitAccounts_Click);
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.label70);
+            this.groupBox16.Controls.Add(this.label71);
+            this.groupBox16.Controls.Add(this.txtGrossProfit);
+            this.groupBox16.Controls.Add(this.txtTurnover);
+            this.groupBox16.Location = new System.Drawing.Point(6, 6);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(216, 98);
+            this.groupBox16.TabIndex = 10;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "General:";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(6, 63);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(64, 13);
+            this.label70.TabIndex = 4;
+            this.label70.Text = "Gross Profit:";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(6, 37);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(53, 13);
+            this.label71.TabIndex = 3;
+            this.label71.Text = "Turnover:";
+            // 
+            // txtGrossProfit
+            // 
+            this.txtGrossProfit.Location = new System.Drawing.Point(105, 60);
+            this.txtGrossProfit.Name = "txtGrossProfit";
+            this.txtGrossProfit.Size = new System.Drawing.Size(100, 20);
+            this.txtGrossProfit.TabIndex = 1;
+            // 
+            // txtTurnover
+            // 
+            this.txtTurnover.Location = new System.Drawing.Point(105, 34);
+            this.txtTurnover.Name = "txtTurnover";
+            this.txtTurnover.Size = new System.Drawing.Size(100, 20);
+            this.txtTurnover.TabIndex = 0;
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.txtCreditorsOlder);
+            this.groupBox15.Controls.Add(this.label62);
+            this.groupBox15.Controls.Add(this.txtCreditors90);
+            this.groupBox15.Controls.Add(this.label63);
+            this.groupBox15.Controls.Add(this.label64);
+            this.groupBox15.Controls.Add(this.label65);
+            this.groupBox15.Controls.Add(this.label66);
+            this.groupBox15.Controls.Add(this.txtCreditors60);
+            this.groupBox15.Controls.Add(this.txtCreditors30);
+            this.groupBox15.Controls.Add(this.txtCreditorsCurrent);
+            this.groupBox15.Location = new System.Drawing.Point(6, 295);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(216, 179);
+            this.groupBox15.TabIndex = 10;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "Creditors:";
+            // 
+            // txtCreditorsOlder
+            // 
+            this.txtCreditorsOlder.Location = new System.Drawing.Point(105, 138);
+            this.txtCreditorsOlder.Name = "txtCreditorsOlder";
+            this.txtCreditorsOlder.Size = new System.Drawing.Size(100, 20);
+            this.txtCreditorsOlder.TabIndex = 9;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(6, 142);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(35, 13);
+            this.label62.TabIndex = 8;
+            this.label62.Text = "Older:";
+            // 
+            // txtCreditors90
+            // 
+            this.txtCreditors90.Location = new System.Drawing.Point(105, 112);
+            this.txtCreditors90.Name = "txtCreditors90";
+            this.txtCreditors90.Size = new System.Drawing.Size(100, 20);
+            this.txtCreditors90.TabIndex = 7;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(6, 115);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(49, 13);
+            this.label63.TabIndex = 6;
+            this.label63.Text = "90 Days:";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(6, 89);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(49, 13);
+            this.label64.TabIndex = 5;
+            this.label64.Text = "60 Days:";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(6, 63);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(49, 13);
+            this.label65.TabIndex = 4;
+            this.label65.Text = "30 Days:";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(6, 37);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(44, 13);
+            this.label66.TabIndex = 3;
+            this.label66.Text = "Current:";
+            // 
+            // txtCreditors60
+            // 
+            this.txtCreditors60.Location = new System.Drawing.Point(105, 86);
+            this.txtCreditors60.Name = "txtCreditors60";
+            this.txtCreditors60.Size = new System.Drawing.Size(100, 20);
+            this.txtCreditors60.TabIndex = 2;
+            // 
+            // txtCreditors30
+            // 
+            this.txtCreditors30.Location = new System.Drawing.Point(105, 60);
+            this.txtCreditors30.Name = "txtCreditors30";
+            this.txtCreditors30.Size = new System.Drawing.Size(100, 20);
+            this.txtCreditors30.TabIndex = 1;
+            // 
+            // txtCreditorsCurrent
+            // 
+            this.txtCreditorsCurrent.Location = new System.Drawing.Point(105, 34);
+            this.txtCreditorsCurrent.Name = "txtCreditorsCurrent";
+            this.txtCreditorsCurrent.Size = new System.Drawing.Size(100, 20);
+            this.txtCreditorsCurrent.TabIndex = 0;
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.txtDebtorsOlder);
+            this.groupBox14.Controls.Add(this.label61);
+            this.groupBox14.Controls.Add(this.txtDebtors90);
+            this.groupBox14.Controls.Add(this.label60);
+            this.groupBox14.Controls.Add(this.label59);
+            this.groupBox14.Controls.Add(this.label58);
+            this.groupBox14.Controls.Add(this.label57);
+            this.groupBox14.Controls.Add(this.txtDebtors60);
+            this.groupBox14.Controls.Add(this.txtDebtors30);
+            this.groupBox14.Controls.Add(this.txtDebtorsCurrent);
+            this.groupBox14.Location = new System.Drawing.Point(6, 110);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(216, 179);
+            this.groupBox14.TabIndex = 0;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Debtors";
+            this.groupBox14.Enter += new System.EventHandler(this.groupBox14_Enter);
+            // 
+            // txtDebtorsOlder
+            // 
+            this.txtDebtorsOlder.Location = new System.Drawing.Point(105, 138);
+            this.txtDebtorsOlder.Name = "txtDebtorsOlder";
+            this.txtDebtorsOlder.Size = new System.Drawing.Size(100, 20);
+            this.txtDebtorsOlder.TabIndex = 9;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(6, 142);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(35, 13);
+            this.label61.TabIndex = 8;
+            this.label61.Text = "Older:";
+            // 
+            // txtDebtors90
+            // 
+            this.txtDebtors90.Location = new System.Drawing.Point(105, 112);
+            this.txtDebtors90.Name = "txtDebtors90";
+            this.txtDebtors90.Size = new System.Drawing.Size(100, 20);
+            this.txtDebtors90.TabIndex = 7;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(6, 115);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(49, 13);
+            this.label60.TabIndex = 6;
+            this.label60.Text = "90 Days:";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(6, 89);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(49, 13);
+            this.label59.TabIndex = 5;
+            this.label59.Text = "60 Days:";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(6, 63);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(49, 13);
+            this.label58.TabIndex = 4;
+            this.label58.Text = "30 Days:";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(6, 37);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(44, 13);
+            this.label57.TabIndex = 3;
+            this.label57.Text = "Current:";
+            // 
+            // txtDebtors60
+            // 
+            this.txtDebtors60.Location = new System.Drawing.Point(105, 86);
+            this.txtDebtors60.Name = "txtDebtors60";
+            this.txtDebtors60.Size = new System.Drawing.Size(100, 20);
+            this.txtDebtors60.TabIndex = 2;
+            // 
+            // txtDebtors30
+            // 
+            this.txtDebtors30.Location = new System.Drawing.Point(105, 60);
+            this.txtDebtors30.Name = "txtDebtors30";
+            this.txtDebtors30.Size = new System.Drawing.Size(100, 20);
+            this.txtDebtors30.TabIndex = 1;
+            // 
+            // txtDebtorsCurrent
+            // 
+            this.txtDebtorsCurrent.Location = new System.Drawing.Point(105, 34);
+            this.txtDebtorsCurrent.Name = "txtDebtorsCurrent";
+            this.txtDebtorsCurrent.Size = new System.Drawing.Size(100, 20);
+            this.txtDebtorsCurrent.TabIndex = 0;
             // 
             // tabPage5
             // 
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1635, 792);
+            this.tabPage5.Size = new System.Drawing.Size(1809, 792);
             this.tabPage5.TabIndex = 6;
             this.tabPage5.Text = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1874,7 +2141,7 @@
             this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1685, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1859, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1892,11 +2159,31 @@
             this.targetsToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.targetsToolStripMenuItem.Text = "Targets";
             // 
+            // btnPackStaffTimingBreakdown
+            // 
+            this.btnPackStaffTimingBreakdown.Location = new System.Drawing.Point(326, 13);
+            this.btnPackStaffTimingBreakdown.Name = "btnPackStaffTimingBreakdown";
+            this.btnPackStaffTimingBreakdown.Size = new System.Drawing.Size(75, 20);
+            this.btnPackStaffTimingBreakdown.TabIndex = 2;
+            this.btnPackStaffTimingBreakdown.Text = "By Staff";
+            this.btnPackStaffTimingBreakdown.UseVisualStyleBackColor = true;
+            this.btnPackStaffTimingBreakdown.Click += new System.EventHandler(this.btnPackStaffTimingBreakdown_Click);
+            // 
+            // btnBuffStaffTimingBreakdown
+            // 
+            this.btnBuffStaffTimingBreakdown.Location = new System.Drawing.Point(317, 13);
+            this.btnBuffStaffTimingBreakdown.Name = "btnBuffStaffTimingBreakdown";
+            this.btnBuffStaffTimingBreakdown.Size = new System.Drawing.Size(75, 20);
+            this.btnBuffStaffTimingBreakdown.TabIndex = 2;
+            this.btnBuffStaffTimingBreakdown.Text = "By Staff";
+            this.btnBuffStaffTimingBreakdown.UseVisualStyleBackColor = true;
+            this.btnBuffStaffTimingBreakdown.Click += new System.EventHandler(this.btnBuffStaffTimingBreakdown_Click);
+            // 
             // txtTraditionalConversionRate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1685, 955);
+            this.ClientSize = new System.Drawing.Size(1859, 955);
             this.Controls.Add(this.tabCtrl);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.label18);
@@ -1938,16 +2225,20 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.groupBox13.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
-            this.groupBox12.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgPackTimings)).EndInit();
             this.groupBox11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgBuffTimings)).EndInit();
             this.groupBox10.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.groupBox9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgWeldTimings)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -2011,7 +2302,6 @@
         private System.Windows.Forms.TextBox txtReturnValueT;
         private System.Windows.Forms.TextBox txtReturnExternalT;
         private System.Windows.Forms.TextBox txtReturnInternalT;
-        private System.Windows.Forms.TextBox txtFreehandSalesT;
         private System.Windows.Forms.TextBox txtPipelineValuesT;
         private System.Windows.Forms.TextBox txtPipelineEntriesT;
         private System.Windows.Forms.TextBox txtMeetingsT;
@@ -2023,7 +2313,6 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label30;
@@ -2084,15 +2373,11 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem targetsToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.DataGridView dataGridView5;
-        private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.DataGridView dgPackTimings;
         private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView dgBuffTimings;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgWeldTimings;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.TextBox txtNonReturning;
@@ -2126,6 +2411,39 @@
         private System.Windows.Forms.TextBox txtTop3Sales;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Button btnRankedCustomerOrders;
+        private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.TextBox txtDebtors60;
+        private System.Windows.Forms.TextBox txtDebtors30;
+        private System.Windows.Forms.TextBox txtDebtorsCurrent;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.TextBox txtGrossProfit;
+        private System.Windows.Forms.TextBox txtTurnover;
+        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.TextBox txtCreditorsOlder;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.TextBox txtCreditors90;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.TextBox txtCreditors60;
+        private System.Windows.Forms.TextBox txtCreditors30;
+        private System.Windows.Forms.TextBox txtCreditorsCurrent;
+        private System.Windows.Forms.TextBox txtDebtorsOlder;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.TextBox txtDebtors90;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Button btnCommitAccounts;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Button btnWeldStaffTimingBreakdown;
+        private System.Windows.Forms.Button btnPackStaffTimingBreakdown;
+        private System.Windows.Forms.Button btnBuffStaffTimingBreakdown;
     }
 }
 
