@@ -40,9 +40,11 @@
             this.dgStaffTimings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgStaffTimings.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgStaffTimings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgStaffTimings.Location = new System.Drawing.Point(13, 38);
             this.dgStaffTimings.Name = "dgStaffTimings";
+            this.dgStaffTimings.RowHeadersVisible = false;
             this.dgStaffTimings.Size = new System.Drawing.Size(563, 328);
             this.dgStaffTimings.TabIndex = 0;
             // 

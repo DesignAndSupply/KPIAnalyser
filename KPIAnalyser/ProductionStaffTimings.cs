@@ -134,10 +134,29 @@ namespace KPIAnalyser
 
             populateStaffTimings();
 
-
-
-
             refreshList();
+            paintStaffGrid();
+        }
+
+
+
+
+        private void paintStaffGrid()
+        {
+            foreach (DataGridViewRow Myrow in dgStaffTimings.Rows)
+            {            //Here 2 cell is target value and 1 cell is Volume
+                if (Convert.ToDouble(Myrow.Cells[4].Value) > 100)// Or your condition 
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+                }
+                else
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.LightSeaGreen;
+
+                }
+            }
+
+            dgStaffTimings.ClearSelection();
         }
     }
 }
