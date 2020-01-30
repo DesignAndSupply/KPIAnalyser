@@ -1006,5 +1006,90 @@ namespace KPIAnalyser
         {
 
         }
+
+        private void DgWeldTimings_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void DgWeldTimings_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+
+
+
+            if (dgWeldTimings.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgWeldTimings.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = dgWeldTimings.Rows[selectedrowindex];
+
+                string a = Convert.ToString(selectedRow.Cells["Door Type"].Value);
+
+                frmProductionDoorTypeAnalysis dta = new frmProductionDoorTypeAnalysis(a, dateString, "Welding");
+                dta.ShowDialog();
+
+            }
+        }
+
+        private void DgBuffTimings_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+
+
+
+            if (dgBuffTimings.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgBuffTimings.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = dgBuffTimings.Rows[selectedrowindex];
+
+                string a = Convert.ToString(selectedRow.Cells["Door Type"].Value);
+
+                frmProductionDoorTypeAnalysis dta = new frmProductionDoorTypeAnalysis(a, dateString, "Buffing");
+                dta.ShowDialog();
+
+            }
+        }
+
+        private void DgPackTimings_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            DateTime dateString;
+
+            DateConversion DC = new DateConversion();
+            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+
+
+
+            if (dgPackTimings.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgPackTimings.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = dgPackTimings.Rows[selectedrowindex];
+
+                string a = Convert.ToString(selectedRow.Cells["Door Type"].Value);
+
+                frmProductionDoorTypeAnalysis dta = new frmProductionDoorTypeAnalysis(a, dateString, "Packing");
+                dta.ShowDialog();
+
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            frmEngineeringManagement frmEM = new frmEngineeringManagement();
+            frmEM.ShowDialog();
+        }
     }
 }
