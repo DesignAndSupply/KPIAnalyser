@@ -38,6 +38,7 @@
             this.rdoMonthly = new System.Windows.Forms.RadioButton();
             this.rdoQuaterly = new System.Windows.Forms.RadioButton();
             this.rdoYearly = new System.Windows.Forms.RadioButton();
+            this.btnPrintLateness = new System.Windows.Forms.Button();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnPrintLateness);
             this.tabPage1.Controls.Add(this.elementHost1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -71,9 +73,9 @@
             this.elementHost1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.elementHost1.Location = new System.Drawing.Point(4, 7);
+            this.elementHost1.Location = new System.Drawing.Point(4, 34);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1199, 398);
+            this.elementHost1.Size = new System.Drawing.Size(1199, 371);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.cartesianChart1;
@@ -91,12 +93,10 @@
             // rdoWeekly
             // 
             this.rdoWeekly.AutoSize = true;
-            this.rdoWeekly.Checked = true;
             this.rdoWeekly.Location = new System.Drawing.Point(19, 13);
             this.rdoWeekly.Name = "rdoWeekly";
             this.rdoWeekly.Size = new System.Drawing.Size(61, 17);
             this.rdoWeekly.TabIndex = 5;
-            this.rdoWeekly.TabStop = true;
             this.rdoWeekly.Text = "Weekly";
             this.rdoWeekly.UseVisualStyleBackColor = true;
             this.rdoWeekly.Click += new System.EventHandler(this.RdoWeekly_Click);
@@ -115,12 +115,14 @@
             // rdoQuaterly
             // 
             this.rdoQuaterly.AutoSize = true;
+            this.rdoQuaterly.Cursor = System.Windows.Forms.Cursors.Default;
             this.rdoQuaterly.Location = new System.Drawing.Point(19, 59);
             this.rdoQuaterly.Name = "rdoQuaterly";
-            this.rdoQuaterly.Size = new System.Drawing.Size(64, 17);
+            this.rdoQuaterly.Size = new System.Drawing.Size(67, 17);
             this.rdoQuaterly.TabIndex = 7;
-            this.rdoQuaterly.Text = "Quaterly";
+            this.rdoQuaterly.Text = "Quarterly";
             this.rdoQuaterly.UseVisualStyleBackColor = true;
+            this.rdoQuaterly.Click += new System.EventHandler(this.RdoQuaterly_Click);
             // 
             // rdoYearly
             // 
@@ -131,6 +133,18 @@
             this.rdoYearly.TabIndex = 8;
             this.rdoYearly.Text = "Yearly";
             this.rdoYearly.UseVisualStyleBackColor = true;
+            this.rdoYearly.Click += new System.EventHandler(this.RdoYearly_Click);
+            // 
+            // btnPrintLateness
+            // 
+            this.btnPrintLateness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrintLateness.Location = new System.Drawing.Point(1078, 5);
+            this.btnPrintLateness.Name = "btnPrintLateness";
+            this.btnPrintLateness.Size = new System.Drawing.Size(125, 23);
+            this.btnPrintLateness.TabIndex = 1;
+            this.btnPrintLateness.Text = "Print Lateness Chart";
+            this.btnPrintLateness.UseVisualStyleBackColor = true;
+            this.btnPrintLateness.Click += new System.EventHandler(this.BtnPrintLateness_Click);
             // 
             // frmEngineeringManagement
             // 
@@ -163,5 +177,6 @@
         private System.Windows.Forms.RadioButton rdoYearly;
         private System.Windows.Forms.Integration.ElementHost elementHost1;
         private LiveCharts.Wpf.CartesianChart cartesianChart1;
+        private System.Windows.Forms.Button btnPrintLateness;
     }
 }

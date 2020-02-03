@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System.Data.SqlClient;
+using System.Drawing.Imaging;
 
 namespace KPIAnalyser
 {
@@ -70,6 +71,21 @@ namespace KPIAnalyser
             int o12 = 0;
 
 
+            double p1 = 0f;
+            double p2 = 0f;
+            double p3 = 0f;
+            double p4 = 0f;
+            double p5 = 0f;
+            double p6 = 0f;
+            double p7 = 0f;
+            double p8 = 0f;
+            double p9 = 0f;
+            double p10 = 0f;
+            double p11 = 0f;
+            double p12 = 0f;
+
+
+
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
@@ -128,6 +144,20 @@ namespace KPIAnalyser
 
 
 
+            p1 = Math.Round((Convert.ToDouble(l1) / (Convert.ToDouble(o1) + Convert.ToDouble(l1)) * 100), 2);
+            p2 = Math.Round((Convert.ToDouble(l2) / (Convert.ToDouble(o2) + Convert.ToDouble(l2)) * 100), 2);
+            p3 = Math.Round((Convert.ToDouble(l3) / (Convert.ToDouble(o3) + Convert.ToDouble(l3)) * 100), 2);
+            p4 = Math.Round((Convert.ToDouble(l4) / (Convert.ToDouble(o4) + Convert.ToDouble(l4)) * 100), 2);
+            p5 = Math.Round((Convert.ToDouble(l5) / (Convert.ToDouble(o5) + Convert.ToDouble(l5)) * 100), 2);
+            p6 = Math.Round((Convert.ToDouble(l6) / (Convert.ToDouble(o6) + Convert.ToDouble(l6)) * 100), 2);
+            p7 = Math.Round((Convert.ToDouble(l7) / (Convert.ToDouble(o7) + Convert.ToDouble(l7)) * 100), 2);
+            p8 = Math.Round((Convert.ToDouble(l8) / (Convert.ToDouble(o8) + Convert.ToDouble(l8)) * 100), 2);
+            p9 = Math.Round((Convert.ToDouble(l9) / (Convert.ToDouble(o9) + Convert.ToDouble(l9)) * 100), 2);
+            p10 = Math.Round((Convert.ToDouble(l10) / (Convert.ToDouble(o10) + Convert.ToDouble(l10)) * 100), 2);
+            p11 = Math.Round((Convert.ToDouble(l11) / (Convert.ToDouble(o11) + Convert.ToDouble(l11)) * 100), 2);
+            p12 = Math.Round((Convert.ToDouble(l12) / (Convert.ToDouble(o12) + Convert.ToDouble(l12)) * 100), 2);
+
+
             cartesianChart1.Series.Clear();
             cartesianChart1.AxisX.Clear();
             cartesianChart1.AxisY.Clear();
@@ -136,24 +166,41 @@ namespace KPIAnalyser
             {
                 new StackedColumnSeries
                 {
+                    Title = "On Time",
                     Values = new ChartValues<double> { o12, o11, o10, o9, o8, o7, o6, o5, o4, o3, o2, o1},
                     StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
-                    DataLabels = true
+                    DataLabels = true, 
+                    
                 },
                 new StackedColumnSeries
                 {
+                    Title = "Late",
                     Values = new ChartValues<double> { l12, l11, l10, l9, l8, l7, l6, l5, l4, l3, l2, l1},
                     StackMode = StackMode.Values,
                     DataLabels = true
-                }
+                },
+
+
+                new LineSeries
+                {
+                    Title = "Trend",
+                    Values = new ChartValues<double> { p12, p11, p10, p9, p8, p7, p6, p5, p4, p3, p2, p1 },
+                    ScalesYAt = 1
+                },
             };
+
+
+
+
+
 
 
             cartesianChart1.AxisX.Add(new Axis
             {
                 Title = "Date Range",
-                Labels = new[] { n12,n11,n10,n9,n8,n7,n6,n5,n4,n3,n2,n1},
+                Labels = new[] {n12 + " - " + p12 + "%", n11 + " - " + p11 + "%", n10 + " - " + p10 + "%", n9 + " - " + p9 + "%", n8 + " - " + p8 + "%", n7 + " - " + p7 + "%", n6 + " - " + p6 + "%", n5 + " - " + p5 + "%", n4 + " - " + p4 + "%", n3 + " - " + p3 + "%", n2 + " - " + p2 + "%", n1 + " - " + p1 + "%", },
                 Separator = DefaultAxes.CleanSeparator
+                
             });
 
             cartesianChart1.AxisY.Add(new Axis
@@ -161,6 +208,19 @@ namespace KPIAnalyser
                 Title = "Output",
                 LabelFormatter = value => value + " Doors"
             });
+
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Foreground = System.Windows.Media.Brushes.Orange,
+                Title = "Trend %",
+                Position = AxisPosition.RightTop,
+                LabelFormatter = value => value + " % Late"
+                
+            });
+
+
+
         }
         private void drawStackedLatenessChartWeekly()
         {
@@ -178,6 +238,11 @@ namespace KPIAnalyser
             int o2 = 0;
             int o3 = 0;
             int o4 = 0;
+            double p1 = 0f;
+            double p2 = 0f;
+            double p3 = 0f;
+            double p4 = 0f;
+
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
@@ -216,6 +281,132 @@ namespace KPIAnalyser
             cartesianChart1.AxisX.Clear();
             cartesianChart1.AxisY.Clear();
 
+            p1 = Math.Round((Convert.ToDouble(l1) / (Convert.ToDouble(o1) + Convert.ToDouble(l1)) * 100), 2);
+            p2 = Math.Round((Convert.ToDouble(l2) / (Convert.ToDouble(o2) + Convert.ToDouble(l2)) * 100), 2);
+            p3 = Math.Round((Convert.ToDouble(l3) / (Convert.ToDouble(o3) + Convert.ToDouble(l3)) * 100), 2);
+            p4 = Math.Round((Convert.ToDouble(l4) / (Convert.ToDouble(o4) + Convert.ToDouble(l4)) * 100), 2);
+
+            cartesianChart1.Series = new SeriesCollection
+            {
+                new StackedColumnSeries
+                {
+                    Values = new ChartValues<double> {o4, o3, o2, o1},
+                    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+                    DataLabels = true
+                },
+                new StackedColumnSeries
+                {
+                    Values = new ChartValues<double> {l4, l3, l2, l1},
+                    StackMode = StackMode.Values,
+                    DataLabels = true
+                },
+
+                new LineSeries
+                {
+                    Title = "Trend",
+                    Values = new ChartValues<double> { p4, p3, p2, p1 },
+                    ScalesYAt = 1
+                },
+            };
+
+
+
+
+
+
+
+            cartesianChart1.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { "Week Commencing " + ws4.ToShortDateString() + " - " + p4 + "%", "Week Commencing " + ws3.ToShortDateString() + " - " + p3 + "%", "Week Commencing " + ws2.ToShortDateString() + " - " + p2 + "%", "Week Commencing " + ws1.ToShortDateString() + " - " + p1 + "%" },
+                Separator = DefaultAxes.CleanSeparator
+            });
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Title = "Output",
+                LabelFormatter = value => value + " Doors"
+            });
+
+
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Foreground = System.Windows.Media.Brushes.Orange,
+                Title = "Trend %",
+                Position = AxisPosition.RightTop,
+                LabelFormatter = value => value + " % Late"
+
+            });
+        }
+
+
+        private void drawStackedLatenessChartQuater()
+        {
+
+
+            string n1 = "";
+            string n2 = "";
+            string n3 = "";
+            string n4 = "";
+            int l1 = 0;
+            int l2 = 0;
+            int l3 = 0;
+            int l4 = 0;
+            int o1 = 0;
+            int o2 = 0;
+            int o3 = 0;
+            int o4 = 0;
+            double p1 = 0f;
+            double p2 = 0f;
+            double p3 = 0f;
+            double p4 = 0f;
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("usp_kpi_engineering_manager", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Quaterly";
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                n1 = reader[0].ToString();
+                n2 = reader[3].ToString();
+                n3 = reader[6].ToString();
+                n4 = reader[9].ToString();
+
+                l1 = Convert.ToInt32(reader[1]);
+                l2 = Convert.ToInt32(reader[4]);
+                l3 = Convert.ToInt32(reader[7]);
+                l4 = Convert.ToInt32(reader[10]);
+
+                o1 = Convert.ToInt32(reader[2]);
+                o2 = Convert.ToInt32(reader[5]);
+                o3 = Convert.ToInt32(reader[8]);
+                o4 = Convert.ToInt32(reader[11]);
+            }
+
+
+            conn.Close();
+
+
+
+            cartesianChart1.Series.Clear();
+            cartesianChart1.AxisX.Clear();
+            cartesianChart1.AxisY.Clear();
+
+            p1 = Math.Round((Convert.ToDouble(l1) / (Convert.ToDouble(o1) + Convert.ToDouble(l1)) * 100), 2);
+            p2 = Math.Round((Convert.ToDouble(l2) / (Convert.ToDouble(o2) + Convert.ToDouble(l2)) * 100), 2);
+            p3 = Math.Round((Convert.ToDouble(l3) / (Convert.ToDouble(o3) + Convert.ToDouble(l3)) * 100), 2);
+            p4 = Math.Round((Convert.ToDouble(l4) / (Convert.ToDouble(o4) + Convert.ToDouble(l4)) * 100), 2);
+
+
+
+
             cartesianChart1.Series = new SeriesCollection
             {
                 new StackedColumnSeries
@@ -230,13 +421,22 @@ namespace KPIAnalyser
                     StackMode = StackMode.Values,
                     DataLabels = true
                 }
+                ,
+
+                new LineSeries
+                {
+                    Title = "Trend",
+                    Values = new ChartValues<double> { p4, p3, p2, p1 },
+                    ScalesYAt = 1
+                },
             };
 
+           
 
             cartesianChart1.AxisX.Add(new Axis
             {
                 Title = "Date Range",
-                Labels = new[] { "Week Commencing " + ws4.ToShortDateString() , "Week Commencing " + ws3.ToShortDateString(), "Week Commencing " + ws2.ToShortDateString(), "Week Commencing " + ws1.ToShortDateString() },
+                Labels = new[] { "Q" + n4 + " - " + p4 + "%", "Q" + n3 + " - " + p3 + "%", "Q" + n2 + " - " + p2 + "%", "Q" + n1 + " - " + p1 + "%" },
                 Separator = DefaultAxes.CleanSeparator
             });
 
@@ -245,12 +445,134 @@ namespace KPIAnalyser
                 Title = "Output",
                 LabelFormatter = value => value + " Doors"
             });
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Foreground = System.Windows.Media.Brushes.Orange,
+                Title = "Trend %",
+                Position = AxisPosition.RightTop,
+                LabelFormatter = value => value + " % Late"
+
+            });
         }
 
-        private void drawLatenessPieCart()
+
+        private void drawStackedLatenessChartYear()
         {
-            
-     
+
+
+            string n1 = "";
+            string n2 = "";
+            string n3 = "";
+            string n4 = "";
+            int l1 = 0;
+            int l2 = 0;
+            int l3 = 0;
+            int l4 = 0;
+            int o1 = 0;
+            int o2 = 0;
+            int o3 = 0;
+            int o4 = 0;
+            double p1 = 0f;
+            double p2 = 0f;
+            double p3 = 0f;
+            double p4 = 0f;
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("usp_kpi_engineering_manager", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Yearly";
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                n1 = reader[0].ToString();
+                n2 = reader[3].ToString();
+                n3 = reader[6].ToString();
+                n4 = reader[9].ToString();
+
+                l1 = Convert.ToInt32(reader[1]);
+                l2 = Convert.ToInt32(reader[4]);
+                l3 = Convert.ToInt32(reader[7]);
+                l4 = Convert.ToInt32(reader[10]);
+
+                o1 = Convert.ToInt32(reader[2]);
+                o2 = Convert.ToInt32(reader[5]);
+                o3 = Convert.ToInt32(reader[8]);
+                o4 = Convert.ToInt32(reader[11]);
+            }
+
+
+            conn.Close();
+
+
+
+            cartesianChart1.Series.Clear();
+            cartesianChart1.AxisX.Clear();
+            cartesianChart1.AxisY.Clear();
+
+
+            p1 = Math.Round((Convert.ToDouble(l1) / (Convert.ToDouble(o1) + Convert.ToDouble(l1)) * 100), 2);
+            p2 = Math.Round((Convert.ToDouble(l2) / (Convert.ToDouble(o2) + Convert.ToDouble(l2)) * 100), 2);
+            p3 = Math.Round((Convert.ToDouble(l3) / (Convert.ToDouble(o3) + Convert.ToDouble(l3)) * 100), 2);
+            p4 = Math.Round((Convert.ToDouble(l4) / (Convert.ToDouble(o4) + Convert.ToDouble(l4)) * 100), 2);
+
+
+            cartesianChart1.Series = new SeriesCollection
+            {
+                new StackedColumnSeries
+                {
+                    Values = new ChartValues<double> {o4, o3, o2, o1},
+                    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+                    DataLabels = true
+                },
+                new StackedColumnSeries
+                {
+                    Values = new ChartValues<double> {l4, l3, l2, l1},
+                    StackMode = StackMode.Values,
+                    DataLabels = true
+                },
+
+                 new LineSeries
+                {
+                    Title = "Trend",
+                    Values = new ChartValues<double> { p4, p3, p2, p1 },
+                    ScalesYAt = 1
+                },
+            };
+
+
+          
+
+
+            cartesianChart1.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { n4 + " - " + p4 + "%", n3 + " - " + p3 + "%", n2 + " - " + p2 + "%", n1 + " - " + p1 + "%" },
+                Separator = DefaultAxes.CleanSeparator
+            });
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Title = "Output",
+                LabelFormatter = value => value + " Doors"
+            });
+
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Foreground = System.Windows.Media.Brushes.Orange,
+                Title = "Trend %",
+                Position = AxisPosition.RightTop,
+                LabelFormatter = value => value + " % Late"
+
+            });
+
+
         }
 
         private void RdoWeekly_Click(object sender, EventArgs e)
@@ -261,6 +583,23 @@ namespace KPIAnalyser
         private void RdoMonthly_CheckedChanged(object sender, EventArgs e)
         {
             drawStackedLatenessChartMonthly();
+        }
+
+        private void RdoYearly_Click(object sender, EventArgs e)
+        {
+            drawStackedLatenessChartYear();
+        }
+
+        private void RdoQuaterly_Click(object sender, EventArgs e)
+        {
+            drawStackedLatenessChartQuater();
+        }
+
+        private void BtnPrintLateness_Click(object sender, EventArgs e)
+        {
+
+
+
         }
     }
 }
