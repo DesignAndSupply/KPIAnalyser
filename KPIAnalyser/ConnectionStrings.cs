@@ -14,6 +14,14 @@ namespace KPIAnalyser
                              "database=order_database; " +
                              "connection timeout=30";
 
+
+
+        public const string ConnectionStringComplaint = "user id=sa;" +
+                     "password=Dodid1;Network Address=192.168.0.150\\sqlexpress;" +
+                     "Trusted_Connection=no;" +
+                     "database=complaint; " +
+                     "connection timeout=30";
+
         public const string ConnectionStringUser = "user id=sa;" +
                                "password=Dodid1;Network Address=192.168.0.150\\sqlexpress;" +
                                "Trusted_Connection=no;" +

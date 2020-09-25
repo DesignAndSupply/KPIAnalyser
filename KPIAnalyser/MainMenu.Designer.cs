@@ -157,6 +157,7 @@
             this.txtRemakeCount = new System.Windows.Forms.TextBox();
             this.tabCtrl = new System.Windows.Forms.TabControl();
             this.Sales = new System.Windows.Forms.TabPage();
+            this.btnEstimating = new System.Windows.Forms.Button();
             this.label53 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnLost = new System.Windows.Forms.Button();
@@ -254,6 +255,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInstallationPerformance = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1529,6 +1531,7 @@
             // 
             // Sales
             // 
+            this.Sales.Controls.Add(this.btnEstimating);
             this.Sales.Controls.Add(this.label53);
             this.Sales.Controls.Add(this.groupBox8);
             this.Sales.Controls.Add(this.dgvCustomer);
@@ -1544,10 +1547,20 @@
             this.Sales.UseVisualStyleBackColor = true;
             this.Sales.Click += new System.EventHandler(this.Sales_Click);
             // 
+            // btnEstimating
+            // 
+            this.btnEstimating.Location = new System.Drawing.Point(1635, 6);
+            this.btnEstimating.Name = "btnEstimating";
+            this.btnEstimating.Size = new System.Drawing.Size(168, 23);
+            this.btnEstimating.TabIndex = 20;
+            this.btnEstimating.Text = "Sales Staff Productivity";
+            this.btnEstimating.UseVisualStyleBackColor = true;
+            this.btnEstimating.Click += new System.EventHandler(this.BtnEstimating_Click);
+            // 
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(426, 3);
+            this.label53.Location = new System.Drawing.Point(426, 29);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(68, 13);
             this.label53.TabIndex = 19;
@@ -1706,17 +1719,18 @@
             this.dgvCustomer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCustomer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCustomer.Location = new System.Drawing.Point(429, 22);
+            this.dgvCustomer.Location = new System.Drawing.Point(429, 45);
             this.dgvCustomer.Name = "dgvCustomer";
             this.dgvCustomer.RowHeadersVisible = false;
             this.dgvCustomer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCustomer.Size = new System.Drawing.Size(1200, 764);
+            this.dgvCustomer.Size = new System.Drawing.Size(1374, 741);
             this.dgvCustomer.TabIndex = 18;
             this.dgvCustomer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomer_CellContentClick_1);
             this.dgvCustomer.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomer_CellDoubleClick);
             // 
             // Installation
             // 
+            this.Installation.Controls.Add(this.btnInstallationPerformance);
             this.Installation.Controls.Add(this.groupBox4);
             this.Installation.Location = new System.Drawing.Point(4, 22);
             this.Installation.Name = "Installation";
@@ -2550,7 +2564,7 @@
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(1809, 792);
             this.tabPage5.TabIndex = 6;
-            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.Text = "1";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
@@ -2576,6 +2590,16 @@
             this.targetsToolStripMenuItem.Name = "targetsToolStripMenuItem";
             this.targetsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.targetsToolStripMenuItem.Text = "Targets";
+            // 
+            // btnInstallationPerformance
+            // 
+            this.btnInstallationPerformance.Location = new System.Drawing.Point(1654, 6);
+            this.btnInstallationPerformance.Name = "btnInstallationPerformance";
+            this.btnInstallationPerformance.Size = new System.Drawing.Size(149, 23);
+            this.btnInstallationPerformance.TabIndex = 9;
+            this.btnInstallationPerformance.Text = "Installation Performance";
+            this.btnInstallationPerformance.UseVisualStyleBackColor = true;
+            this.btnInstallationPerformance.Click += new System.EventHandler(this.BtnInstallationPerformance_Click);
             // 
             // txtTraditionalConversionRate
             // 
@@ -2872,6 +2896,8 @@
         private System.Windows.Forms.Label lblPercentageOver;
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEstimating;
+        private System.Windows.Forms.Button btnInstallationPerformance;
     }
 }
 

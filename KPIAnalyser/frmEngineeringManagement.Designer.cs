@@ -31,16 +31,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEngineeringManagement));
             this.tabEngineering = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnPrintLateness = new System.Windows.Forms.Button();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.cartesianChart1 = new LiveCharts.Wpf.CartesianChart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.rdoWeekly = new System.Windows.Forms.RadioButton();
             this.rdoMonthly = new System.Windows.Forms.RadioButton();
             this.rdoQuaterly = new System.Windows.Forms.RadioButton();
             this.rdoYearly = new System.Windows.Forms.RadioButton();
-            this.btnPrintLateness = new System.Windows.Forms.Button();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabEngineering
@@ -68,6 +70,17 @@
             this.tabPage1.Text = "Programming Lateness";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnPrintLateness
+            // 
+            this.btnPrintLateness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrintLateness.Location = new System.Drawing.Point(1078, 5);
+            this.btnPrintLateness.Name = "btnPrintLateness";
+            this.btnPrintLateness.Size = new System.Drawing.Size(125, 23);
+            this.btnPrintLateness.TabIndex = 1;
+            this.btnPrintLateness.Text = "Print Lateness Chart";
+            this.btnPrintLateness.UseVisualStyleBackColor = true;
+            this.btnPrintLateness.Click += new System.EventHandler(this.BtnPrintLateness_Click);
+            // 
             // elementHost1
             // 
             this.elementHost1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -82,6 +95,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.cartesianChart2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -89,6 +103,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Remake Frequency";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cartesianChart2
+            // 
+            this.cartesianChart2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cartesianChart2.Location = new System.Drawing.Point(4, 4);
+            this.cartesianChart2.Name = "cartesianChart2";
+            this.cartesianChart2.Size = new System.Drawing.Size(1199, 401);
+            this.cartesianChart2.TabIndex = 0;
+            this.cartesianChart2.Text = "cartesianChart2";
             // 
             // rdoWeekly
             // 
@@ -99,6 +124,7 @@
             this.rdoWeekly.TabIndex = 5;
             this.rdoWeekly.Text = "Weekly";
             this.rdoWeekly.UseVisualStyleBackColor = true;
+            this.rdoWeekly.CheckedChanged += new System.EventHandler(this.RdoWeekly_CheckedChanged);
             this.rdoWeekly.Click += new System.EventHandler(this.RdoWeekly_Click);
             // 
             // rdoMonthly
@@ -135,17 +161,6 @@
             this.rdoYearly.UseVisualStyleBackColor = true;
             this.rdoYearly.Click += new System.EventHandler(this.RdoYearly_Click);
             // 
-            // btnPrintLateness
-            // 
-            this.btnPrintLateness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrintLateness.Location = new System.Drawing.Point(1078, 5);
-            this.btnPrintLateness.Name = "btnPrintLateness";
-            this.btnPrintLateness.Size = new System.Drawing.Size(125, 23);
-            this.btnPrintLateness.TabIndex = 1;
-            this.btnPrintLateness.Text = "Print Lateness Chart";
-            this.btnPrintLateness.UseVisualStyleBackColor = true;
-            this.btnPrintLateness.Click += new System.EventHandler(this.BtnPrintLateness_Click);
-            // 
             // frmEngineeringManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,6 +177,7 @@
             this.Load += new System.EventHandler(this.FrmEngineeringManagement_Load);
             this.tabEngineering.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,5 +194,6 @@
         private System.Windows.Forms.Integration.ElementHost elementHost1;
         private LiveCharts.Wpf.CartesianChart cartesianChart1;
         private System.Windows.Forms.Button btnPrintLateness;
+        private LiveCharts.WinForms.CartesianChart cartesianChart2;
     }
 }

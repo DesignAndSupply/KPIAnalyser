@@ -1091,5 +1091,17 @@ namespace KPIAnalyser
             frmEngineeringManagement frmEM = new frmEngineeringManagement();
             frmEM.ShowDialog();
         }
+
+        private void BtnEstimating_Click(object sender, EventArgs e)
+        {
+            frmEstimatingProductivity frmep = new frmEstimatingProductivity();
+            frmep.Show();
+        }
+
+        private void BtnInstallationPerformance_Click(object sender, EventArgs e)
+        {
+            frmInstallationProductivity frmip = new frmInstallationProductivity();
+            frmip.Show();
+        }
     }
 }

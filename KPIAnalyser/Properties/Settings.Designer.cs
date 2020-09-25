@@ -22,5 +22,16 @@ namespace KPIAnalyser.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.150\\SQLEXPRESS;Initial Catalog=user_info;Persist Security I" +
+            "nfo=True;User ID=sa;Password=Dodid1")]
+        public string user_infoConnectionString {
+            get {
+                return ((string)(this["user_infoConnectionString"]));
+            }
+        }
     }
 }

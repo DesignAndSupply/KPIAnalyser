@@ -71,6 +71,21 @@ namespace KPIAnalyser
             int o12 = 0;
 
 
+
+            int r1 = 0;
+            int r2 = 0;
+            int r3 = 0;
+            int r4 = 0;
+            int r5 = 0;
+            int r6 = 0;
+            int r7 = 0;
+            int r8 = 0;
+            int r9 = 0;
+            int r10 = 0;
+            int r11 = 0;
+            int r12 = 0;
+
+
             double p1 = 0f;
             double p2 = 0f;
             double p3 = 0f;
@@ -137,6 +152,21 @@ namespace KPIAnalyser
                 o10 = Convert.ToInt32(reader[29]);
                 o11 = Convert.ToInt32(reader[32]);
                 o12 = Convert.ToInt32(reader[35]);
+
+
+
+                r1 = Convert.ToInt32(reader[36]);
+                r2 = Convert.ToInt32(reader[37]);
+                r3 = Convert.ToInt32(reader[38]);
+                r4 = Convert.ToInt32(reader[39]);
+                r5 = Convert.ToInt32(reader[40]);
+                r6 = Convert.ToInt32(reader[41]);
+                r7 = Convert.ToInt32(reader[42]);
+                r8 = Convert.ToInt32(reader[43]);
+                r9 = Convert.ToInt32(reader[44]);
+                r10 = Convert.ToInt32(reader[45]);
+                r11 = Convert.ToInt32(reader[46]);
+                r12 = Convert.ToInt32(reader[47]);
             }
 
 
@@ -190,8 +220,7 @@ namespace KPIAnalyser
             };
 
 
-
-
+            
 
 
 
@@ -215,8 +244,46 @@ namespace KPIAnalyser
                 Foreground = System.Windows.Media.Brushes.Orange,
                 Title = "Trend %",
                 Position = AxisPosition.RightTop,
-                LabelFormatter = value => value + " % Late"
-                
+                LabelFormatter = value => value + " % Late",
+                MinValue = 0,
+                MaxValue = 100
+
+
+            });
+
+
+
+            //////////REMAKES MONTHLY
+            ///
+
+            cartesianChart2.Series.Clear();
+            cartesianChart2.AxisX.Clear();
+            cartesianChart2.AxisY.Clear();
+
+            cartesianChart2.Series = new SeriesCollection
+            {
+
+            new LineSeries
+                {
+                    Title = "Count",
+                    Values = new ChartValues<double> { r12, r11, r10, r9, r8, r7, r6, r5, r4, r3, r2, r1 },
+                    DataLabels = true
+                },
+            };
+
+
+            cartesianChart2.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { n12 , n11 , n10 , n9 , n8 , n7 , n6 , n5 , n4 , n3 , n2 , n1  },
+                Separator = DefaultAxes.CleanSeparator
+
+            });
+
+            cartesianChart2.AxisY.Add(new Axis
+            {
+                Title = "Remakes",
+                LabelFormatter = value => value + " Remakes"
             });
 
 
@@ -242,6 +309,11 @@ namespace KPIAnalyser
             double p2 = 0f;
             double p3 = 0f;
             double p4 = 0f;
+
+            int r1 = 0;
+            int r2 = 0;
+            int r3 = 0;
+            int r4 = 0;
 
 
 
@@ -270,6 +342,12 @@ namespace KPIAnalyser
                o2 = Convert.ToInt32(reader[5]);
                o3 = Convert.ToInt32(reader[8]);
                o4 = Convert.ToInt32(reader[11]);
+
+
+                r1 = Convert.ToInt32(reader[12]);
+                r2 = Convert.ToInt32(reader[13]);
+                r3 = Convert.ToInt32(reader[14]);
+                r4 = Convert.ToInt32(reader[15]);
             }
 
 
@@ -290,12 +368,14 @@ namespace KPIAnalyser
             {
                 new StackedColumnSeries
                 {
+                    Title = "On Time",
                     Values = new ChartValues<double> {o4, o3, o2, o1},
                     StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
                     DataLabels = true
                 },
                 new StackedColumnSeries
                 {
+                    Title = "Late",
                     Values = new ChartValues<double> {l4, l3, l2, l1},
                     StackMode = StackMode.Values,
                     DataLabels = true
@@ -308,11 +388,6 @@ namespace KPIAnalyser
                     ScalesYAt = 1
                 },
             };
-
-
-
-
-
 
 
             cartesianChart1.AxisX.Add(new Axis
@@ -335,15 +410,50 @@ namespace KPIAnalyser
                 Foreground = System.Windows.Media.Brushes.Orange,
                 Title = "Trend %",
                 Position = AxisPosition.RightTop,
-                LabelFormatter = value => value + " % Late"
+                LabelFormatter = value => value + " % Late",
+                MinValue = 0,
+                MaxValue = 100
 
+
+            });
+
+
+            ///////REMAKES
+            ///
+            cartesianChart2.Series.Clear();
+            cartesianChart2.AxisX.Clear();
+            cartesianChart2.AxisY.Clear();
+
+            cartesianChart2.Series = new SeriesCollection
+            {
+
+            new LineSeries
+                {
+                    Title = "Count",
+                    Values = new ChartValues<double> {  r4, r3, r2, r1 },
+                    DataLabels = true
+                },
+            };
+
+
+            cartesianChart2.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { "Week Commencing " + ws4.ToShortDateString(), "Week Commencing " + ws3.ToShortDateString(), "Week Commencing " + ws2.ToShortDateString(), "Week Commencing " + ws1.ToShortDateString() },
+                Separator = DefaultAxes.CleanSeparator
+
+            });
+
+            cartesianChart2.AxisY.Add(new Axis
+            {
+                Title = "Remakes",
+                LabelFormatter = value => value + " Remakes"
             });
         }
 
 
         private void drawStackedLatenessChartQuater()
         {
-
 
             string n1 = "";
             string n2 = "";
@@ -362,6 +472,10 @@ namespace KPIAnalyser
             double p3 = 0f;
             double p4 = 0f;
 
+            int r1 = 0;
+            int r2 = 0;
+            int r3 = 0;
+            int r4 = 0;
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
@@ -388,12 +502,16 @@ namespace KPIAnalyser
                 o2 = Convert.ToInt32(reader[5]);
                 o3 = Convert.ToInt32(reader[8]);
                 o4 = Convert.ToInt32(reader[11]);
+
+
+                r1 = Convert.ToInt32(reader[12]);
+                r2 = Convert.ToInt32(reader[13]);
+                r3 = Convert.ToInt32(reader[14]);
+                r4 = Convert.ToInt32(reader[15]);
             }
 
 
             conn.Close();
-
-
 
             cartesianChart1.Series.Clear();
             cartesianChart1.AxisX.Clear();
@@ -411,12 +529,14 @@ namespace KPIAnalyser
             {
                 new StackedColumnSeries
                 {
+                    Title = "On Time",
                     Values = new ChartValues<double> {o4, o3, o2, o1},
                     StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
                     DataLabels = true
                 },
                 new StackedColumnSeries
                 {
+                    Title = "Late",
                     Values = new ChartValues<double> {l4, l3, l2, l1},
                     StackMode = StackMode.Values,
                     DataLabels = true
@@ -426,7 +546,7 @@ namespace KPIAnalyser
                 new LineSeries
                 {
                     Title = "Trend",
-                    Values = new ChartValues<double> { p4, p3, p2, p1 },
+                    Values = new ChartValues<double> {p4, p3, p2, p1 },
                     ScalesYAt = 1
                 },
             };
@@ -451,10 +571,53 @@ namespace KPIAnalyser
                 Foreground = System.Windows.Media.Brushes.Orange,
                 Title = "Trend %",
                 Position = AxisPosition.RightTop,
-                LabelFormatter = value => value + " % Late"
+                LabelFormatter = value => value + " % Late",
+                MinValue = 0,
+                MaxValue = 100
 
             });
+
+
+
+            ///////REMAKES
+            ///
+            cartesianChart2.Series.Clear();
+            cartesianChart2.AxisX.Clear();
+            cartesianChart2.AxisY.Clear();
+
+            cartesianChart2.Series = new SeriesCollection
+            {
+
+            new LineSeries
+                {
+                    Title = "Count",
+                    Values = new ChartValues<double> {  r4, r3, r2, r1 },
+                    DataLabels = true
+                },
+            };
+
+
+            cartesianChart2.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { "Q" + n4 , "Q" + n3 , "Q" + n2 , "Q" + n1  },
+                Separator = DefaultAxes.CleanSeparator
+
+            });
+
+            cartesianChart2.AxisY.Add(new Axis
+            {
+                Title = "Remakes",
+                LabelFormatter = value => value + " Remakes"
+            });
+
+
+
+
         }
+
+
+
 
 
         private void drawStackedLatenessChartYear()
@@ -477,6 +640,12 @@ namespace KPIAnalyser
             double p2 = 0f;
             double p3 = 0f;
             double p4 = 0f;
+
+            int r1 = 0;
+            int r2 = 0;
+            int r3 = 0;
+            int r4 = 0;
+
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
@@ -504,6 +673,11 @@ namespace KPIAnalyser
                 o2 = Convert.ToInt32(reader[5]);
                 o3 = Convert.ToInt32(reader[8]);
                 o4 = Convert.ToInt32(reader[11]);
+
+                r1 = Convert.ToInt32(reader[12]);
+                r2 = Convert.ToInt32(reader[13]);
+                r3 = Convert.ToInt32(reader[14]);
+                r4 = Convert.ToInt32(reader[15]);
             }
 
 
@@ -526,12 +700,14 @@ namespace KPIAnalyser
             {
                 new StackedColumnSeries
                 {
+                    Title = "On Time",
                     Values = new ChartValues<double> {o4, o3, o2, o1},
                     StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
                     DataLabels = true
                 },
                 new StackedColumnSeries
                 {
+                    Title = "Late",
                     Values = new ChartValues<double> {l4, l3, l2, l1},
                     StackMode = StackMode.Values,
                     DataLabels = true
@@ -568,8 +744,45 @@ namespace KPIAnalyser
                 Foreground = System.Windows.Media.Brushes.Orange,
                 Title = "Trend %",
                 Position = AxisPosition.RightTop,
-                LabelFormatter = value => value + " % Late"
+                LabelFormatter = value => value + " % Late",
+                MinValue = 0,
+                MaxValue = 100
+            });
 
+
+
+
+
+            ///////REMAKES
+            ///
+            cartesianChart2.Series.Clear();
+            cartesianChart2.AxisX.Clear();
+            cartesianChart2.AxisY.Clear();
+
+            cartesianChart2.Series = new SeriesCollection
+            {
+
+            new LineSeries
+                {
+                    Title = "Count",
+                    Values = new ChartValues<double> {  r4, r3, r2, r1 },
+                    DataLabels = true
+                },
+            };
+
+
+            cartesianChart2.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { n4,  n3,  n2, n1 },
+                Separator = DefaultAxes.CleanSeparator
+
+            });
+
+            cartesianChart2.AxisY.Add(new Axis
+            {
+                Title = "Remakes",
+                LabelFormatter = value => value + " Remakes"
             });
 
 
@@ -599,6 +812,11 @@ namespace KPIAnalyser
         {
 
 
+
+        }
+
+        private void RdoWeekly_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
     }
