@@ -175,16 +175,15 @@
             this.txtNewCustomer = new System.Windows.Forms.TextBox();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
             this.Installation = new System.Windows.Forms.TabPage();
+            this.btnInstallationPerformance = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnProgrammerProductivity = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lblPercentageOver = new System.Windows.Forms.Label();
             this.label87 = new System.Windows.Forms.Label();
             this.lblUnder = new System.Windows.Forms.Label();
-            this.label90 = new System.Windows.Forms.Label();
             this.lblOver = new System.Windows.Forms.Label();
-            this.label88 = new System.Windows.Forms.Label();
             this.lblGold = new System.Windows.Forms.Label();
-            this.label86 = new System.Windows.Forms.Label();
             this.lblOvertimeHours = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
             this.lblEngineerName = new System.Windows.Forms.Label();
@@ -195,7 +194,6 @@
             this.lblAbsent = new System.Windows.Forms.Label();
             this.label81 = new System.Windows.Forms.Label();
             this.label80 = new System.Windows.Forms.Label();
-            this.label79 = new System.Windows.Forms.Label();
             this.dgEngineeringDaily = new System.Windows.Forms.DataGridView();
             this.lblHoliday = new System.Windows.Forms.Label();
             this.lblDraw = new System.Windows.Forms.Label();
@@ -255,7 +253,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnInstallationPerformance = new System.Windows.Forms.Button();
+            this.btnMoreLess = new System.Windows.Forms.Button();
+            this.label78 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1740,17 +1739,27 @@
             this.Installation.Text = "Installation";
             this.Installation.UseVisualStyleBackColor = true;
             // 
+            // btnInstallationPerformance
+            // 
+            this.btnInstallationPerformance.Location = new System.Drawing.Point(1654, 6);
+            this.btnInstallationPerformance.Name = "btnInstallationPerformance";
+            this.btnInstallationPerformance.Size = new System.Drawing.Size(149, 23);
+            this.btnInstallationPerformance.TabIndex = 9;
+            this.btnInstallationPerformance.Text = "Installation Performance";
+            this.btnInstallationPerformance.UseVisualStyleBackColor = true;
+            this.btnInstallationPerformance.Click += new System.EventHandler(this.BtnInstallationPerformance_Click);
+            // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label78);
+            this.tabPage1.Controls.Add(this.btnMoreLess);
+            this.tabPage1.Controls.Add(this.btnProgrammerProductivity);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.lblPercentageOver);
             this.tabPage1.Controls.Add(this.label87);
             this.tabPage1.Controls.Add(this.lblUnder);
-            this.tabPage1.Controls.Add(this.label90);
             this.tabPage1.Controls.Add(this.lblOver);
-            this.tabPage1.Controls.Add(this.label88);
             this.tabPage1.Controls.Add(this.lblGold);
-            this.tabPage1.Controls.Add(this.label86);
             this.tabPage1.Controls.Add(this.lblOvertimeHours);
             this.tabPage1.Controls.Add(this.label85);
             this.tabPage1.Controls.Add(this.lblEngineerName);
@@ -1761,7 +1770,6 @@
             this.tabPage1.Controls.Add(this.lblAbsent);
             this.tabPage1.Controls.Add(this.label81);
             this.tabPage1.Controls.Add(this.label80);
-            this.tabPage1.Controls.Add(this.label79);
             this.tabPage1.Controls.Add(this.dgEngineeringDaily);
             this.tabPage1.Controls.Add(this.lblHoliday);
             this.tabPage1.Controls.Add(this.lblDraw);
@@ -1783,6 +1791,18 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Programming";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
+            // 
+            // btnProgrammerProductivity
+            // 
+            this.btnProgrammerProductivity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnProgrammerProductivity.Location = new System.Drawing.Point(1573, 3);
+            this.btnProgrammerProductivity.Name = "btnProgrammerProductivity";
+            this.btnProgrammerProductivity.Size = new System.Drawing.Size(139, 23);
+            this.btnProgrammerProductivity.TabIndex = 43;
+            this.btnProgrammerProductivity.Text = "Programmer Productivity";
+            this.btnProgrammerProductivity.UseVisualStyleBackColor = true;
+            this.btnProgrammerProductivity.Click += new System.EventHandler(this.BtnProgrammerProductivity_Click);
             // 
             // button1
             // 
@@ -1798,10 +1818,10 @@
             // lblPercentageOver
             // 
             this.lblPercentageOver.AutoSize = true;
-            this.lblPercentageOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPercentageOver.Location = new System.Drawing.Point(219, 671);
+            this.lblPercentageOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPercentageOver.Location = new System.Drawing.Point(1053, 238);
             this.lblPercentageOver.Name = "lblPercentageOver";
-            this.lblPercentageOver.Size = new System.Drawing.Size(61, 17);
+            this.lblPercentageOver.Size = new System.Drawing.Size(99, 29);
             this.lblPercentageOver.TabIndex = 41;
             this.lblPercentageOver.Text = "label85";
             this.lblPercentageOver.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -1809,103 +1829,75 @@
             // label87
             // 
             this.label87.AutoSize = true;
-            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(12, 671);
+            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label87.Location = new System.Drawing.Point(799, 238);
             this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(150, 17);
+            this.label87.Size = new System.Drawing.Size(248, 29);
             this.label87.TabIndex = 40;
             this.label87.Text = "% Of days over target:";
             // 
             // lblUnder
             // 
             this.lblUnder.AutoSize = true;
-            this.lblUnder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnder.Location = new System.Drawing.Point(219, 642);
+            this.lblUnder.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUnder.Location = new System.Drawing.Point(1048, 331);
             this.lblUnder.Name = "lblUnder";
-            this.lblUnder.Size = new System.Drawing.Size(61, 17);
+            this.lblUnder.Size = new System.Drawing.Size(77, 24);
             this.lblUnder.TabIndex = 39;
             this.lblUnder.Text = "label85";
             this.lblUnder.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label90
-            // 
-            this.label90.AutoSize = true;
-            this.label90.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label90.Location = new System.Drawing.Point(12, 642);
-            this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(122, 17);
-            this.label90.TabIndex = 38;
-            this.label90.Text = "Days under target";
-            // 
             // lblOver
             // 
             this.lblOver.AutoSize = true;
-            this.lblOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOver.Location = new System.Drawing.Point(219, 615);
+            this.lblOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOver.Location = new System.Drawing.Point(1048, 306);
             this.lblOver.Name = "lblOver";
-            this.lblOver.Size = new System.Drawing.Size(61, 17);
+            this.lblOver.Size = new System.Drawing.Size(77, 24);
             this.lblOver.TabIndex = 37;
             this.lblOver.Text = "label85";
             this.lblOver.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label88
-            // 
-            this.label88.AutoSize = true;
-            this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label88.Location = new System.Drawing.Point(12, 615);
-            this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(113, 17);
-            this.label88.TabIndex = 36;
-            this.label88.Text = "Days over target";
-            // 
             // lblGold
             // 
             this.lblGold.AutoSize = true;
-            this.lblGold.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGold.Location = new System.Drawing.Point(219, 588);
+            this.lblGold.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGold.Location = new System.Drawing.Point(1047, 280);
             this.lblGold.Name = "lblGold";
-            this.lblGold.Size = new System.Drawing.Size(61, 17);
+            this.lblGold.Size = new System.Drawing.Size(77, 24);
             this.lblGold.TabIndex = 35;
             this.lblGold.Text = "label85";
             this.lblGold.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label86
-            // 
-            this.label86.AutoSize = true;
-            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(12, 588);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(182, 17);
-            this.label86.TabIndex = 34;
-            this.label86.Text = "Days Over && Above Target:";
             // 
             // lblOvertimeHours
             // 
             this.lblOvertimeHours.AutoSize = true;
             this.lblOvertimeHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOvertimeHours.Location = new System.Drawing.Point(219, 516);
+            this.lblOvertimeHours.Location = new System.Drawing.Point(502, 353);
             this.lblOvertimeHours.Name = "lblOvertimeHours";
             this.lblOvertimeHours.Size = new System.Drawing.Size(61, 17);
             this.lblOvertimeHours.TabIndex = 33;
             this.lblOvertimeHours.Text = "label85";
             this.lblOvertimeHours.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblOvertimeHours.Visible = false;
             // 
             // label85
             // 
             this.label85.AutoSize = true;
             this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label85.Location = new System.Drawing.Point(12, 516);
+            this.label85.Location = new System.Drawing.Point(295, 353);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(111, 17);
             this.label85.TabIndex = 32;
             this.label85.Text = "Overtime Hours:";
+            this.label85.Visible = false;
             // 
             // lblEngineerName
             // 
             this.lblEngineerName.AutoSize = true;
             this.lblEngineerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEngineerName.ForeColor = System.Drawing.Color.Red;
-            this.lblEngineerName.Location = new System.Drawing.Point(10, 266);
+            this.lblEngineerName.Location = new System.Drawing.Point(9, 255);
             this.lblEngineerName.Name = "lblEngineerName";
             this.lblEngineerName.Size = new System.Drawing.Size(89, 26);
             this.lblEngineerName.TabIndex = 31;
@@ -1916,34 +1908,35 @@
             // 
             this.label84.AutoSize = true;
             this.label84.BackColor = System.Drawing.Color.Yellow;
-            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label84.ForeColor = System.Drawing.Color.Black;
-            this.label84.Location = new System.Drawing.Point(588, 230);
+            this.label84.Location = new System.Drawing.Point(822, 280);
             this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(113, 13);
+            this.label84.Size = new System.Drawing.Size(219, 24);
             this.label84.TabIndex = 30;
-            this.label84.Text = "Above and beyond";
+            this.label84.Text = "Well Exceeded Target";
             // 
             // label83
             // 
             this.label83.AutoSize = true;
-            this.label83.BackColor = System.Drawing.Color.LightGreen;
-            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label83.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label83.ForeColor = System.Drawing.Color.Black;
-            this.label83.Location = new System.Drawing.Point(482, 230);
+            this.label83.Location = new System.Drawing.Point(823, 305);
             this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(100, 13);
+            this.label83.Size = new System.Drawing.Size(159, 24);
             this.label83.TabIndex = 29;
             this.label83.Text = "At or over target";
             // 
             // label82
             // 
             this.label82.AutoSize = true;
-            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label82.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.label82.Location = new System.Drawing.Point(394, 230);
+            this.label82.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label82.ForeColor = System.Drawing.Color.Black;
+            this.label82.Location = new System.Drawing.Point(823, 331);
             this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(82, 13);
+            this.label82.Size = new System.Drawing.Size(133, 24);
             this.label82.TabIndex = 28;
             this.label82.Text = "Under Target";
             // 
@@ -1951,7 +1944,7 @@
             // 
             this.lblLate.AutoSize = true;
             this.lblLate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLate.Location = new System.Drawing.Point(219, 488);
+            this.lblLate.Location = new System.Drawing.Point(502, 331);
             this.lblLate.Name = "lblLate";
             this.lblLate.Size = new System.Drawing.Size(61, 17);
             this.lblLate.TabIndex = 27;
@@ -1962,7 +1955,7 @@
             // 
             this.lblAbsent.AutoSize = true;
             this.lblAbsent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAbsent.Location = new System.Drawing.Point(219, 458);
+            this.lblAbsent.Location = new System.Drawing.Point(502, 308);
             this.lblAbsent.Name = "lblAbsent";
             this.lblAbsent.Size = new System.Drawing.Size(61, 17);
             this.lblAbsent.TabIndex = 26;
@@ -1973,7 +1966,7 @@
             // 
             this.label81.AutoSize = true;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label81.Location = new System.Drawing.Point(12, 488);
+            this.label81.Location = new System.Drawing.Point(295, 331);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(76, 17);
             this.label81.TabIndex = 25;
@@ -1983,39 +1976,32 @@
             // 
             this.label80.AutoSize = true;
             this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label80.Location = new System.Drawing.Point(12, 458);
+            this.label80.Location = new System.Drawing.Point(295, 308);
             this.label80.Name = "label80";
             this.label80.Size = new System.Drawing.Size(91, 17);
             this.label80.TabIndex = 24;
             this.label80.Text = "Days absent:";
             // 
-            // label79
-            // 
-            this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(303, 230);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(91, 13);
-            this.label79.TabIndex = 23;
-            this.label79.Text = "Daily Productivity:";
-            // 
             // dgEngineeringDaily
             // 
+            this.dgEngineeringDaily.AllowUserToAddRows = false;
             this.dgEngineeringDaily.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgEngineeringDaily.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgEngineeringDaily.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgEngineeringDaily.Location = new System.Drawing.Point(306, 246);
+            this.dgEngineeringDaily.Location = new System.Drawing.Point(14, 431);
             this.dgEngineeringDaily.Name = "dgEngineeringDaily";
             this.dgEngineeringDaily.RowHeadersVisible = false;
-            this.dgEngineeringDaily.Size = new System.Drawing.Size(1497, 526);
+            this.dgEngineeringDaily.Size = new System.Drawing.Size(1789, 341);
             this.dgEngineeringDaily.TabIndex = 22;
+            this.dgEngineeringDaily.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgEngineeringDaily_CellContentClick);
             // 
             // lblHoliday
             // 
             this.lblHoliday.AutoSize = true;
             this.lblHoliday.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHoliday.Location = new System.Drawing.Point(219, 427);
+            this.lblHoliday.Location = new System.Drawing.Point(502, 286);
             this.lblHoliday.Name = "lblHoliday";
             this.lblHoliday.Size = new System.Drawing.Size(61, 17);
             this.lblHoliday.TabIndex = 18;
@@ -2026,7 +2012,7 @@
             // 
             this.lblDraw.AutoSize = true;
             this.lblDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDraw.Location = new System.Drawing.Point(219, 397);
+            this.lblDraw.Location = new System.Drawing.Point(218, 353);
             this.lblDraw.Name = "lblDraw";
             this.lblDraw.Size = new System.Drawing.Size(61, 17);
             this.lblDraw.TabIndex = 17;
@@ -2037,7 +2023,7 @@
             // 
             this.lblCheck.AutoSize = true;
             this.lblCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCheck.Location = new System.Drawing.Point(219, 367);
+            this.lblCheck.Location = new System.Drawing.Point(218, 331);
             this.lblCheck.Name = "lblCheck";
             this.lblCheck.Size = new System.Drawing.Size(61, 17);
             this.lblCheck.TabIndex = 16;
@@ -2048,7 +2034,7 @@
             // 
             this.lblAssess.AutoSize = true;
             this.lblAssess.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAssess.Location = new System.Drawing.Point(219, 337);
+            this.lblAssess.Location = new System.Drawing.Point(218, 308);
             this.lblAssess.Name = "lblAssess";
             this.lblAssess.Size = new System.Drawing.Size(61, 17);
             this.lblAssess.TabIndex = 15;
@@ -2059,7 +2045,7 @@
             // 
             this.lblProg.AutoSize = true;
             this.lblProg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProg.Location = new System.Drawing.Point(219, 308);
+            this.lblProg.Location = new System.Drawing.Point(218, 285);
             this.lblProg.Name = "lblProg";
             this.lblProg.Size = new System.Drawing.Size(61, 17);
             this.lblProg.TabIndex = 14;
@@ -2070,7 +2056,7 @@
             // 
             this.label74.AutoSize = true;
             this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.Location = new System.Drawing.Point(12, 427);
+            this.label74.Location = new System.Drawing.Point(295, 286);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(100, 17);
             this.label74.TabIndex = 7;
@@ -2080,7 +2066,7 @@
             // 
             this.label73.AutoSize = true;
             this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(12, 397);
+            this.label73.Location = new System.Drawing.Point(11, 353);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(173, 17);
             this.label73.TabIndex = 6;
@@ -2090,7 +2076,7 @@
             // 
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label72.Location = new System.Drawing.Point(12, 367);
+            this.label72.Location = new System.Drawing.Point(11, 331);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(180, 17);
             this.label72.TabIndex = 5;
@@ -2100,7 +2086,7 @@
             // 
             this.label69.AutoSize = true;
             this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label69.Location = new System.Drawing.Point(12, 337);
+            this.label69.Location = new System.Drawing.Point(11, 308);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(187, 17);
             this.label69.TabIndex = 4;
@@ -2110,7 +2096,7 @@
             // 
             this.label68.AutoSize = true;
             this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label68.Location = new System.Drawing.Point(12, 307);
+            this.label68.Location = new System.Drawing.Point(11, 284);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(207, 17);
             this.label68.TabIndex = 3;
@@ -2120,7 +2106,7 @@
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(7, 226);
+            this.label31.Location = new System.Drawing.Point(6, 222);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(273, 31);
             this.label31.TabIndex = 2;
@@ -2591,15 +2577,29 @@
             this.targetsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.targetsToolStripMenuItem.Text = "Targets";
             // 
-            // btnInstallationPerformance
+            // btnMoreLess
             // 
-            this.btnInstallationPerformance.Location = new System.Drawing.Point(1654, 6);
-            this.btnInstallationPerformance.Name = "btnInstallationPerformance";
-            this.btnInstallationPerformance.Size = new System.Drawing.Size(149, 23);
-            this.btnInstallationPerformance.TabIndex = 9;
-            this.btnInstallationPerformance.Text = "Installation Performance";
-            this.btnInstallationPerformance.UseVisualStyleBackColor = true;
-            this.btnInstallationPerformance.Click += new System.EventHandler(this.BtnInstallationPerformance_Click);
+            this.btnMoreLess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMoreLess.ForeColor = System.Drawing.Color.Black;
+            this.btnMoreLess.Location = new System.Drawing.Point(1643, 353);
+            this.btnMoreLess.Name = "btnMoreLess";
+            this.btnMoreLess.Size = new System.Drawing.Size(160, 23);
+            this.btnMoreLess.TabIndex = 44;
+            this.btnMoreLess.Text = "More/Less Detail";
+            this.btnMoreLess.UseVisualStyleBackColor = true;
+            this.btnMoreLess.Click += new System.EventHandler(this.BtnMoreLess_Click);
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label78.ForeColor = System.Drawing.Color.Red;
+            this.label78.Location = new System.Drawing.Point(187, 408);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(1471, 20);
+            this.label78.TabIndex = 45;
+            this.label78.Text = "EACH MEMBER OF THE ENGINEERING TEAM IS TARGETTED AT 13 POINTS PER DAY. THESE POIN" +
+    "TS ARE TOTALLED UP FROM THE VARIOUS ROLES WITHIN THE SECTION";
             // 
             // txtTraditionalConversionRate
             // 
@@ -2876,7 +2876,6 @@
         private System.Windows.Forms.TextBox txtInstallationSales;
         private System.Windows.Forms.TextBox txtInstallationCost;
         private System.Windows.Forms.DataGridView dgEngineeringDaily;
-        private System.Windows.Forms.Label label79;
         private System.Windows.Forms.Label lblLate;
         private System.Windows.Forms.Label lblAbsent;
         private System.Windows.Forms.Label label81;
@@ -2888,16 +2887,16 @@
         private System.Windows.Forms.Label lblOvertimeHours;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label lblUnder;
-        private System.Windows.Forms.Label label90;
         private System.Windows.Forms.Label lblOver;
-        private System.Windows.Forms.Label label88;
         private System.Windows.Forms.Label lblGold;
-        private System.Windows.Forms.Label label86;
         private System.Windows.Forms.Label lblPercentageOver;
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnEstimating;
         private System.Windows.Forms.Button btnInstallationPerformance;
+        private System.Windows.Forms.Button btnProgrammerProductivity;
+        private System.Windows.Forms.Button btnMoreLess;
+        private System.Windows.Forms.Label label78;
     }
 }
 

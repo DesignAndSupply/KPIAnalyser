@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>36</ApplicationRevision>
+    <ApplicationRevision>51</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -101,6 +101,18 @@
     <Compile Include="frmEngineeringManagement.Designer.cs">
       <DependentUpon>frmEngineeringManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProgrammerComparison.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProgrammerComparison.Designer.cs">
+      <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProgrammingProductivity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProgrammingProductivity.Designer.cs">
+      <DependentUpon>frmProgrammingProductivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEstimatingProductivity.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +161,12 @@
     <Compile Include="frmReturnVisits.Designer.cs">
       <DependentUpon>frmReturnVisits.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmViewDoors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViewDoors.Designer.cs">
+      <DependentUpon>frmViewDoors.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmViewQuotations.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +195,12 @@
     <EmbeddedResource Include="frmEngineeringManagement.resx">
       <DependentUpon>frmEngineeringManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmProgrammerComparison.resx">
+      <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProgrammingProductivity.resx">
+      <DependentUpon>frmProgrammingProductivity.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEstimatingProductivity.resx">
       <DependentUpon>frmEstimatingProductivity.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmReturnVisits.resx">
       <DependentUpon>frmReturnVisits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViewDoors.resx">
+      <DependentUpon>frmViewDoors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewQuotations.resx">
       <DependentUpon>frmViewQuotations.cs</DependentUpon>
@@ -260,6 +287,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="if_Tablet-Chart_379374.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

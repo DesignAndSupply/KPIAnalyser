@@ -391,7 +391,6 @@ namespace KPIAnalyser
             while (reader.Read())
             {
                 complaintCount =  reader.GetInt32(0);
-
             }
 
             lblComplaintCount.Text = "Number of complaints: " + complaintCount;

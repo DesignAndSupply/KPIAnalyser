@@ -15,12 +15,11 @@ using Brushes = System.Windows.Media.Brushes;
 using System.Windows.Media;
 using System.Drawing.Printing;
 using Outlook = Microsoft.Office.Interop.Outlook;
-
 namespace KPIAnalyser
 {
-    public partial class frmEstimatingProductivity : Form
+    public partial class frmProgrammingProductivity : Form
     {
-        public frmEstimatingProductivity()
+        public frmProgrammingProductivity()
         {
             InitializeComponent();
 
@@ -120,17 +119,17 @@ namespace KPIAnalyser
             dailyItemsGuage.Sections.Add(new AngularSection
             {
                 FromValue = 0,
-                ToValue = 90,
+                ToValue = 8,
                 Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(254, 57, 57))
             });
             dailyItemsGuage.Sections.Add(new AngularSection
             {
-                FromValue = 90,
-                ToValue = 150,
+                FromValue = 8,
+                ToValue = 20,
                 Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(247, 166, 37))
             });
             dailyItemsGuage.FromValue = 0;
-            dailyItemsGuage.ToValue = 150;
+            dailyItemsGuage.ToValue = 20;
             dailyItemsGuage.TicksForeground = Brushes.White;
             dailyItemsGuage.Base.Foreground = Brushes.White;
             dailyItemsGuage.Base.FontWeight = System.Windows.FontWeights.Bold;
@@ -143,17 +142,17 @@ namespace KPIAnalyser
             problemsGuage.Sections.Add(new AngularSection
             {
                 FromValue = 0,
-                ToValue = 5,
+                ToValue = 1000,
                 Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(247, 166, 37))
             });
             problemsGuage.Sections.Add(new AngularSection
             {
-                FromValue = 5,
-                ToValue = 50,
+                FromValue = 1000,
+                ToValue = 10000,
                 Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(254, 57, 57))
             });
             problemsGuage.FromValue = 0;
-            problemsGuage.ToValue = 50;
+            problemsGuage.ToValue = 10000;
             problemsGuage.TicksForeground = Brushes.White;
             problemsGuage.Base.Foreground = Brushes.White;
             problemsGuage.Base.FontWeight = System.Windows.FontWeights.Bold;
@@ -163,10 +162,14 @@ namespace KPIAnalyser
             ///
 
 
+
+
         }
 
         private void FrmEstimatingProductivity_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'user_infoDataSet.c_view_is_engineer' table. You can move, or remove it, as needed.
+            this.c_view_is_engineerTableAdapter.Fill(this.user_infoDataSet.c_view_is_engineer);
             // TODO: This line of code loads data into the 'user_infoDataSet.c_view_sales_program_users' table. You can move, or remove it, as needed.
             this.c_view_sales_program_usersTableAdapter.Fill(this.user_infoDataSet.c_view_sales_program_users);
 
@@ -174,14 +177,16 @@ namespace KPIAnalyser
 
         private void BtnGenerate_Click(object sender, EventArgs e)
         {
-            drawTopCustomersByItems();
-            drawTopCustomersByvalue();
+
+            doorTypePieChart();
+            doorDifficultyPiecchart();
+
             absentHolidaysLate();
             averageDailyItems();
-            countEstimatorIssues();
+            countRemakes();
         }
 
-        private void drawTopCustomersByvalue()
+        private void doorTypePieChart()
         {
             string c1 = "";
             string c2 = "";
@@ -205,12 +210,8 @@ namespace KPIAnalyser
             double v9 = 0;
             double v10 = 0;
 
-            int includeRevisions = 0;
 
-            if (chkIncludeRevisions.Checked == true)
-            {
-                includeRevisions = 1;
-            }
+          
 
 
             string startdate = dteStart.Value.ToString("yyyyMMdd");
@@ -218,14 +219,13 @@ namespace KPIAnalyser
             string staffName = cmbStaffMember.Text;
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
-            SqlCommand cmd = new SqlCommand("usp_kpi_top_customers_quoted_by_estimator", conn);
+            SqlCommand cmd = new SqlCommand("usp_kpi_door_types_by_programmer", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
             cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
             cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
-            cmd.Parameters.Add("@itemOrValue", SqlDbType.Int).Value = 1;
-            cmd.Parameters.Add("@includeRevs", SqlDbType.Int).Value = includeRevisions;
+           
             SqlDataReader reader = cmd.ExecuteReader();
 
             int loopcount = 1;
@@ -235,61 +235,61 @@ namespace KPIAnalyser
                 {
                     case 1:
                         c1 = reader.GetString(0);
-                        v1 = reader.GetDouble(2);
+                        v1 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 2:
                         c2 = reader.GetString(0);
-                        v2 = reader.GetDouble(2);
+                        v2 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 3:
                         c3 = reader.GetString(0);
-                        v3 = reader.GetDouble(2);
+                        v3 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 4:
                         c4 = reader.GetString(0);
-                        v4 = reader.GetDouble(2);
+                        v4 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 5:
                         c5 = reader.GetString(0);
-                        v5 = reader.GetDouble(2);
+                        v5 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 6:
                         c6 = reader.GetString(0);
-                        v6 = reader.GetDouble(2);
+                        v6 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 7:
                         c7 = reader.GetString(0);
-                        v7 = reader.GetDouble(2);
+                        v7 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 8:
                         c8 = reader.GetString(0);
-                        v8 = reader.GetDouble(2);
+                        v8 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 9:
                         c9 = reader.GetString(0);
-                        v9 = reader.GetDouble(2);
+                        v9 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
                     case 10:
                         c10 = reader.GetString(0);
-                        v10 = reader.GetDouble(2);
+                        v10 = reader.GetInt32(1);
 
                         loopcount += 1;
                         break;
@@ -304,7 +304,7 @@ namespace KPIAnalyser
             Func<ChartPoint, string> labelPoint = chartPoint =>
             string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
 
-            pieChart2.Series = new SeriesCollection
+            pieChart1.Series = new SeriesCollection
                 {
 
                     new PieSeries
@@ -396,7 +396,7 @@ namespace KPIAnalyser
 
 
 
-            pieChart2.LegendLocation = LegendLocation.Bottom;
+            pieChart1.LegendLocation = LegendLocation.Bottom;
 
 
 
@@ -407,40 +407,24 @@ namespace KPIAnalyser
 
 
         }
-        private void drawTopCustomersByItems()
+        private void doorDifficultyPiecchart()
         {
 
             string c1 = "";
             string c2 = "";
             string c3 = "";
-            string c4 = "";
-            string c5 = "";
-            string c6 = "";
-            string c7 = "";
-            string c8 = "";
-            string c9 = "";
-            string c10 = "";
+
 
 
 
             int i1 = 0;
             int i2 = 0;
             int i3 = 0;
-            int i4 = 0;
-            int i5 = 0;
-            int i6 = 0;
-            int i7 = 0;
-            int i8 = 0;
-            int i9 = 0;
-            int i10 = 0;
 
 
-            int includeRevisions = 0;
 
-            if (chkIncludeRevisions.Checked == true)
-            {
-                includeRevisions = 1;
-            }
+
+
 
 
 
@@ -449,85 +433,32 @@ namespace KPIAnalyser
             string staffName = cmbStaffMember.Text;
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
-            SqlCommand cmd = new SqlCommand("usp_kpi_top_customers_quoted_by_estimator", conn);
+            SqlCommand cmd = new SqlCommand("usp_kpi_door_difficulty_by_programmer", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
             cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
             cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
-            cmd.Parameters.Add("@itemOrValue", SqlDbType.Int).Value = 0;
-            cmd.Parameters.Add("@includeRevs", SqlDbType.Int).Value = includeRevisions;
+
             SqlDataReader reader = cmd.ExecuteReader();
 
-            int loopcount = 1;
+          
             while (reader.Read())
             {
-                switch (loopcount)
-                {
-                    case 1:
-                        c1 = reader.GetString(0);
-                        i1 = reader.GetInt32(1);
 
-                        loopcount += 1;
-                        break;
-                    case 2:
-                        c2 = reader.GetString(0);
+                        c1 = reader.GetString(3);
+                        i1 = reader.GetInt32(0);
+
+
+                        c2 = reader.GetString(4);
                         i2 = reader.GetInt32(1);
 
-                        loopcount += 1;
-                        break;
-                    case 3:
-                        c3 = reader.GetString(0);
-                        i3 = reader.GetInt32(1);
+          
+                        c3 = reader.GetString(5);
+                        i3 = reader.GetInt32(2);
 
-                        loopcount += 1;
-                        break;
-                    case 4:
-                        c4 = reader.GetString(0);
-                        i4 = reader.GetInt32(1);
-
-                        loopcount += 1;
-                        break;
-                    case 5:
-                        c5 = reader.GetString(0);
-                        i5 = reader.GetInt32(1);
-
-                        loopcount += 1;
-                        break;
-                    case 6:
-                        c6 = reader.GetString(0);
-                        i6 = reader.GetInt32(1);
-
-                        loopcount += 1;
-                        break;
-                    case 7:
-                        c7 = reader.GetString(0);
-                        i7 = reader.GetInt32(1);
-
-                        loopcount += 1;
-                        break;
-                    case 8:
-                        c8 = reader.GetString(0);
-                        i8 = reader.GetInt32(1);
-
-                        loopcount += 1;
-                        break;
-                    case 9:
-                        c9 = reader.GetString(0);
-                        i9 = reader.GetInt32(1);
-
-                        loopcount += 1;
-                        break;
-                    case 10:
-                        c10 = reader.GetString(0);
-                        i10 = reader.GetInt32(1);
-
-                        loopcount += 1;
-                        break;
-
-                    default:
-                        break;
-                }
+  
+                
             }
 
 
@@ -537,7 +468,7 @@ namespace KPIAnalyser
             Func<ChartPoint, string> labelPoint = chartPoint =>
             string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
 
-            pieChart1.Series = new SeriesCollection
+            pieChart2.Series = new SeriesCollection
                 {
 
                     new PieSeries
@@ -565,63 +496,7 @@ namespace KPIAnalyser
                             DataLabels = true,
                             LabelPoint = labelPoint
                         },
-                    new PieSeries
-                        {
-                            Title = c4,
-                            Values = new ChartValues<double> { i4 },
-
-                            DataLabels = false,
-                            LabelPoint = labelPoint
-                        },
-                    new PieSeries
-                        {
-                            Title = c5,
-                            Values = new ChartValues<double> { i5 },
-
-                            DataLabels = false,
-                            LabelPoint = labelPoint
-                        },
-                    new PieSeries
-                        {
-                            Title = c6,
-                            Values = new ChartValues<double> { i6 },
-
-                            DataLabels = false,
-                            LabelPoint = labelPoint
-                        },
-                    new PieSeries
-                        {
-                            Title = c7,
-                            Values = new ChartValues<double> { i7 },
-
-                            DataLabels = false,
-                            LabelPoint = labelPoint
-                        },
-                    new PieSeries
-                        {
-                            Title = c8,
-                            Values = new ChartValues<double> { i8 },
-
-                            DataLabels = false,
-                            LabelPoint = labelPoint
-                        },
-
-                    new PieSeries
-                        {
-                            Title = c9,
-                            Values = new ChartValues<double> { i9 },
-
-                            DataLabels = false,
-                            LabelPoint = labelPoint
-                        },
-                    new PieSeries
-                        {
-                            Title = c10,
-                            Values = new ChartValues<double> { i10 },
-
-                            DataLabels = false,
-                            LabelPoint = labelPoint
-                        }
+                    
 
 
 
@@ -629,7 +504,7 @@ namespace KPIAnalyser
 
 
 
-            pieChart1.LegendLocation = LegendLocation.Bottom;
+            pieChart2.LegendLocation = LegendLocation.Bottom;
 
 
 
@@ -702,28 +577,20 @@ namespace KPIAnalyser
             string startdate = dteStart.Value.ToString("yyyyMMdd");
             string enddate = dteEnd.Value.ToString("yyyyMMdd");
             string staffName = cmbStaffMember.Text;
-            int includeRevisions = 0;
+
 
             int averageDailyItems = 0;
-
-            if (chkIncludeRevisions.Checked == true)
-            {
-                includeRevisions = -1;
-            }
-
-
-
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
-            SqlCommand cmd = new SqlCommand("usp_kpi_average_daily_output", conn);
+            SqlCommand cmd = new SqlCommand("usp_kpi_average_daily_output_doors", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
             cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
             cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
-            cmd.Parameters.Add("@increv", SqlDbType.Int).Value = includeRevisions;
+
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -741,25 +608,25 @@ namespace KPIAnalyser
             }
 
             dailyItemsGuage.Value = averageDailyItems;
-            lblDailyAverage.Text = "Daily Average Items: " + averageDailyItems;
+            lblDailyAverage.Text = "Daily Average Doors: " + averageDailyItems;
 
             conn.Close();
 
         }
 
-        private void countEstimatorIssues()
+        private void countRemakes()
         {
             string startdate = dteStart.Value.ToString("yyyyMMdd");
             string enddate = dteEnd.Value.ToString("yyyyMMdd");
             string staffName = cmbStaffMember.Text;
 
 
-            int estimatorIssues = 0;
+            double remakesCaused = 0;
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
-            SqlCommand cmd = new SqlCommand("usp_kpi_estimator_problems", conn);
+            SqlCommand cmd = new SqlCommand("usp_kpi_remake_cost", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
@@ -771,26 +638,26 @@ namespace KPIAnalyser
 
             while (reader.Read())
             {
-                try
-                {
-                    estimatorIssues = reader.GetInt32(0);
-                }
+               try
+               {
+                    remakesCaused = reader.GetDouble(0);
+               }
                 catch
                 {
-                    estimatorIssues = 0;
-                }
+                    remakesCaused = 0;
+               }
 
             }
 
-            problemsGuage.Value = estimatorIssues;
+            problemsGuage.Value = remakesCaused;
 
-            lblEstimatorissues.Text = "Issues Logged: " + estimatorIssues;
+            lblRemakes.Text = "Remakes Caused (Cost £): " + remakesCaused;
             conn.Close();
         }
 
         private void RunComparisonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEstimatorComparison frmec = new frmEstimatorComparison();
+            frmProgrammerComparison frmec = new frmProgrammerComparison();
             frmec.Show();
         }
 
@@ -846,7 +713,7 @@ namespace KPIAnalyser
             string enddate = dteEnd.Value.ToString("yyyyMMdd");
             string staffName = cmbStaffMember.Text;
 
-            frmViewQuotations frmvq = new frmViewQuotations(startdate,enddate,staffName);
+            frmViewDoors frmvq = new frmViewDoors(startdate,enddate,staffName);
             frmvq.Show();
         }
 
@@ -854,8 +721,6 @@ namespace KPIAnalyser
         {
             Email_Screen();
         }
-
-
         public static void Email_Screen()
         {
 
@@ -876,9 +741,6 @@ namespace KPIAnalyser
             {
 
             }
-
-
-
 
 
             Outlook.Application outlookApp = new Outlook.Application();
@@ -904,4 +766,5 @@ namespace KPIAnalyser
         }
     }
 }
+
 

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Drawing.Printing;
+using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace KPIAnalyser
 {
@@ -29,13 +31,11 @@ namespace KPIAnalyser
             _staffName = staffName;
             populateGrid();
 
-
-
-
-
             lblName.Text = "Quotations output by: " + staffName;
             lblStart.Text = "Start Date: " + startDate;
             lblEnd.Text = "End Date:  " + endDate;
+
+
         }
 
         private void FrmViewQuotations_Load(object sender, EventArgs e)
@@ -58,8 +58,6 @@ namespace KPIAnalyser
             cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = _staffName ;
 
 
-
-
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
 
@@ -71,16 +69,128 @@ namespace KPIAnalyser
 
         private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int rowindex = dataGridView1.CurrentCell.RowIndex;
-            int columnindex = 0;
 
-            int quoteID = Convert.ToInt32(dataGridView1.Rows[rowindex].Cells[columnindex].Value.ToString());
+            try
+            {
+                int rowindex = dataGridView1.CurrentCell.RowIndex;
+                int columnindex = 0;
 
-            string quotationLocation = @"\\designsvr1\solidworks\Door Designer\Specifications\Project " + quoteID.ToString();
+                int quoteID = Convert.ToInt32(dataGridView1.Rows[rowindex].Cells[columnindex].Value.ToString());
+
+                string quotationLocation = @"\\designsvr1\solidworks\Door Designer\Specifications\Project " + quoteID.ToString();
 
 
-            Process.Start(quotationLocation);
+                Process.Start(quotationLocation);
 
+
+            }
+
+            catch 
+                
+            {
+
+              
+
+            }
+
+
+        }
+
+        private void printImage()
+        {
+            try
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += (sender, args) =>
+                {
+                    System.Drawing.Image i = System.Drawing.Image.FromFile(@"C:\temp\temp2.jpg");
+                    Point p = new Point(100, 100);
+                    args.Graphics.DrawImage(i, args.MarginBounds);
+
+                };
+
+                pd.DefaultPageSettings.Landscape = true;
+                Margins margins = new Margins(50, 50, 50, 50);
+                pd.DefaultPageSettings.Margins = margins;
+                pd.Print();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                bit.Save(@"C:\temp\temp2.jpg");
+
+                printImage();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtnEmail_Click(object sender, EventArgs e)
+        {
+            Email_Screen();
+        }
+
+
+        public static void Email_Screen()
+        {
+
+
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                bit.Save(@"C:\temp\temp2.jpg");
+
+
+            }
+            catch
+            {
+
+            }
+
+
+
+
+
+            Outlook.Application outlookApp = new Outlook.Application();
+            Outlook.MailItem mailItem = outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+            mailItem.Subject = "";
+            mailItem.To = "";
+            string imageSrc = @"C:\Temp\temp2.jpg"; // Change path as needed
+
+            var attachments = mailItem.Attachments;
+            var attachment = attachments.Add(imageSrc);
+            attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x370E001F", "image/jpeg");
+            attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x3712001F", "myident"); // Image identifier found in the HTML code right after cid. Can be anything.
+            mailItem.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/id/{00062008-0000-0000-C000-000000000046}/8514000B", true);
+
+            // Set body format to HTML
+
+            mailItem.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
+            mailItem.Attachments.Add(imageSrc);
+            string msgHTMLBody = "";
+            mailItem.HTMLBody = msgHTMLBody;
+            mailItem.Display(true);
+            //mailItem.Send();
         }
     }
 }
