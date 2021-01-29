@@ -14,7 +14,7 @@
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>S:\Design and Supply CSharp\MiniApps\KPIAnalyser\</PublishUrl>
+    <PublishUrl>S:\Design and Supply CSharp\MiniApps\KPIAnalyserTV\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>51</ApplicationRevision>
+    <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyserTV\</InstallUrl>
+    <ApplicationRevision>55</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -95,95 +95,17 @@
   <ItemGroup>
     <Compile Include="ConnectionStrings.cs" />
     <Compile Include="DateConversion.cs" />
-    <Compile Include="frmEngineeringManagement.cs">
+    <Compile Include="frmAssignQuote.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEngineeringManagement.Designer.cs">
-      <DependentUpon>frmEngineeringManagement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmProgrammerComparison.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmProgrammerComparison.Designer.cs">
-      <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmProgrammingProductivity.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmProgrammingProductivity.Designer.cs">
-      <DependentUpon>frmProgrammingProductivity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmEstimatingProductivity.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmEstimatingProductivity.Designer.cs">
-      <DependentUpon>frmEstimatingProductivity.cs</DependentUpon>
+    <Compile Include="frmAssignQuote.Designer.cs">
+      <DependentUpon>frmAssignQuote.cs</DependentUpon>
     </Compile>
     <Compile Include="frmEstimatorComparison.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmEstimatorComparison.Designer.cs">
       <DependentUpon>frmEstimatorComparison.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmInstallationComplaintDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmInstallationComplaintDetails.Designer.cs">
-      <DependentUpon>frmInstallationComplaintDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmInstallationProductivity.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmInstallationProductivity.Designer.cs">
-      <DependentUpon>frmInstallationProductivity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmNonReturningCustomerDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmNonReturningCustomerDetails.Designer.cs">
-      <DependentUpon>frmNonReturningCustomerDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmProductionDoorTypeAnalysis.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmProductionDoorTypeAnalysis.Designer.cs">
-      <DependentUpon>frmProductionDoorTypeAnalysis.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmReturnVisitDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmReturnVisitDetails.Designer.cs">
-      <DependentUpon>frmReturnVisitDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmReturnVisits.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmReturnVisits.Designer.cs">
-      <DependentUpon>frmReturnVisits.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmViewDoors.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmViewDoors.Designer.cs">
-      <DependentUpon>frmViewDoors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmViewQuotations.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmViewQuotations.Designer.cs">
-      <DependentUpon>frmViewQuotations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainMenu.Designer.cs">
-      <DependentUpon>MainMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProductionStaffTimings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProductionStaffTimings.Designer.cs">
-      <DependentUpon>ProductionStaffTimings.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,50 +114,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>user_infoDataSet.xsd</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmEngineeringManagement.resx">
-      <DependentUpon>frmEngineeringManagement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmProgrammerComparison.resx">
-      <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmProgrammingProductivity.resx">
-      <DependentUpon>frmProgrammingProductivity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmEstimatingProductivity.resx">
-      <DependentUpon>frmEstimatingProductivity.cs</DependentUpon>
+    <EmbeddedResource Include="frmAssignQuote.resx">
+      <DependentUpon>frmAssignQuote.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEstimatorComparison.resx">
       <DependentUpon>frmEstimatorComparison.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmInstallationComplaintDetails.resx">
-      <DependentUpon>frmInstallationComplaintDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmInstallationProductivity.resx">
-      <DependentUpon>frmInstallationProductivity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmNonReturningCustomerDetails.resx">
-      <DependentUpon>frmNonReturningCustomerDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmProductionDoorTypeAnalysis.resx">
-      <DependentUpon>frmProductionDoorTypeAnalysis.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmReturnVisitDetails.resx">
-      <DependentUpon>frmReturnVisitDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmReturnVisits.resx">
-      <DependentUpon>frmReturnVisits.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmViewDoors.resx">
-      <DependentUpon>frmViewDoors.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmViewQuotations.resx">
-      <DependentUpon>frmViewQuotations.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainMenu.resx">
-      <DependentUpon>MainMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProductionStaffTimings.resx">
-      <DependentUpon>ProductionStaffTimings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

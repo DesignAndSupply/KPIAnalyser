@@ -24,16 +24,31 @@ namespace KPIAnalyser
         private void FrmEstimatorComparison_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'user_infoDataSet.c_view_sales_program_users' table. You can move, or remove it, as needed.
-            this.c_view_sales_program_usersTableAdapter.Fill(this.user_infoDataSet.c_view_sales_program_users);
+            //this.c_view_sales_program_usersTableAdapter.Fill(this.user_infoDataSet.c_view_sales_program_users);
 
+            btnCompare.PerformClick();
+            System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
+            timer1.Enabled = true;
+            timer1.Interval = 900000;
+            timer1.Tick += new EventHandler(timer_Tick);
         }
+        public void timer_Tick(object sender, EventArgs e)
+        {
+            temp.Text = timer1.Interval.ToString();
+            btnCompare.PerformClick();
+        }
+
+
 
         private void BtnCompare_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("a");
             dailyItems();
-            populateAbsenseChart();
-            populateLatenessChart();
-            populateProblemsChart();
+            
+            timer1.Start();
+            //populateAbsenseChart();
+            //populateLatenessChart();
+            //populateProblemsChart();
         }
 
         private void dailyItems()
@@ -53,8 +68,6 @@ namespace KPIAnalyser
             int target2 = 0;
             int target3 = 0;
             int target4 = 0;
-
-
 
 
 
@@ -87,10 +100,11 @@ namespace KPIAnalyser
                     DataTable dt = new DataTable();
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dt);
-
+                    listAutoStaff.Items.Clear();
                     foreach (DataRow row in dt.Rows)
                     {
                         staffNames.Add(row[0].ToString());
+                        listAutoStaff.Items.Add(row[0].ToString());
                     }
                 }
                 connTemp.Close();
@@ -196,7 +210,7 @@ namespace KPIAnalyser
                 new ColumnSeries
                 {
                     Title = "Items",
-                    FontSize = 10,
+                    FontSize = 14,
                     DataLabels = true,
                     Fill = System.Windows.Media.Brushes.Green,
                     Values = new ChartValues<int> { daily1, daily2, daily3, daily4 }
@@ -209,7 +223,7 @@ namespace KPIAnalyser
             dailyAverageItemsBar.Series.Add(new StepLineSeries
             {
                 Title = "Target",
-                FontSize = 10,
+                FontSize = 14,
             
                 Fill = System.Windows.Media.Brushes.Orange,
                 Values = new ChartValues<double> { target1, target2, target3, target4 }
@@ -240,7 +254,52 @@ namespace KPIAnalyser
             });
 
 
+            //here produce DGV that shows  what quotes are null
+            if (dataGridView1.DataSource != null)
+            {
+                //dataGridView1.Rows.Clear();
+                dataGridView1.DataSource = null;
+            }
+            sql = "select a.quote_id,a.date_output,a.customer,a.item_count,a.revision_number,'£' + CAST(a.total_quotation_value as nvarchar(200)) as [total_quotation_value],a.quoted_by,a.customer_ref,a.first_open_time,emailed_to,b.date_started " +
+                "from dbo.solidworks_quotation_log a left join dbo.solidworks_quotation_log_started b on a.quote_id = b.quote_id AND a.revision_number = b.revision_num" +
+                " where date_output >= '" + dteStart.Value.ToString("yyyy-MM-dd").ToString() + "' AND date_output <= DATEADD(D, 1, '" + dteStart.Value.ToString("yyyy-MM-dd").ToString() + "') AND emailed_to is null";
+            using (SqlConnection connNull = new SqlConnection(ConnectionStrings.ConnectionString))
+            { 
+                connNull.Open();
+                using (SqlCommand cmd = new SqlCommand(sql, connNull))
+                {
+                    DataTable dt = new DataTable(); 
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);  // simple datagridview for what is null
+                    dataGridView1.DataSource = dt;
+                    //format
+                    dataGridView1.Columns[0].HeaderText = "Quote ID";
+                    dataGridView1.Columns[1].HeaderText = "Date Output";
+                    dataGridView1.Columns[2].HeaderText = "Customer";
+                    dataGridView1.Columns[3].HeaderText = "Item Count";
+                    dataGridView1.Columns[4].HeaderText = "Revision Number";
+                    dataGridView1.Columns[5].HeaderText = "Total Quote Value";
+                    dataGridView1.Columns[6].HeaderText = "Quoted By"; 
+                    dataGridView1.Columns[7].HeaderText = "Customer Ref";
+                    dataGridView1.Columns[8].HeaderText = "First Time Open";
+                    dataGridView1.Columns[9].HeaderText = "Emailed To";
+                    dataGridView1.Columns[10].HeaderText = "Date Started";
 
+                    dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+                connNull.Close();
+
+            }
 
         }
 
@@ -802,6 +861,14 @@ namespace KPIAnalyser
             mailItem.HTMLBody = msgHTMLBody;
             mailItem.Display(true);
             //mailItem.Send();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //open form to allow end user to assign THAT quote to a user
+            frmAssignQuote frm = new frmAssignQuote(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value), Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[4].Value));
+            frm.ShowDialog();
+            btnCompare.PerformClick();
         }
     }
 }
