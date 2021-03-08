@@ -1,6 +1,6 @@
 ﻿namespace KPIAnalyser
 {
-    partial class frmEstimatingProductivity
+    partial class frmProgrammingProductivity
     {
         /// <summary>
         /// Required designer variable.
@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEstimatingProductivity));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProgrammingProductivity));
             this.label1 = new System.Windows.Forms.Label();
             this.cmbStaffMember = new System.Windows.Forms.ComboBox();
-            this.cviewestimatorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.user_infoDataSet11 = new KPIAnalyser.user_infoDataSet1();
-            this.cviewsalesprogramusersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cviewisengineerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.user_infoDataSet = new KPIAnalyser.user_infoDataSet();
+            this.cviewsalesprogramusersBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.userinfoDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cviewsalesprogramusersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.c_view_sales_program_usersTableAdapter = new KPIAnalyser.user_infoDataSetTableAdapters.c_view_sales_program_usersTableAdapter();
             this.dteStart = new System.Windows.Forms.DateTimePicker();
             this.dteEnd = new System.Windows.Forms.DateTimePicker();
@@ -45,7 +46,6 @@
             this.btnGenerate = new System.Windows.Forms.Button();
             this.c_view_sales_program_usersTableAdapter1 = new KPIAnalyser.user_infoDataSetTableAdapters.c_view_sales_program_usersTableAdapter();
             this.pieChart2 = new LiveCharts.WinForms.PieChart();
-            this.chkIncludeRevisions = new System.Windows.Forms.CheckBox();
             this.absentGuage = new LiveCharts.WinForms.AngularGauge();
             this.annualLeaveGuage = new LiveCharts.WinForms.AngularGauge();
             this.lateGuage = new LiveCharts.WinForms.AngularGauge();
@@ -62,29 +62,20 @@
             this.dailyItemsGuage = new LiveCharts.WinForms.AngularGauge();
             this.lblDailyAverage = new System.Windows.Forms.Label();
             this.problemsGuage = new LiveCharts.WinForms.AngularGauge();
-            this.lblEstimatorissues = new System.Windows.Forms.Label();
+            this.lblRemakes = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.runComparisonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.c_view_is_engineerTableAdapter = new KPIAnalyser.user_infoDataSetTableAdapters.c_view_is_engineerTableAdapter();
             this.emailScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pieChart3 = new LiveCharts.WinForms.PieChart();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnViewItems = new System.Windows.Forms.Button();
-            this.user_infoDataSet1 = new KPIAnalyser.user_infoDataSet();
-            this.userinfoDataSet1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.c_view_estimatorsTableAdapter = new KPIAnalyser.user_infoDataSet1TableAdapters.c_view_estimatorsTableAdapter();
-            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.btnIssuesLogged = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.cviewestimatorsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cviewisengineerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userinfoDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.userinfoDataSet1BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -98,8 +89,8 @@
             // 
             // cmbStaffMember
             // 
-            this.cmbStaffMember.DataSource = this.cviewestimatorsBindingSource;
-            this.cmbStaffMember.DisplayMember = "fullname";
+            this.cmbStaffMember.DataSource = this.cviewisengineerBindingSource;
+            this.cmbStaffMember.DisplayMember = "FullName";
             this.cmbStaffMember.FormattingEnabled = true;
             this.cmbStaffMember.Location = new System.Drawing.Point(12, 49);
             this.cmbStaffMember.Name = "cmbStaffMember";
@@ -107,25 +98,30 @@
             this.cmbStaffMember.TabIndex = 1;
             this.cmbStaffMember.ValueMember = "id";
             // 
-            // cviewestimatorsBindingSource
+            // cviewisengineerBindingSource
             // 
-            this.cviewestimatorsBindingSource.DataMember = "c_view_estimators";
-            this.cviewestimatorsBindingSource.DataSource = this.user_infoDataSet11;
-            // 
-            // user_infoDataSet11
-            // 
-            this.user_infoDataSet11.DataSetName = "user_infoDataSet1";
-            this.user_infoDataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // cviewsalesprogramusersBindingSource
-            // 
-            this.cviewsalesprogramusersBindingSource.DataMember = "c_view_sales_program_users";
-            this.cviewsalesprogramusersBindingSource.DataSource = this.user_infoDataSet;
+            this.cviewisengineerBindingSource.DataMember = "c_view_is_engineer";
+            this.cviewisengineerBindingSource.DataSource = this.user_infoDataSet;
             // 
             // user_infoDataSet
             // 
             this.user_infoDataSet.DataSetName = "user_infoDataSet";
             this.user_infoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // cviewsalesprogramusersBindingSource1
+            // 
+            this.cviewsalesprogramusersBindingSource1.DataMember = "c_view_sales_program_users";
+            this.cviewsalesprogramusersBindingSource1.DataSource = this.userinfoDataSetBindingSource;
+            // 
+            // userinfoDataSetBindingSource
+            // 
+            this.userinfoDataSetBindingSource.DataSource = this.user_infoDataSet;
+            this.userinfoDataSetBindingSource.Position = 0;
+            // 
+            // cviewsalesprogramusersBindingSource
+            // 
+            this.cviewsalesprogramusersBindingSource.DataMember = "c_view_sales_program_users";
+            this.cviewsalesprogramusersBindingSource.DataSource = this.user_infoDataSet;
             // 
             // c_view_sales_program_usersTableAdapter
             // 
@@ -192,18 +188,6 @@
             this.pieChart2.Size = new System.Drawing.Size(380, 337);
             this.pieChart2.TabIndex = 8;
             this.pieChart2.Text = "pieChart2";
-            // 
-            // chkIncludeRevisions
-            // 
-            this.chkIncludeRevisions.AutoSize = true;
-            this.chkIncludeRevisions.Checked = true;
-            this.chkIncludeRevisions.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIncludeRevisions.Location = new System.Drawing.Point(6, 19);
-            this.chkIncludeRevisions.Name = "chkIncludeRevisions";
-            this.chkIncludeRevisions.Size = new System.Drawing.Size(110, 17);
-            this.chkIncludeRevisions.TabIndex = 9;
-            this.chkIncludeRevisions.Text = "Include Revisions";
-            this.chkIncludeRevisions.UseVisualStyleBackColor = true;
             // 
             // absentGuage
             // 
@@ -295,13 +279,12 @@
             this.groupBox2.Controls.Add(this.btnViewQuotes);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.chkIncludeRevisions);
             this.groupBox2.Location = new System.Drawing.Point(243, 243);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(822, 471);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Customer Estimating Breakdown";
+            this.groupBox2.Text = "Door Type Breakdown";
             // 
             // btnViewQuotes
             // 
@@ -309,7 +292,7 @@
             this.btnViewQuotes.Name = "btnViewQuotes";
             this.btnViewQuotes.Size = new System.Drawing.Size(771, 23);
             this.btnViewQuotes.TabIndex = 10;
-            this.btnViewQuotes.Text = "View Quotations";
+            this.btnViewQuotes.Text = "View Doors";
             this.btnViewQuotes.UseVisualStyleBackColor = true;
             this.btnViewQuotes.Click += new System.EventHandler(this.BtnViewQuotes_Click);
             // 
@@ -317,11 +300,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(510, 36);
+            this.label5.Location = new System.Drawing.Point(540, 36);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(188, 20);
+            this.label5.Size = new System.Drawing.Size(131, 20);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Quote Value by customer";
+            this.label5.Text = "Difficulty of doors";
             // 
             // label4
             // 
@@ -329,9 +312,9 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(113, 36);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(175, 20);
+            this.label4.Size = new System.Drawing.Size(196, 20);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Item count by customer";
+            this.label4.Text = "Door types by programmer";
             // 
             // dailyItemsGuage
             // 
@@ -347,9 +330,9 @@
             this.lblDailyAverage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDailyAverage.Location = new System.Drawing.Point(31, 220);
             this.lblDailyAverage.Name = "lblDailyAverage";
-            this.lblDailyAverage.Size = new System.Drawing.Size(154, 20);
+            this.lblDailyAverage.Size = new System.Drawing.Size(157, 20);
             this.lblDailyAverage.TabIndex = 22;
-            this.lblDailyAverage.Text = "Daily Average Items:";
+            this.lblDailyAverage.Text = "Daily Average Doors:";
             // 
             // problemsGuage
             // 
@@ -359,15 +342,15 @@
             this.problemsGuage.TabIndex = 23;
             this.problemsGuage.Text = "angularGauge1";
             // 
-            // lblEstimatorissues
+            // lblRemakes
             // 
-            this.lblEstimatorissues.AutoSize = true;
-            this.lblEstimatorissues.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstimatorissues.Location = new System.Drawing.Point(50, 414);
-            this.lblEstimatorissues.Name = "lblEstimatorissues";
-            this.lblEstimatorissues.Size = new System.Drawing.Size(112, 20);
-            this.lblEstimatorissues.TabIndex = 24;
-            this.lblEstimatorissues.Text = "Issues logged:";
+            this.lblRemakes.AutoSize = true;
+            this.lblRemakes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemakes.Location = new System.Drawing.Point(8, 414);
+            this.lblRemakes.Name = "lblRemakes";
+            this.lblRemakes.Size = new System.Drawing.Size(200, 20);
+            this.lblRemakes.TabIndex = 24;
+            this.lblRemakes.Text = "Remakes Caused (Cost £):";
             // 
             // menuStrip1
             // 
@@ -377,7 +360,7 @@
             this.emailScreenToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1924, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1085, 24);
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -395,6 +378,10 @@
             this.printScreenToolStripMenuItem.Text = "Print Screen";
             this.printScreenToolStripMenuItem.Click += new System.EventHandler(this.PrintScreenToolStripMenuItem_Click);
             // 
+            // c_view_is_engineerTableAdapter
+            // 
+            this.c_view_is_engineerTableAdapter.ClearBeforeFill = true;
+            // 
             // emailScreenToolStripMenuItem
             // 
             this.emailScreenToolStripMenuItem.Name = "emailScreenToolStripMenuItem";
@@ -402,79 +389,12 @@
             this.emailScreenToolStripMenuItem.Text = "Email Screen";
             this.emailScreenToolStripMenuItem.Click += new System.EventHandler(this.EmailScreenToolStripMenuItem_Click);
             // 
-            // pieChart3
-            // 
-            this.pieChart3.Location = new System.Drawing.Point(35, 41);
-            this.pieChart3.Name = "pieChart3";
-            this.pieChart3.Size = new System.Drawing.Size(605, 555);
-            this.pieChart3.TabIndex = 26;
-            this.pieChart3.Text = "pieChart3";
-            this.pieChart3.DataClick += new LiveCharts.Events.DataClickHandler(this.PieChart3_DataClick);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.btnViewItems);
-            this.groupBox3.Controls.Add(this.pieChart3);
-            this.groupBox3.Location = new System.Drawing.Point(1072, 27);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(666, 687);
-            this.groupBox3.TabIndex = 27;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Door Types Quoted In Period:";
-            // 
-            // btnViewItems
-            // 
-            this.btnViewItems.Location = new System.Drawing.Point(35, 637);
-            this.btnViewItems.Name = "btnViewItems";
-            this.btnViewItems.Size = new System.Drawing.Size(615, 23);
-            this.btnViewItems.TabIndex = 27;
-            this.btnViewItems.Text = "View Items";
-            this.btnViewItems.UseVisualStyleBackColor = true;
-            this.btnViewItems.Visible = false;
-            this.btnViewItems.Click += new System.EventHandler(this.BtnViewItems_Click);
-            // 
-            // user_infoDataSet1
-            // 
-            this.user_infoDataSet1.DataSetName = "user_infoDataSet";
-            this.user_infoDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // userinfoDataSet1BindingSource
-            // 
-            this.userinfoDataSet1BindingSource.DataSource = this.user_infoDataSet1;
-            this.userinfoDataSet1BindingSource.Position = 0;
-            // 
-            // c_view_estimatorsTableAdapter
-            // 
-            this.c_view_estimatorsTableAdapter.ClearBeforeFill = true;
-            // 
-            // cartesianChart1
-            // 
-            this.cartesianChart1.Location = new System.Drawing.Point(243, 720);
-            this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(1504, 223);
-            this.cartesianChart1.TabIndex = 28;
-            this.cartesianChart1.Text = "cartesianChart1";
-            this.cartesianChart1.DataClick += new LiveCharts.Events.DataClickHandler(this.CartesianChart1_DataClick);
-            // 
-            // btnIssuesLogged
-            // 
-            this.btnIssuesLogged.Location = new System.Drawing.Point(13, 577);
-            this.btnIssuesLogged.Name = "btnIssuesLogged";
-            this.btnIssuesLogged.Size = new System.Drawing.Size(199, 23);
-            this.btnIssuesLogged.TabIndex = 29;
-            this.btnIssuesLogged.Text = "View Issues";
-            this.btnIssuesLogged.UseVisualStyleBackColor = true;
-            this.btnIssuesLogged.Click += new System.EventHandler(this.BtnIssuesLogged_Click);
-            // 
-            // frmEstimatingProductivity
+            // frmProgrammingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 1061);
-            this.Controls.Add(this.btnIssuesLogged);
-            this.Controls.Add(this.cartesianChart1);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.lblEstimatorissues);
+            this.ClientSize = new System.Drawing.Size(1085, 735);
+            this.Controls.Add(this.lblRemakes);
             this.Controls.Add(this.problemsGuage);
             this.Controls.Add(this.lblDailyAverage);
             this.Controls.Add(this.dailyItemsGuage);
@@ -496,24 +416,22 @@
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "frmEstimatingProductivity";
+            this.Name = "frmProgrammingProductivity";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Sales Staff Productivity";
+            this.Text = "Programming Productivity";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmEstimatingProductivity_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.cviewestimatorsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cviewisengineerBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userinfoDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.userinfoDataSet1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -534,7 +452,6 @@
         private System.Windows.Forms.Button btnGenerate;
         private user_infoDataSetTableAdapters.c_view_sales_program_usersTableAdapter c_view_sales_program_usersTableAdapter1;
         private LiveCharts.WinForms.PieChart pieChart2;
-        private System.Windows.Forms.CheckBox chkIncludeRevisions;
         private LiveCharts.WinForms.AngularGauge absentGuage;
         private LiveCharts.WinForms.AngularGauge annualLeaveGuage;
         private LiveCharts.WinForms.AngularGauge lateGuage;
@@ -548,23 +465,17 @@
         private LiveCharts.WinForms.AngularGauge dailyItemsGuage;
         private System.Windows.Forms.Label lblDailyAverage;
         private LiveCharts.WinForms.AngularGauge problemsGuage;
-        private System.Windows.Forms.Label lblEstimatorissues;
+        private System.Windows.Forms.Label lblRemakes;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem runComparisonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem printScreenToolStripMenuItem;
         private System.Windows.Forms.Button btnViewQuotes;
+        private System.Windows.Forms.BindingSource cviewsalesprogramusersBindingSource1;
+        private System.Windows.Forms.BindingSource userinfoDataSetBindingSource;
+        private System.Windows.Forms.BindingSource cviewisengineerBindingSource;
+        private user_infoDataSetTableAdapters.c_view_is_engineerTableAdapter c_view_is_engineerTableAdapter;
         private System.Windows.Forms.ToolStripMenuItem emailScreenToolStripMenuItem;
-        private LiveCharts.WinForms.PieChart pieChart3;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnViewItems;
-        private user_infoDataSet user_infoDataSet1;
-        private System.Windows.Forms.BindingSource userinfoDataSet1BindingSource;
-        private user_infoDataSet1 user_infoDataSet11;
-        private System.Windows.Forms.BindingSource cviewestimatorsBindingSource;
-        private user_infoDataSet1TableAdapters.c_view_estimatorsTableAdapter c_view_estimatorsTableAdapter;
-        private LiveCharts.WinForms.CartesianChart cartesianChart1;
-        private System.Windows.Forms.Button btnIssuesLogged;
     }
 }

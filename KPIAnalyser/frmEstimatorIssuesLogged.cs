@@ -8,40 +8,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Drawing.Printing;
 using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace KPIAnalyser
 {
-    public partial class frmViewQuotations : Form
+    public partial class frmEstimatorIssuesLogged : Form
     {
-
 
         public string _startDate { get; set; }
         public string _endDate { get; set; }
         public string _staffName { get; set; }
 
 
-        public frmViewQuotations(string startDate, string endDate, string staffName)
+        public frmEstimatorIssuesLogged(string startDate, string endDate, string staffName)
         {
             InitializeComponent();
             _startDate = startDate;
             _endDate = endDate;
             _staffName = staffName;
+
             populateGrid();
 
-            lblName.Text = "Quotations output by: " + staffName;
+
+            lblName.Text = "Issues Logged Against: " + staffName;
             lblStart.Text = "Start Date: " + startDate;
             lblEnd.Text = "End Date:  " + endDate;
-
-
         }
 
-        private void FrmViewQuotations_Load(object sender, EventArgs e)
-        {
-
-        }
 
 
         private void populateGrid()
@@ -51,51 +45,21 @@ namespace KPIAnalyser
             conn.Open();
 
 
-            SqlCommand cmd = new SqlCommand("usp_kpi_view_quotations", conn);
+            SqlCommand cmd = new SqlCommand("usp_kpi_estimating_issues_list", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = _startDate;
-            cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = _endDate ;
-            cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = _staffName ;
-
+            cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = _endDate;
+            cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = _staffName;
+    
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
 
             da.Fill(dt);
             dataGridView1.DataSource = dt;
-
+            dataGridView1.Refresh();
             conn.Close();
         }
-
-        private void DataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            try
-            {
-                int rowindex = dataGridView1.CurrentCell.RowIndex;
-                int columnindex = 0;
-
-                int quoteID = Convert.ToInt32(dataGridView1.Rows[rowindex].Cells[columnindex].Value.ToString());
-
-                string quotationLocation = @"\\designsvr1\solidworks\Door Designer\Specifications\Project " + quoteID.ToString();
-
-
-                Process.Start(quotationLocation);
-
-
-            }
-
-            catch 
-                
-            {
-
-              
-
-            }
-
-
-        }
-
         private void printImage()
         {
             try
@@ -120,6 +84,11 @@ namespace KPIAnalyser
             }
         }
 
+        private void FrmEstimatorIssuesLogged_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void BtnPrint_Click(object sender, EventArgs e)
         {
             try
@@ -142,14 +111,6 @@ namespace KPIAnalyser
 
         private void BtnEmail_Click(object sender, EventArgs e)
         {
-            Email_Screen();
-        }
-
-
-        public static void Email_Screen()
-        {
-
-
             try
             {
                 System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
@@ -166,9 +127,6 @@ namespace KPIAnalyser
             {
 
             }
-
-
-
 
 
             Outlook.Application outlookApp = new Outlook.Application();
@@ -190,7 +148,6 @@ namespace KPIAnalyser
             string msgHTMLBody = "";
             mailItem.HTMLBody = msgHTMLBody;
             mailItem.Display(true);
-            //mailItem.Send();
         }
     }
 }

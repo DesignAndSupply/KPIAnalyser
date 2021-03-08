@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>36</ApplicationRevision>
+    <ApplicationRevision>76</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -101,6 +101,24 @@
     <Compile Include="frmEngineeringManagement.Designer.cs">
       <DependentUpon>frmEngineeringManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEstimatorIssuesLogged.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEstimatorIssuesLogged.Designer.cs">
+      <DependentUpon>frmEstimatorIssuesLogged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProgrammerComparison.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProgrammerComparison.Designer.cs">
+      <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProgrammingProductivity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProgrammingProductivity.Designer.cs">
+      <DependentUpon>frmProgrammingProductivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEstimatingProductivity.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +167,18 @@
     <Compile Include="frmReturnVisits.Designer.cs">
       <DependentUpon>frmReturnVisits.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmViewDoors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViewDoors.Designer.cs">
+      <DependentUpon>frmViewDoors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmViewQuotationItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViewQuotationItems.Designer.cs">
+      <DependentUpon>frmViewQuotationItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmViewQuotations.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +190,11 @@
     </Compile>
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="order_databaseDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>order_databaseDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ProductionStaffTimings.cs">
       <SubType>Form</SubType>
@@ -174,8 +209,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>user_infoDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="user_infoDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>user_infoDataSet1.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmEngineeringManagement.resx">
       <DependentUpon>frmEngineeringManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEstimatorIssuesLogged.resx">
+      <DependentUpon>frmEstimatorIssuesLogged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProgrammerComparison.resx">
+      <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProgrammingProductivity.resx">
+      <DependentUpon>frmProgrammingProductivity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEstimatingProductivity.resx">
       <DependentUpon>frmEstimatingProductivity.cs</DependentUpon>
@@ -201,6 +250,12 @@
     <EmbeddedResource Include="frmReturnVisits.resx">
       <DependentUpon>frmReturnVisits.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmViewDoors.resx">
+      <DependentUpon>frmViewDoors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViewQuotationItems.resx">
+      <DependentUpon>frmViewQuotationItems.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmViewQuotations.resx">
       <DependentUpon>frmViewQuotations.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,6 +276,17 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="KPIAnalyser_TemporaryKey.pfx" />
+    <None Include="order_databaseDataSet.xsc">
+      <DependentUpon>order_databaseDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="order_databaseDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>order_databaseDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="order_databaseDataSet.xss">
+      <DependentUpon>order_databaseDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -242,6 +308,17 @@
     <None Include="user_infoDataSet.xss">
       <DependentUpon>user_infoDataSet.xsd</DependentUpon>
     </None>
+    <None Include="user_infoDataSet1.xsc">
+      <DependentUpon>user_infoDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="user_infoDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>user_infoDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="user_infoDataSet1.xss">
+      <DependentUpon>user_infoDataSet1.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -260,6 +337,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="if_Tablet-Chart_379374.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

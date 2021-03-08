@@ -14,6 +14,9 @@ using System.Data.SqlClient;
 using Brushes = System.Windows.Media.Brushes;
 using System.Windows.Media;
 using System.Drawing.Printing;
+using Outlook = Microsoft.Office.Interop.Outlook;
+using Brush = System.Windows.Media.Brush;
+
 
 namespace KPIAnalyser
 {
@@ -70,8 +73,6 @@ namespace KPIAnalyser
             annualLeaveGuage.SectionsInnerRadius = 0.5;
             /////
             ///
-
-
 
             //FORMAT LATE GUAGE
 
@@ -162,12 +163,12 @@ namespace KPIAnalyser
             ///
 
 
-
-
         }
 
         private void FrmEstimatingProductivity_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'user_infoDataSet11.c_view_estimators' table. You can move, or remove it, as needed.
+            this.c_view_estimatorsTableAdapter.Fill(this.user_infoDataSet11.c_view_estimators);
             // TODO: This line of code loads data into the 'user_infoDataSet.c_view_sales_program_users' table. You can move, or remove it, as needed.
             this.c_view_sales_program_usersTableAdapter.Fill(this.user_infoDataSet.c_view_sales_program_users);
 
@@ -180,7 +181,394 @@ namespace KPIAnalyser
             absentHolidaysLate();
             averageDailyItems();
             countEstimatorIssues();
+            drawTopDoorTypes();
+            drawDailyItems();
         }
+
+        private void drawDailyItems()
+        {
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = cmbStaffMember.Text;
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("usp_kpi_estimators_daily", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
+            cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
+            cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<DateTime> datelist = new List<DateTime>();
+            List<int> itemlist = new List<int>();
+            List<string> temp = new List<string>();
+
+
+
+            while (reader.Read())
+            {
+                //datelist.Add(reader.GetDateTime(1));
+                temp.Add(reader.GetDateTime(1).ToShortDateString());
+                itemlist.Add(reader.GetInt32(0));
+            }
+
+
+            //string[] datearray = datelist.ToArray();
+            int[] itemarray = itemlist.ToArray();
+
+            cartesianChart1.AxisY.Clear();
+            cartesianChart1.AxisX.Clear();
+
+            cartesianChart1.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Items",
+                    FontSize = 10,
+                    DataLabels = true,
+                    Fill = System.Windows.Media.Brushes.Green,
+
+                    Values = new ChartValues<int>(itemarray)
+                }
+
+            };
+
+
+            //string.Join(",", datearray)#
+            //string[] temp;
+            //List<string> strList = datearray.ToList;
+            //IList<string> testValues = datearray;
+
+            //IList<string> targetList = new List<string>(testValues.Cast<string>());
+
+
+
+            cartesianChart1.AxisX.Add(new Axis
+            {
+                Title = "Dates",
+                FontSize = 10,
+                Labels = temp
+            });
+
+            //
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Title = "Items Quoted",
+                FontSize = 16,
+
+            });
+
+
+        }
+
+
+
+        private void drawTopDoorTypes()
+        {
+            string d1 = "";
+            string d2 = "";
+            string d3 = "";
+            string d4 = "";
+            string d5 = "";
+            string d6 = "";
+            string d7 = "";
+            string d8 = "";
+            string d9 = "";
+            string d10 = "";
+
+
+            double v1 = 0;
+            double v2 = 0;
+            double v3 = 0;
+            double v4 = 0;
+            double v5 = 0;
+            double v6 = 0;
+            double v7 = 0;
+            double v8 = 0;
+            double v9 = 0;
+            double v10 = 0;
+
+
+            string c1 = "";
+            string c2 = "";
+            string c3 = "";
+            string c4 = "";
+            string c5 = "";
+            string c6 = "";
+            string c7 = "";
+            string c8 = "";
+            string c9 = "";
+            string c10 = "";
+
+
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = cmbStaffMember.Text;
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("usp_kpi_door_type_piechart", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
+            cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
+            cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+
+            while (reader.Read())
+            {
+                d1 = reader.GetString(0);
+                v1 = reader.GetDouble(1);
+                c1 = getDoorTypeColour(d1);
+                d2 = reader.GetString(2);
+                v2 = reader.GetDouble(3);
+                c2 = getDoorTypeColour(d2);
+                d3 = reader.GetString(4);
+                v3 = reader.GetDouble(5);
+                c3 = getDoorTypeColour(d3);
+                d4 = reader.GetString(6);
+                v4 = reader.GetDouble(7);
+                c4 = getDoorTypeColour(d4);
+                d5 = reader.GetString(8);
+                v5 = reader.GetDouble(9);
+                c5 = getDoorTypeColour(d5);
+                d6 = reader.GetString(10);
+                v6 = reader.GetDouble(11);
+                c6 = getDoorTypeColour(d6);
+                d7 = reader.GetString(12);
+                v7 = reader.GetDouble(13);
+                c7 = getDoorTypeColour(d7);
+                d8 = reader.GetString(14);
+                v8 = reader.GetDouble(15);
+                c8 = getDoorTypeColour(d8);
+                d9 = reader.GetString(16);
+                v9 = reader.GetDouble(17);
+                c9 = getDoorTypeColour(d9);
+                d10 = reader.GetString(18);
+                v10 = reader.GetDouble(19);
+                c10 = getDoorTypeColour(d10);
+            }
+
+
+     
+                Type t1 = typeof(Brushes);
+                Brush b1 = (Brush)t1.GetProperty(c1).GetValue(null, null);
+
+                Type t2 = typeof(Brushes);
+                Brush b2 = (Brush)t2.GetProperty(c2).GetValue(null, null);
+
+                Type t3 = typeof(Brushes);
+                Brush b3 = (Brush)t1.GetProperty(c3).GetValue(null, null);
+
+                Type t4 = typeof(Brushes);
+                Brush b4 = (Brush)t4.GetProperty(c4).GetValue(null, null);
+
+                Type t5 = typeof(Brushes);
+                Brush b5 = (Brush)t5.GetProperty(c5).GetValue(null, null);
+
+                Type t6 = typeof(Brushes);
+                Brush b6 = (Brush)t6.GetProperty(c6).GetValue(null, null);
+
+                Type t7 = typeof(Brushes);
+                Brush b7 = (Brush)t7.GetProperty(c7).GetValue(null, null);
+
+                Type t8 = typeof(Brushes);
+                Brush b8 = (Brush)t8.GetProperty(c8).GetValue(null, null);
+
+                Type t9 = typeof(Brushes);
+                Brush b9 = (Brush)t9.GetProperty(c9).GetValue(null, null);
+
+                Type t10 = typeof(Brushes);
+                Brush b10 = (Brush)t10.GetProperty(c10).GetValue(null, null);
+
+                Type tf = typeof(Brushes);
+                Brush bf = (Brush)tf.GetProperty("Black").GetValue(null, null);
+
+
+
+
+           Func<ChartPoint, string> labelPoint = chartPoint =>
+           string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+
+            pieChart3.Series = new SeriesCollection
+                {
+
+                    new PieSeries
+                        {
+                            Title = d1,
+                            Values = new ChartValues<double> { v1 },
+                            PushOut = 15,
+                            Fill = b1,
+                            Foreground = bf,
+                            DataLabels = true,
+                            LabelPoint = labelPoint
+                        },
+                    new PieSeries
+                        {
+                            Title = d2,
+                            Values = new ChartValues<double> { v2 },
+                            Fill = b2,
+                            Foreground = bf,
+                            DataLabels = true,
+                            LabelPoint = labelPoint
+                        },
+
+                    new PieSeries
+                        {
+                            Title = d3,
+                            Values = new ChartValues<double> { v3 },
+                            Fill = b3,
+                            Foreground = bf,
+                            DataLabels = true,
+                            LabelPoint = labelPoint
+                        },
+                    new PieSeries
+                        {
+                            Title = d4,
+                            Values = new ChartValues<double> { v4 },
+                            Fill = b4,
+                            Foreground = bf,
+                            DataLabels = false,
+                            LabelPoint = labelPoint
+                        },
+                    new PieSeries
+                        {
+                            Title = d5,
+                            Values = new ChartValues<double> { v5 },
+                            Fill = b5,
+                            Foreground = bf,
+
+                            DataLabels = false,
+                            LabelPoint = labelPoint
+                        },
+                    new PieSeries
+                        {
+                            Title = d6,
+                            Values = new ChartValues<double> { v6 },
+                            Fill = b6,
+                            Foreground = bf,
+                            DataLabels = false,
+                            LabelPoint = labelPoint
+                        },
+                    new PieSeries
+                        {
+                            Title = d7,
+                            Values = new ChartValues<double> { v7 },
+                            Fill = b7,
+                            Foreground = bf,
+                            DataLabels = false,
+                            LabelPoint = labelPoint
+                        },
+                    new PieSeries
+                        {
+                            Title = d8,
+                            Values = new ChartValues<double> { v8 },
+                            Fill = b8,
+                            Foreground = bf,
+                            DataLabels = false,
+                            LabelPoint = labelPoint
+                        },
+
+                    new PieSeries
+                        {
+                            Title = d9,
+                            Values = new ChartValues<double> { v9 },
+                            Fill = b9,
+                            Foreground = bf,
+                            DataLabels = false,
+                            LabelPoint = labelPoint
+                        },
+                    new PieSeries
+                        {
+                            Title = d10,
+                            Values = new ChartValues<double> { v10 },
+                            Fill = b10,
+                            Foreground = bf,
+                            DataLabels = false,
+                            LabelPoint = labelPoint
+                        }
+
+
+
+                };
+
+
+
+            pieChart3.LegendLocation = LegendLocation.Bottom;
+
+
+
+
+
+
+            conn.Close();
+
+
+        }
+
+
+
+
+        private string getDoorTypeColour(string doorType)
+        {
+
+            string colourID = "";
+
+
+            switch (doorType)
+            {
+                case "Fire Protect":
+                    colourID = "Green";
+                    break;
+                case "Fire Rated":
+                    colourID = "Red";
+                    break;
+                case "General Purpose":
+                    colourID = "Pink";
+                    break;
+                case "SG":
+                    colourID = "Yellow";
+                    break;
+                case "SR 1":
+                    colourID = "White";
+                    break;
+                case "SR 2":
+                    colourID = "Purple";
+                    break;
+                case "SR 3":
+                    colourID = "Orange";
+                    break;
+                case "SR 4":
+                    colourID = "Gray";
+                    break;
+                case "Flood":
+                    colourID = "Blue";
+                    break;
+                default:
+                    colourID = "Brown";
+                    break;
+            }
+
+
+            return colourID;
+
+
+
+
+
+
+        }
+
+
+
 
         private void drawTopCustomersByvalue()
         {
@@ -666,6 +1054,7 @@ namespace KPIAnalyser
 
             SqlDataReader reader = cmd.ExecuteReader();
 
+
             while (reader.Read())
             {
                 absentCount = reader.GetInt32(0);
@@ -703,9 +1092,14 @@ namespace KPIAnalyser
             string startdate = dteStart.Value.ToString("yyyyMMdd");
             string enddate = dteEnd.Value.ToString("yyyyMMdd");
             string staffName = cmbStaffMember.Text;
-
+            int includeRevisions = 0;
 
             int averageDailyItems = 0;
+
+            if (chkIncludeRevisions.Checked == true)
+            {
+                includeRevisions = -1;
+            }
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
@@ -716,7 +1110,7 @@ namespace KPIAnalyser
             cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
             cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
             cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
-
+            cmd.Parameters.Add("@increv", SqlDbType.Int).Value = includeRevisions;
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -839,8 +1233,107 @@ namespace KPIAnalyser
             string enddate = dteEnd.Value.ToString("yyyyMMdd");
             string staffName = cmbStaffMember.Text;
 
-            frmViewQuotations frmvq = new frmViewQuotations(startdate,enddate,staffName);
+            frmViewQuotations frmvq = new frmViewQuotations(startdate, enddate, staffName);
             frmvq.Show();
+        }
+
+        private void EmailScreenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Email_Screen();
+        }
+
+
+        public static void Email_Screen()
+        {
+
+
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                bit.Save(@"C:\temp\temp.jpg");
+
+
+            }
+            catch
+            {
+
+            }
+
+
+
+
+
+            Outlook.Application outlookApp = new Outlook.Application();
+            Outlook.MailItem mailItem = outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+            mailItem.Subject = "";
+            mailItem.To = "";
+            string imageSrc = @"C:\Temp\temp.jpg"; // Change path as needed
+
+            var attachments = mailItem.Attachments;
+            var attachment = attachments.Add(imageSrc);
+            attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x370E001F", "image/jpeg");
+            attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x3712001F", "myident"); // Image identifier found in the HTML code right after cid. Can be anything.
+            mailItem.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/id/{00062008-0000-0000-C000-000000000046}/8514000B", true);
+
+            // Set body format to HTML
+
+            mailItem.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
+            mailItem.Attachments.Add(imageSrc);
+            string msgHTMLBody = "";
+            mailItem.HTMLBody = msgHTMLBody;
+            mailItem.Display(true);
+            //mailItem.Send();
+        }
+
+        private void BtnViewItems_Click(object sender, EventArgs e)
+        {
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = cmbStaffMember.Text;
+
+            //frmViewQuotationItems frmvq = new frmViewQuotationItems(startdate, enddate, staffName);
+            //frmvq.Show();
+        }
+
+        private void PieChart3_DataClick(object sender, ChartPoint p)
+        {
+
+
+
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = cmbStaffMember.Text;
+            string doorType = p.SeriesView.Title;
+
+            frmViewQuotationItems frmvq = new frmViewQuotationItems(startdate, enddate, staffName, doorType);
+            frmvq.Show();
+
+
+        }
+
+        private void CartesianChart1_DataClick(object sender, ChartPoint p)
+        {
+            var asPixels = cartesianChart1.Base.ConvertToPixels(p.AsPoint());
+            MessageBox.Show("[EVENT] You clicked (" + p.X + ", " + p.Y + ") in pixels (" +
+                            asPixels.X + ", " + asPixels.Y + ")");
+        }
+
+        private void BtnIssuesLogged_Click(object sender, EventArgs e)
+        {
+
+
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = cmbStaffMember.Text;
+
+
+            frmEstimatorIssuesLogged frmeil = new frmEstimatorIssuesLogged(startdate, enddate, staffName);
+            frmeil.Show();
         }
     }
 }

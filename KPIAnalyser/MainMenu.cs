@@ -373,9 +373,9 @@ namespace KPIAnalyser
         private void paintEngineeringGridDaily()
         {
 
-            int overTarget = 0;
-            int underTarget = 0;
-            int goldTarget = 0;
+            float overTarget = 0f;
+            float underTarget = 0f;
+            float goldTarget = 0f;
             float percentageTarget = 0f;
 
             foreach (DataGridViewRow Myrow in dgEngineeringDaily.Rows)
@@ -398,20 +398,20 @@ namespace KPIAnalyser
                 
             }
 
-            lblGold.Text = goldTarget.ToString();
-            lblOver.Text = overTarget.ToString();
-            lblUnder.Text = underTarget.ToString();
+            lblGold.Text = goldTarget.ToString() + " Days";
+            lblOver.Text = overTarget.ToString() + " Days";
+            lblUnder.Text = underTarget.ToString() + " Days";
 
             try
             {
-                percentageTarget = (goldTarget + overTarget) / (goldTarget + overTarget + underTarget);
+                percentageTarget = ((goldTarget + overTarget) / (goldTarget + overTarget + underTarget)) * 100;
             }
             catch
             {
 
             }
 
-            lblPercentageOver.Text = percentageTarget.ToString();
+            lblPercentageOver.Text = percentageTarget.ToString() + "%";
          
             dgEngineeringDaily.ClearSelection();
         }
@@ -582,6 +582,7 @@ namespace KPIAnalyser
             conn.Close();
             populateDailyEngineerGrid(fullname);
             paintEngineeringGridDaily();
+            programmingLessDetail();
         }
 
 
@@ -1102,6 +1103,68 @@ namespace KPIAnalyser
         {
             frmInstallationProductivity frmip = new frmInstallationProductivity();
             frmip.Show();
+        }
+
+        private void BtnProgrammerProductivity_Click(object sender, EventArgs e)
+        {
+            frmProgrammingProductivity frmpp = new frmProgrammingProductivity();
+            frmpp.Show();
+        }
+
+        private void TabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DgEngineeringDaily_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void BtnMoreLess_Click(object sender, EventArgs e)
+        {
+            if (this.dgEngineeringDaily.Columns[8].Visible == true)
+            {
+                programmingLessDetail();
+            }
+            else
+            {
+                programmingMoreDetail();
+            }
+ 
+        }
+
+
+        private void programmingMoreDetail()
+        {
+            this.dgEngineeringDaily.Columns[2].Visible = true;
+            this.dgEngineeringDaily.Columns[3].Visible = true;
+            this.dgEngineeringDaily.Columns[4].Visible = true;
+            this.dgEngineeringDaily.Columns[5].Visible = true;
+            this.dgEngineeringDaily.Columns[6].Visible = true;
+            this.dgEngineeringDaily.Columns[7].Visible = true;
+            this.dgEngineeringDaily.Columns[8].Visible = true;
+            this.dgEngineeringDaily.Columns[9].Visible = true;
+            this.dgEngineeringDaily.Columns[10].Visible = true;
+            this.dgEngineeringDaily.Columns[11].Visible = true;
+            this.dgEngineeringDaily.Columns[12].Visible = true;
+            this.dgEngineeringDaily.Columns[13].Visible = true;
+        }
+
+        private void programmingLessDetail()
+        {
+            this.dgEngineeringDaily.Columns[2].Visible = false;
+            this.dgEngineeringDaily.Columns[3].Visible = false;
+            this.dgEngineeringDaily.Columns[4].Visible = false;
+            this.dgEngineeringDaily.Columns[5].Visible = false;
+            this.dgEngineeringDaily.Columns[6].Visible = false;
+            this.dgEngineeringDaily.Columns[7].Visible = false;
+            this.dgEngineeringDaily.Columns[8].Visible = false;
+            this.dgEngineeringDaily.Columns[9].Visible = false;
+            this.dgEngineeringDaily.Columns[10].Visible = false;
+            this.dgEngineeringDaily.Columns[11].Visible = false;
+            this.dgEngineeringDaily.Columns[12].Visible = false;
+            this.dgEngineeringDaily.Columns[13].Visible = false;
         }
     }
 }

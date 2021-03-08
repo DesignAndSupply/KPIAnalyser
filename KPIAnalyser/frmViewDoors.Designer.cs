@@ -1,6 +1,6 @@
 ﻿namespace KPIAnalyser
 {
-    partial class frmViewQuotations
+    partial class frmViewDoors
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmViewQuotations));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmViewDoors));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.lblName = new System.Windows.Forms.Label();
             this.lblEnd = new System.Windows.Forms.Label();
             this.lblStart = new System.Windows.Forms.Label();
-            this.btnPrint = new System.Windows.Forms.Button();
-            this.btnEmail = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +44,6 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 111);
-            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -84,43 +81,18 @@
             this.lblStart.TabIndex = 3;
             this.lblStart.Text = "label1";
             // 
-            // btnPrint
-            // 
-            this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrint.Location = new System.Drawing.Point(1029, 13);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 23);
-            this.btnPrint.TabIndex = 4;
-            this.btnPrint.Text = "Print Screen";
-            this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
-            // 
-            // btnEmail
-            // 
-            this.btnEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEmail.Location = new System.Drawing.Point(1029, 39);
-            this.btnEmail.Name = "btnEmail";
-            this.btnEmail.Size = new System.Drawing.Size(75, 23);
-            this.btnEmail.TabIndex = 5;
-            this.btnEmail.Text = "Email Screen";
-            this.btnEmail.UseVisualStyleBackColor = true;
-            this.btnEmail.Click += new System.EventHandler(this.BtnEmail_Click);
-            // 
-            // frmViewQuotations
+            // frmViewDoors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 648);
-            this.Controls.Add(this.btnEmail);
-            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lblStart);
             this.Controls.Add(this.lblEnd);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.dataGridView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmViewQuotations";
-            this.Text = "Quotation List";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Name = "frmViewDoors";
+            this.Text = "Doors programmed List";
             this.Load += new System.EventHandler(this.FrmViewQuotations_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -134,7 +106,5 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.Label lblStart;
-        private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.Button btnEmail;
     }
 }

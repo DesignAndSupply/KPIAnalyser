@@ -24,6 +24,24 @@
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="c_view_is_engineerTableAdapter" GeneratorDataComponentClassName="c_view_is_engineerTableAdapter" Name="c_view_is_engineer" UserDataComponentName="c_view_is_engineerTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="user_infoConnectionString (Settings)" DbObjectName="user_info.dbo.c_view_is_engineer" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        id, FullName
+FROM            c_view_is_engineer</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id" DataSetColumn="id" />
+              <Mapping SourceColumn="FullName" DataSetColumn="FullName" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -32,11 +50,25 @@
   <xs:element name="user_infoDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="user_infoDataSet" msprop:Generator_UserDSName="user_infoDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="c_view_sales_program_users" msprop:Generator_TableClassName="c_view_sales_program_usersDataTable" msprop:Generator_TableVarName="tablec_view_sales_program_users" msprop:Generator_TablePropName="c_view_sales_program_users" msprop:Generator_RowDeletingName="c_view_sales_program_usersRowDeleting" msprop:Generator_RowChangingName="c_view_sales_program_usersRowChanging" msprop:Generator_RowEvHandlerName="c_view_sales_program_usersRowChangeEventHandler" msprop:Generator_RowDeletedName="c_view_sales_program_usersRowDeleted" msprop:Generator_UserTableName="c_view_sales_program_users" msprop:Generator_RowChangedName="c_view_sales_program_usersRowChanged" msprop:Generator_RowEvArgName="c_view_sales_program_usersRowChangeEvent" msprop:Generator_RowClassName="c_view_sales_program_usersRow">
+        <xs:element name="c_view_sales_program_users" msprop:Generator_TableClassName="c_view_sales_program_usersDataTable" msprop:Generator_TableVarName="tablec_view_sales_program_users" msprop:Generator_RowChangedName="c_view_sales_program_usersRowChanged" msprop:Generator_TablePropName="c_view_sales_program_users" msprop:Generator_RowDeletingName="c_view_sales_program_usersRowDeleting" msprop:Generator_RowChangingName="c_view_sales_program_usersRowChanging" msprop:Generator_RowEvHandlerName="c_view_sales_program_usersRowChangeEventHandler" msprop:Generator_RowDeletedName="c_view_sales_program_usersRowDeleted" msprop:Generator_RowClassName="c_view_sales_program_usersRow" msprop:Generator_UserTableName="c_view_sales_program_users" msprop:Generator_RowEvArgName="c_view_sales_program_usersRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
               <xs:element name="fullname" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnfullname" msprop:Generator_ColumnPropNameInRow="fullname" msprop:Generator_ColumnPropNameInTable="fullnameColumn" msprop:Generator_UserColumnName="fullname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="41" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="c_view_is_engineer" msprop:Generator_TableClassName="c_view_is_engineerDataTable" msprop:Generator_TableVarName="tablec_view_is_engineer" msprop:Generator_TablePropName="c_view_is_engineer" msprop:Generator_RowDeletingName="c_view_is_engineerRowDeleting" msprop:Generator_RowChangingName="c_view_is_engineerRowChanging" msprop:Generator_RowEvHandlerName="c_view_is_engineerRowChangeEventHandler" msprop:Generator_RowDeletedName="c_view_is_engineerRowDeleted" msprop:Generator_UserTableName="c_view_is_engineer" msprop:Generator_RowChangedName="c_view_is_engineerRowChanged" msprop:Generator_RowEvArgName="c_view_is_engineerRowChangeEvent" msprop:Generator_RowClassName="c_view_is_engineerRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="FullName" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFullName" msprop:Generator_ColumnPropNameInRow="FullName" msprop:Generator_ColumnPropNameInTable="FullNameColumn" msprop:Generator_UserColumnName="FullName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="41" />

@@ -33,5 +33,16 @@ namespace KPIAnalyser.Properties {
                 return ((string)(this["user_infoConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.150\\SQLEXPRESS;Initial Catalog=order_database;User ID=sa;Pa" +
+            "ssword=Dodid1")]
+        public string order_databaseConnectionString {
+            get {
+                return ((string)(this["order_databaseConnectionString"]));
+            }
+        }
     }
 }
