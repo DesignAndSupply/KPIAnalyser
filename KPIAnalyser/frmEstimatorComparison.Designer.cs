@@ -162,9 +162,9 @@
             // elementHost1
             // 
             this.elementHost1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.elementHost1.Location = new System.Drawing.Point(217, 27);
+            this.elementHost1.Location = new System.Drawing.Point(221, 27);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(536, 463);
+            this.elementHost1.Size = new System.Drawing.Size(792, 463);
             this.elementHost1.TabIndex = 10;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.dailyAverageItemsBar;
@@ -172,9 +172,9 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(217, 4);
+            this.label4.Location = new System.Drawing.Point(221, 4);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(536, 20);
+            this.label4.Size = new System.Drawing.Size(792, 20);
             this.label4.TabIndex = 11;
             this.label4.Text = "AVERAGE ITEMS QUOTED DAILY DURING PERIOD";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -182,18 +182,18 @@
             // absenseBar
             // 
             this.absenseBar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.absenseBar.Location = new System.Drawing.Point(764, 25);
+            this.absenseBar.Location = new System.Drawing.Point(1039, 27);
             this.absenseBar.Name = "absenseBar";
-            this.absenseBar.Size = new System.Drawing.Size(536, 463);
+            this.absenseBar.Size = new System.Drawing.Size(792, 463);
             this.absenseBar.TabIndex = 12;
             this.absenseBar.Text = "cartesianChart1";
             // 
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(764, 2);
+            this.label5.Location = new System.Drawing.Point(1039, 4);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(536, 20);
+            this.label5.Size = new System.Drawing.Size(792, 20);
             this.label5.TabIndex = 13;
             this.label5.Text = "ABSENT DAYS DURING PERIOD";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -265,7 +265,7 @@
             // overtimeChart
             // 
             this.overtimeChart.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.overtimeChart.Location = new System.Drawing.Point(1313, 25);
+            this.overtimeChart.Location = new System.Drawing.Point(1310, 552);
             this.overtimeChart.Name = "overtimeChart";
             this.overtimeChart.Size = new System.Drawing.Size(536, 463);
             this.overtimeChart.TabIndex = 20;
@@ -274,7 +274,7 @@
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(1313, 2);
+            this.label8.Location = new System.Drawing.Point(1310, 529);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(536, 20);
             this.label8.TabIndex = 21;
@@ -346,10 +346,10 @@
         private user_infoDataSet1 user_infoDataSet1;
         private System.Windows.Forms.BindingSource cviewestimatorsBindingSource;
         private user_infoDataSet1TableAdapters.c_view_estimatorsTableAdapter c_view_estimatorsTableAdapter;
-        private LiveCharts.Wpf.CartesianChart dailyAverageItemsBar;
         private LiveCharts.Wpf.CartesianChart latenessBar;
         private LiveCharts.Wpf.CartesianChart problemsBar;
         private LiveCharts.WinForms.CartesianChart overtimeChart;
         private System.Windows.Forms.Label label8;
+        private LiveCharts.Wpf.CartesianChart dailyAverageItemsBar;
     }
 }

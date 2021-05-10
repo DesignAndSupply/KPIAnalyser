@@ -177,6 +177,8 @@
             this.Installation = new System.Windows.Forms.TabPage();
             this.btnInstallationPerformance = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label78 = new System.Windows.Forms.Label();
+            this.btnMoreLess = new System.Windows.Forms.Button();
             this.btnProgrammerProductivity = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lblPercentageOver = new System.Windows.Forms.Label();
@@ -253,8 +255,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnMoreLess = new System.Windows.Forms.Button();
-            this.label78 = new System.Windows.Forms.Label();
+            this.uPLOADOVERTIMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1793,6 +1794,30 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
             // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label78.ForeColor = System.Drawing.Color.Red;
+            this.label78.Location = new System.Drawing.Point(187, 408);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(1471, 20);
+            this.label78.TabIndex = 45;
+            this.label78.Text = "EACH MEMBER OF THE ENGINEERING TEAM IS TARGETTED AT 13 POINTS PER DAY. THESE POIN" +
+    "TS ARE TOTALLED UP FROM THE VARIOUS ROLES WITHIN THE SECTION";
+            // 
+            // btnMoreLess
+            // 
+            this.btnMoreLess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMoreLess.ForeColor = System.Drawing.Color.Black;
+            this.btnMoreLess.Location = new System.Drawing.Point(1643, 353);
+            this.btnMoreLess.Name = "btnMoreLess";
+            this.btnMoreLess.Size = new System.Drawing.Size(160, 23);
+            this.btnMoreLess.TabIndex = 44;
+            this.btnMoreLess.Text = "More/Less Detail";
+            this.btnMoreLess.UseVisualStyleBackColor = true;
+            this.btnMoreLess.Click += new System.EventHandler(this.BtnMoreLess_Click);
+            // 
             // btnProgrammerProductivity
             // 
             this.btnProgrammerProductivity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1996,6 +2021,7 @@
             this.dgEngineeringDaily.Size = new System.Drawing.Size(1789, 341);
             this.dgEngineeringDaily.TabIndex = 22;
             this.dgEngineeringDaily.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgEngineeringDaily_CellContentClick);
+            this.dgEngineeringDaily.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEngineeringDaily_CellDoubleClick);
             // 
             // lblHoliday
             // 
@@ -2556,7 +2582,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem});
+            this.settingsToolStripMenuItem,
+            this.uPLOADOVERTIMEToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1859, 24);
@@ -2574,32 +2601,15 @@
             // targetsToolStripMenuItem
             // 
             this.targetsToolStripMenuItem.Name = "targetsToolStripMenuItem";
-            this.targetsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.targetsToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.targetsToolStripMenuItem.Text = "Targets";
             // 
-            // btnMoreLess
+            // uPLOADOVERTIMEToolStripMenuItem
             // 
-            this.btnMoreLess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMoreLess.ForeColor = System.Drawing.Color.Black;
-            this.btnMoreLess.Location = new System.Drawing.Point(1643, 353);
-            this.btnMoreLess.Name = "btnMoreLess";
-            this.btnMoreLess.Size = new System.Drawing.Size(160, 23);
-            this.btnMoreLess.TabIndex = 44;
-            this.btnMoreLess.Text = "More/Less Detail";
-            this.btnMoreLess.UseVisualStyleBackColor = true;
-            this.btnMoreLess.Click += new System.EventHandler(this.BtnMoreLess_Click);
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label78.ForeColor = System.Drawing.Color.Red;
-            this.label78.Location = new System.Drawing.Point(187, 408);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(1471, 20);
-            this.label78.TabIndex = 45;
-            this.label78.Text = "EACH MEMBER OF THE ENGINEERING TEAM IS TARGETTED AT 13 POINTS PER DAY. THESE POIN" +
-    "TS ARE TOTALLED UP FROM THE VARIOUS ROLES WITHIN THE SECTION";
+            this.uPLOADOVERTIMEToolStripMenuItem.Name = "uPLOADOVERTIMEToolStripMenuItem";
+            this.uPLOADOVERTIMEToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
+            this.uPLOADOVERTIMEToolStripMenuItem.Text = "UPLOAD CLOCK IN";
+            this.uPLOADOVERTIMEToolStripMenuItem.Click += new System.EventHandler(this.uPLOADOVERTIMEToolStripMenuItem_Click);
             // 
             // txtTraditionalConversionRate
             // 
@@ -2897,6 +2907,7 @@
         private System.Windows.Forms.Button btnProgrammerProductivity;
         private System.Windows.Forms.Button btnMoreLess;
         private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.ToolStripMenuItem uPLOADOVERTIMEToolStripMenuItem;
     }
 }
 

@@ -54,6 +54,9 @@
             this.btnPrint = new System.Windows.Forms.Button();
             this.c_view_is_engineerTableAdapter = new KPIAnalyser.user_infoDataSetTableAdapters.c_view_is_engineerTableAdapter();
             this.button1 = new System.Windows.Forms.Button();
+            this.elementHost4 = new System.Windows.Forms.Integration.ElementHost();
+            this.chartOverTime = new LiveCharts.Wpf.CartesianChart();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cviewisengineerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).BeginInit();
@@ -61,8 +64,6 @@
             // 
             // lstStaff
             // 
-            this.lstStaff.DataSource = this.cviewisengineerBindingSource;
-            this.lstStaff.DisplayMember = "fullname";
             this.lstStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstStaff.FormattingEnabled = true;
             this.lstStaff.ItemHeight = 20;
@@ -75,8 +76,8 @@
             // 
             // cviewisengineerBindingSource
             // 
-            this.cviewisengineerBindingSource.DataMember = "c_view_is_engineer";
-            this.cviewisengineerBindingSource.DataSource = this.user_infoDataSet;
+            this.cviewisengineerBindingSource.DataSource = this.cviewsalesprogramusersBindingSource;
+            this.cviewisengineerBindingSource.CurrentChanged += new System.EventHandler(this.cviewisengineerBindingSource_CurrentChanged);
             // 
             // user_infoDataSet
             // 
@@ -97,9 +98,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 103);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.Size = new System.Drawing.Size(104, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Select Estimators:";
+            this.label1.Text = "Select Programmers:";
             // 
             // btnCompare
             // 
@@ -185,9 +186,9 @@
             // elementHost2
             // 
             this.elementHost2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.elementHost2.Location = new System.Drawing.Point(217, 548);
+            this.elementHost2.Location = new System.Drawing.Point(12, 552);
             this.elementHost2.Name = "elementHost2";
-            this.elementHost2.Size = new System.Drawing.Size(720, 453);
+            this.elementHost2.Size = new System.Drawing.Size(600, 453);
             this.elementHost2.TabIndex = 14;
             this.elementHost2.Text = "elementHost2";
             this.elementHost2.Child = this.latenessBar;
@@ -196,7 +197,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(480, 525);
+            this.label6.Location = new System.Drawing.Point(213, 529);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(256, 20);
             this.label6.TabIndex = 15;
@@ -205,9 +206,9 @@
             // elementHost3
             // 
             this.elementHost3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.elementHost3.Location = new System.Drawing.Point(958, 552);
+            this.elementHost3.Location = new System.Drawing.Point(634, 552);
             this.elementHost3.Name = "elementHost3";
-            this.elementHost3.Size = new System.Drawing.Size(720, 453);
+            this.elementHost3.Size = new System.Drawing.Size(600, 453);
             this.elementHost3.TabIndex = 16;
             this.elementHost3.Text = "elementHost3";
             this.elementHost3.Child = this.problemsBar;
@@ -216,7 +217,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(1187, 529);
+            this.label7.Location = new System.Drawing.Point(806, 529);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(272, 20);
             this.label7.TabIndex = 17;
@@ -246,11 +247,33 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
+            // elementHost4
+            // 
+            this.elementHost4.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.elementHost4.Location = new System.Drawing.Point(1256, 552);
+            this.elementHost4.Name = "elementHost4";
+            this.elementHost4.Size = new System.Drawing.Size(600, 453);
+            this.elementHost4.TabIndex = 20;
+            this.elementHost4.Text = "elementHost4";
+            this.elementHost4.Child = this.chartOverTime;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(1425, 529);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(263, 20);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Programmer OverTime (clock in)";
+            // 
             // frmProgrammerComparison
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1856, 1017);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.elementHost4);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.label7);
@@ -302,11 +325,14 @@
         private LiveCharts.Wpf.CartesianChart latenessBar;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Integration.ElementHost elementHost3;
-        private LiveCharts.Wpf.CartesianChart problemsBar;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.BindingSource cviewisengineerBindingSource;
         private user_infoDataSetTableAdapters.c_view_is_engineerTableAdapter c_view_is_engineerTableAdapter;
         private System.Windows.Forms.Button button1;
+        private LiveCharts.Wpf.CartesianChart problemsBar;
+        private System.Windows.Forms.Integration.ElementHost elementHost4;
+        private LiveCharts.Wpf.CartesianChart chartOverTime;
+        private System.Windows.Forms.Label label8;
     }
 }

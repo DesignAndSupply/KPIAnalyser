@@ -72,10 +72,29 @@ namespace KPIAnalyser
         private void FrmEstimatorComparison_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'user_infoDataSet.c_view_is_engineer' table. You can move, or remove it, as needed.
-            this.c_view_is_engineerTableAdapter.Fill(this.user_infoDataSet.c_view_is_engineer);
+            //this.c_view_is_engineerTableAdapter.Fill(this.user_infoDataSet.c_view_is_engineer);
             // TODO: This line of code loads data into the 'user_infoDataSet.c_view_sales_program_users' table. You can move, or remove it, as needed.
             this.c_view_sales_program_usersTableAdapter.Fill(this.user_infoDataSet.c_view_sales_program_users);
 
+
+            string sql = "select forename + ' ' + surname as [fullname] from [user_info].dbo.[user] where isEngineer = -1 and (id <> 3 AND id <> 29 and id <> 260)";
+            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        lstStaff.Items.Add(row[0].ToString());
+                    }
+                    lstStaff.Refresh();
+                    conn.Close();
+                }
+            }
         }
 
         private void BtnCompare_Click(object sender, EventArgs e)
@@ -84,6 +103,7 @@ namespace KPIAnalyser
             populateAbsenseChart();
             populateLatenessChart();
             populateProblemsChart();
+            populateOverTime();
         }
 
         private void dailyItems()
@@ -124,7 +144,7 @@ namespace KPIAnalyser
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                staffNames.Add(item.ToString());
             }
 
 
@@ -299,7 +319,7 @@ namespace KPIAnalyser
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                staffNames.Add(item.ToString());
             }
 
 
@@ -455,7 +475,7 @@ namespace KPIAnalyser
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                staffNames.Add(item.ToString());
             }
 
 
@@ -607,7 +627,7 @@ namespace KPIAnalyser
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                staffNames.Add(item.ToString());
             }
 
 
@@ -775,6 +795,188 @@ namespace KPIAnalyser
         private void Button1_Click(object sender, EventArgs e)
         {
             Email_Screen();
+        }
+
+        private void populateOverTime()
+        {
+
+            string user1 = "";
+            string user2 = "";
+            string user3 = "";
+            string user4 = "";
+
+            double daily1 = 0;
+            double daily2 = 0;
+            double daily3 = 0;
+            double daily4 = 0;
+
+            int target1 = 0;
+            int target2 = 0;
+            int target3 = 0;
+            int target4 = 0;
+
+
+
+
+
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = "";
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+
+
+
+            int i = 0;
+
+
+            List<string> staffNames = new List<string>();
+
+            foreach (var item in lstStaff.SelectedItems)
+            {
+                staffNames.Add(item.ToString());
+            }
+
+
+
+            while (i < staffNames.Count)
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("usp_kpi_programmer_overtime", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffNames[i];
+                cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
+                cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
+
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            try
+                            {
+                                user1 = staffNames[i];
+                                daily1 = reader.GetDouble(0);
+                                target1 = 8;
+                            }
+                            catch
+                            {
+                                user1 = "";
+                                daily1 = 0;
+                                target1 = 0;
+                            }
+                            break;
+                        case 1:
+                            try
+                            {
+                                user2 = staffNames[i];
+                                daily2 = reader.GetDouble(0);
+                                target2 = 8;
+                            }
+                            catch
+                            {
+                                user2 = "";
+                                daily2 = 0;
+                                target2 = 0;
+                            }
+
+                            break;
+                        case 2:
+                            try
+                            {
+                                user3 = staffNames[i];
+                                daily3 = reader.GetDouble(0);
+                                target3 = 8;
+                            }
+
+                            catch
+                            {
+                                user3 = "";
+                                daily3 = 0;
+                                target3 = 0;
+                            }
+                            break;
+                        case 3:
+                            try
+                            {
+                                user4 = staffNames[i];
+                                daily4 = reader.GetDouble(0);
+                                target4 = 8;
+                            }
+                            catch
+                            {
+                                user4 = "";
+                                daily4 = 0;
+                                target4 = 0;
+                            }
+                            break;
+
+                        default:
+                            break;
+
+                    }
+
+                }
+
+                conn.Close();
+                i += 1;
+            }
+
+            chartOverTime.AxisY.Clear();
+            chartOverTime.AxisX.Clear();
+
+            chartOverTime.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Hours",
+                    FontSize = 10,
+                    DataLabels = true,
+                    Fill = System.Windows.Media.Brushes.Green,
+                    Values = new ChartValues<double> { daily1, daily2, daily3, daily4 }
+                }
+            };
+
+
+
+            //adding series will update and animate the chart automatically
+            //chartOverTime.Series.Add(new StepLineSeries
+            //{
+            //    Title = "Target",
+            //    FontSize = 10,
+
+            //    Fill = System.Windows.Media.Brushes.Orange,
+            //    Values = new ChartValues<double> { target1, target2, target3, target4 }
+            //});
+
+            chartOverTime.AxisX.Add(new Axis
+            {
+                Title = "Programmer",
+                FontSize = 16,
+                Labels = new[] { user1, user2, user3, user4 }
+            });
+
+            chartOverTime.AxisY.Add(new Axis
+            {
+                Title = "Overtime",
+                FontSize = 16,
+
+            });
+
+
+
+
+        }
+
+        private void cviewisengineerBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -331,7 +331,6 @@ namespace KPIAnalyser
 
         private void fillEngineeringOvertime()
         {
-
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
             SqlCommand cmd = new SqlCommand("SELECT employee_name as 'Employee' , OT_Hours 'Total Overtime' from dbo.kpi_overtime_hours WHERE [month]= @month and [year] = @year and is_engineer = -1 order by employee_name", conn);
@@ -339,16 +338,11 @@ namespace KPIAnalyser
             cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
             cmd.Parameters.AddWithValue("@year", cmbYear.Text);
 
-
             SqlDataAdapter ad = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
-
             ad.Fill(dt);
-
             //dgEngineerOvertime.DataSource = dt;
-
             conn.Close();
-            
         }
 
         private void paintEngineeringGrid()
@@ -1165,6 +1159,20 @@ namespace KPIAnalyser
             this.dgEngineeringDaily.Columns[11].Visible = false;
             this.dgEngineeringDaily.Columns[12].Visible = false;
             this.dgEngineeringDaily.Columns[13].Visible = false;
+        }
+
+        private void uPLOADOVERTIMEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmUpload frm = new frmUpload();
+            frm.ShowDialog();
+        }
+
+        private void dgEngineeringDaily_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //open up form here that shows notes + other stuff
+            frmProgrammerSummary frm = new frmProgrammerSummary(lblEngineerName.Text,Convert.ToDateTime(dgEngineeringDaily.Rows[e.RowIndex].Cells[1].Value));
+            frm.ShowDialog();
+
         }
     }
 }
