@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 
 namespace KPIAnalyser
 {
@@ -95,7 +96,7 @@ namespace KPIAnalyser
                     if (row.Cells[1].Value.ToString() == "Jobs Programmed")
                         totalProgrammed++;
                     if (row.Cells[1].Value.ToString() == "Jobs Drawn")
-                        totalDrawn++;
+                        totalDrawn =totalDrawn + Convert.ToInt32(row.Cells[5].Value.ToString());
                     if (row.Cells[1].Value.ToString() == "Laser Jobs Programmed")
                         totalLaserProgrammed++;
                 }
@@ -111,7 +112,7 @@ namespace KPIAnalyser
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     var data = Convert.ToString(cmd.ExecuteScalar());
-                    if (data != null || data != "")
+                    if (data.Length > 2)
                         txtNote.Text = "Note: " + data;
                     else
                         txtNote.Text = "";
@@ -131,6 +132,56 @@ namespace KPIAnalyser
             dataGridView1.Columns[1].HeaderText = "Job Name";
             dataGridView1.Columns[7].Visible = false;
             dataGridView1.Columns[8].Visible = false;
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                //Graphics gs = Graphics.FromImage(bit);
+
+                //gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                //bit.Save(@"C:\temp\temp.jpg");
+                var frm = Form.ActiveForm;
+                using (var bmp = new Bitmap(frm.Width, frm.Height))
+                {
+                    frm.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+                    bmp.Save(@"C:\temp\temp.png");
+                }
+                    printImage();
+            }
+            catch
+            {
+
+            }
+        }
+
+
+        private void printImage()
+        {
+            try
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += (sender, args) =>
+                {
+                    System.Drawing.Image i = System.Drawing.Image.FromFile(@"C:\temp\temp.png");
+                    Point p = new Point(100, 100);
+                    args.Graphics.DrawImage(i, args.MarginBounds);
+
+                };
+
+                pd.DefaultPageSettings.Landscape = true;
+                Margins margins = new Margins(50, 50, 50, 50);
+                pd.DefaultPageSettings.Margins = margins;
+                pd.Print();
+            }
+            catch
+            {
+
+            }
         }
     }
 }

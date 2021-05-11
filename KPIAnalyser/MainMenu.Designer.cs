@@ -1919,12 +1919,11 @@
             // 
             // lblEngineerName
             // 
-            this.lblEngineerName.AutoSize = true;
             this.lblEngineerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEngineerName.ForeColor = System.Drawing.Color.Red;
             this.lblEngineerName.Location = new System.Drawing.Point(9, 255);
             this.lblEngineerName.Name = "lblEngineerName";
-            this.lblEngineerName.Size = new System.Drawing.Size(89, 26);
+            this.lblEngineerName.Size = new System.Drawing.Size(554, 26);
             this.lblEngineerName.TabIndex = 31;
             this.lblEngineerName.Text = "label81";
             this.lblEngineerName.Click += new System.EventHandler(this.Label85_Click);

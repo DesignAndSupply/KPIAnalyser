@@ -42,7 +42,8 @@
             this.lblDrawn = new System.Windows.Forms.Label();
             this.lblAssess = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtNote = new System.Windows.Forms.RichTextBox();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.txtNote = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -180,19 +181,28 @@
             this.label13.TabIndex = 13;
             this.label13.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
+            // btnPrint
+            // 
+            this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrint.Location = new System.Drawing.Point(963, 9);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(75, 23);
+            this.btnPrint.TabIndex = 15;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
             // txtNote
             // 
             this.txtNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNote.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.txtNote.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNote.ForeColor = System.Drawing.Color.Firebrick;
-            this.txtNote.Location = new System.Drawing.Point(205, 49);
+            this.txtNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNote.ForeColor = System.Drawing.Color.Brown;
+            this.txtNote.Location = new System.Drawing.Point(205, 53);
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(833, 79);
-            this.txtNote.TabIndex = 14;
-            this.txtNote.Text = "test";
+            this.txtNote.Size = new System.Drawing.Size(833, 75);
+            this.txtNote.TabIndex = 16;
+            this.txtNote.Text = "label1";
             // 
             // frmProgrammerSummary
             // 
@@ -200,6 +210,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 635);
             this.Controls.Add(this.txtNote);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.lblProgrammed);
             this.Controls.Add(this.lblLaserProgrammed);
@@ -214,6 +225,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.dataGridView1);
+            this.MinimizeBox = false;
             this.Name = "frmProgrammerSummary";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmProgrammerSummary";
@@ -239,6 +251,7 @@
         private System.Windows.Forms.Label lblDrawn;
         private System.Windows.Forms.Label lblAssess;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.RichTextBox txtNote;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Label txtNote;
     }
 }
