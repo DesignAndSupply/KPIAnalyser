@@ -256,6 +256,7 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uPLOADOVERTIMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1531,6 +1532,7 @@
             // 
             // Sales
             // 
+            this.Sales.Controls.Add(this.button2);
             this.Sales.Controls.Add(this.btnEstimating);
             this.Sales.Controls.Add(this.label53);
             this.Sales.Controls.Add(this.groupBox8);
@@ -1560,7 +1562,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(426, 29);
+            this.label53.Location = new System.Drawing.Point(429, 45);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(68, 13);
             this.label53.TabIndex = 19;
@@ -1719,11 +1721,11 @@
             this.dgvCustomer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCustomer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCustomer.Location = new System.Drawing.Point(429, 45);
+            this.dgvCustomer.Location = new System.Drawing.Point(429, 64);
             this.dgvCustomer.Name = "dgvCustomer";
             this.dgvCustomer.RowHeadersVisible = false;
             this.dgvCustomer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCustomer.Size = new System.Drawing.Size(1374, 741);
+            this.dgvCustomer.Size = new System.Drawing.Size(1374, 722);
             this.dgvCustomer.TabIndex = 18;
             this.dgvCustomer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomer_CellContentClick_1);
             this.dgvCustomer.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomer_CellDoubleClick);
@@ -2610,6 +2612,16 @@
             this.uPLOADOVERTIMEToolStripMenuItem.Text = "UPLOAD CLOCK IN";
             this.uPLOADOVERTIMEToolStripMenuItem.Click += new System.EventHandler(this.uPLOADOVERTIMEToolStripMenuItem_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1635, 35);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(168, 23);
+            this.button2.TabIndex = 20;
+            this.button2.Text = "Slimline Sales Staff Productivity";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // txtTraditionalConversionRate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2907,6 +2919,7 @@
         private System.Windows.Forms.Button btnMoreLess;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.ToolStripMenuItem uPLOADOVERTIMEToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
     }
 }
 

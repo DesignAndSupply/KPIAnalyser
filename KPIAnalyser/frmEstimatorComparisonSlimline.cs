@@ -12,34 +12,42 @@ using LiveCharts.Wpf;
 using System.Data.SqlClient;
 using System.Drawing.Printing;
 using Outlook = Microsoft.Office.Interop.Outlook;
+
 namespace KPIAnalyser
 {
-    public partial class frmEstimatorComparison : Form
+    public partial class frmEstimatorComparisonSlimline : Form
     {
-        public frmEstimatorComparison()
+        public frmEstimatorComparisonSlimline()
         {
             InitializeComponent();
+            lstStaff.Items.Add("All");
+            this.WindowState = FormWindowState.Maximized;
+            //add to the combobox
+            string sql = "SELECT forename + ' ' + surname FROM [user_info].dbo.[user] WHERE grouping = 25 and id <> 7 and id <> 24 ";
+            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        lstStaff.Items.Add(reader[0].ToString());
+                    }
+                    conn.Close();
+                }
+            }
         }
 
-        private void FrmEstimatorComparison_Load(object sender, EventArgs e)
+        private void btnCompare_Click(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'user_infoDataSet1.c_view_estimators' table. You can move, or remove it, as needed.
-            this.c_view_estimatorsTableAdapter.Fill(this.user_infoDataSet1.c_view_estimators);
-            // TODO: This line of code loads data into the 'user_infoDataSet.c_view_sales_program_users' table. You can move, or remove it, as needed.
-            this.c_view_sales_program_usersTableAdapter.Fill(this.user_infoDataSet.c_view_sales_program_users);
-
-        }
-
-        private void BtnCompare_Click(object sender, EventArgs e)
-        {
-            dailyItems();
+            dailyPrice();
             populateAbsenseChart();
             populateLatenessChart();
-            populateProblemsChart();
+            //populateProblemsChart();  cant do this one
             populateOvertimeChart();
         }
-
-        private void dailyItems()
+        private void dailyPrice()
         {
 
             string user1 = "";
@@ -52,30 +60,30 @@ namespace KPIAnalyser
             string user8 = "";
             string user9 = "";
             string user10 = "";
-        
-
-            int daily1 = 0;
-            int daily2 = 0;
-            int daily3 = 0;
-            int daily4 = 0;
-            int daily5 = 0;
-            int daily6 = 0;
-            int daily7 = 0;
-            int daily8 = 0;
-            int daily9 = 0;
-            int daily10 = 0;
 
 
-            int target1 = 0;
-            int target2 = 0;
-            int target3 = 0;
-            int target4 = 0;
-            int target5 = 0;
-            int target6 = 0;
-            int target7 = 0;
-            int target8 = 0;
-            int target9 = 0;
-            int target10 = 0;
+            double daily1 = 0;
+            double daily2 = 0;
+            double daily3 = 0;
+            double daily4 = 0;
+            double daily5 = 0;
+            double daily6 = 0;
+            double daily7 = 0;
+            double daily8 = 0;
+            double daily9 = 0;
+            double daily10 = 0;
+
+
+            double target1 = 0;
+            double target2 = 0;
+            double target3 = 0;
+            double target4 = 0;
+            double target5 = 0;
+            double target6 = 0;
+            double target7 = 0;
+            double target8 = 0;
+            double target9 = 0;
+            double target10 = 0;
 
 
 
@@ -89,7 +97,7 @@ namespace KPIAnalyser
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-          
+
 
 
             int i = 0;
@@ -99,7 +107,7 @@ namespace KPIAnalyser
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                staffNames.Add(item.ToString());
             }
 
 
@@ -107,8 +115,8 @@ namespace KPIAnalyser
             while (i < staffNames.Count)
             {
                 conn.Open();
-     
-                SqlCommand cmd = new SqlCommand("usp_kpi_average_daily_output", conn);
+
+                SqlCommand cmd = new SqlCommand("usp_kpi_average_daily_output_slimline", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffNames[i];
@@ -126,7 +134,7 @@ namespace KPIAnalyser
                             try
                             {
                                 user1 = staffNames[i];
-                                daily1 = reader.GetInt32(0);
+                                daily1 = reader.GetDouble(0);
                                 target1 = 90;
                             }
                             catch
@@ -140,22 +148,22 @@ namespace KPIAnalyser
                             try
                             {
                                 user2 = staffNames[i];
-                                daily2 = reader.GetInt32(0);
+                                daily2 = reader.GetDouble(0);
                                 target2 = 90;
                             }
                             catch
                             {
-                                user2 ="";
+                                user2 = "";
                                 daily2 = 0;
                                 target2 = 0;
                             }
-                            
+
                             break;
                         case 2:
                             try
                             {
                                 user3 = staffNames[i];
-                                daily3 = reader.GetInt32(0);
+                                daily3 = reader.GetDouble(0);
                                 target3 = 90;
                             }
 
@@ -170,7 +178,7 @@ namespace KPIAnalyser
                             try
                             {
                                 user4 = staffNames[i];
-                                daily4 = reader.GetInt32(0);
+                                daily4 = reader.GetDouble(0);
                                 target4 = 90;
                             }
                             catch
@@ -184,7 +192,7 @@ namespace KPIAnalyser
                             try
                             {
                                 user5 = staffNames[i];
-                                daily5 = reader.GetInt32(0);
+                                daily5 = reader.GetDouble(0);
                                 target5 = 90;
                             }
                             catch
@@ -198,7 +206,7 @@ namespace KPIAnalyser
                             try
                             {
                                 user6 = staffNames[i];
-                                daily6 = reader.GetInt32(0);
+                                daily6 = reader.GetDouble(0);
                                 target6 = 90;
                             }
                             catch
@@ -212,7 +220,7 @@ namespace KPIAnalyser
                             try
                             {
                                 user7 = staffNames[i];
-                                daily7 = reader.GetInt32(0);
+                                daily7 = reader.GetDouble(0);
                                 target7 = 90;
                             }
                             catch
@@ -226,7 +234,7 @@ namespace KPIAnalyser
                             try
                             {
                                 user8 = staffNames[i];
-                                daily8 = reader.GetInt32(0);
+                                daily8 = reader.GetDouble(0);
                                 target8 = 90;
                             }
                             catch
@@ -240,7 +248,7 @@ namespace KPIAnalyser
                             try
                             {
                                 user9 = staffNames[i];
-                                daily9 = reader.GetInt32(0);
+                                daily9 = reader.GetDouble(0);
                                 target9 = 90;
                             }
                             catch
@@ -254,7 +262,7 @@ namespace KPIAnalyser
                             try
                             {
                                 user10 = staffNames[i];
-                                daily10 = reader.GetInt32(0);
+                                daily10 = reader.GetDouble(0);
                                 target10 = 90;
                             }
                             catch
@@ -264,13 +272,13 @@ namespace KPIAnalyser
                                 target10 = 0;
                             }
                             break;
-                       
+
 
                         default:
                             break;
 
                     }
-                       
+
                 }
 
                 conn.Close();
@@ -288,7 +296,7 @@ namespace KPIAnalyser
                     FontSize = 10,
                     DataLabels = true,
                     Fill = System.Windows.Media.Brushes.Green,
-                    Values = new ChartValues<int> { daily1, daily2, daily3, daily4, daily5 }
+                    Values = new ChartValues<double> { daily1, daily2, daily3, daily4, daily5 }
                 }
 
 
@@ -299,26 +307,17 @@ namespace KPIAnalyser
             {
                 Title = "Target",
                 FontSize = 10,
-            
+
                 Fill = System.Windows.Media.Brushes.Orange,
-                Values = new ChartValues<double> { target1, target2, target3, target4, target5}
+                Values = new ChartValues<double> { target1, target2, target3, target4, target5 }
             });
-
-
-
-
-
-
-
-
-
 
 
             dailyAverageItemsBar.AxisX.Add(new Axis
             {
                 Title = "Estimator",
                 FontSize = 10,
-                Labels = new[] { user1, user2, user3, user4, user5}
+                Labels = new[] { user1, user2, user3, user4, user5 }
             });
 
             dailyAverageItemsBar.AxisY.Add(new Axis
@@ -332,9 +331,6 @@ namespace KPIAnalyser
 
 
         }
-
-
-
         private void populateAbsenseChart()
         {
 
@@ -368,7 +364,7 @@ namespace KPIAnalyser
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                staffNames.Add(item.ToString());
             }
 
 
@@ -378,7 +374,7 @@ namespace KPIAnalyser
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("usp_kpi_absent_late_estimating", conn);
+                SqlCommand cmd = new SqlCommand("usp_kpi_absent_late_estimating_slimline", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffNames[i];
@@ -466,7 +462,7 @@ namespace KPIAnalyser
                     FontSize = 10,
                     DataLabels = true,
                     Values = new ChartValues<int> { daily1, daily2, daily3, daily4 }
-                    
+
                 }
             };
 
@@ -485,11 +481,6 @@ namespace KPIAnalyser
             });
 
         }
-
-
-
-
-
 
         private void populateLatenessChart()
         {
@@ -524,7 +515,7 @@ namespace KPIAnalyser
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                staffNames.Add(item.ToString());
             }
 
 
@@ -533,7 +524,7 @@ namespace KPIAnalyser
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("usp_kpi_absent_late_estimating", conn);
+                SqlCommand cmd = new SqlCommand("usp_kpi_absent_late_estimating_slimline", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffNames[i];
@@ -642,158 +633,6 @@ namespace KPIAnalyser
         }
 
 
-
-        private void populateProblemsChart()
-        {
-
-            string user1 = "";
-            string user2 = "";
-            string user3 = "";
-            string user4 = "";
-
-            int daily1 = 0;
-            int daily2 = 0;
-            int daily3 = 0;
-            int daily4 = 0;
-
-
-
-
-
-            string startdate = dteStart.Value.ToString("yyyyMMdd");
-            string enddate = dteEnd.Value.ToString("yyyyMMdd");
-            string staffName = "";
-
-
-            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-
-
-
-            int i = 0;
-
-
-            List<string> staffNames = new List<string>();
-
-            foreach (var item in lstStaff.SelectedItems)
-            {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
-            }
-
-
-
-            while (i < staffNames.Count)
-            {
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand("usp_kpi_estimator_problems", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffNames[i];
-                cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
-                cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
-
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    switch (i)
-                    {
-                        case 0:
-                            try
-                            {
-                                user1 = staffNames[i];
-                                daily1 = reader.GetInt32(0);
-                            }
-                            catch
-                            {
-                                user1 = "";
-                                daily1 = 0;
-                            }
-                            break;
-                        case 1:
-                            try
-                            {
-                                user2 = staffNames[i];
-                                daily2 = reader.GetInt32(0);
-                            }
-                            catch
-                            {
-                                user2 = "";
-                                daily2 = 0;
-                            }
-
-                            break;
-                        case 2:
-                            try
-                            {
-                                user3 = staffNames[i];
-                                daily3 = reader.GetInt32(0);
-                            }
-
-                            catch
-                            {
-                                user3 = "";
-                                daily3 = 0;
-                            }
-                            break;
-                        case 3:
-                            try
-                            {
-                                user4 = staffNames[i];
-                                daily4 = reader.GetInt32(0);
-                            }
-                            catch
-                            {
-                                user4 = "";
-                                daily4 = 0;
-                            }
-
-                            break;
-
-                        default:
-                            break;
-
-                    }
-
-                }
-
-                conn.Close();
-                i += 1;
-            }
-
-            problemsBar.AxisY.Clear();
-            problemsBar.AxisX.Clear();
-
-            problemsBar.Series = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Issues Logged by programmers",
-                    Fill = System.Windows.Media.Brushes.Green,
-                    DataLabels = true,
-                    FontSize = 10,
-                    Values = new ChartValues<int> { daily1, daily2, daily3, daily4 }
-
-                }
-            };
-
-            problemsBar.AxisX.Add(new Axis
-            {
-                Title = "Estimator",
-                FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
-            });
-
-            problemsBar.AxisY.Add(new Axis
-            {
-                Title = "Problems Logged",
-                FontSize = 16,
-
-            });
-
-        }
-
         private void populateOvertimeChart()
         {
             string user1 = "";
@@ -826,7 +665,7 @@ namespace KPIAnalyser
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                staffNames.Add(item.ToString());
             }
 
 
@@ -943,8 +782,7 @@ namespace KPIAnalyser
             });
         }
 
-
-        private void BtnPrint_Click(object sender, EventArgs e)
+        private void btnPrint_Click(object sender, EventArgs e)
         {
             try
             {
@@ -962,10 +800,7 @@ namespace KPIAnalyser
             {
 
             }
-
         }
-
-
 
         private void printImage()
         {
@@ -991,7 +826,7 @@ namespace KPIAnalyser
             }
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             Email_Screen();
         }
@@ -1041,56 +876,6 @@ namespace KPIAnalyser
             mailItem.HTMLBody = msgHTMLBody;
             mailItem.Display(true);
             //mailItem.Send();
-        }
-
-        private void overtimeChart_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void elementHost3_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void elementHost2_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
-        }
-
-        private void absenseBar_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
-        }
-
-        private void elementHost1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
-        }
-
-        private void dteEnd_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lstStaff_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

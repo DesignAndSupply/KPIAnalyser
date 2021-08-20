@@ -25,8 +25,8 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>83</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -101,6 +101,12 @@
     <Compile Include="frmEngineeringManagement.Designer.cs">
       <DependentUpon>frmEngineeringManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEstimatorComparisonSlimline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEstimatorComparisonSlimline.Designer.cs">
+      <DependentUpon>frmEstimatorComparisonSlimline.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEstimatorIssuesLogged.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,12 @@
     </Compile>
     <Compile Include="frmProgrammerComparison.Designer.cs">
       <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProgrammerOverview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProgrammerOverview.Designer.cs">
+      <DependentUpon>frmProgrammerOverview.cs</DependentUpon>
     </Compile>
     <Compile Include="frmProgrammerSummary.cs">
       <SubType>Form</SubType>
@@ -173,6 +185,12 @@
     <Compile Include="frmReturnVisits.Designer.cs">
       <DependentUpon>frmReturnVisits.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSlimlineEstimatingProductivity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSlimlineEstimatingProductivity.Designer.cs">
+      <DependentUpon>frmSlimlineEstimatingProductivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +214,12 @@
     </Compile>
     <Compile Include="frmViewQuotations.Designer.cs">
       <DependentUpon>frmViewQuotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmViewQuotationSlimline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViewQuotationSlimline.Designer.cs">
+      <DependentUpon>frmViewQuotationSlimline.cs</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
@@ -229,11 +253,17 @@
     <EmbeddedResource Include="frmEngineeringManagement.resx">
       <DependentUpon>frmEngineeringManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmEstimatorComparisonSlimline.resx">
+      <DependentUpon>frmEstimatorComparisonSlimline.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEstimatorIssuesLogged.resx">
       <DependentUpon>frmEstimatorIssuesLogged.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProgrammerComparison.resx">
       <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProgrammerOverview.resx">
+      <DependentUpon>frmProgrammerOverview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProgrammerSummary.resx">
       <DependentUpon>frmProgrammerSummary.cs</DependentUpon>
@@ -265,6 +295,9 @@
     <EmbeddedResource Include="frmReturnVisits.resx">
       <DependentUpon>frmReturnVisits.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSlimlineEstimatingProductivity.resx">
+      <DependentUpon>frmSlimlineEstimatingProductivity.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUpload.resx">
       <DependentUpon>frmUpload.cs</DependentUpon>
     </EmbeddedResource>
@@ -276,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewQuotations.resx">
       <DependentUpon>frmViewQuotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViewQuotationSlimline.resx">
+      <DependentUpon>frmViewQuotationSlimline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>

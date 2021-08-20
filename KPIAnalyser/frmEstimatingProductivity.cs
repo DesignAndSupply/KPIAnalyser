@@ -176,11 +176,11 @@ namespace KPIAnalyser
 
         private void BtnGenerate_Click(object sender, EventArgs e)
         {
-            drawTopCustomersByItems();
-            drawTopCustomersByvalue();
-            absentHolidaysLate();
-            averageDailyItems();
-            countEstimatorIssues();
+            drawTopCustomersByItems(); //didnt include 
+            drawTopCustomersByvalue(); //done
+            absentHolidaysLate(); //done
+            averageDailyItems(); //done but doesnt really work
+            countEstimatorIssues(); //cant  really be done
             drawTopDoorTypes();
             drawDailyItems();
         }

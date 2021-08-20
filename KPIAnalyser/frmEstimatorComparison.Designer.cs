@@ -78,6 +78,7 @@
             this.lstStaff.Size = new System.Drawing.Size(200, 244);
             this.lstStaff.TabIndex = 0;
             this.lstStaff.ValueMember = "id";
+            this.lstStaff.SelectedIndexChanged += new System.EventHandler(this.lstStaff_SelectedIndexChanged);
             // 
             // cviewestimatorsBindingSource
             // 
@@ -151,6 +152,7 @@
             this.dteEnd.Name = "dteEnd";
             this.dteEnd.Size = new System.Drawing.Size(200, 20);
             this.dteEnd.TabIndex = 7;
+            this.dteEnd.ValueChanged += new System.EventHandler(this.dteEnd_ValueChanged);
             // 
             // dteStart
             // 
@@ -167,6 +169,7 @@
             this.elementHost1.Size = new System.Drawing.Size(792, 463);
             this.elementHost1.TabIndex = 10;
             this.elementHost1.Text = "elementHost1";
+            this.elementHost1.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.elementHost1_ChildChanged);
             this.elementHost1.Child = this.dailyAverageItemsBar;
             // 
             // label4
@@ -187,6 +190,7 @@
             this.absenseBar.Size = new System.Drawing.Size(792, 463);
             this.absenseBar.TabIndex = 12;
             this.absenseBar.Text = "cartesianChart1";
+            this.absenseBar.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.absenseBar_ChildChanged);
             // 
             // label5
             // 
@@ -206,6 +210,7 @@
             this.elementHost2.Size = new System.Drawing.Size(536, 463);
             this.elementHost2.TabIndex = 14;
             this.elementHost2.Text = "elementHost2";
+            this.elementHost2.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.elementHost2_ChildChanged);
             this.elementHost2.Child = this.latenessBar;
             // 
             // label6
@@ -217,6 +222,7 @@
             this.label6.TabIndex = 15;
             this.label6.Text = "LATE DAYS DURING PERIOD";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // elementHost3
             // 
@@ -226,6 +232,7 @@
             this.elementHost3.Size = new System.Drawing.Size(536, 463);
             this.elementHost3.TabIndex = 16;
             this.elementHost3.Text = "elementHost3";
+            this.elementHost3.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.elementHost3_ChildChanged);
             this.elementHost3.Child = this.problemsBar;
             // 
             // label7
@@ -237,6 +244,7 @@
             this.label7.TabIndex = 17;
             this.label7.Text = "ISSUES LOGGED BY PROGRAMMERS";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // btnPrint
             // 
@@ -270,6 +278,7 @@
             this.overtimeChart.Size = new System.Drawing.Size(536, 463);
             this.overtimeChart.TabIndex = 20;
             this.overtimeChart.Text = "cartesianChart1";
+            this.overtimeChart.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.overtimeChart_ChildChanged);
             // 
             // label8
             // 
@@ -280,6 +289,7 @@
             this.label8.TabIndex = 21;
             this.label8.Text = "Overtime";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // frmEstimatorComparison
             // 

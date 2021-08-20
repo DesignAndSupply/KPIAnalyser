@@ -12,6 +12,7 @@ namespace KPIAnalyser
 {
     public partial class frmProgrammerComparison : Form
     {
+        public List<string> _staffNames = new List<string>();
         public frmProgrammerComparison()
         {
             InitializeComponent();
@@ -31,7 +32,7 @@ namespace KPIAnalyser
 
                 bit.Save(@"C:\temp\temp.jpg");
 
-              
+
             }
             catch
             {
@@ -113,16 +114,28 @@ namespace KPIAnalyser
             string user2 = "";
             string user3 = "";
             string user4 = "";
+            string user5 = "";
+            string user6 = "";
+            string user7 = "";
+            string user8 = "";
 
             int daily1 = 0;
             int daily2 = 0;
             int daily3 = 0;
             int daily4 = 0;
+            int daily5 = 0;
+            int daily6 = 0;
+            int daily7 = 0;
+            int daily8 = 0;
 
             int target1 = 0;
             int target2 = 0;
             int target3 = 0;
             int target4 = 0;
+            int target5 = 0;
+            int target6 = 0;
+            int target7 = 0;
+            int target8 = 0;
 
 
 
@@ -134,7 +147,7 @@ namespace KPIAnalyser
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-          
+
 
 
             int i = 0;
@@ -142,9 +155,11 @@ namespace KPIAnalyser
 
             List<string> staffNames = new List<string>();
 
+            _staffNames.Clear();
             foreach (var item in lstStaff.SelectedItems)
             {
                 staffNames.Add(item.ToString());
+                _staffNames.Add(item.ToString());
             }
 
 
@@ -152,7 +167,7 @@ namespace KPIAnalyser
             while (i < staffNames.Count)
             {
                 conn.Open();
-     
+
                 SqlCommand cmd = new SqlCommand("usp_kpi_average_daily_output_doors", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
@@ -190,11 +205,11 @@ namespace KPIAnalyser
                             }
                             catch
                             {
-                                user2 ="";
+                                user2 = "";
                                 daily2 = 0;
                                 target2 = 0;
                             }
-                            
+
                             break;
                         case 2:
                             try
@@ -224,14 +239,72 @@ namespace KPIAnalyser
                                 daily4 = 0;
                                 target4 = 0;
                             }
+                            break;
+                        case 4:
+                            try
+                            {
+                                user5 = staffNames[i];
+                                daily5 = reader.GetInt32(0);
+                                target5 = 8;
+                            }
+                            catch
+                            {
+                                user5 = "";
+                                daily5 = 0;
+                                target5 = 0;
+                            }
+                            break;
+                        case 5:
+                            try
+                            {
+                                user6 = staffNames[i];
+                                daily6 = reader.GetInt32(0);
+                                target6 = 8;
+                            }
+                            catch
+                            {
+                                user6 = "";
+                                daily6 = 0;
+                                target6 = 0;
+                            }
 
                             break;
+                        case 6:
+                            try
+                            {
+                                user7 = staffNames[i];
+                                daily7 = reader.GetInt32(0);
+                                target7 = 8;
+                            }
+
+                            catch
+                            {
+                                user7 = "";
+                                daily7 = 0;
+                                target7 = 0;
+                            }
+                            break;
+                        case 7:
+                            try
+                            {
+                                user8 = staffNames[i];
+                                daily8 = reader.GetInt32(0);
+                                target8 = 8;
+                            }
+                            catch
+                            {
+                                user8 = "";
+                                daily8 = 0;
+                                target8 = 0;
+                            }
+                            break;
+
 
                         default:
                             break;
 
                     }
-                       
+
                 }
 
                 conn.Close();
@@ -249,7 +322,7 @@ namespace KPIAnalyser
                     FontSize = 10,
                     DataLabels = true,
                     Fill = System.Windows.Media.Brushes.Green,
-                    Values = new ChartValues<int> { daily1, daily2, daily3, daily4 }
+                    Values = new ChartValues<int> { daily1, daily2, daily3, daily4,daily5,daily6,daily7,daily8 }
                 }
             };
 
@@ -262,14 +335,18 @@ namespace KPIAnalyser
                 FontSize = 10,
 
                 Fill = System.Windows.Media.Brushes.Orange,
-                Values = new ChartValues<double> { target1, target2, target3, target4 }
+                Values = new ChartValues<double> { target1, target2, target3, target4, target5, target6, target7, target8 }
             });
 
             dailyAverageItemsBar.AxisX.Add(new Axis
             {
                 Title = "Programmer",
-                FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                FontSize = 12,
+                Separator = new LiveCharts.Wpf.Separator
+                {
+                    Step = 1,
+                },
+                Labels = new[] { user1, user2, user3, user4, user5, user6, user7, user8 }
             });
 
             dailyAverageItemsBar.AxisY.Add(new Axis
@@ -293,11 +370,19 @@ namespace KPIAnalyser
             string user2 = "";
             string user3 = "";
             string user4 = "";
+            string user5 = "";
+            string user6 = "";
+            string user7 = "";
+            string user8 = "";
 
             int daily1 = 0;
             int daily2 = 0;
             int daily3 = 0;
             int daily4 = 0;
+            int daily5 = 0;
+            int daily6 = 0;
+            int daily7 = 0;
+            int daily8 = 0;
 
 
 
@@ -394,6 +479,56 @@ namespace KPIAnalyser
                             }
 
                             break;
+                        case 4:
+                            try
+                            {
+                                user5 = staffNames[i];
+                                daily5 = reader.GetInt32(0);
+                            }
+                            catch
+                            {
+                                user5 = "";
+                                daily5 = 0;
+                            }
+                            break;
+                        case 5:
+                            try
+                            {
+                                user6 = staffNames[i];
+                                daily6 = reader.GetInt32(0);
+                            }
+                            catch
+                            {
+                                user6 = "";
+                                daily6 = 0;
+                            }
+
+                            break;
+                        case 6:
+                            try
+                            {
+                                user7 = staffNames[i];
+                                daily7 = reader.GetInt32(0);
+                            }
+
+                            catch
+                            {
+                                user7 = "";
+                                daily7 = 0;
+                            }
+                            break;
+                        case 7:
+                            try
+                            {
+                                user8 = staffNames[i];
+                                daily8 = reader.GetInt32(0);
+                            }
+                            catch
+                            {
+                                user8 = "";
+                                daily8 = 0;
+                            }
+                            break;
 
                         default:
                             break;
@@ -416,16 +551,20 @@ namespace KPIAnalyser
                     Title = "Days",
                     FontSize = 10,
                     DataLabels = true,
-                    Values = new ChartValues<int> { daily1, daily2, daily3, daily4 }
-                    
+                    Values = new ChartValues<int> { daily1, daily2, daily3, daily4,daily5,daily6,daily7,daily8 }
+
                 }
             };
 
             absenseBar.AxisX.Add(new Axis
             {
                 Title = "Programmer",
-                FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                FontSize = 12,
+                Separator = new LiveCharts.Wpf.Separator
+                {
+                    Step = 1,
+                },
+                Labels = new[] { user1, user2, user3, user4, user5, user6, user7, user8 }
             });
 
             absenseBar.AxisY.Add(new Axis
@@ -449,11 +588,19 @@ namespace KPIAnalyser
             string user2 = "";
             string user3 = "";
             string user4 = "";
+            string user5 = "";
+            string user6 = "";
+            string user7 = "";
+            string user8 = "";
 
             int daily1 = 0;
             int daily2 = 0;
             int daily3 = 0;
             int daily4 = 0;
+            int daily5 = 0;
+            int daily6 = 0;
+            int daily7 = 0;
+            int daily8 = 0;
 
 
 
@@ -549,6 +696,57 @@ namespace KPIAnalyser
                             }
 
                             break;
+                        case 4:
+                            try
+                            {
+                                user5 = staffNames[i];
+                                daily5 = reader.GetInt32(3);
+                            }
+                            catch
+                            {
+                                user5 = "";
+                                daily5 = 0;
+                            }
+                            break;
+                        case 5:
+                            try
+                            {
+                                user6 = staffNames[i];
+                                daily6 = reader.GetInt32(3);
+                            }
+                            catch
+                            {
+                                user6 = "";
+                                daily6 = 0;
+                            }
+
+                            break;
+                        case 6:
+                            try
+                            {
+                                user7 = staffNames[i];
+                                daily7 = reader.GetInt32(3);
+                            }
+
+                            catch
+                            {
+                                user7 = "";
+                                daily7 = 0;
+                            }
+                            break;
+                        case 7:
+                            try
+                            {
+                                user8 = staffNames[i];
+                                daily8 = reader.GetInt32(3);
+                            }
+                            catch
+                            {
+                                user8 = "";
+                                daily8 = 0;
+                            }
+
+                            break;
 
                         default:
                             break;
@@ -571,7 +769,7 @@ namespace KPIAnalyser
                     Title = "Days",
                     FontSize = 10,
                     DataLabels = true,
-                    Values = new ChartValues<int> { daily1, daily2, daily3, daily4 }
+                    Values = new ChartValues<int> { daily1, daily2, daily3, daily4,daily5,daily6,daily7,daily8 }
 
                 }
             };
@@ -579,8 +777,12 @@ namespace KPIAnalyser
             latenessBar.AxisX.Add(new Axis
             {
                 Title = "Programmer",
-                FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                FontSize = 10,
+                Separator = new LiveCharts.Wpf.Separator
+                {
+                    Step = 1,
+                },
+                Labels = new[] { user1, user2, user3, user4,user5,user6,user7,user8 }
             });
 
             latenessBar.AxisY.Add(new Axis
@@ -601,11 +803,19 @@ namespace KPIAnalyser
             string user2 = "";
             string user3 = "";
             string user4 = "";
+            string user5 = "";
+            string user6 = "";
+            string user7 = "";
+            string user8 = "";
 
             double daily1 = 0;
             double daily2 = 0;
             double daily3 = 0;
             double daily4 = 0;
+            double daily5 = 0;
+            double daily6 = 0;
+            double daily7 = 0;
+            double daily8 = 0;
 
 
 
@@ -701,6 +911,57 @@ namespace KPIAnalyser
                             }
 
                             break;
+                        case 4:
+                            try
+                            {
+                                user5 = staffNames[i];
+                                daily5 = reader.GetDouble(0);
+                            }
+                            catch
+                            {
+                                user5 = "";
+                                daily5 = 0;
+                            }
+                            break;
+                        case 5:
+                            try
+                            {
+                                user6 = staffNames[i];
+                                daily6 = reader.GetDouble(0);
+                            }
+                            catch
+                            {
+                                user6 = "";
+                                daily6 = 0;
+                            }
+
+                            break;
+                        case 6:
+                            try
+                            {
+                                user7 = staffNames[i];
+                                daily7 = reader.GetDouble(0);
+                            }
+
+                            catch
+                            {
+                                user7 = "";
+                                daily7 = 0;
+                            }
+                            break;
+                        case 7:
+                            try
+                            {
+                                user8 = staffNames[i];
+                                daily8 = reader.GetDouble(0);
+                            }
+                            catch
+                            {
+                                user8 = "";
+                                daily8 = 0;
+                            }
+
+                            break;
 
                         default:
                             break;
@@ -724,7 +985,7 @@ namespace KPIAnalyser
                     Fill = System.Windows.Media.Brushes.Green,
                     DataLabels = true,
                     FontSize = 10,
-                    Values = new ChartValues<double> { daily1, daily2, daily3, daily4 }
+                    Values = new ChartValues<double> { daily1, daily2, daily3, daily4,daily5,daily6,daily7,daily8 }
 
                 }
             };
@@ -732,8 +993,12 @@ namespace KPIAnalyser
             problemsBar.AxisX.Add(new Axis
             {
                 Title = "Programmer",
-                FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                FontSize = 10,
+                Separator = new LiveCharts.Wpf.Separator
+                {
+                    Step = 1,
+                },
+                Labels = new[] { user1, user2, user3, user4,user5,user6,user7,user8 }
             });
 
             problemsBar.AxisY.Add(new Axis
@@ -804,16 +1069,28 @@ namespace KPIAnalyser
             string user2 = "";
             string user3 = "";
             string user4 = "";
+            string user5 = "";
+            string user6 = "";
+            string user7 = "";
+            string user8 = "";
 
             double daily1 = 0;
             double daily2 = 0;
             double daily3 = 0;
             double daily4 = 0;
+            double daily5 = 0;
+            double daily6 = 0;
+            double daily7 = 0;
+            double daily8 = 0;
 
             int target1 = 0;
             int target2 = 0;
             int target3 = 0;
             int target4 = 0;
+            int target5 = 0;
+            int target6 = 0;
+            int target7 = 0;
+            int target8 = 0;
 
 
 
@@ -916,6 +1193,64 @@ namespace KPIAnalyser
                                 target4 = 0;
                             }
                             break;
+                        case 4:
+                            try
+                            {
+                                user5 = staffNames[i];
+                                daily5 = reader.GetDouble(0);
+                                target5 = 8;
+                            }
+                            catch
+                            {
+                                user5 = "";
+                                daily5 = 0;
+                                target5 = 0;
+                            }
+                            break;
+                        case 5:
+                            try
+                            {
+                                user6 = staffNames[i];
+                                daily6 = reader.GetDouble(0);
+                                target6 = 8;
+                            }
+                            catch
+                            {
+                                user6 = "";
+                                daily6 = 0;
+                                target6 = 0;
+                            }
+
+                            break;
+                        case 6:
+                            try
+                            {
+                                user7 = staffNames[i];
+                                daily7 = reader.GetDouble(0);
+                                target7 = 8;
+                            }
+
+                            catch
+                            {
+                                user7 = "";
+                                daily7 = 0;
+                                target7 = 0;
+                            }
+                            break;
+                        case 7:
+                            try
+                            {
+                                user8 = staffNames[i];
+                                daily8 = reader.GetDouble(0);
+                                target8 = 8;
+                            }
+                            catch
+                            {
+                                user8 = "";
+                                daily8 = 0;
+                                target8 = 0;
+                            }
+                            break;
 
                         default:
                             break;
@@ -939,7 +1274,7 @@ namespace KPIAnalyser
                     FontSize = 10,
                     DataLabels = true,
                     Fill = System.Windows.Media.Brushes.Green,
-                    Values = new ChartValues<double> { daily1, daily2, daily3, daily4 }
+                    Values = new ChartValues<double> { daily1, daily2, daily3, daily4,daily5,daily6,daily7,daily8 }
                 }
             };
 
@@ -958,8 +1293,12 @@ namespace KPIAnalyser
             chartOverTime.AxisX.Add(new Axis
             {
                 Title = "Programmer",
-                FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                FontSize = 10,
+                Separator = new LiveCharts.Wpf.Separator
+                {
+                    Step = 1,
+                },
+                Labels = new[] { user1, user2, user3, user4,user5,user6,user7,user8 }
             });
 
             chartOverTime.AxisY.Add(new Axis
@@ -977,6 +1316,17 @@ namespace KPIAnalyser
         private void cviewisengineerBindingSource_CurrentChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dailyAverageItemsBar_DataClick(object sender, ChartPoint p)
+        {
+            var asPixels = dailyAverageItemsBar.Base.ConvertToPixels(p.AsPoint());
+            // vvv this will get the fullname of whoevers data it is 
+            //_staffNames[Convert.ToInt32(p.X)];
+            frmProgrammerOverview frm = new frmProgrammerOverview(_staffNames[Convert.ToInt32(p.X)], dteStart.Value, dteEnd.Value);
+            frm.ShowDialog();
+
+                
         }
     }
 }

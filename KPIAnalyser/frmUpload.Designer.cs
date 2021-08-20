@@ -69,7 +69,7 @@
             // 
             this.btnFolder.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFolder.BackgroundImage")));
             this.btnFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnFolder.Location = new System.Drawing.Point(235, 34);
+            this.btnFolder.Location = new System.Drawing.Point(235, 40);
             this.btnFolder.Name = "btnFolder";
             this.btnFolder.Size = new System.Drawing.Size(32, 31);
             this.btnFolder.TabIndex = 3;
@@ -89,7 +89,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 66);
+            this.progressBar1.Location = new System.Drawing.Point(12, 48);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(217, 23);
             this.progressBar1.TabIndex = 5;

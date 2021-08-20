@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.lstStaff = new System.Windows.Forms.ListBox();
             this.cviewisengineerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.user_infoDataSet = new KPIAnalyser.user_infoDataSet();
             this.cviewsalesprogramusersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.user_infoDataSet = new KPIAnalyser.user_infoDataSet();
             this.c_view_sales_program_usersTableAdapter = new KPIAnalyser.user_infoDataSetTableAdapters.c_view_sales_program_usersTableAdapter();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCompare = new System.Windows.Forms.Button();
@@ -40,8 +40,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dteEnd = new System.Windows.Forms.DateTimePicker();
             this.dteStart = new System.Windows.Forms.DateTimePicker();
-            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.dailyAverageItemsBar = new LiveCharts.Wpf.CartesianChart();
             this.label4 = new System.Windows.Forms.Label();
             this.absenseBar = new LiveCharts.WinForms.CartesianChart();
             this.label5 = new System.Windows.Forms.Label();
@@ -57,13 +55,15 @@
             this.elementHost4 = new System.Windows.Forms.Integration.ElementHost();
             this.chartOverTime = new LiveCharts.Wpf.CartesianChart();
             this.label8 = new System.Windows.Forms.Label();
+            this.dailyAverageItemsBar = new LiveCharts.WinForms.CartesianChart();
             ((System.ComponentModel.ISupportInitialize)(this.cviewisengineerBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // lstStaff
             // 
+            this.lstStaff.DisplayMember = "id";
             this.lstStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstStaff.FormattingEnabled = true;
             this.lstStaff.ItemHeight = 20;
@@ -79,15 +79,15 @@
             this.cviewisengineerBindingSource.DataSource = this.cviewsalesprogramusersBindingSource;
             this.cviewisengineerBindingSource.CurrentChanged += new System.EventHandler(this.cviewisengineerBindingSource_CurrentChanged);
             // 
-            // user_infoDataSet
-            // 
-            this.user_infoDataSet.DataSetName = "user_infoDataSet";
-            this.user_infoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // cviewsalesprogramusersBindingSource
             // 
             this.cviewsalesprogramusersBindingSource.DataMember = "c_view_sales_program_users";
             this.cviewsalesprogramusersBindingSource.DataSource = this.user_infoDataSet;
+            // 
+            // user_infoDataSet
+            // 
+            this.user_infoDataSet.DataSetName = "user_infoDataSet";
+            this.user_infoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // c_view_sales_program_usersTableAdapter
             // 
@@ -143,16 +143,6 @@
             this.dteStart.Name = "dteStart";
             this.dteStart.Size = new System.Drawing.Size(200, 20);
             this.dteStart.TabIndex = 6;
-            // 
-            // elementHost1
-            // 
-            this.elementHost1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.elementHost1.Location = new System.Drawing.Point(217, 25);
-            this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(720, 485);
-            this.elementHost1.TabIndex = 10;
-            this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.dailyAverageItemsBar;
             // 
             // label4
             // 
@@ -267,11 +257,22 @@
             this.label8.TabIndex = 21;
             this.label8.Text = "Programmer OverTime (clock in)";
             // 
+            // dailyAverageItemsBar
+            // 
+            this.dailyAverageItemsBar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dailyAverageItemsBar.Location = new System.Drawing.Point(217, 25);
+            this.dailyAverageItemsBar.Name = "dailyAverageItemsBar";
+            this.dailyAverageItemsBar.Size = new System.Drawing.Size(720, 485);
+            this.dailyAverageItemsBar.TabIndex = 22;
+            this.dailyAverageItemsBar.Text = "dai";
+            this.dailyAverageItemsBar.DataClick += new LiveCharts.Events.DataClickHandler(this.dailyAverageItemsBar_DataClick);
+            // 
             // frmProgrammerComparison
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1856, 1017);
+            this.Controls.Add(this.dailyAverageItemsBar);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.elementHost4);
             this.Controls.Add(this.button1);
@@ -283,7 +284,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.absenseBar);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.elementHost1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dteEnd);
@@ -297,8 +297,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmEstimatorComparison_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cviewisengineerBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,8 +316,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dteEnd;
         private System.Windows.Forms.DateTimePicker dteStart;
-        private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private LiveCharts.Wpf.CartesianChart dailyAverageItemsBar;
         private System.Windows.Forms.Label label4;
         private LiveCharts.WinForms.CartesianChart absenseBar;
         private System.Windows.Forms.Label label5;
@@ -334,5 +332,6 @@
         private System.Windows.Forms.Integration.ElementHost elementHost4;
         private LiveCharts.Wpf.CartesianChart chartOverTime;
         private System.Windows.Forms.Label label8;
+        private LiveCharts.WinForms.CartesianChart dailyAverageItemsBar;
     }
 }

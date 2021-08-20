@@ -129,7 +129,12 @@ namespace KPIAnalyser
                         rounded = 0;
                     int exists = 0;
                     //we need to check if the data for that employee + day exists and if it does then update rather than insert
-                    sql = "select id FROM dbo.clock_in_import WHERE clock_in_id = " + xlRange.Cells[i, 3].Value.ToString() + " AND date = CAST( '" + xlRange.Cells[i, 4].Value.ToString() + "' as DATE) ";
+                    string temp_date = "";
+                    temp_date = xlRange.Cells[i, 4].Value.ToString();
+                    DateTime temp3 = Convert.ToDateTime(temp_date);
+                    temp_date = temp3.ToString("yyyyMMdd");
+                    sql = "select id FROM dbo.clock_in_import WHERE clock_in_id = " + xlRange.Cells[i, 3].Value.ToString() + " AND [date] = CAST( '" + temp_date + "' as DATE) ";
+                    //MessageBox.Show(sql);
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
                         var getData = Convert.ToString(cmd.ExecuteScalar());
@@ -151,7 +156,7 @@ namespace KPIAnalyser
                            xlRange.Cells[i, 1].Value.ToString() + "','" + //last name
                            xlRange.Cells[i, 2].Value.ToString() + "'," +//first name
                            xlRange.Cells[i, 3].Value.ToString() + ",CAST('" +//clock_in_id
-                           xlRange.Cells[i, 4].Value.ToString() + "' as date)," +//date
+                           temp_date + "' as date)," +//date
                            clock_in + "," +//clock_in
                            clock_out + "," +//clock_out
                            total + ",'" +//total

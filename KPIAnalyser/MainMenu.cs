@@ -448,7 +448,7 @@ namespace KPIAnalyser
             dgvMonthly.ClearSelection();
         }
 
-        private void paintPackingGrid()
+        private void paintPackingGrid() 
         {
             foreach (DataGridViewRow Myrow in dgPackTimings.Rows)
             {            //Here 2 cell is target value and 1 cell is Volume
@@ -567,10 +567,7 @@ namespace KPIAnalyser
                 lblAbsent.Text = rdr[5].ToString();
                 lblLate.Text = rdr[6].ToString();
                 lblOvertimeHours.Text = rdr[7].ToString();
-
             }
-
-
 
 
             conn.Close();
@@ -1173,6 +1170,12 @@ namespace KPIAnalyser
             frmProgrammerSummary frm = new frmProgrammerSummary(lblEngineerName.Text,Convert.ToDateTime(dgEngineeringDaily.Rows[e.RowIndex].Cells[1].Value));
             frm.ShowDialog();
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frmSlimlineEstimatingProductivity frm = new frmSlimlineEstimatingProductivity();
+            frm.Show();
         }
     }
 }
