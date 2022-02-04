@@ -11,15 +11,20 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using System.Data.SqlClient;
 using System.Drawing.Imaging;
+using System.Globalization;
 
 namespace KPIAnalyser
 {
     public partial class frmEngineeringManagement : Form
     {
+        List<string> tempData = new List<string>();
+
         public frmEngineeringManagement()
         {
             InitializeComponent();
             drawStackedLatenessChartWeekly();
+            rdoWeekly.Checked = true;
+            filldatagrid();
         }
 
         private void FrmEngineeringManagement_Load(object sender, EventArgs e)
@@ -30,6 +35,7 @@ namespace KPIAnalyser
 
         private void drawStackedLatenessChartMonthly()
         {
+            tempData.Clear();
 
             string n1 = "";
             string n2 = "";
@@ -127,6 +133,20 @@ namespace KPIAnalyser
                 n11 = reader[30].ToString();
                 n12 = reader[33].ToString();
 
+                tempData.Add(reader[0].ToString());
+                tempData.Add(reader[3].ToString());
+                tempData.Add(reader[6].ToString());
+                tempData.Add(reader[9].ToString());
+                tempData.Add(reader[12].ToString());
+                tempData.Add(reader[15].ToString());
+                tempData.Add(reader[18].ToString());
+                tempData.Add(reader[21].ToString());
+                tempData.Add(reader[24].ToString());
+                tempData.Add(reader[27].ToString());
+                tempData.Add(reader[30].ToString());
+                tempData.Add(reader[33].ToString());
+                tempData.Reverse();
+
                 l1 = Convert.ToInt32(reader[1]);
                 l2 = Convert.ToInt32(reader[4]);
                 l3 = Convert.ToInt32(reader[7]);
@@ -169,10 +189,7 @@ namespace KPIAnalyser
                 r12 = Convert.ToInt32(reader[47]);
             }
 
-
             conn.Close();
-
-
 
             p1 = Math.Round((Convert.ToDouble(l1) / (Convert.ToDouble(o1) + Convert.ToDouble(l1)) * 100), 2);
             p2 = Math.Round((Convert.ToDouble(l2) / (Convert.ToDouble(o2) + Convert.ToDouble(l2)) * 100), 2);
@@ -199,8 +216,8 @@ namespace KPIAnalyser
                     Title = "On Time",
                     Values = new ChartValues<double> { o12, o11, o10, o9, o8, o7, o6, o5, o4, o3, o2, o1},
                     StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
-                    DataLabels = true, 
-                    
+                    DataLabels = true,
+
                 },
                 new StackedColumnSeries
                 {
@@ -220,16 +237,16 @@ namespace KPIAnalyser
             };
 
 
-            
+
 
 
 
             cartesianChart1.AxisX.Add(new Axis
             {
                 Title = "Date Range",
-                Labels = new[] {n12 + " - " + p12 + "%", n11 + " - " + p11 + "%", n10 + " - " + p10 + "%", n9 + " - " + p9 + "%", n8 + " - " + p8 + "%", n7 + " - " + p7 + "%", n6 + " - " + p6 + "%", n5 + " - " + p5 + "%", n4 + " - " + p4 + "%", n3 + " - " + p3 + "%", n2 + " - " + p2 + "%", n1 + " - " + p1 + "%", },
+                Labels = new[] { n12 + " - " + p12 + "%", n11 + " - " + p11 + "%", n10 + " - " + p10 + "%", n9 + " - " + p9 + "%", n8 + " - " + p8 + "%", n7 + " - " + p7 + "%", n6 + " - " + p6 + "%", n5 + " - " + p5 + "%", n4 + " - " + p4 + "%", n3 + " - " + p3 + "%", n2 + " - " + p2 + "%", n1 + " - " + p1 + "%", },
                 Separator = DefaultAxes.CleanSeparator
-                
+
             });
 
             cartesianChart1.AxisY.Add(new Axis
@@ -275,7 +292,7 @@ namespace KPIAnalyser
             cartesianChart2.AxisX.Add(new Axis
             {
                 Title = "Date Range",
-                Labels = new[] { n12 , n11 , n10 , n9 , n8 , n7 , n6 , n5 , n4 , n3 , n2 , n1  },
+                Labels = new[] { n12, n11, n10, n9, n8, n7, n6, n5, n4, n3, n2, n1 },
                 Separator = DefaultAxes.CleanSeparator
 
             });
@@ -291,7 +308,7 @@ namespace KPIAnalyser
         }
         private void drawStackedLatenessChartWeekly()
         {
-
+            tempData.Clear();
 
             DateTime ws1 = DateTime.Today;
             DateTime ws2 = DateTime.Today;
@@ -301,7 +318,7 @@ namespace KPIAnalyser
             int l2 = 0;
             int l3 = 0;
             int l4 = 0;
-            int o1 =0;
+            int o1 = 0;
             int o2 = 0;
             int o3 = 0;
             int o4 = 0;
@@ -309,7 +326,6 @@ namespace KPIAnalyser
             double p2 = 0f;
             double p3 = 0f;
             double p4 = 0f;
-
             int r1 = 0;
             int r2 = 0;
             int r3 = 0;
@@ -321,27 +337,33 @@ namespace KPIAnalyser
             conn.Open();
             SqlCommand cmd = new SqlCommand("usp_kpi_engineering_manager", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            
+
             cmd.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Weekly";
 
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-               ws1 = Convert.ToDateTime(reader[0]);
-               ws2 = Convert.ToDateTime(reader[3]);
-               ws3 = Convert.ToDateTime(reader[6]);
-               ws4 = Convert.ToDateTime(reader[9]);
+                ws1 = Convert.ToDateTime(reader[0]);
+                ws2 = Convert.ToDateTime(reader[3]);
+                ws3 = Convert.ToDateTime(reader[6]);
+                ws4 = Convert.ToDateTime(reader[9]);
 
-               l1 = Convert.ToInt32(reader[1]); 
-               l2 = Convert.ToInt32(reader[4]);
-               l3 = Convert.ToInt32(reader[7]);
-               l4 = Convert.ToInt32(reader[10]);
+                tempData.Add(reader[0].ToString());
+                tempData.Add(reader[3].ToString());
+                tempData.Add(reader[6].ToString());
+                tempData.Add(reader[9].ToString());
+                tempData.Reverse();
 
-               o1 = Convert.ToInt32(reader[2]);
-               o2 = Convert.ToInt32(reader[5]);
-               o3 = Convert.ToInt32(reader[8]);
-               o4 = Convert.ToInt32(reader[11]);
+                l1 = Convert.ToInt32(reader[1]);
+                l2 = Convert.ToInt32(reader[4]);
+                l3 = Convert.ToInt32(reader[7]);
+                l4 = Convert.ToInt32(reader[10]);
+
+                o1 = Convert.ToInt32(reader[2]);
+                o2 = Convert.ToInt32(reader[5]);
+                o3 = Convert.ToInt32(reader[8]);
+                o4 = Convert.ToInt32(reader[11]);
 
 
                 r1 = Convert.ToInt32(reader[12]);
@@ -454,7 +476,7 @@ namespace KPIAnalyser
 
         private void drawStackedLatenessChartQuater()
         {
-
+            tempData.Clear();
             string n1 = "";
             string n2 = "";
             string n3 = "";
@@ -492,6 +514,11 @@ namespace KPIAnalyser
                 n2 = reader[3].ToString();
                 n3 = reader[6].ToString();
                 n4 = reader[9].ToString();
+                tempData.Add(reader[0].ToString());
+                tempData.Add(reader[3].ToString());
+                tempData.Add(reader[6].ToString());
+                tempData.Add(reader[9].ToString());
+                tempData.Reverse();
 
                 l1 = Convert.ToInt32(reader[1]);
                 l2 = Convert.ToInt32(reader[4]);
@@ -551,7 +578,7 @@ namespace KPIAnalyser
                 },
             };
 
-           
+
 
             cartesianChart1.AxisX.Add(new Axis
             {
@@ -600,7 +627,7 @@ namespace KPIAnalyser
             cartesianChart2.AxisX.Add(new Axis
             {
                 Title = "Date Range",
-                Labels = new[] { "Q" + n4 , "Q" + n3 , "Q" + n2 , "Q" + n1  },
+                Labels = new[] { "Q" + n4, "Q" + n3, "Q" + n2, "Q" + n1 },
                 Separator = DefaultAxes.CleanSeparator
 
             });
@@ -622,7 +649,7 @@ namespace KPIAnalyser
 
         private void drawStackedLatenessChartYear()
         {
-
+            tempData.Clear();
 
             string n1 = "";
             string n2 = "";
@@ -663,6 +690,13 @@ namespace KPIAnalyser
                 n2 = reader[3].ToString();
                 n3 = reader[6].ToString();
                 n4 = reader[9].ToString();
+
+                tempData.Add(reader[0].ToString());
+                tempData.Add(reader[3].ToString());
+                tempData.Add(reader[6].ToString());
+                tempData.Add(reader[9].ToString());
+
+                tempData.Reverse();
 
                 l1 = Convert.ToInt32(reader[1]);
                 l2 = Convert.ToInt32(reader[4]);
@@ -722,7 +756,7 @@ namespace KPIAnalyser
             };
 
 
-          
+
 
 
             cartesianChart1.AxisX.Add(new Axis
@@ -774,7 +808,7 @@ namespace KPIAnalyser
             cartesianChart2.AxisX.Add(new Axis
             {
                 Title = "Date Range",
-                Labels = new[] { n4,  n3,  n2, n1 },
+                Labels = new[] { n4, n3, n2, n1 },
                 Separator = DefaultAxes.CleanSeparator
 
             });
@@ -791,21 +825,25 @@ namespace KPIAnalyser
         private void RdoWeekly_Click(object sender, EventArgs e)
         {
             drawStackedLatenessChartWeekly();
+            filldatagrid();
         }
 
         private void RdoMonthly_CheckedChanged(object sender, EventArgs e)
         {
             drawStackedLatenessChartMonthly();
+            filldatagrid();
         }
 
         private void RdoYearly_Click(object sender, EventArgs e)
         {
             drawStackedLatenessChartYear();
+            filldatagrid();
         }
 
         private void RdoQuaterly_Click(object sender, EventArgs e)
         {
             drawStackedLatenessChartQuater();
+            filldatagrid();
         }
 
         private void BtnPrintLateness_Click(object sender, EventArgs e)
@@ -818,6 +856,216 @@ namespace KPIAnalyser
         private void RdoWeekly_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cartesianChart2_DataClick(object sender, ChartPoint p)
+        {
+            var asPixels = cartesianChart2.Base.ConvertToPixels(p.AsPoint());
+            //MessageBox.Show("[EVENT] You clicked ([EVENT] You clicked (" + p.X + ", " + p.Y + ") in pixels (" +
+            //            asPixels.X + ", " + asPixels.Y + ")");
+            //MessageBox.Show(Convert.ToInt32(p.X).ToString());
+            //   MessageBox.Show(tempData[Convert.ToInt32(p.X)].ToString());
+
+            //vvvv use this to get the current datatype tom uses for the chart 
+            tempData[Convert.ToInt32(p.X)].ToString();
+
+            //because the data types are so inconsistent we need to check which type it is
+            DateTime dateStart = DateTime.Today;
+            DateTime dateEnd = DateTime.Today;
+            if (rdoWeekly.Checked == true) //weekly is the only nice format 
+            {
+                dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString());
+                dateEnd = dateStart.AddDays(7);
+            }
+            else if (rdoMonthly.Checked == true)
+            {
+                int monthsToRemove = tempData.IndexOf(tempData[Convert.ToInt32(p.X)].ToString()) + 1; //add one because list stars at 0
+                monthsToRemove = monthsToRemove - tempData.Count(); //remove the current pos from the  list total to get the amount of jumps back we take
+                dateStart = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01");
+                dateStart = dateStart.AddMonths(monthsToRemove);
+                dateEnd = dateStart.AddMonths(1);
+            }
+            else if (rdoQuaterly.Checked == true)
+            {
+                // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                //after we have that take away 3 months for every position away from the final quater
+                int quarterNumber = (dateStart.Month - 1) / 3 + 1;
+                dateStart = new DateTime(dateStart.Year, (quarterNumber - 1) * 3 + 1, 1);
+
+                int monthsToRemove = tempData.IndexOf(tempData[Convert.ToInt32(p.X)].ToString()) + 1; //add one because list stars at 0
+                monthsToRemove = monthsToRemove - tempData.Count();
+                monthsToRemove = monthsToRemove * 3; //each quater is 3 months so this should take away the exact number of months to remove
+                dateStart = dateStart.AddMonths(monthsToRemove);
+                dateEnd = dateEnd.AddMonths(3);
+            }
+            else if (rdoYearly.Checked == true)
+            {
+                //this one should be fairly easy as the output is the year
+                dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString() + "/01/01");
+                dateEnd = dateStart.AddYears(1);
+            }
+
+            //should have the start and end dates for the new form now
+
+            frmRemakes frm = new frmRemakes(dateStart, dateEnd, 0, "");
+            frm.ShowDialog();
+        }
+
+        private void rdoYearly_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+
+
+        private void filldatagrid()
+        {
+            //front of list and end 
+            // tempData[0].ToString();
+            //tempData[tempData.Count()].ToString();
+            DateTime endDate = DateTime.Now;
+            DateTime startDate = DateTime.Now;
+
+
+            if (rdoWeekly.Checked == true) //weekly is the only nice format 
+            {
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                startDate = Convert.ToDateTime(tempData[0].ToString());
+                endDate = endDate.AddDays(7); //because its the START of the week
+                //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
+            }
+            else if (rdoMonthly.Checked == true)
+            {
+
+                endDate = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01"); //THE FINAL ENTRY IS ALWAYS THIS CURRENT MONTH
+                endDate = endDate.AddMonths(1); //we need to include this months data so if its januray its everything < feb
+                startDate = endDate.AddYears(-1);
+            }
+            else if (rdoQuaterly.Checked == true)
+            {
+                // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                //after we have that take away 3 months for every position away from the final quater
+                endDate = DateTime.Now;
+                int quarterNumber = (endDate.Month - 1) / 3 + 1;
+                endDate = new DateTime(endDate.Year, (quarterNumber - 1) * 3 + 1, 1); //get the current quarter because thats final quater on the graph <<<<<<<<<<<<<<<<<<<<<<<
+                startDate = endDate.AddMonths(-9);
+                endDate = endDate.AddMonths(3);
+
+            }
+            else if (rdoYearly.Checked == true)
+            {
+                //this one should be fairly easy as the output is the year
+                //MessageBox.Show( tempData[tempData.Count() -1].ToString());
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString() + "/01/01");
+                startDate = endDate.AddYears(-3);
+                endDate = endDate.AddYears(1);
+
+                //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+            }
+
+            string sql = "select d1.department_name as [Department] ,COUNT(d1.department_name) as [Number of Remakes],'£' + Cast(sum(remake.cost) as nvarchar(max)) as [Total Cost]  from dbo.remake " +
+                "left join dbo.door on dbo.door.id = dbo.remake.door_id left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                "where[date] >= '" + startDate.ToString("yyyy-MM-dd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' group by d1.department_name order by COUNT(d1.department_name) desc";
+            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    // generate the data you want to insert
+                    DataRow toInsert = dt.NewRow();
+                    // insert in the desired place
+                    dt.Rows.InsertAt(toInsert, dt.Rows.Count);
+                    dt.Rows[dt.Rows.Count - 1][0] = "Totals:";
+                    double totalCost = 0;
+                    int totalRemake = 0;
+                    for (int i = 0; i < dt.Rows.Count - 1; i++)
+                    {
+                        string temp = dt.Rows[i][2].ToString().Substring(1);
+                        totalRemake = totalRemake + Convert.ToInt32(dt.Rows[i][1]);
+                        totalCost = totalCost + Convert.ToDouble(temp);
+                    }
+
+                    dt.Rows[dt.Rows.Count - 1][1] = totalRemake;
+                    dt.Rows[dt.Rows.Count - 1][2] = "£" + totalCost.ToString();
+                    dataGridView1.DataSource = dt;
+                    conn.Close();
+                }
+            }
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+
+        }
+
+        private void frmEngineeringManagement_Shown(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void tabEngineering_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabEngineering.SelectedIndex == 1)
+                dataGridView1.Visible = true;
+            else
+                dataGridView1.Visible = false;
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == dataGridView1.Rows.Count - 1)
+                return;
+
+
+            //front of list and end 
+            // tempData[0].ToString();
+            //tempData[tempData.Count()].ToString();
+            DateTime endDate = DateTime.Now;
+            DateTime startDate = DateTime.Now;
+
+
+            if (rdoWeekly.Checked == true) //weekly is the only nice format 
+            {
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                startDate = Convert.ToDateTime(tempData[0].ToString());
+                endDate = endDate.AddDays(7); //because its the START of the week
+                //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
+            }
+            else if (rdoMonthly.Checked == true)
+            {
+
+                endDate = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01"); //THE FINAL ENTRY IS ALWAYS THIS CURRENT MONTH
+                endDate = endDate.AddMonths(1); //we need to include this months data so if its januray its everything < feb
+                startDate = endDate.AddYears(-1);
+            }
+            else if (rdoQuaterly.Checked == true)
+            {
+                // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                //after we have that take away 3 months for every position away from the final quater
+                endDate = DateTime.Now;
+                int quarterNumber = (endDate.Month - 1) / 3 + 1;
+                endDate = new DateTime(endDate.Year, (quarterNumber - 1) * 3 + 1, 1); //get the current quarter because thats final quater on the graph <<<<<<<<<<<<<<<<<<<<<<<
+                startDate = endDate.AddMonths(-9);
+                endDate = endDate.AddMonths(3);
+
+            }
+            else if (rdoYearly.Checked == true)
+            {
+                //this one should be fairly easy as the output is the year
+                //MessageBox.Show( tempData[tempData.Count() -1].ToString());
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString() + "/01/01");
+                startDate = endDate.AddYears(-3);
+                endDate = endDate.AddYears(1);
+
+                //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+            }
+
+            frmRemakes frm = new frmRemakes(startDate, endDate, -1, dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+            frm.ShowDialog();
         }
     }
 }

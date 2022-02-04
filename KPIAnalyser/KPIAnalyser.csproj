@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -173,6 +173,18 @@
     <Compile Include="frmProductionDoorTypeAnalysis.Designer.cs">
       <DependentUpon>frmProductionDoorTypeAnalysis.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRemakeResponsible.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRemakeResponsible.Designer.cs">
+      <DependentUpon>frmRemakeResponsible.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRemakes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRemakes.Designer.cs">
+      <DependentUpon>frmRemakes.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmReturnVisitDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +300,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmProductionDoorTypeAnalysis.resx">
       <DependentUpon>frmProductionDoorTypeAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRemakeResponsible.resx">
+      <DependentUpon>frmRemakeResponsible.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRemakes.resx">
+      <DependentUpon>frmRemakes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReturnVisitDetails.resx">
       <DependentUpon>frmReturnVisitDetails.cs</DependentUpon>

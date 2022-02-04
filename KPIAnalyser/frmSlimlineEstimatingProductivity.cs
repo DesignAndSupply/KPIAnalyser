@@ -530,7 +530,7 @@ namespace KPIAnalyser
         private void averageDailyItems()
         {
             string startdate = dteStart.Value.ToString("yyyyMMdd");
-            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.AddDays(1).ToString("yyyyMMdd");
             string staffName = cmbStaffMember.Text;
             int includeRevisions = 0;
 
@@ -556,7 +556,7 @@ namespace KPIAnalyser
 
             while (reader.Read())
             {
-                try
+                try //this is 
                 {
                     averageDailyItems = reader.GetDouble(0);
                 }

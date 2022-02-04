@@ -139,7 +139,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(788, 20);
             this.label4.TabIndex = 30;
-            this.label4.Text = "AVERAGE ITEMS QUOTED DAILY DURING PERIOD";
+            this.label4.Text = "AVERAGE VALUES QUOTED DAILY DURING PERIOD";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3

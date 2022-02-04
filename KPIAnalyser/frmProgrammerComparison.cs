@@ -631,7 +631,7 @@ namespace KPIAnalyser
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("usp_kpi_absent_late_estimating", conn);
+                SqlCommand cmd = new SqlCommand("usp_kpi_absent_late_estimating", conn); //
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffNames[i];

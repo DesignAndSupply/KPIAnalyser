@@ -122,7 +122,7 @@ namespace KPIAnalyser
                 cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffNames[i];
                 cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
                 cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
-                cmd.Parameters.Add("@incRev", SqlDbType.Int).Value = -1;
+                cmd.Parameters.Add("@incRev", SqlDbType.Int).Value = -1; 
 
                 SqlDataReader reader = cmd.ExecuteReader();
 
@@ -135,7 +135,7 @@ namespace KPIAnalyser
                             {
                                 user1 = staffNames[i];
                                 daily1 = reader.GetDouble(0);
-                                target1 = 90;
+                                target1 = 62500;
                             }
                             catch
                             {
@@ -149,7 +149,7 @@ namespace KPIAnalyser
                             {
                                 user2 = staffNames[i];
                                 daily2 = reader.GetDouble(0);
-                                target2 = 90;
+                                target2 = 62500;
                             }
                             catch
                             {
@@ -164,7 +164,7 @@ namespace KPIAnalyser
                             {
                                 user3 = staffNames[i];
                                 daily3 = reader.GetDouble(0);
-                                target3 = 90;
+                                target3 = 62500;
                             }
 
                             catch
@@ -179,7 +179,7 @@ namespace KPIAnalyser
                             {
                                 user4 = staffNames[i];
                                 daily4 = reader.GetDouble(0);
-                                target4 = 90;
+                                target4 = 62500;
                             }
                             catch
                             {
@@ -193,7 +193,7 @@ namespace KPIAnalyser
                             {
                                 user5 = staffNames[i];
                                 daily5 = reader.GetDouble(0);
-                                target5 = 90;
+                                target5 = 62500;
                             }
                             catch
                             {
@@ -207,7 +207,7 @@ namespace KPIAnalyser
                             {
                                 user6 = staffNames[i];
                                 daily6 = reader.GetDouble(0);
-                                target6 = 90;
+                                target6 = 62500;
                             }
                             catch
                             {
@@ -221,7 +221,7 @@ namespace KPIAnalyser
                             {
                                 user7 = staffNames[i];
                                 daily7 = reader.GetDouble(0);
-                                target7 = 90;
+                                target7 = 62500;
                             }
                             catch
                             {
@@ -235,7 +235,7 @@ namespace KPIAnalyser
                             {
                                 user8 = staffNames[i];
                                 daily8 = reader.GetDouble(0);
-                                target8 = 90;
+                                target8 = 62500;
                             }
                             catch
                             {
@@ -249,7 +249,7 @@ namespace KPIAnalyser
                             {
                                 user9 = staffNames[i];
                                 daily9 = reader.GetDouble(0);
-                                target9 = 90;
+                                target9 = 62500;
                             }
                             catch
                             {
@@ -263,7 +263,7 @@ namespace KPIAnalyser
                             {
                                 user10 = staffNames[i];
                                 daily10 = reader.GetDouble(0);
-                                target10 = 90;
+                                target10 = 62500;
                             }
                             catch
                             {
@@ -292,7 +292,7 @@ namespace KPIAnalyser
             {
                 new ColumnSeries
                 {
-                    Title = "Items",
+                    Title = "Value",
                     FontSize = 10,
                     DataLabels = true,
                     Fill = System.Windows.Media.Brushes.Green,
@@ -322,7 +322,7 @@ namespace KPIAnalyser
 
             dailyAverageItemsBar.AxisY.Add(new Axis
             {
-                Title = "Average Items Quoted",
+                Title = "Average Value",
                 FontSize = 16,
 
             });
