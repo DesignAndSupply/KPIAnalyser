@@ -16,16 +16,22 @@ namespace KPIAnalyser
         public DateTime dateStart { get; set; }
         public DateTime dateEnd { get; set; }
         public int dept_only { get; set; }
+        public int staff_only { get; set; }
         public string dept { get; set; }
-        public frmRemakes(DateTime _dateStart, DateTime _dateEnd, int _dept_only, string _dept)
+        public string staff { get; set; }
+        public frmRemakes(DateTime _dateStart, DateTime _dateEnd, int _dept_only, string _dept,int _staff_only,string _staff)
         {
             InitializeComponent();
             dateStart = _dateStart;
             dateEnd = _dateEnd;
             dept_only = _dept_only;
+            staff_only = _staff_only;
+            staff = _staff;
             dept = _dept;
             if (dept_only == -1)
                 lblTitle.Text = dept + " Remakes From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
+            else if (staff_only == -1)
+                lblTitle.Text = "Remakes caused by " + _staff + " From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
             else
                 lblTitle.Text = "Remakes From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
             apply_filter();
@@ -135,6 +141,10 @@ namespace KPIAnalyser
                 if (dept_only == -1)
                 {
                     sql = sql + " AND d1.department_name = '" + dept + "' ";
+                }
+                if (staff_only == -1)
+                {
+                    sql = sql + " AND (u.forename) + ' ' + (u.surname) = '" + staff + "'";
                 }
 
                 sql = sql + " ORDER BY [DATE] asc, dbo.remake.door_id asc";

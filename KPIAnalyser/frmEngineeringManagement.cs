@@ -830,8 +830,7 @@ namespace KPIAnalyser
 
         private void RdoMonthly_CheckedChanged(object sender, EventArgs e)
         {
-            drawStackedLatenessChartMonthly();
-            filldatagrid();
+
         }
 
         private void RdoYearly_Click(object sender, EventArgs e)
@@ -843,6 +842,11 @@ namespace KPIAnalyser
         private void RdoQuaterly_Click(object sender, EventArgs e)
         {
             drawStackedLatenessChartQuater();
+            filldatagrid();
+        }
+        private void rdoMonthly_Click(object sender, EventArgs e)
+        {
+            drawStackedLatenessChartMonthly();
             filldatagrid();
         }
 
@@ -907,7 +911,7 @@ namespace KPIAnalyser
 
             //should have the start and end dates for the new form now
 
-            frmRemakes frm = new frmRemakes(dateStart, dateEnd, 0, "");
+            frmRemakes frm = new frmRemakes(dateStart, dateEnd, 0, "", 0, "");
             frm.ShowDialog();
         }
 
@@ -916,8 +920,7 @@ namespace KPIAnalyser
         }
 
 
-
-        private void filldatagrid()
+        private void remakeDeptChart(string department)
         {
             //front of list and end 
             // tempData[0].ToString();
@@ -928,6 +931,7 @@ namespace KPIAnalyser
 
             if (rdoWeekly.Checked == true) //weekly is the only nice format 
             {
+                //MessageBox.Show(tempData[tempData.Count() - 1].ToString());
                 endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
                 startDate = Convert.ToDateTime(tempData[0].ToString());
                 endDate = endDate.AddDays(7); //because its the START of the week
@@ -962,6 +966,64 @@ namespace KPIAnalyser
                 //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
             }
 
+            //fill the department dgv
+            string sql = "select coalesce(max(u.forename),'') + ' ' + coalesce(max(u.surname),'') as [Person Responsibile] ,COUNT(d1.department_name) as [Number of Remakes],sum(remake.cost) as [Total Cost]  from dbo.remake " +
+                                "left join dbo.door on dbo.door.id = dbo.remake.door_id left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                                "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                                "where[date] >= '" + startDate.ToString("yyyy-MM-dd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "'  AND d1.department_name = '" + department + "' group by dbo.remake.persons_responsible order by COUNT(dbo.remake.persons_responsible) desc,max(u.forename) asc";
+
+            department = department + " Remakes From " + startDate.ToString("yyyy-MM-dd") + " to " + endDate.ToString("yyyy-MM-dd");
+
+            frmRemakeDepartment frm = new frmRemakeDepartment(sql,department);
+            frm.Show();
+        }
+        private void filldatagrid()
+        {
+            //front of list and end 
+            // tempData[0].ToString();
+            //tempData[tempData.Count()].ToString();
+            DateTime endDate = DateTime.Now;
+            DateTime startDate = DateTime.Now;
+
+
+            if (rdoWeekly.Checked == true) //weekly is the only nice format 
+            {
+                //MessageBox.Show(tempData[tempData.Count() - 1].ToString());
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                startDate = Convert.ToDateTime(tempData[0].ToString());
+                endDate = endDate.AddDays(7); //because its the START of the week
+                //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
+            }
+            else if (rdoMonthly.Checked == true)
+            {
+
+                endDate = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01"); //THE FINAL ENTRY IS ALWAYS THIS CURRENT MONTH
+                endDate = endDate.AddMonths(1); //we need to include this months data so if its januray its everything < feb
+                startDate = endDate.AddYears(-1);
+            }
+            else if (rdoQuaterly.Checked == true)
+            {
+                // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                //after we have that take away 3 months for every position away from the final quater
+                endDate = DateTime.Now;
+                int quarterNumber = (endDate.Month - 1) / 3 + 1;
+                endDate = new DateTime(endDate.Year, (quarterNumber - 1) * 3 + 1, 1); //get the current quarter because thats final quater on the graph <<<<<<<<<<<<<<<<<<<<<<<
+                startDate = endDate.AddMonths(-9);
+                endDate = endDate.AddMonths(3);
+
+            }
+            else if (rdoYearly.Checked == true)
+            {
+                //this one should be fairly easy as the output is the year
+                //MessageBox.Show( tempData[tempData.Count() -1].ToString());
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString() + "/01/01");
+                startDate = endDate.AddYears(-3);
+                endDate = endDate.AddYears(1);
+
+                //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+            }
+
+            //fill the department dgv
             string sql = "select d1.department_name as [Department] ,COUNT(d1.department_name) as [Number of Remakes],'£' + Cast(sum(remake.cost) as nvarchar(max)) as [Total Cost]  from dbo.remake " +
                 "left join dbo.door on dbo.door.id = dbo.remake.door_id left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
                 "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
@@ -990,14 +1052,71 @@ namespace KPIAnalyser
 
                     dt.Rows[dt.Rows.Count - 1][1] = totalRemake;
                     dt.Rows[dt.Rows.Count - 1][2] = "£" + totalCost.ToString();
-                    dataGridView1.DataSource = dt;
+                    dgvDepartment.DataSource = dt;
                     conn.Close();
                 }
             }
 
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DataGridViewButtonColumn chartButton = new DataGridViewButtonColumn();
+            chartButton.Name = " ";
+            chartButton.Text = "Chart";
+            chartButton.UseColumnTextForButtonValue = true;
+            if (dgvDepartment.Columns.Contains(" ") == true)
+            {
+                dgvDepartment.Columns.Remove(" ");
+            }
+            int columnIndex = 3;
+            if (dgvDepartment.Columns["chart_column"] == null)
+            {
+                dgvDepartment.Columns.Insert(columnIndex, chartButton);
+            }
+
+            dgvDepartment.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvDepartment.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvDepartment.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvDepartment.ClearSelection();
+
+
+            //fill staff
+            sql = "select max(u.forename) + ' ' + max(u.surname) as [Person Responsibile] ,COUNT(d1.department_name) as [Number of Remakes],'£' + Cast(sum(remake.cost) as nvarchar(max)) as [Total Cost]  from dbo.remake " +
+    "left join dbo.door on dbo.door.id = dbo.remake.door_id left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+    "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+    "where[date] >= '" + startDate.ToString("yyyy-MM-dd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' group by dbo.remake.persons_responsible order by COUNT(dbo.remake.persons_responsible) desc,max(u.forename) asc";
+            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    // generate the data you want to insert
+                    //DataRow toInsert = dt.NewRow();
+                    //// insert in the desired place
+                    //dt.Rows.InsertAt(toInsert, dt.Rows.Count);
+                    //dt.Rows[dt.Rows.Count - 1][0] = "Totals:";
+                    //double totalCost = 0;
+                    //int totalRemake = 0;
+                    //for (int i = 0; i < dt.Rows.Count - 1; i++)
+                    //{
+                    //    string temp = dt.Rows[i][2].ToString().Substring(1);
+                    //    totalRemake = totalRemake + Convert.ToInt32(dt.Rows[i][1]);
+                    //    totalCost = totalCost + Convert.ToDouble(temp);
+                    //}
+
+                    //dt.Rows[dt.Rows.Count - 1][1] = totalRemake;
+                    //dt.Rows[dt.Rows.Count - 1][2] = "£" + totalCost.ToString();
+                    dgvStaff.DataSource = dt;
+                    conn.Close();
+                }
+            }
+
+            dgvStaff.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvStaff.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvStaff.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvStaff.ClearSelection();
+
+
 
 
         }
@@ -1005,20 +1124,97 @@ namespace KPIAnalyser
         private void frmEngineeringManagement_Shown(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
+            dgvDepartment.ClearSelection();
+            dgvStaff.ClearSelection();
         }
 
         private void tabEngineering_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabEngineering.SelectedIndex == 1)
-                dataGridView1.Visible = true;
+            {
+                dgvDepartment.Visible = true;
+                dgvStaff.Visible = true;
+            }
             else
-                dataGridView1.Visible = false;
+            {
+                dgvDepartment.Visible = false;
+                dgvStaff.Visible = false;
+            }
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == dataGridView1.Rows.Count - 1)
+            int department_index = 0;
+            department_index = dgvDepartment.Columns["Department"].Index;
+            int button_index = 0;
+            button_index = dgvDepartment.Columns[" "].Index;
+
+            if (e.RowIndex == dgvDepartment.Rows.Count - 1)
                 return;
+            var senderGrid = (DataGridView)sender;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex == dgvDepartment.Rows.Count - 1)
+                return;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex < dgvDepartment.Rows.Count - 1)
+            {
+                remakeDeptChart(dgvDepartment.Rows[e.RowIndex].Cells[department_index].Value.ToString());
+            }
+            else
+            {
+
+
+                //front of list and end 
+                // tempData[0].ToString();
+                //tempData[tempData.Count()].ToString();
+                DateTime endDate = DateTime.Now;
+                DateTime startDate = DateTime.Now;
+
+
+                if (rdoWeekly.Checked == true) //weekly is the only nice format 
+                {
+                    endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                    startDate = Convert.ToDateTime(tempData[department_index].ToString());
+                    endDate = endDate.AddDays(7); //because its the START of the week
+                                                  //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
+                }
+                else if (rdoMonthly.Checked == true)
+                {
+
+                    endDate = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01"); //THE FINAL ENTRY IS ALWAYS THIS CURRENT MONTH
+                    endDate = endDate.AddMonths(1); //we need to include this months data so if its januray its everything < feb
+                    startDate = endDate.AddYears(-1);
+                }
+                else if (rdoQuaterly.Checked == true)
+                {
+                    // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                    //after we have that take away 3 months for every position away from the final quater
+                    endDate = DateTime.Now;
+                    int quarterNumber = (endDate.Month - 1) / 3 + 1;
+                    endDate = new DateTime(endDate.Year, (quarterNumber - 1) * 3 + 1, 1); //get the current quarter because thats final quater on the graph <<<<<<<<<<<<<<<<<<<<<<<
+                    startDate = endDate.AddMonths(-9);
+                    endDate = endDate.AddMonths(3);
+
+                }
+                else if (rdoYearly.Checked == true)
+                {
+                    //this one should be fairly easy as the output is the year
+                    //MessageBox.Show( tempData[tempData.Count() -1].ToString());
+                    endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString() + "/01/01");
+                    startDate = endDate.AddYears(-3);
+                    endDate = endDate.AddYears(1);
+
+                    //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                }
+
+                frmRemakes frm = new frmRemakes(startDate, endDate, -1, dgvDepartment.Rows[e.RowIndex].Cells[department_index].Value.ToString(), 0, "");
+                frm.ShowDialog();
+            }
+        }
+
+        private void dgvStaff_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //if (e.RowIndex == dgvDepartment.Rows.Count - 1)
+            //    return;
 
 
             //front of list and end 
@@ -1064,8 +1260,10 @@ namespace KPIAnalyser
                 //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
             }
 
-            frmRemakes frm = new frmRemakes(startDate, endDate, -1, dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+            frmRemakes frm = new frmRemakes(startDate, endDate, 0, "", -1, dgvStaff.Rows[e.RowIndex].Cells[0].Value.ToString());
             frm.ShowDialog();
         }
+
+
     }
 }

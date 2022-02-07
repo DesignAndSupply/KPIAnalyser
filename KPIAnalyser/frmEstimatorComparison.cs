@@ -299,6 +299,7 @@ namespace KPIAnalyser
             {
                 Title = "Target",
                 FontSize = 10,
+               //FontStyle.Bold, 
             
                 Fill = System.Windows.Media.Brushes.Orange,
                 Values = new ChartValues<double> { target1, target2, target3, target4, target5}

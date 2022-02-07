@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEngineeringManagement));
             this.tabEngineering = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -40,11 +42,13 @@
             this.rdoMonthly = new System.Windows.Forms.RadioButton();
             this.rdoQuaterly = new System.Windows.Forms.RadioButton();
             this.rdoYearly = new System.Windows.Forms.RadioButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvDepartment = new System.Windows.Forms.DataGridView();
+            this.dgvStaff = new System.Windows.Forms.DataGridView();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).BeginInit();
             this.SuspendLayout();
             // 
             // tabEngineering
@@ -68,7 +72,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1209, 353);
+            this.tabPage1.Size = new System.Drawing.Size(1209, 335);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Programming Lateness";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -141,6 +145,7 @@
             this.rdoMonthly.Text = "Monthly";
             this.rdoMonthly.UseVisualStyleBackColor = true;
             this.rdoMonthly.CheckedChanged += new System.EventHandler(this.RdoMonthly_CheckedChanged);
+            this.rdoMonthly.Click += new System.EventHandler(this.rdoMonthly_Click);
             // 
             // rdoQuaterly
             // 
@@ -166,26 +171,57 @@
             this.rdoYearly.CheckedChanged += new System.EventHandler(this.rdoYearly_CheckedChanged);
             this.rdoYearly.Click += new System.EventHandler(this.RdoYearly_Click);
             // 
-            // dataGridView1
+            // dgvDepartment
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(833, 13);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(399, 202);
-            this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.Visible = false;
-            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dgvDepartment.AllowUserToAddRows = false;
+            this.dgvDepartment.AllowUserToDeleteRows = false;
+            this.dgvDepartment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDepartment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDepartment.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvDepartment.Location = new System.Drawing.Point(361, 12);
+            this.dgvDepartment.Name = "dgvDepartment";
+            this.dgvDepartment.RowHeadersVisible = false;
+            this.dgvDepartment.Size = new System.Drawing.Size(456, 202);
+            this.dgvDepartment.TabIndex = 1;
+            this.dgvDepartment.Visible = false;
+            this.dgvDepartment.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            // 
+            // dgvStaff
+            // 
+            this.dgvStaff.AllowUserToAddRows = false;
+            this.dgvStaff.AllowUserToDeleteRows = false;
+            this.dgvStaff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaff.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvStaff.Location = new System.Drawing.Point(833, 12);
+            this.dgvStaff.Name = "dgvStaff";
+            this.dgvStaff.RowHeadersVisible = false;
+            this.dgvStaff.Size = new System.Drawing.Size(399, 202);
+            this.dgvStaff.TabIndex = 9;
+            this.dgvStaff.Visible = false;
+            this.dgvStaff.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaff_CellDoubleClick);
             // 
             // frmEngineeringManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1244, 583);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvStaff);
+            this.Controls.Add(this.dgvDepartment);
             this.Controls.Add(this.rdoYearly);
             this.Controls.Add(this.rdoQuaterly);
             this.Controls.Add(this.rdoMonthly);
@@ -199,7 +235,8 @@
             this.tabEngineering.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,6 +254,7 @@
         private System.Windows.Forms.Button btnPrintLateness;
         private LiveCharts.WinForms.CartesianChart cartesianChart2;
         private LiveCharts.Wpf.CartesianChart cartesianChart1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvDepartment;
+        private System.Windows.Forms.DataGridView dgvStaff;
     }
 }
