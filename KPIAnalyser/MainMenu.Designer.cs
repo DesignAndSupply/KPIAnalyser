@@ -157,6 +157,7 @@
             this.txtRemakeCount = new System.Windows.Forms.TextBox();
             this.tabCtrl = new System.Windows.Forms.TabControl();
             this.Sales = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.btnEstimating = new System.Windows.Forms.Button();
             this.label53 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -256,7 +257,7 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uPLOADOVERTIMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnManagement = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1549,6 +1550,16 @@
             this.Sales.UseVisualStyleBackColor = true;
             this.Sales.Click += new System.EventHandler(this.Sales_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1635, 35);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(168, 23);
+            this.button2.TabIndex = 20;
+            this.button2.Text = "Slimline Sales Staff Productivity";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // btnEstimating
             // 
             this.btnEstimating.Location = new System.Drawing.Point(1635, 6);
@@ -2169,6 +2180,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnManagement);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -2612,15 +2624,16 @@
             this.uPLOADOVERTIMEToolStripMenuItem.Text = "UPLOAD CLOCK IN";
             this.uPLOADOVERTIMEToolStripMenuItem.Click += new System.EventHandler(this.uPLOADOVERTIMEToolStripMenuItem_Click);
             // 
-            // button2
+            // btnManagement
             // 
-            this.button2.Location = new System.Drawing.Point(1635, 35);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(168, 23);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "Slimline Sales Staff Productivity";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnManagement.Location = new System.Drawing.Point(1707, 21);
+            this.btnManagement.Name = "btnManagement";
+            this.btnManagement.Size = new System.Drawing.Size(85, 23);
+            this.btnManagement.TabIndex = 43;
+            this.btnManagement.Text = "Management";
+            this.btnManagement.UseVisualStyleBackColor = true;
+            this.btnManagement.Click += new System.EventHandler(this.btnManagement_Click);
             // 
             // txtTraditionalConversionRate
             // 
@@ -2920,6 +2933,7 @@
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.ToolStripMenuItem uPLOADOVERTIMEToolStripMenuItem;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnManagement;
     }
 }
 

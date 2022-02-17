@@ -58,6 +58,8 @@
             this.c_view_estimatorsTableAdapter = new KPIAnalyser.user_infoDataSet1TableAdapters.c_view_estimatorsTableAdapter();
             this.overtimeChart = new LiveCharts.WinForms.CartesianChart();
             this.label8 = new System.Windows.Forms.Label();
+            this.chartEnquiryLog = new LiveCharts.WinForms.CartesianChart();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cviewestimatorsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userinfoDataSet1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet1)).BeginInit();
@@ -67,8 +69,7 @@
             // 
             // lstStaff
             // 
-            this.lstStaff.DataSource = this.cviewestimatorsBindingSource;
-            this.lstStaff.DisplayMember = "fullname";
+            this.lstStaff.DisplayMember = "id";
             this.lstStaff.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstStaff.FormattingEnabled = true;
             this.lstStaff.ItemHeight = 20;
@@ -82,8 +83,8 @@
             // 
             // cviewestimatorsBindingSource
             // 
-            this.cviewestimatorsBindingSource.DataMember = "c_view_estimators";
             this.cviewestimatorsBindingSource.DataSource = this.userinfoDataSet1BindingSource;
+            this.cviewestimatorsBindingSource.Position = 0;
             // 
             // userinfoDataSet1BindingSource
             // 
@@ -164,9 +165,9 @@
             // elementHost1
             // 
             this.elementHost1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.elementHost1.Location = new System.Drawing.Point(221, 27);
+            this.elementHost1.Location = new System.Drawing.Point(11, 552);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(792, 463);
+            this.elementHost1.Size = new System.Drawing.Size(811, 463);
             this.elementHost1.TabIndex = 10;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.elementHost1_ChildChanged);
@@ -175,9 +176,9 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(221, 4);
+            this.label4.Location = new System.Drawing.Point(11, 529);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(792, 20);
+            this.label4.Size = new System.Drawing.Size(811, 20);
             this.label4.TabIndex = 11;
             this.label4.Text = "AVERAGE ITEMS QUOTED DAILY DURING PERIOD";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -185,9 +186,9 @@
             // absenseBar
             // 
             this.absenseBar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.absenseBar.Location = new System.Drawing.Point(1039, 27);
+            this.absenseBar.Location = new System.Drawing.Point(828, 27);
             this.absenseBar.Name = "absenseBar";
-            this.absenseBar.Size = new System.Drawing.Size(792, 463);
+            this.absenseBar.Size = new System.Drawing.Size(536, 463);
             this.absenseBar.TabIndex = 12;
             this.absenseBar.Text = "cartesianChart1";
             this.absenseBar.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.absenseBar_ChildChanged);
@@ -195,9 +196,9 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1039, 4);
+            this.label5.Location = new System.Drawing.Point(828, 4);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(792, 20);
+            this.label5.Size = new System.Drawing.Size(536, 20);
             this.label5.TabIndex = 13;
             this.label5.Text = "ABSENT DAYS DURING PERIOD";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -205,18 +206,18 @@
             // elementHost2
             // 
             this.elementHost2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.elementHost2.Location = new System.Drawing.Point(217, 548);
+            this.elementHost2.Location = new System.Drawing.Point(277, 27);
             this.elementHost2.Name = "elementHost2";
             this.elementHost2.Size = new System.Drawing.Size(536, 463);
             this.elementHost2.TabIndex = 14;
-            this.elementHost2.Text = "elementHost2";
+            this.elementHost2.Text = "~~";
             this.elementHost2.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.elementHost2_ChildChanged);
             this.elementHost2.Child = this.latenessBar;
             // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(217, 525);
+            this.label6.Location = new System.Drawing.Point(277, 4);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(536, 20);
             this.label6.TabIndex = 15;
@@ -227,7 +228,7 @@
             // elementHost3
             // 
             this.elementHost3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.elementHost3.Location = new System.Drawing.Point(764, 552);
+            this.elementHost3.Location = new System.Drawing.Point(828, 552);
             this.elementHost3.Name = "elementHost3";
             this.elementHost3.Size = new System.Drawing.Size(536, 463);
             this.elementHost3.TabIndex = 16;
@@ -238,7 +239,7 @@
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(764, 529);
+            this.label7.Location = new System.Drawing.Point(828, 529);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(536, 20);
             this.label7.TabIndex = 17;
@@ -273,7 +274,7 @@
             // overtimeChart
             // 
             this.overtimeChart.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.overtimeChart.Location = new System.Drawing.Point(1310, 552);
+            this.overtimeChart.Location = new System.Drawing.Point(1374, 552);
             this.overtimeChart.Name = "overtimeChart";
             this.overtimeChart.Size = new System.Drawing.Size(536, 463);
             this.overtimeChart.TabIndex = 20;
@@ -283,7 +284,7 @@
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(1310, 529);
+            this.label8.Location = new System.Drawing.Point(1374, 529);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(536, 20);
             this.label8.TabIndex = 21;
@@ -291,11 +292,32 @@
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
+            // chartEnquiryLog
+            // 
+            this.chartEnquiryLog.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.chartEnquiryLog.Location = new System.Drawing.Point(1374, 27);
+            this.chartEnquiryLog.Name = "chartEnquiryLog";
+            this.chartEnquiryLog.Size = new System.Drawing.Size(536, 463);
+            this.chartEnquiryLog.TabIndex = 22;
+            this.chartEnquiryLog.Text = "cartesianChart1";
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(1374, 4);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(536, 20);
+            this.label9.TabIndex = 23;
+            this.label9.Text = "Average Quotation Turn Around";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmEstimatorComparison
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1861, 1017);
+            this.ClientSize = new System.Drawing.Size(1922, 1017);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.chartEnquiryLog);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.overtimeChart);
             this.Controls.Add(this.button1);
@@ -361,5 +383,7 @@
         private LiveCharts.WinForms.CartesianChart overtimeChart;
         private System.Windows.Forms.Label label8;
         private LiveCharts.Wpf.CartesianChart dailyAverageItemsBar;
+        private LiveCharts.WinForms.CartesianChart chartEnquiryLog;
+        private System.Windows.Forms.Label label9;
     }
 }

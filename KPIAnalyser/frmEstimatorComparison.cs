@@ -23,10 +23,27 @@ namespace KPIAnalyser
 
         private void FrmEstimatorComparison_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'user_infoDataSet1.c_view_estimators' table. You can move, or remove it, as needed.
-            this.c_view_estimatorsTableAdapter.Fill(this.user_infoDataSet1.c_view_estimators);
-            // TODO: This line of code loads data into the 'user_infoDataSet.c_view_sales_program_users' table. You can move, or remove it, as needed.
-            this.c_view_sales_program_usersTableAdapter.Fill(this.user_infoDataSet.c_view_sales_program_users);
+
+            string sql = "SELECT forename + ' ' + surname,* FROM dbo.[user] WHERE current_department_id = 'Estimating' and [current] = 1 and id <> 314 order by forename";
+            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionStringUser))
+            {
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        lstStaff.Items.Add(row[0].ToString());
+                    }
+                }
+            }
+
+            //this is absolute shit i do not understand it so I have rewrote it to add the correct people 
+            ////// TODO: This line of code loads data into the 'user_infoDataSet1.c_view_estimators' table. You can move, or remove it, as needed.
+            ////this.c_view_estimatorsTableAdapter.Fill(this.user_infoDataSet1.c_view_estimators);
+            ////// TODO: This line of code loads data into the 'user_infoDataSet.c_view_sales_program_users' table. You can move, or remove it, as needed.
+            ////this.c_view_sales_program_usersTableAdapter.Fill(this.user_infoDataSet.c_view_sales_program_users);
 
         }
 
@@ -37,8 +54,77 @@ namespace KPIAnalyser
             populateLatenessChart();
             populateProblemsChart();
             populateOvertimeChart();
+            populateEnquiryLogChart();
         }
 
+        private void populateEnquiryLogChart()
+        {
+            //select 
+            List<string> staffNames = new List<string>();
+            List<string> staffNamesInitials = new List<string>();
+            List<int> quoteTime = new List<int>();
+
+            foreach (var item in lstStaff.SelectedItems)
+            {
+                string firstLetter = item.ToString().Substring(0, 1);
+                string secondLetter = (item.ToString().Split(' ').Skip(1).FirstOrDefault()).Substring(0,1);
+                staffNamesInitials.Add(firstLetter + secondLetter);
+
+                staffNames.Add(item.ToString());
+            }
+
+            int i = 0;
+            while (i < staffNames.Count)
+            {
+                string sql = "select avg(hours_to_comp) as hours_to_comp,max(fullName) from (SELECT [enquirylog].dbo.enquiry_log.allocated_to_id, u.forename + ' ' + u.surname AS fullName, order_database.dbo.WorkTime([enquirylog].dbo.enquiry_log.recieved_time, " +
+                    "[enquirylog].dbo.enquiry_log.complete_date) / 60 AS hours_to_comp, [enquirylog].dbo.enquiry_log.recieved_time, [enquirylog].dbo.enquiry_log.complete_date FROM[enquirylog].dbo.enquiry_log LEFT OUTER JOIN " +
+                    "user_info.dbo.[user] AS u ON u.id = [enquirylog].dbo.enquiry_log.allocated_to_id WHERE([enquirylog].dbo.enquiry_log.complete_date IS NOT NULL) AND([enquirylog].dbo.enquiry_log.allocated_to_id IS NOT NULL)) as a " +
+                    "where cast(complete_date as date) >= '" + dteStart.Text + "' AND cast(complete_date as date) <= '" + dteEnd.Text + "'  AND fullName = '" + staffNames[i].ToString() + "'";
+                using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        conn.Open();
+                        //var temp = Convert.ToString(cmd.ExecuteScalar());
+                        if (Convert.ToString(cmd.ExecuteScalar()) != "")
+                        {
+                            //MessageBox.Show(Convert.ToInt32(cmd.ExecuteScalar()).ToString());
+                            quoteTime.Add(Convert.ToInt32(cmd.ExecuteScalar()));
+                        }
+                        else
+                            quoteTime.Add(0);
+                        
+                        conn.Close();
+                    }
+                }
+                i++;
+            }
+
+            chartEnquiryLog.AxisY.Clear();
+            chartEnquiryLog.AxisX.Clear();
+
+            chartEnquiryLog.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Average Enquiry Log Completion Time",
+                    FontSize = 10,
+                    DataLabels = true,
+                    Fill = System.Windows.Media.Brushes.Green,
+                    Values = new ChartValues<int>(quoteTime)
+                }
+
+
+            };
+
+            chartEnquiryLog.AxisX.Add(new Axis
+            {
+                Title = "Estimator",
+                FontSize = 10,
+                Labels = staffNamesInitials
+            }) ;
+
+        }
         private void dailyItems()
         {
 
@@ -96,10 +182,13 @@ namespace KPIAnalyser
 
 
             List<string> staffNames = new List<string>();
-
+            List<string> staffNamesInitials = new List<string>();
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                string firstLetter = item.ToString().Substring(0, 1);
+                string secondLetter = (item.ToString().Split(' ').Skip(1).FirstOrDefault()).Substring(0, 1);
+                staffNamesInitials.Add(firstLetter + secondLetter);
+                staffNames.Add(item.ToString());
             }
 
 
@@ -319,7 +408,8 @@ namespace KPIAnalyser
             {
                 Title = "Estimator",
                 FontSize = 10,
-                Labels = new[] { user1, user2, user3, user4, user5}
+                Labels = (staffNamesInitials),
+                Separator = DefaultAxes.CleanSeparator
             });
 
             dailyAverageItemsBar.AxisY.Add(new Axis
@@ -366,10 +456,14 @@ namespace KPIAnalyser
 
 
             List<string> staffNames = new List<string>();
+            List<string> staffNamesInitials = new List<string>();
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                string firstLetter = item.ToString().Substring(0, 1);
+                string secondLetter = (item.ToString().Split(' ').Skip(1).FirstOrDefault()).Substring(0, 1);
+                staffNamesInitials.Add(firstLetter + secondLetter);
+                staffNames.Add(item.ToString());
             }
 
 
@@ -475,7 +569,7 @@ namespace KPIAnalyser
             {
                 Title = "Estimator",
                 FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                Labels = (staffNamesInitials)
             });
 
             absenseBar.AxisY.Add(new Axis
@@ -522,10 +616,14 @@ namespace KPIAnalyser
 
 
             List<string> staffNames = new List<string>();
+            List<string> staffNamesInitials = new List<string>();
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                string firstLetter = item.ToString().Substring(0, 1);
+                string secondLetter = (item.ToString().Split(' ').Skip(1).FirstOrDefault()).Substring(0, 1);
+                staffNamesInitials.Add(firstLetter + secondLetter);
+                staffNames.Add(item.ToString());
             }
 
 
@@ -630,7 +728,7 @@ namespace KPIAnalyser
             {
                 Title = "Estimator",
                 FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                Labels = (staffNamesInitials)
             });
 
             latenessBar.AxisY.Add(new Axis
@@ -674,10 +772,14 @@ namespace KPIAnalyser
 
 
             List<string> staffNames = new List<string>();
+            List<string> staffNamesInitials = new List<string>();
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                string firstLetter = item.ToString().Substring(0, 1);
+                string secondLetter = (item.ToString().Split(' ').Skip(1).FirstOrDefault()).Substring(0, 1);
+                staffNamesInitials.Add(firstLetter + secondLetter);
+                staffNames.Add(item.ToString());
             }
 
 
@@ -783,7 +885,7 @@ namespace KPIAnalyser
             {
                 Title = "Estimator",
                 FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                Labels = (staffNamesInitials)
             });
 
             problemsBar.AxisY.Add(new Axis
@@ -824,10 +926,14 @@ namespace KPIAnalyser
 
 
             List<string> staffNames = new List<string>();
+            List<string> staffNamesInitials = new List<string>();
 
             foreach (var item in lstStaff.SelectedItems)
             {
-                staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
+                string firstLetter = item.ToString().Substring(0, 1);
+                string secondLetter = (item.ToString().Split(' ').Skip(1).FirstOrDefault()).Substring(0, 1);
+                staffNamesInitials.Add(firstLetter + secondLetter);
+                staffNames.Add(item.ToString());
             }
 
 
@@ -933,7 +1039,7 @@ namespace KPIAnalyser
             {
                 Title = "Estimator",
                 FontSize = 16,
-                Labels = new[] { user1, user2, user3, user4 }
+                Labels = (staffNamesInitials)
             });
 
             overtimeChart.AxisY.Add(new Axis

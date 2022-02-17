@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace KPIAnalyser
 {
@@ -283,5 +284,100 @@ namespace KPIAnalyser
                 frm.ShowDialog();
             }
         }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            int customer_index = 0;
+            customer_index = dataGridView1.Columns["Customer"].Index;
+
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                string temp = dataGridView1.Rows[i].Cells[customer_index].Value.ToString();
+                temp = temp.Trim();
+                dataGridView1.Rows[i].Cells[customer_index].Value = temp;
+            }
+
+            string FileName = @"C:\temp\temp.xls";
+            // Copy DataGridView results to clipboard
+            dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dataGridView1.SelectAll();
+
+            DataObject dataObj = dataGridView1.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+
+            object misValue = System.Reflection.Missing.Value;
+            Microsoft.Office.Interop.Excel.Application xlexcel = new Microsoft.Office.Interop.Excel.Application();
+
+                xlexcel.DisplayAlerts = false; // Without this you will get two confirm overwrite prompts
+            Microsoft.Office.Interop.Excel.Workbook xlWorkBook = xlexcel.Workbooks.Add(misValue);
+            Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            // Format column D as text before pasting results, this was required for my data
+            Microsoft.Office.Interop.Excel.Range rng = xlWorkSheet.get_Range("D:D").Cells;
+                rng.NumberFormat = "@";
+
+            // Paste clipboard results to worksheet range
+            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[1, 1];
+                CR.Select();
+                xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+
+            // For some reason column A is always blank in the worksheet. ¯\_(ツ)_/¯
+            // Delete blank column A and select cell A1
+            Microsoft.Office.Interop.Excel.Range delRng = xlWorkSheet.get_Range("A:A").Cells;
+                delRng.Delete(Type.Missing);
+                xlWorkSheet.get_Range("A1").Select();
+
+            Microsoft.Office.Interop.Excel.Worksheet ws = xlexcel.ActiveWorkbook.Worksheets[1];
+            Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
+            //ws.Columns.ClearFormats();
+            //ws.Rows.ClearFormats();
+            //range.EntireColumn.AutoFit();
+            //range.EntireRow.AutoFit();
+            xlWorkSheet.Range["A1:H1"].EntireRow.Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Columns[2].ColumnWidth = 98.14;
+            xlWorkSheet.Columns[2].WrapText = true;
+            ws.Columns.AutoFit();
+            ws.Rows.AutoFit();
+            range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            range.Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+            // Save the excel file under the captured location from the SaveFileDialog
+            xlWorkBook.SaveAs(FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlexcel.DisplayAlerts = true;
+                xlWorkBook.Close(true, misValue, misValue);
+                xlexcel.Quit();
+
+                //releaseObject(xlWorkSheet);
+                //releaseObject(xlWorkBook);
+                //releaseObject(xlexcel);
+
+                // Clear Clipboard and DataGridView selection
+                Clipboard.Clear();
+                dataGridView1.ClearSelection();
+
+            // Open the newly saved excel file
+            if (File.Exists(FileName))
+                System.Diagnostics.Process.Start(FileName);
+
+            Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel.Workbooks workbooks;
+            Microsoft.Office.Interop.Excel.Workbook excelBook;
+            
+            //app = null;
+            //app = new Excel.Application(); // create a new instance
+            excelApp.DisplayAlerts = false; //turn off annoying alerts that make me want to cryyyy
+            uint processID = 0;
+
+            workbooks = excelApp.Workbooks;
+            excelBook = workbooks.Add(FileName);
+            Microsoft.Office.Interop.Excel.Sheets sheets = excelBook.Worksheets;
+            Microsoft.Office.Interop.Excel.Worksheet excelSheet = (Microsoft.Office.Interop.Excel.Worksheet)(sheets[1]);
+
+            //Range.Rows.AutoFit();
+            //Range.Columns.AutoFit();
+        }
+
     }
-}
+    }
+

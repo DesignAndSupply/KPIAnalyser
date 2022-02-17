@@ -1255,5 +1255,11 @@ namespace KPIAnalyser
             frmSlimlineEstimatingProductivity frm = new frmSlimlineEstimatingProductivity();
             frm.Show();
         }
+
+        private void btnManagement_Click(object sender, EventArgs e)
+        {
+            frmAdminManagement frm = new frmAdminManagement();
+            frm.ShowDialog();
+        }
     }
 }

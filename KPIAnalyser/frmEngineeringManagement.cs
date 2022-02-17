@@ -12,6 +12,7 @@ using LiveCharts.Wpf;
 using System.Data.SqlClient;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.Drawing.Printing;
 
 namespace KPIAnalyser
 {
@@ -22,6 +23,7 @@ namespace KPIAnalyser
         public frmEngineeringManagement()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             drawStackedLatenessChartWeekly();
             rdoWeekly.Checked = true;
             filldatagrid();
@@ -852,9 +854,48 @@ namespace KPIAnalyser
 
         private void BtnPrintLateness_Click(object sender, EventArgs e)
         {
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                bit.Save(@"C:\temp\temp.jpg");
+
+                printImage();
+            }
+            catch
+            {
+
+            }
 
 
+        }
 
+        private void printImage()
+        {
+            try
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += (sender, args) =>
+                {
+                    System.Drawing.Image i = System.Drawing.Image.FromFile(@"C:\temp\temp.jpg");
+                    Point p = new Point(100, 100);
+                    args.Graphics.DrawImage(i, args.MarginBounds);
+
+                };
+
+                pd.DefaultPageSettings.Landscape = true;
+                Margins margins = new Margins(50, 50, 50, 50);
+                pd.DefaultPageSettings.Margins = margins;
+                pd.Print();
+            }
+            catch
+            {
+
+            }
         }
 
         private void RdoWeekly_CheckedChanged(object sender, EventArgs e)

@@ -192,6 +192,82 @@ namespace KPIAnalyser
             string staffName = cmbStaffMember.Text;
 
 
+            //do a fancy card here real quick 
+           
+            using (SqlConnection cardConn = new SqlConnection(ConnectionStrings.ConnectionString))
+            {
+                cardConn.Open();
+                string cardEmail = "";
+                string cardValue = "";
+                string cardDays = "";
+                string cardSql = "SELECT email_address FROM [user_info].dbo.[user] where forename + ' ' + surname = '" + staffName + "'";
+                using (SqlCommand cardCmd = new SqlCommand(cardSql,cardConn))
+                    cardEmail = Convert.ToString(cardCmd.ExecuteScalar());
+
+                cardSql = "SELECT sum(total_quotation_value) FROM solidworks_quotation_log as a INNER JOIN(SELECT max(quote_id) as max_quote_id, max(revision_number) as max_revision_number " +
+                "FROM dbo.solidworks_quotation_log group by quote_id) as b ON a.quote_id = max_quote_id AND a.revision_number = max_revision_number WHERE a.date_output > '" + startdate + "' and a.date_output < dateadd(d, 1, '" + enddate +"') " +
+                "and a.emailed_to = '" + cardEmail + "'";
+                using (SqlCommand cardCmd = new SqlCommand(cardSql,cardConn))
+                {
+                    cardValue = Convert.ToString(cardCmd.ExecuteScalar());
+                }
+                cardSql = "select CONVERT(INT, CONVERT(DATETIME,dbo.func_calc_working_day_difference('" + startdate + "','" + enddate + "')))";
+                using (SqlCommand cardCmd = new SqlCommand(cardSql, cardConn))
+                {
+                    cardDays = Convert.ToString(cardCmd.ExecuteScalar());
+                    if (cardDays == "0")
+                        cardDays = "1";
+                    lblDays.Text = cardDays;
+                }
+                cardConn.Close();
+                //total quote value
+                string data = "";
+                double temp2 = 0;
+                if (cardValue != "")
+                {
+                    data = cardValue;
+                    temp2 = 0;
+                    temp2 = Convert.ToDouble(data);
+                    data = temp2.ToString("#,##0.00");
+
+                    //ammend stuff like colour and having £-100
+                    data = "£" + data;
+                    //first up is the - number
+
+                    if (data.Contains("-"))
+                    {
+                        data = data.Replace("-", "");
+                        data = data.Insert(0, "-");
+                    }
+                    lblValue.Text = data;
+                    ////////////////////////////////
+
+                    //quote per day 
+                    data = Convert.ToString(Convert.ToDouble(cardValue) / Convert.ToDouble(cardDays));
+                    temp2 = 0;
+                    temp2 = Convert.ToDouble(data);
+                    data = temp2.ToString("#,##0.00");
+
+                    //ammend stuff like colour and having £-100
+                    data = "£" + data;
+                    //first up is the - number
+
+                    if (data.Contains("-"))
+                    {
+                        data = data.Replace("-", "");
+                        data = data.Insert(0, "-");
+                    }
+                    lblQuoteDays.Text = data;
+                }
+                else
+                {
+                    lblValue.Text = "No Data";
+                    lblQuoteDays.Text = "No Data";
+                }
+                ////////////////////////////////
+
+            }
+
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
             SqlCommand cmd = new SqlCommand("usp_kpi_estimators_daily", conn);

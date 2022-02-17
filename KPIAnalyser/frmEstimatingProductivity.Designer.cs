@@ -75,6 +75,12 @@
             this.c_view_estimatorsTableAdapter = new KPIAnalyser.user_infoDataSet1TableAdapters.c_view_estimatorsTableAdapter();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.btnIssuesLogged = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblValue = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lblDays = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.lblQuoteDays = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cviewestimatorsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).BeginInit();
@@ -85,6 +91,9 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userinfoDataSet1BindingSource)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -466,11 +475,74 @@
             this.btnIssuesLogged.UseVisualStyleBackColor = true;
             this.btnIssuesLogged.Click += new System.EventHandler(this.BtnIssuesLogged_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.lblValue);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(13, 625);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(216, 62);
+            this.groupBox4.TabIndex = 30;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = " Total Quotes Value";
+            // 
+            // lblValue
+            // 
+            this.lblValue.Location = new System.Drawing.Point(6, 29);
+            this.lblValue.Name = "lblValue";
+            this.lblValue.Size = new System.Drawing.Size(204, 27);
+            this.lblValue.TabIndex = 0;
+            this.lblValue.Text = "£0";
+            this.lblValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.lblDays);
+            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(13, 693);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(216, 62);
+            this.groupBox5.TabIndex = 31;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "     Working Days";
+            // 
+            // lblDays
+            // 
+            this.lblDays.Location = new System.Drawing.Point(6, 29);
+            this.lblDays.Name = "lblDays";
+            this.lblDays.Size = new System.Drawing.Size(204, 27);
+            this.lblDays.TabIndex = 0;
+            this.lblDays.Text = "0";
+            this.lblDays.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.lblQuoteDays);
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox6.Location = new System.Drawing.Point(13, 761);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(216, 62);
+            this.groupBox6.TabIndex = 32;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "      Daily Average";
+            // 
+            // lblQuoteDays
+            // 
+            this.lblQuoteDays.Location = new System.Drawing.Point(6, 29);
+            this.lblQuoteDays.Name = "lblQuoteDays";
+            this.lblQuoteDays.Size = new System.Drawing.Size(204, 27);
+            this.lblQuoteDays.TabIndex = 0;
+            this.lblQuoteDays.Text = "£0";
+            this.lblQuoteDays.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmEstimatingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 1061);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.btnIssuesLogged);
             this.Controls.Add(this.cartesianChart1);
             this.Controls.Add(this.groupBox3);
@@ -514,6 +586,9 @@
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userinfoDataSet1BindingSource)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -566,5 +641,11 @@
         private user_infoDataSet1TableAdapters.c_view_estimatorsTableAdapter c_view_estimatorsTableAdapter;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private System.Windows.Forms.Button btnIssuesLogged;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label lblValue;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label lblDays;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label lblQuoteDays;
     }
 }
