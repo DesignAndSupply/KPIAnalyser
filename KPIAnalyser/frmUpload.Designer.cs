@@ -40,7 +40,7 @@
             // btnUpload
             // 
             this.btnUpload.Enabled = false;
-            this.btnUpload.Location = new System.Drawing.Point(143, 66);
+            this.btnUpload.Location = new System.Drawing.Point(142, 95);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(75, 23);
             this.btnUpload.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(26, 66);
+            this.btnClose.Location = new System.Drawing.Point(25, 95);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 1;
@@ -89,7 +89,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 48);
+            this.progressBar1.Location = new System.Drawing.Point(12, 66);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(217, 23);
             this.progressBar1.TabIndex = 5;
@@ -99,7 +99,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(269, 97);
+            this.ClientSize = new System.Drawing.Size(269, 123);
             this.ControlBox = false;
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);

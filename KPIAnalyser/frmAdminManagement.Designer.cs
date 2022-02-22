@@ -37,8 +37,12 @@
             this.rdoQuaterly = new System.Windows.Forms.RadioButton();
             this.rdoMonthly = new System.Windows.Forms.RadioButton();
             this.rdoWeekly = new System.Windows.Forms.RadioButton();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.elementHost2 = new System.Windows.Forms.Integration.ElementHost();
+            this.cartesianChart2 = new LiveCharts.Wpf.CartesianChart();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabEngineering
@@ -47,6 +51,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabEngineering.Controls.Add(this.tabPage1);
+            this.tabEngineering.Controls.Add(this.tabPage2);
             this.tabEngineering.Location = new System.Drawing.Point(12, 119);
             this.tabEngineering.Name = "tabEngineering";
             this.tabEngineering.SelectedIndex = 0;
@@ -55,7 +60,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.btnPrintLateness);
             this.tabPage1.Controls.Add(this.elementHost1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -68,7 +72,7 @@
             // btnPrintLateness
             // 
             this.btnPrintLateness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrintLateness.Location = new System.Drawing.Point(1157, 5);
+            this.btnPrintLateness.Location = new System.Drawing.Point(1179, 112);
             this.btnPrintLateness.Name = "btnPrintLateness";
             this.btnPrintLateness.Size = new System.Drawing.Size(94, 23);
             this.btnPrintLateness.TabIndex = 1;
@@ -133,11 +137,34 @@
             this.rdoWeekly.UseVisualStyleBackColor = true;
             this.rdoWeekly.Click += new System.EventHandler(this.rdoWeekly_Click);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.elementHost2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(1257, 501);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Acknowledge on time";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // elementHost2
+            // 
+            this.elementHost2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.elementHost2.Location = new System.Drawing.Point(5, 25);
+            this.elementHost2.Name = "elementHost2";
+            this.elementHost2.Size = new System.Drawing.Size(1247, 450);
+            this.elementHost2.TabIndex = 1;
+            this.elementHost2.Text = "elementHost2";
+            this.elementHost2.Child = this.cartesianChart2;
+            // 
             // frmAdminManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1289, 658);
+            this.Controls.Add(this.btnPrintLateness);
             this.Controls.Add(this.rdoYearly);
             this.Controls.Add(this.rdoQuaterly);
             this.Controls.Add(this.rdoMonthly);
@@ -146,8 +173,11 @@
             this.Name = "frmAdminManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAdminManagement";
+            this.Load += new System.EventHandler(this.frmAdminManagement_Load);
+            this.Shown += new System.EventHandler(this.frmAdminManagement_Shown);
             this.tabEngineering.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,5 +194,8 @@
         private System.Windows.Forms.RadioButton rdoQuaterly;
         private System.Windows.Forms.RadioButton rdoMonthly;
         private System.Windows.Forms.RadioButton rdoWeekly;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Integration.ElementHost elementHost2;
+        private LiveCharts.Wpf.CartesianChart cartesianChart2;
     }
 }

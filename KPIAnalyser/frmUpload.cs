@@ -74,6 +74,8 @@ namespace KPIAnalyser
 
                     if (i == 20)
                         tempNotes = tempNotes;
+
+                    tempNotes = tempNotes.Replace("'", "");
                     //stitch together toms excel equation here vvv so they are readable figures
 
                     //sometimes this value is null so we need to skip if it is~
@@ -91,7 +93,8 @@ namespace KPIAnalyser
 
 
                     //other calculations here
-                    DateTime date = Convert.ToDateTime(xlRange.Cells[i, 4].Value.ToString("yyyy-MM-dd"));
+                     //MessageBox.Show(xlRange.Cells[i, 4].Value.ToString());
+                    DateTime date = Convert.ToDateTime(xlRange.Cells[i, 4].Value.ToString("yyyy-MM-dd")); // if this errors - try changing the format to "14 June 2022"
                     //MessageBox.Show(xlRange.Cells[i, 4].Value.ToString());
                     double hoursSet = 8.5;
                     string dateName = date.DayOfWeek.ToString();
@@ -139,7 +142,7 @@ namespace KPIAnalyser
                     {
                         var getData = Convert.ToString(cmd.ExecuteScalar());
                         if (getData == null || getData == "")
-                            exists =0;
+                            exists = 0;
                         else
                             exists = -1;
                     }
@@ -147,13 +150,15 @@ namespace KPIAnalyser
                     {
                         if (exists == -1)
                         {
-                            sql = "UPDATE dbo.clock_in_import SET clock_in = '" + clock_in + "', clock_out = '" + clock_out +"',total = '" + total +"', total_adjusted = " + totalAdjusted + " ,[difference] = " + difference + " ,rounded="+ rounded + " " +
-                                "where clock_in_id = " + xlRange.Cells[i, 3].Value.ToString() + " AND date = '" + xlRange.Cells[i, 4].Value.ToString() + "' "; 
+                            sql = "UPDATE dbo.clock_in_import SET clock_in = '" + clock_in + "', clock_out = '" + clock_out + "',total = '" + total + "', total_adjusted = " + totalAdjusted + " ,[difference] = " + difference + " ,rounded=" + rounded + " " +
+                                "where clock_in_id = " + xlRange.Cells[i, 3].Value.ToString() + " AND date = '" + xlRange.Cells[i, 4].Value.ToString("yyyy-MM-dd") + "' ";
                         }
                         else
                         {
-                            sql = "INSERT INTO dbo.clock_in_import (last_name,first_name,clock_in_id,[date],clock_in,clock_out,total,nickname,department_name,notes,in_location,out_location,day_of_week,friday,saturday,hours_set,total_adjusted,difference,rounded) VALUES ('" +
-                           xlRange.Cells[i, 1].Value.ToString() + "','" + //last name
+                            string last_name = xlRange.Cells[i, 1].Value.ToString();
+                            last_name.Replace("'", "");
+                           sql = "INSERT INTO dbo.clock_in_import (last_name,first_name,clock_in_id,[date],clock_in,clock_out,total,nickname,department_name,notes,in_location,out_location,day_of_week,friday,saturday,hours_set,total_adjusted,difference,rounded) VALUES ('" +
+                           last_name + "','" + //last name
                            xlRange.Cells[i, 2].Value.ToString() + "'," +//first name
                            xlRange.Cells[i, 3].Value.ToString() + ",CAST('" +//clock_in_id
                            temp_date + "' as date)," +//date
@@ -166,12 +171,12 @@ namespace KPIAnalyser
                            tempInLocation + "','" +//in_location
                            tempOutLocation + "','" +
                            dateName + "'," +
-                            friday + "," +
-                             saturday + "," +
-                             hoursSet + "," +
-                            totalAdjusted + "," +
-                             difference + "," +
-                             rounded + ")";//out_location
+                           friday + "," +
+                           saturday + "," +
+                           hoursSet + "," +
+                           totalAdjusted + "," +
+                           difference + "," +
+                           rounded + ")";//out_location
                         }
                     }
                     catch
