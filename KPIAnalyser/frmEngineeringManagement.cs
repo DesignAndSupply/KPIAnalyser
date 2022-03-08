@@ -307,6 +307,159 @@ namespace KPIAnalyser
 
 
 
+
+            //////////////////////////////
+            //remakes returned
+
+            SqlConnection connRemakesReturned = new SqlConnection(ConnectionStrings.ConnectionString);
+            connRemakesReturned.Open();
+            SqlCommand cmdRemakesReturned = new SqlCommand("usp_kpi_remakes_returned", connRemakesReturned);
+            cmdRemakesReturned.CommandType = CommandType.StoredProcedure;
+
+            cmdRemakesReturned.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Monthly";
+
+            SqlDataReader readerRemakesReturned = cmdRemakesReturned.ExecuteReader();
+
+            while (readerRemakesReturned.Read())
+            {
+
+                n1 = readerRemakesReturned[0].ToString();
+                n2 = readerRemakesReturned[3].ToString();
+                n3 = readerRemakesReturned[6].ToString();
+                n4 = readerRemakesReturned[9].ToString();
+                n5 = readerRemakesReturned[12].ToString();
+                n6 = readerRemakesReturned[15].ToString();
+                n7 = readerRemakesReturned[18].ToString();
+                n8 = readerRemakesReturned[21].ToString();
+                n9 = readerRemakesReturned[24].ToString();
+                n10 = readerRemakesReturned[27].ToString();
+                n11 = readerRemakesReturned[30].ToString();
+                n12 = readerRemakesReturned[33].ToString();
+
+                l1 = Convert.ToInt32(readerRemakesReturned[1]);
+                l2 = Convert.ToInt32(readerRemakesReturned[4]);
+                l3 = Convert.ToInt32(readerRemakesReturned[7]);
+                l4 = Convert.ToInt32(readerRemakesReturned[10]);
+                l5 = Convert.ToInt32(readerRemakesReturned[13]);
+                l6 = Convert.ToInt32(readerRemakesReturned[16]);
+                l7 = Convert.ToInt32(readerRemakesReturned[19]);
+                l8 = Convert.ToInt32(readerRemakesReturned[22]);
+                l9 = Convert.ToInt32(readerRemakesReturned[25]);
+                l10 = Convert.ToInt32(readerRemakesReturned[28]);
+                l11 = Convert.ToInt32(readerRemakesReturned[31]);
+                l12 = Convert.ToInt32(readerRemakesReturned[34]);
+
+                o1 = Convert.ToInt32(readerRemakesReturned[2]);
+                o2 = Convert.ToInt32(readerRemakesReturned[5]);
+                o3 = Convert.ToInt32(readerRemakesReturned[8]);
+                o4 = Convert.ToInt32(readerRemakesReturned[11]);
+                o5 = Convert.ToInt32(readerRemakesReturned[14]);
+                o6 = Convert.ToInt32(readerRemakesReturned[17]);
+                o7 = Convert.ToInt32(readerRemakesReturned[20]);
+                o8 = Convert.ToInt32(readerRemakesReturned[23]);
+                o9 = Convert.ToInt32(readerRemakesReturned[26]);
+                o10 = Convert.ToInt32(readerRemakesReturned[29]);
+                o11 = Convert.ToInt32(readerRemakesReturned[32]);
+                o12 = Convert.ToInt32(readerRemakesReturned[35]);
+
+
+
+                r1 = Convert.ToInt32(readerRemakesReturned[36]);
+                r2 = Convert.ToInt32(readerRemakesReturned[37]);
+                r3 = Convert.ToInt32(readerRemakesReturned[38]);
+                r4 = Convert.ToInt32(readerRemakesReturned[39]);
+                r5 = Convert.ToInt32(readerRemakesReturned[40]);
+                r6 = Convert.ToInt32(readerRemakesReturned[41]);
+                r7 = Convert.ToInt32(readerRemakesReturned[42]);
+                r8 = Convert.ToInt32(readerRemakesReturned[43]);
+                r9 = Convert.ToInt32(readerRemakesReturned[44]);
+                r10 = Convert.ToInt32(readerRemakesReturned[45]);
+                r11 = Convert.ToInt32(readerRemakesReturned[46]);
+                r12 = Convert.ToInt32(readerRemakesReturned[47]);
+            }
+
+            connRemakesReturned.Close();
+
+            //p1 = Math.Round((Convert.ToDouble(l1) / (Convert.ToDouble(o1) + Convert.ToDouble(l1)) * 100), 2);
+            //p2 = Math.Round((Convert.ToDouble(l2) / (Convert.ToDouble(o2) + Convert.ToDouble(l2)) * 100), 2);
+            //p3 = Math.Round((Convert.ToDouble(l3) / (Convert.ToDouble(o3) + Convert.ToDouble(l3)) * 100), 2);
+            //p4 = Math.Round((Convert.ToDouble(l4) / (Convert.ToDouble(o4) + Convert.ToDouble(l4)) * 100), 2);
+            //p5 = Math.Round((Convert.ToDouble(l5) / (Convert.ToDouble(o5) + Convert.ToDouble(l5)) * 100), 2);
+            //p6 = Math.Round((Convert.ToDouble(l6) / (Convert.ToDouble(o6) + Convert.ToDouble(l6)) * 100), 2);
+            //p7 = Math.Round((Convert.ToDouble(l7) / (Convert.ToDouble(o7) + Convert.ToDouble(l7)) * 100), 2);
+            //p8 = Math.Round((Convert.ToDouble(l8) / (Convert.ToDouble(o8) + Convert.ToDouble(l8)) * 100), 2);
+            //p9 = Math.Round((Convert.ToDouble(l9) / (Convert.ToDouble(o9) + Convert.ToDouble(l9)) * 100), 2);
+            //p10 = Math.Round((Convert.ToDouble(l10) / (Convert.ToDouble(o10) + Convert.ToDouble(l10)) * 100), 2);
+            //p11 = Math.Round((Convert.ToDouble(l11) / (Convert.ToDouble(o11) + Convert.ToDouble(l11)) * 100), 2);
+            //p12 = Math.Round((Convert.ToDouble(l12) / (Convert.ToDouble(o12) + Convert.ToDouble(l12)) * 100), 2);
+
+
+            cartesianChart3.Series.Clear();
+            cartesianChart3.AxisX.Clear();
+            cartesianChart3.AxisY.Clear();
+
+            cartesianChart3.Series = new SeriesCollection
+            {
+                new StackedColumnSeries
+                {
+                    Title = "Foc",
+                    Values = new ChartValues<double> { o12, o11, o10, o9, o8, o7, o6, o5, o4, o3, o2, o1},
+                    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+                    DataLabels = true,
+
+                },
+                new StackedColumnSeries
+                {
+                    Title = "Non Foc",
+                    Values = new ChartValues<double> { l12, l11, l10, l9, l8, l7, l6, l5, l4, l3, l2, l1},
+                    StackMode = StackMode.Values,
+                    DataLabels = true
+                },
+
+
+                //new LineSeries   //trendline isnt needed
+                //{
+                //    Title = "Trend",
+                //    Values = new ChartValues<double> { p12, p11, p10, p9, p8, p7, p6, p5, p4, p3, p2, p1 },
+                //    ScalesYAt = 1
+                //},
+            };
+
+
+
+
+
+
+            cartesianChart3.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { n12 + " - £" + r12, n11 + " - £" + r11 , n10 + " - £" + r10, n9 + " - £" + r9 , n8 + " - £" + r8 , n7 + " - £" + r7, n6 + " - £" + r6, n5 + " - £" + r5, n4 + " - £" + r4 , n3 + " - £" + r3 , n2 + " - £" + r2 , n1 + " - £" + r1 },
+                Separator = DefaultAxes.CleanSeparator
+
+            });
+
+            cartesianChart3.AxisY.Add(new Axis
+            {
+                Title = "Output",
+                LabelFormatter = value => "£" + value + ""
+            });
+
+
+            //cartesianChart3.AxisY.Add(new Axis
+            //{
+            //    Foreground = System.Windows.Media.Brushes.Orange,
+            //    Title = "Trend %",
+            //    Position = AxisPosition.RightTop,
+            //    LabelFormatter = value => value + " % Late",
+            //    MinValue = 0,
+            //    MaxValue = 100
+
+
+            //});
+            //////////////////////////////
+
+
+
         }
         private void drawStackedLatenessChartWeekly()
         {
@@ -473,6 +626,104 @@ namespace KPIAnalyser
                 Title = "Remakes",
                 LabelFormatter = value => value + " Remakes"
             });
+
+
+
+            //remakes returned
+            ///////////////
+
+            SqlConnection connRemakeReturned = new SqlConnection(ConnectionStrings.ConnectionString);
+            connRemakeReturned.Open();
+            SqlCommand cmdRemakeReturned = new SqlCommand("usp_kpi_remakes_returned", connRemakeReturned);
+            cmdRemakeReturned.CommandType = CommandType.StoredProcedure;
+
+            cmdRemakeReturned.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Weekly";
+
+            SqlDataReader readerRemakeReturned = cmdRemakeReturned.ExecuteReader();
+
+            while (readerRemakeReturned.Read())
+            {
+                ws1 = Convert.ToDateTime(readerRemakeReturned[0]);
+                ws2 = Convert.ToDateTime(readerRemakeReturned[3]);
+                ws3 = Convert.ToDateTime(readerRemakeReturned[6]);
+                ws4 = Convert.ToDateTime(readerRemakeReturned[9]);
+
+                l1 = Convert.ToInt32(readerRemakeReturned[1]);  //Free of charge
+                l2 = Convert.ToInt32(readerRemakeReturned[4]);
+                l3 = Convert.ToInt32(readerRemakeReturned[7]);
+                l4 = Convert.ToInt32(readerRemakeReturned[10]);
+
+                o1 = Convert.ToInt32(readerRemakeReturned[2]); //Not Free of charge
+                o2 = Convert.ToInt32(readerRemakeReturned[5]);
+                o3 = Convert.ToInt32(readerRemakeReturned[8]);
+                o4 = Convert.ToInt32(readerRemakeReturned[11]);
+
+                r1 = Convert.ToInt32(readerRemakeReturned[12]); //total values
+                r2 = Convert.ToInt32(readerRemakeReturned[13]);
+                r3 = Convert.ToInt32(readerRemakeReturned[14]);
+                r4 = Convert.ToInt32(readerRemakeReturned[15]);
+
+
+            }
+
+
+            connRemakeReturned.Close();
+
+
+
+            cartesianChart3.Series.Clear();
+            cartesianChart3.AxisX.Clear();
+            cartesianChart3.AxisY.Clear();
+
+            p1 = Math.Round((Convert.ToDouble(l1) / (Convert.ToDouble(o1) + Convert.ToDouble(l1)) * 100), 2);
+            p2 = Math.Round((Convert.ToDouble(l2) / (Convert.ToDouble(o2) + Convert.ToDouble(l2)) * 100), 2);
+            p3 = Math.Round((Convert.ToDouble(l3) / (Convert.ToDouble(o3) + Convert.ToDouble(l3)) * 100), 2);
+            p4 = Math.Round((Convert.ToDouble(l4) / (Convert.ToDouble(o4) + Convert.ToDouble(l4)) * 100), 2);
+
+            cartesianChart3.Series = new SeriesCollection
+            {
+                new StackedColumnSeries
+                {
+                    Title = "Free of Charge",
+                    Values = new ChartValues<double> {o4, o3, o2, o1},
+                    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+                    DataLabels = true
+                },
+                new StackedColumnSeries
+                {
+                    Title = "Not Free of Charge",
+                    Values = new ChartValues<double> {l4, l3, l2, l1},
+                    StackMode = StackMode.Values,
+                    DataLabels = true
+                },
+
+                //new LineSeries
+                //{
+                //    Title = "Trend",
+                //    Values = new ChartValues<double> { p4, p3, p2, p1 },
+                //    ScalesYAt = 1
+                //},
+            };
+
+
+            cartesianChart3.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { "Week Commencing " + ws4.ToShortDateString() + " - £" + r4 , "Week Commencing " + ws3.ToShortDateString() + " - £" + r3, "Week Commencing " + ws2.ToShortDateString() + " - £" + r2 , "Week Commencing " + ws1.ToShortDateString() + " - £" + r1},
+                Separator = DefaultAxes.CleanSeparator
+            });
+
+            cartesianChart3.AxisY.Add(new Axis
+            {
+                Title = "Output",
+                LabelFormatter = value => "£" + value 
+            });
+
+
+
+            ///////////////
+
+
         }
 
 
@@ -640,6 +891,91 @@ namespace KPIAnalyser
                 LabelFormatter = value => value + " Remakes"
             });
 
+
+            //////////////////
+            //remake returns
+            SqlConnection connRemakeReturned = new SqlConnection(ConnectionStrings.ConnectionString);
+            connRemakeReturned.Open();
+            SqlCommand cmdRemakeReturned = new SqlCommand("usp_kpi_remakes_returned", connRemakeReturned);
+            cmdRemakeReturned.CommandType = CommandType.StoredProcedure;
+            cmdRemakeReturned.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Quaterly";
+
+            SqlDataReader readerRemakeReturned = cmdRemakeReturned.ExecuteReader();
+
+            while (readerRemakeReturned.Read())
+            {
+                n1 = readerRemakeReturned[0].ToString();
+                n2 = readerRemakeReturned[3].ToString();
+                n3 = readerRemakeReturned[6].ToString();
+                n4 = readerRemakeReturned[9].ToString();
+
+                l1 = Convert.ToInt32(readerRemakeReturned[1]);
+                l2 = Convert.ToInt32(readerRemakeReturned[4]);
+                l3 = Convert.ToInt32(readerRemakeReturned[7]);
+                l4 = Convert.ToInt32(readerRemakeReturned[10]);
+
+                o1 = Convert.ToInt32(readerRemakeReturned[2]);
+                o2 = Convert.ToInt32(readerRemakeReturned[5]);
+                o3 = Convert.ToInt32(readerRemakeReturned[8]);
+                o4 = Convert.ToInt32(readerRemakeReturned[11]);
+
+
+                r1 = Convert.ToInt32(readerRemakeReturned[12]);
+                r2 = Convert.ToInt32(readerRemakeReturned[13]);
+                r3 = Convert.ToInt32(readerRemakeReturned[14]);
+                r4 = Convert.ToInt32(readerRemakeReturned[15]);
+            }
+
+
+            connRemakeReturned.Close();
+
+            cartesianChart3.Series.Clear();
+            cartesianChart3.AxisX.Clear();
+            cartesianChart3.AxisY.Clear();
+
+
+
+
+
+
+            cartesianChart3.Series = new SeriesCollection
+            {
+                new StackedColumnSeries
+                {
+                    Title = "Foc",
+                    Values = new ChartValues<double> {o4, o3, o2, o1},
+                    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+                    DataLabels = true
+                },
+                new StackedColumnSeries
+                {
+                    Title = "Non Foc",
+                    Values = new ChartValues<double> {l4, l3, l2, l1},
+                    StackMode = StackMode.Values,
+                    DataLabels = true
+                }
+                ,
+
+
+            };
+
+
+
+            cartesianChart3.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { "Q" + n4 + " - £" + r4, "Q" + n3 + " - £" + r3 , "Q" + n2 + " - £" + r2 , "Q" + n1 + " - £" + r1  },
+                Separator = DefaultAxes.CleanSeparator
+            });
+
+            cartesianChart3.AxisY.Add(new Axis
+            {
+                Title = "Output",
+                LabelFormatter = value => "£" + value 
+            });
+
+
+            //////////////////
 
 
 
@@ -821,6 +1157,91 @@ namespace KPIAnalyser
                 LabelFormatter = value => value + " Remakes"
             });
 
+
+
+            //////////////////////
+            //remakes returned
+            SqlConnection connRemakesReturned = new SqlConnection(ConnectionStrings.ConnectionString);
+            connRemakesReturned.Open();
+            SqlCommand cmdRemakesReturned = new SqlCommand("usp_kpi_remakes_returned", connRemakesReturned);
+            cmdRemakesReturned.CommandType = CommandType.StoredProcedure;
+
+            cmdRemakesReturned.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Yearly";
+
+            SqlDataReader readerRemakesReturned = cmdRemakesReturned.ExecuteReader();
+
+            while (readerRemakesReturned.Read())
+            {
+                n1 = readerRemakesReturned[0].ToString();
+                n2 = readerRemakesReturned[3].ToString();
+                n3 = readerRemakesReturned[6].ToString();
+                n4 = readerRemakesReturned[9].ToString();
+
+                l1 = Convert.ToInt32(readerRemakesReturned[1]);
+                l2 = Convert.ToInt32(readerRemakesReturned[4]);
+                l3 = Convert.ToInt32(readerRemakesReturned[7]);
+                l4 = Convert.ToInt32(readerRemakesReturned[10]);
+
+                o1 = Convert.ToInt32(readerRemakesReturned[2]);
+                o2 = Convert.ToInt32(readerRemakesReturned[5]);
+                o3 = Convert.ToInt32(readerRemakesReturned[8]);
+                o4 = Convert.ToInt32(readerRemakesReturned[11]);
+
+                r1 = Convert.ToInt32(readerRemakesReturned[12]);
+                r2 = Convert.ToInt32(readerRemakesReturned[13]);
+                r3 = Convert.ToInt32(readerRemakesReturned[14]);
+                r4 = Convert.ToInt32(readerRemakesReturned[15]);
+            }
+
+
+            connRemakesReturned.Close();
+
+
+
+            cartesianChart3.Series.Clear();
+            cartesianChart3.AxisX.Clear();
+            cartesianChart3.AxisY.Clear();
+
+
+
+            cartesianChart3.Series = new SeriesCollection
+            {
+                new StackedColumnSeries
+                {
+                    Title = "Foc",
+                    Values = new ChartValues<double> {o4, o3, o2, o1},
+                    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+                    DataLabels = true
+                },
+                new StackedColumnSeries
+                {
+                    Title = "Non Foc",
+                    Values = new ChartValues<double> {l4, l3, l2, l1},
+                    StackMode = StackMode.Values,
+                    DataLabels = true
+                },
+
+
+            };
+
+
+
+
+
+            cartesianChart3.AxisX.Add(new Axis
+            {
+                Title = "Date Range",
+                Labels = new[] { n4 + " - £" + r4, n3 + " - £" + r3, n2 + " - £" + r2, n1 + " - £" + r1 },
+                Separator = DefaultAxes.CleanSeparator
+            });
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Title = "Output",
+                LabelFormatter = value => "£" + value 
+            });
+
+            //////////////////////
 
         }
 

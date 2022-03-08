@@ -212,6 +212,7 @@
             this.label30 = new System.Windows.Forms.Label();
             this.dgvMonthly = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnManagement = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label67 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -257,7 +258,7 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uPLOADOVERTIMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnManagement = new System.Windows.Forms.Button();
+            this.btnProductionManagement = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -2190,8 +2191,20 @@
             this.tabPage2.Text = "Admin";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnManagement
+            // 
+            this.btnManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnManagement.Location = new System.Drawing.Point(1707, 21);
+            this.btnManagement.Name = "btnManagement";
+            this.btnManagement.Size = new System.Drawing.Size(85, 23);
+            this.btnManagement.TabIndex = 43;
+            this.btnManagement.Text = "Management";
+            this.btnManagement.UseVisualStyleBackColor = true;
+            this.btnManagement.Click += new System.EventHandler(this.btnManagement_Click);
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnProductionManagement);
             this.tabPage3.Controls.Add(this.label67);
             this.tabPage3.Controls.Add(this.groupBox13);
             this.tabPage3.Controls.Add(this.groupBox11);
@@ -2624,16 +2637,16 @@
             this.uPLOADOVERTIMEToolStripMenuItem.Text = "UPLOAD CLOCK IN";
             this.uPLOADOVERTIMEToolStripMenuItem.Click += new System.EventHandler(this.uPLOADOVERTIMEToolStripMenuItem_Click);
             // 
-            // btnManagement
+            // btnProductionManagement
             // 
-            this.btnManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnManagement.Location = new System.Drawing.Point(1707, 21);
-            this.btnManagement.Name = "btnManagement";
-            this.btnManagement.Size = new System.Drawing.Size(85, 23);
-            this.btnManagement.TabIndex = 43;
-            this.btnManagement.Text = "Management";
-            this.btnManagement.UseVisualStyleBackColor = true;
-            this.btnManagement.Click += new System.EventHandler(this.btnManagement_Click);
+            this.btnProductionManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnProductionManagement.Location = new System.Drawing.Point(1718, 6);
+            this.btnProductionManagement.Name = "btnProductionManagement";
+            this.btnProductionManagement.Size = new System.Drawing.Size(85, 23);
+            this.btnProductionManagement.TabIndex = 44;
+            this.btnProductionManagement.Text = "Management";
+            this.btnProductionManagement.UseVisualStyleBackColor = true;
+            this.btnProductionManagement.Click += new System.EventHandler(this.btnProductionManagement_Click);
             // 
             // txtTraditionalConversionRate
             // 
@@ -2934,6 +2947,7 @@
         private System.Windows.Forms.ToolStripMenuItem uPLOADOVERTIMEToolStripMenuItem;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnManagement;
+        private System.Windows.Forms.Button btnProductionManagement;
     }
 }
 

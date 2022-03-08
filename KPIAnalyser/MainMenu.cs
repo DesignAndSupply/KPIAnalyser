@@ -1261,5 +1261,11 @@ namespace KPIAnalyser
             frmAdminManagement frm = new frmAdminManagement();
             frm.ShowDialog();
         }
+
+        private void btnProductionManagement_Click(object sender, EventArgs e)
+        {
+            frmProductionManagement frm = new frmProductionManagement();
+            frm.ShowDialog();
+        }
     }
 }

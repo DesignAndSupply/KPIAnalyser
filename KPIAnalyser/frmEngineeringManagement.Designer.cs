@@ -44,11 +44,14 @@
             this.rdoYearly = new System.Windows.Forms.RadioButton();
             this.dgvDepartment = new System.Windows.Forms.DataGridView();
             this.dgvStaff = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cartesianChart3 = new LiveCharts.WinForms.CartesianChart();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).BeginInit();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabEngineering
@@ -58,6 +61,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabEngineering.Controls.Add(this.tabPage1);
             this.tabEngineering.Controls.Add(this.tabPage2);
+            this.tabEngineering.Controls.Add(this.tabPage3);
             this.tabEngineering.Location = new System.Drawing.Point(15, 210);
             this.tabEngineering.Name = "tabEngineering";
             this.tabEngineering.SelectedIndex = 0;
@@ -215,6 +219,27 @@
             this.dgvStaff.Visible = false;
             this.dgvStaff.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaff_CellDoubleClick);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.cartesianChart3);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1209, 335);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Remakes Returned";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // cartesianChart3
+            // 
+            this.cartesianChart3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cartesianChart3.Location = new System.Drawing.Point(5, 5);
+            this.cartesianChart3.Name = "cartesianChart3";
+            this.cartesianChart3.Size = new System.Drawing.Size(1199, 325);
+            this.cartesianChart3.TabIndex = 1;
+            this.cartesianChart3.Text = "cartesianChart3";
+            // 
             // frmEngineeringManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,6 +262,7 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).EndInit();
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,5 +282,7 @@
         private LiveCharts.Wpf.CartesianChart cartesianChart1;
         private System.Windows.Forms.DataGridView dgvDepartment;
         private System.Windows.Forms.DataGridView dgvStaff;
+        private System.Windows.Forms.TabPage tabPage3;
+        private LiveCharts.WinForms.CartesianChart cartesianChart3;
     }
 }
