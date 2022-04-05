@@ -36,6 +36,8 @@
             this.cartesianChart1 = new LiveCharts.Wpf.CartesianChart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cartesianChart3 = new LiveCharts.WinForms.CartesianChart();
             this.btnPrintLateness = new System.Windows.Forms.Button();
             this.rdoYearly = new System.Windows.Forms.RadioButton();
             this.rdoQuaterly = new System.Windows.Forms.RadioButton();
@@ -45,8 +47,6 @@
             this.lblCustomer = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnEmail = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.cartesianChart3 = new LiveCharts.WinForms.CartesianChart();
             this.dgvStaff = new System.Windows.Forms.DataGridView();
             this.dgvDepartment = new System.Windows.Forms.DataGridView();
             this.tabEngineering.SuspendLayout();
@@ -78,7 +78,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1257, 501);
+            this.tabPage1.Size = new System.Drawing.Size(1257, 460);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Completed on Time";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -100,7 +100,7 @@
             this.tabPage2.Controls.Add(this.cartesianChart2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1257, 501);
+            this.tabPage2.Size = new System.Drawing.Size(1257, 460);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "  Absenteeism";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -116,6 +116,27 @@
             this.cartesianChart2.TabIndex = 1;
             this.cartesianChart2.Text = "cartesianChart2";
             this.cartesianChart2.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart2_DataClick);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.cartesianChart3);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1257, 460);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Repaints";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // cartesianChart3
+            // 
+            this.cartesianChart3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cartesianChart3.Location = new System.Drawing.Point(4, 3);
+            this.cartesianChart3.Name = "cartesianChart3";
+            this.cartesianChart3.Size = new System.Drawing.Size(1250, 454);
+            this.cartesianChart3.TabIndex = 1;
+            this.cartesianChart3.Text = "cartesianChart3";
             // 
             // btnPrintLateness
             // 
@@ -215,31 +236,12 @@
             this.btnEmail.UseVisualStyleBackColor = true;
             this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.cartesianChart3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1257, 460);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Repaints";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // cartesianChart3
-            // 
-            this.cartesianChart3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cartesianChart3.Location = new System.Drawing.Point(4, 3);
-            this.cartesianChart3.Name = "cartesianChart3";
-            this.cartesianChart3.Size = new System.Drawing.Size(1250, 454);
-            this.cartesianChart3.TabIndex = 1;
-            this.cartesianChart3.Text = "cartesianChart3";
-            // 
             // dgvStaff
             // 
             this.dgvStaff.AllowUserToAddRows = false;
             this.dgvStaff.AllowUserToDeleteRows = false;
+            this.dgvStaff.AllowUserToResizeColumns = false;
+            this.dgvStaff.AllowUserToResizeRows = false;
             this.dgvStaff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -256,11 +258,15 @@
             this.dgvStaff.Size = new System.Drawing.Size(399, 202);
             this.dgvStaff.TabIndex = 24;
             this.dgvStaff.Visible = false;
+            this.dgvStaff.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaff_CellContentClick);
+            this.dgvStaff.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaff_CellDoubleClick);
             // 
             // dgvDepartment
             // 
             this.dgvDepartment.AllowUserToAddRows = false;
             this.dgvDepartment.AllowUserToDeleteRows = false;
+            this.dgvDepartment.AllowUserToResizeColumns = false;
+            this.dgvDepartment.AllowUserToResizeRows = false;
             this.dgvDepartment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDepartment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -277,6 +283,7 @@
             this.dgvDepartment.Size = new System.Drawing.Size(456, 202);
             this.dgvDepartment.TabIndex = 23;
             this.dgvDepartment.Visible = false;
+            this.dgvDepartment.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDepartment_CellDoubleClick);
             // 
             // frmProductionManagement
             // 

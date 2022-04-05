@@ -1989,7 +1989,7 @@ namespace KPIAnalyser
 
             //fill the department dgv
             string sql = "select COALESCE(max(u_painter_name.forename) + ' ' + max(u_painter_name.surname),'') as [Painter Name],count(painter_name) as [Number of Repaints],'£' + CAST(round(sum(repaint_cost),2) as nvarchar(max)) as [Total Cost]  from dbo.repaints " +
-                "left join[user_info].dbo.[user] u_painter_name on u_painter_name.id = painter_name WHERE date_painted >= '" + startDate.ToString("yyyy-MM-dd") + "' AND date_painted < '" + endDate.ToString("yyyy-MM-dd") + "' group by painter_name";
+                "left join[user_info].dbo.[user] u_painter_name on u_painter_name.id = painter_name WHERE date_painted >= '" + startDate.ToString("yyyy-MM-dd") + "' AND date_painted < '" + endDate.ToString("yyyy-MM-dd") + "' group by painter_name order by count(painter_name) desc";
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
                 conn.Open();
@@ -2005,7 +2005,7 @@ namespace KPIAnalyser
                     dgvStaff.ClearSelection();
                 }
                 sql = "select d.department_name as [Department],count(painter_name) as [Number of Repaints],'£' + CAST(round(sum(repaint_cost),2) as nvarchar(max)) as [Total Cost]  from dbo.repaints left join[dsl_kpi].dbo.department d on d.id = repaints.department " +
-                    "WHERE date_painted >= '" + startDate.ToString("yyyy-MM-dd") + "' AND date_painted <= '" + endDate.ToString("yyyy-MM-dd") + "' group by d.department_name";
+                    "WHERE date_painted >= '" + startDate.ToString("yyyy-MM-dd") + "' AND date_painted <= '" + endDate.ToString("yyyy-MM-dd") + "' group by d.department_name order by count(painter_name) desc";
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -2048,6 +2048,127 @@ namespace KPIAnalyser
                 dgvDepartment.Visible = false;
                 dgvStaff.Visible = false;
             }
+        }
+
+        private void dgvDepartment_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int department_index = 0;
+            department_index = dgvDepartment.Columns["Department"].Index;
+            //int button_index = 0;
+            //button_index = dgvDepartment.Columns[" "].Index;
+
+            if (e.RowIndex == dgvDepartment.Rows.Count - 1)
+                return;
+            var senderGrid = (DataGridView)sender; 
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex == dgvDepartment.Rows.Count - 1)
+                return;
+
+
+
+
+            //front of list and end 
+            // tempData[0].ToString();
+            //tempData[tempData.Count()].ToString();
+            DateTime endDate = DateTime.Now;
+            DateTime startDate = DateTime.Now;
+
+
+            if (rdoWeekly.Checked == true) //weekly is the only nice format 
+            {
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                startDate = Convert.ToDateTime(tempData[department_index].ToString());
+                endDate = endDate.AddDays(7); //because its the START of the week
+                                              //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
+            }
+            else if (rdoMonthly.Checked == true)
+            {
+
+                endDate = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01"); //THE FINAL ENTRY IS ALWAYS THIS CURRENT MONTH
+                endDate = endDate.AddMonths(1); //we need to include this months data so if its januray its everything < feb
+                startDate = endDate.AddYears(-1);
+            }
+            else if (rdoQuaterly.Checked == true)
+            {
+                // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                //after we have that take away 3 months for every position away from the final quater
+                endDate = DateTime.Now;
+                int quarterNumber = (endDate.Month - 1) / 3 + 1;
+                endDate = new DateTime(endDate.Year, (quarterNumber - 1) * 3 + 1, 1); //get the current quarter because thats final quater on the graph <<<<<<<<<<<<<<<<<<<<<<<
+                startDate = endDate.AddMonths(-9);
+                endDate = endDate.AddMonths(3);
+
+            }
+            else if (rdoYearly.Checked == true)
+            {
+                //this one should be fairly easy as the output is the year
+                //MessageBox.Show( tempData[tempData.Count() -1].ToString());
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString() + "/01/01");
+                startDate = endDate.AddYears(-3);
+                endDate = endDate.AddYears(1);
+
+                //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+            }
+
+            frmRepaints frm = new frmRepaints(startDate, endDate, -1, dgvDepartment.Rows[e.RowIndex].Cells[department_index].Value.ToString(), 0, "");
+            frm.ShowDialog();
+        }
+
+        private void dgvStaff_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvStaff_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //if (e.RowIndex == dgvDepartment.Rows.Count - 1)
+            //    return;
+
+
+            //front of list and end 
+            // tempData[0].ToString();
+            //tempData[tempData.Count()].ToString();
+            DateTime endDate = DateTime.Now;
+            DateTime startDate = DateTime.Now;
+
+
+            if (rdoWeekly.Checked == true) //weekly is the only nice format 
+            {
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                startDate = Convert.ToDateTime(tempData[0].ToString());
+                endDate = endDate.AddDays(7); //because its the START of the week
+                //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
+            }
+            else if (rdoMonthly.Checked == true)
+            {
+
+                endDate = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01"); //THE FINAL ENTRY IS ALWAYS THIS CURRENT MONTH
+                endDate = endDate.AddMonths(1); //we need to include this months data so if its januray its everything < feb
+                startDate = endDate.AddYears(-1);
+            }
+            else if (rdoQuaterly.Checked == true)
+            {
+                // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                //after we have that take away 3 months for every position away from the final quater
+                endDate = DateTime.Now;
+                int quarterNumber = (endDate.Month - 1) / 3 + 1;
+                endDate = new DateTime(endDate.Year, (quarterNumber - 1) * 3 + 1, 1); //get the current quarter because thats final quater on the graph <<<<<<<<<<<<<<<<<<<<<<<
+                startDate = endDate.AddMonths(-9);
+                endDate = endDate.AddMonths(3);
+
+            }
+            else if (rdoYearly.Checked == true)
+            {
+                //this one should be fairly easy as the output is the year
+                //MessageBox.Show( tempData[tempData.Count() -1].ToString());
+                endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString() + "/01/01");
+                startDate = endDate.AddYears(-3);
+                endDate = endDate.AddYears(1);
+
+                //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+            }
+
+            frmRepaints frm = new frmRepaints(startDate, endDate, 0, "", -1, dgvStaff.Rows[e.RowIndex].Cells[0].Value.ToString());
+            frm.ShowDialog();
         }
     }
 }
