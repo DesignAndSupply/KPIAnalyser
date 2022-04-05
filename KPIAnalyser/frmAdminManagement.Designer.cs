@@ -33,6 +33,7 @@
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.cartesianChart1 = new LiveCharts.Wpf.CartesianChart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.elementHost2 = new System.Windows.Forms.Integration.ElementHost();
             this.cartesianChart2 = new LiveCharts.Wpf.CartesianChart();
             this.btnPrintLateness = new System.Windows.Forms.Button();
@@ -40,7 +41,7 @@
             this.rdoQuaterly = new System.Windows.Forms.RadioButton();
             this.rdoMonthly = new System.Windows.Forms.RadioButton();
             this.rdoWeekly = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnEmail = new System.Windows.Forms.Button();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -92,6 +93,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Acknowledge on time";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.IndianRed;
+            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(437, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "*** Acknowledgement sent within 8 hours of the assessing date";
             // 
             // elementHost2
             // 
@@ -161,22 +173,23 @@
             this.rdoWeekly.UseVisualStyleBackColor = true;
             this.rdoWeekly.Click += new System.EventHandler(this.rdoWeekly_Click);
             // 
-            // label1
+            // btnEmail
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.IndianRed;
-            this.label1.Location = new System.Drawing.Point(3, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(437, 16);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "*** Acknowledgement sent within 8 hours of the assessing date";
+            this.btnEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEmail.Location = new System.Drawing.Point(1079, 112);
+            this.btnEmail.Name = "btnEmail";
+            this.btnEmail.Size = new System.Drawing.Size(94, 22);
+            this.btnEmail.TabIndex = 24;
+            this.btnEmail.Text = "Email Chart";
+            this.btnEmail.UseVisualStyleBackColor = true;
+            this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
             // 
             // frmAdminManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1289, 658);
+            this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.btnPrintLateness);
             this.Controls.Add(this.rdoYearly);
             this.Controls.Add(this.rdoQuaterly);
@@ -212,5 +225,6 @@
         private System.Windows.Forms.Integration.ElementHost elementHost2;
         private LiveCharts.Wpf.CartesianChart cartesianChart2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnEmail;
     }
 }

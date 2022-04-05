@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System.Drawing.Printing;
+using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace KPIAnalyser
 {
@@ -1589,6 +1590,47 @@ namespace KPIAnalyser
         private void frmAdminManagement_Shown(object sender, EventArgs e)
         {
             rdoWeekly.Checked = true;
+        }
+
+        private void btnEmail_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                bit.Save(@"C:\temp\Chart.jpg");
+
+
+            }
+            catch
+            {
+
+            }
+
+
+            Outlook.Application outlookApp = new Outlook.Application();
+            Outlook.MailItem mailItem = outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+            mailItem.Subject = "";
+            mailItem.To = "";
+            string imageSrc = @"C:\Temp\Chart.jpg"; // Change path as needed
+
+            var attachments = mailItem.Attachments;
+            var attachment = attachments.Add(imageSrc);
+            attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x370E001F", "image/jpeg");
+            attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x3712001F", "myident"); // Image identifier found in the HTML code right after cid. Can be anything.
+            mailItem.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/id/{00062008-0000-0000-C000-000000000046}/8514000B", true);
+
+            // Set body format to HTML
+
+            mailItem.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
+            mailItem.Attachments.Add(imageSrc);
+            string msgHTMLBody = "";
+            mailItem.HTMLBody = msgHTMLBody;
+            mailItem.Display(true);
         }
     }
 }

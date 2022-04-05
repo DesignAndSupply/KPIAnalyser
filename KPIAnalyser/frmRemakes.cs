@@ -334,7 +334,7 @@ namespace KPIAnalyser
             //ws.Rows.ClearFormats();
             //range.EntireColumn.AutoFit();
             //range.EntireRow.AutoFit();
-            xlWorkSheet.Range["A1:H1"].EntireRow.Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A1:H1"].Interior.Color = System.Drawing.Color.LightSkyBlue;
             xlWorkSheet.Columns[2].ColumnWidth = 98.14;
             xlWorkSheet.Columns[2].WrapText = true;
             xlWorkSheet.Range["H1:H300"].NumberFormat = "£#,###,###.00";
