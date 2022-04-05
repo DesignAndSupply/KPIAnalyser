@@ -12,6 +12,7 @@ using LiveCharts.Wpf;
 using System.Data.SqlClient;
 using System.Drawing.Printing;
 using Outlook = Microsoft.Office.Interop.Outlook;
+
 namespace KPIAnalyser
 {
     public partial class frmEstimatorComparison : Form
@@ -91,7 +92,7 @@ namespace KPIAnalyser
             //staffNames.Add(((DataRowView)item).Row["fullname"].ToString());
             dteStart.Value = DateTime.Now;
             dteEnd.Value = DateTime.Now;
-            string sql = "SELECT forename +' ' + surname,id FROM dbo.[user] WHERE[grouping] = 5 and[current] = 1 and id<> 314";
+            string sql = "SELECT forename +' ' + surname,id FROM dbo.[user] WHERE [grouping] = 5 and[current] = 1 and id <> 314 and id <> 411";
             using (SqlConnection connTemp = new SqlConnection(ConnectionStrings.ConnectionStringUser))
             {
                 connTemp.Open();
