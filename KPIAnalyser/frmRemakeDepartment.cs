@@ -23,16 +23,21 @@ namespace KPIAnalyser
     {
         public string sql { get; set; }
         public string department { get; set; }
-        public frmRemakeDepartment(string _sql, string _department)
+        public string type { get; set; }
+        public frmRemakeDepartment(string _sql, string _department,int remake)
         {
             InitializeComponent();
             lblTitle.Text = _department;
             sql = _sql;
 
+            if (remake == -1)
+                type = "Remakes";
+            else
+                type = "Repaints";
+
+            this.Text = "Cost / Amount of " + type;
+
             this.WindowState = FormWindowState.Maximized;
-
-
-
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
@@ -41,7 +46,7 @@ namespace KPIAnalyser
             SqlDataReader reader = cmd.ExecuteReader();
 
             List<DateTime> datelist = new List<DateTime>();
-            List<int> itemlist = new List<int>();
+            List<double> itemlist = new List<double>();
             List<string> temp = new List<string>();
             List<double> values = new List<double>();
 
@@ -49,14 +54,19 @@ namespace KPIAnalyser
             while (reader.Read())
             {
                 //datelist.Add(reader.GetDateTime(1));
-                itemlist.Add(reader.GetInt32(1));
-                temp.Add((reader.GetString(0)) + " - £" + Convert.ToString(reader.GetDouble(2)));
+                //itemlist.Add(reader.GetInt32(1));
+                itemlist.Add(reader.GetDouble(2));
+                //MessageBox.Show(reader.GetString(0));
                 values.Add(reader.GetDouble(2));
+               // temp.Add(reader.GetDouble(2).ToString());
+                //vv this is old code
+                temp.Add((reader.GetString(0)) + " - " + Convert.ToString(reader.GetInt32(1)) + " " + type);
+                ////values.Add(reader.GetDouble(2));
             }
 
 
             //string[] datearray = datelist.ToArray();
-            int[] itemarray = itemlist.ToArray();
+            double[] itemarray = itemlist.ToArray();
 
             cartesianChart1.AxisY.Clear();
             cartesianChart1.AxisX.Clear();
@@ -65,13 +75,13 @@ namespace KPIAnalyser
             {
                 new ColumnSeries
                 {
-                    Title = "Remakes",
+                    Title = type,
                     FontSize = 10,
                     DataLabels = true,
                     
                     Fill = System.Windows.Media.Brushes.Green,
 
-                    Values = new ChartValues<int>(itemarray)
+                    Values = new ChartValues<double>(itemarray)
                 }
         };
 
@@ -106,7 +116,7 @@ namespace KPIAnalyser
 
             cartesianChart1.AxisY.Add(new Axis
             {
-                Title = "Remakes",
+                Title = type,
                 FontSize = 16,
 
             });

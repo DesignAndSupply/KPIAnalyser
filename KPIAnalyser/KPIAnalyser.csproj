@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>43</ApplicationRevision>
+    <ApplicationRevision>47</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -233,6 +233,12 @@
     <Compile Include="frmSlimlineEstimatingProductivity.Designer.cs">
       <DependentUpon>frmSlimlineEstimatingProductivity.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmStaffDataChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStaffDataChecker.Designer.cs">
+      <DependentUpon>frmStaffDataChecker.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -361,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSlimlineEstimatingProductivity.resx">
       <DependentUpon>frmSlimlineEstimatingProductivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStaffDataChecker.resx">
+      <DependentUpon>frmStaffDataChecker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpload.resx">
       <DependentUpon>frmUpload.cs</DependentUpon>

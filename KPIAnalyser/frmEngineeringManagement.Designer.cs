@@ -33,13 +33,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEngineeringManagement));
             this.tabEngineering = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnPrintLateness = new System.Windows.Forms.Button();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.cartesianChart1 = new LiveCharts.Wpf.CartesianChart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cartesianChart3 = new LiveCharts.WinForms.CartesianChart();
+            this.btnPrintLateness = new System.Windows.Forms.Button();
             this.rdoWeekly = new System.Windows.Forms.RadioButton();
             this.rdoMonthly = new System.Windows.Forms.RadioButton();
             this.rdoQuaterly = new System.Windows.Forms.RadioButton();
@@ -80,17 +80,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Programming Lateness";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // btnPrintLateness
-            // 
-            this.btnPrintLateness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrintLateness.Location = new System.Drawing.Point(1137, 220);
-            this.btnPrintLateness.Name = "btnPrintLateness";
-            this.btnPrintLateness.Size = new System.Drawing.Size(85, 23);
-            this.btnPrintLateness.TabIndex = 1;
-            this.btnPrintLateness.Text = "Print Chart";
-            this.btnPrintLateness.UseVisualStyleBackColor = true;
-            this.btnPrintLateness.Click += new System.EventHandler(this.BtnPrintLateness_Click);
             // 
             // elementHost1
             // 
@@ -147,6 +136,17 @@
             this.cartesianChart3.Size = new System.Drawing.Size(1199, 313);
             this.cartesianChart3.TabIndex = 1;
             this.cartesianChart3.Text = "cartesianChart3";
+            // 
+            // btnPrintLateness
+            // 
+            this.btnPrintLateness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrintLateness.Location = new System.Drawing.Point(1137, 220);
+            this.btnPrintLateness.Name = "btnPrintLateness";
+            this.btnPrintLateness.Size = new System.Drawing.Size(85, 23);
+            this.btnPrintLateness.TabIndex = 1;
+            this.btnPrintLateness.Text = "Print Chart";
+            this.btnPrintLateness.UseVisualStyleBackColor = true;
+            this.btnPrintLateness.Click += new System.EventHandler(this.BtnPrintLateness_Click);
             // 
             // rdoWeekly
             // 

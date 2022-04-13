@@ -63,7 +63,7 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.cartesianChart1);
             this.Name = "frmRemakeDepartment";
-            this.Text = "frmRemakeDepartment";
+            this.Text = "Cost / Amount of Remakes";
             this.ResumeLayout(false);
 
         }

@@ -1437,7 +1437,7 @@ namespace KPIAnalyser
 
             department = department + " Remakes From " + startDate.ToString("yyyy-MM-dd") + " to " + endDate.ToString("yyyy-MM-dd");
 
-            frmRemakeDepartment frm = new frmRemakeDepartment(sql,department);
+            frmRemakeDepartment frm = new frmRemakeDepartment(sql,department,-1);
             frm.Show();
         }
         private void filldatagrid()

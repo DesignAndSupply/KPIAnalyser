@@ -1267,5 +1267,11 @@ namespace KPIAnalyser
             frmProductionManagement frm = new frmProductionManagement();
             frm.ShowDialog();
         }
+
+        private void staffAbsenceCheckerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmStaffDataChecker frm = new frmStaffDataChecker();
+            frm.ShowDialog();
+        }
     }
 }

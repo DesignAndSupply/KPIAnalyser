@@ -214,6 +214,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnManagement = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnProductionManagement = new System.Windows.Forms.Button();
             this.label67 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.btnPackStaffTimingBreakdown = new System.Windows.Forms.Button();
@@ -258,7 +259,7 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uPLOADOVERTIMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnProductionManagement = new System.Windows.Forms.Button();
+            this.staffAbsenceCheckerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -2219,6 +2220,17 @@
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
+            // btnProductionManagement
+            // 
+            this.btnProductionManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnProductionManagement.Location = new System.Drawing.Point(1718, 6);
+            this.btnProductionManagement.Name = "btnProductionManagement";
+            this.btnProductionManagement.Size = new System.Drawing.Size(85, 23);
+            this.btnProductionManagement.TabIndex = 44;
+            this.btnProductionManagement.Text = "Management";
+            this.btnProductionManagement.UseVisualStyleBackColor = true;
+            this.btnProductionManagement.Click += new System.EventHandler(this.btnProductionManagement_Click);
+            // 
             // label67
             // 
             this.label67.AutoSize = true;
@@ -2609,7 +2621,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
-            this.uPLOADOVERTIMEToolStripMenuItem});
+            this.uPLOADOVERTIMEToolStripMenuItem,
+            this.staffAbsenceCheckerToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1859, 24);
@@ -2637,16 +2650,12 @@
             this.uPLOADOVERTIMEToolStripMenuItem.Text = "UPLOAD CLOCK IN";
             this.uPLOADOVERTIMEToolStripMenuItem.Click += new System.EventHandler(this.uPLOADOVERTIMEToolStripMenuItem_Click);
             // 
-            // btnProductionManagement
+            // staffAbsenceCheckerToolStripMenuItem
             // 
-            this.btnProductionManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnProductionManagement.Location = new System.Drawing.Point(1718, 6);
-            this.btnProductionManagement.Name = "btnProductionManagement";
-            this.btnProductionManagement.Size = new System.Drawing.Size(85, 23);
-            this.btnProductionManagement.TabIndex = 44;
-            this.btnProductionManagement.Text = "Management";
-            this.btnProductionManagement.UseVisualStyleBackColor = true;
-            this.btnProductionManagement.Click += new System.EventHandler(this.btnProductionManagement_Click);
+            this.staffAbsenceCheckerToolStripMenuItem.Name = "staffAbsenceCheckerToolStripMenuItem";
+            this.staffAbsenceCheckerToolStripMenuItem.Size = new System.Drawing.Size(116, 20);
+            this.staffAbsenceCheckerToolStripMenuItem.Text = "Staff Data Checker";
+            this.staffAbsenceCheckerToolStripMenuItem.Click += new System.EventHandler(this.staffAbsenceCheckerToolStripMenuItem_Click);
             // 
             // txtTraditionalConversionRate
             // 
@@ -2948,6 +2957,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnManagement;
         private System.Windows.Forms.Button btnProductionManagement;
+        private System.Windows.Forms.ToolStripMenuItem staffAbsenceCheckerToolStripMenuItem;
     }
 }
 

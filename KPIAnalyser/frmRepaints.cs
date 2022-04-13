@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
+using System.Diagnostics;
 
 namespace KPIAnalyser
 {
@@ -36,17 +37,19 @@ namespace KPIAnalyser
             else
                 lblTitle.Text = "Repaints From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
             apply_filter();
+            fill_grid();
             this.WindowState = FormWindowState.Maximized;
         }
 
         private void apply_filter()
         {
-            string sql = "select d.id as [Door ID],r.reason_for_repaint as [Repaint Reason],r.date_logged as [Log Date],s.[NAME] as [Customer],u_fault.forename + ' ' + u_fault.surname as [Person Responsible]," +
+            string sql = "select d.id as [Door ID],r.reason_for_repaint as [Repaint Reason],u_logged.forename + ' ' + u_logged.surname as [Logged By],r.date_logged as [Log Date],s.[NAME] as [Customer],COALESCE(u_fault.forename + ' ' + u_fault.surname,'N/A') as [Person Responsible]," +
                 "dept.department_name as [Department Responsible],COALESCE(round(r.repaint_cost,2),0) as [Repaint Cost] from dbo.door d " +
                 "right join dbo.repaints r on r.door_id = d.id " +
                 "left join [user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
                 "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
                 "left join[dsl_kpi].dbo.department dept on dept.id = r.department " +
+                "left join [user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id " +
                 "WHERE  date_logged >= '" + dateStart.ToString("yyyy-MM-dd") + "' AND date_logged < '" + dateEnd.ToString("yyyy-MM-dd") + "'";
 
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
@@ -80,7 +83,10 @@ namespace KPIAnalyser
                 }
                 if (staff_only == -1)
                 {
-                    sql = sql + " AND  u_fault.forename + ' ' + u_fault.surname = '" + staff + "'";
+                    if (staff == "N/A")
+                        sql = sql + " AND r.painter_name = 0 ";
+                    else
+                        sql = sql + " AND  u_fault.forename + ' ' + u_fault.surname = '" + staff + "'";
                 }
                 sql = sql + " ORDER BY r.date_logged asc,d.id asc";
 
@@ -99,22 +105,23 @@ namespace KPIAnalyser
         private void format()
         {
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             foreach (DataGridViewColumn col in dataGridView1.Columns)
             {
-                col.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                col.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
             }
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             double costTotal = 0;
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                costTotal = costTotal + Convert.ToDouble(row.Cells[6].Value);
+                costTotal = costTotal + Convert.ToDouble(row.Cells[7].Value);
             }
             lblTotal.Text = "TOTAL: £" + costTotal.ToString();
         }
@@ -124,36 +131,40 @@ namespace KPIAnalyser
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
 
-                if (cmbPersonResponsible.Items.Contains(row.Cells[4].Value.ToString()))
+                if (cmbPersonResponsible.Items.Contains(row.Cells[5].Value.ToString()))
                 { } //nothing
                 else
-                    cmbPersonResponsible.Items.Add(row.Cells[4].Value.ToString());
+                    cmbPersonResponsible.Items.Add(row.Cells[5].Value.ToString());
 
-                if (cmbDeptResponsible.Items.Contains(row.Cells[5].Value.ToString()))
+                if (cmbDeptResponsible.Items.Contains(row.Cells[6].Value.ToString()))
                 { } //nothing
                 else
-                    cmbDeptResponsible.Items.Add(row.Cells[5].Value.ToString());
+                    cmbDeptResponsible.Items.Add(row.Cells[6].Value.ToString());
 
-                if (cmbCustomer.Items.Contains(row.Cells[3].Value.ToString()))
+                if (cmbCustomer.Items.Contains(row.Cells[4].Value.ToString()))
                 { } //nothing
                 else
-                    cmbCustomer.Items.Add(row.Cells[3].Value.ToString());
+                    cmbCustomer.Items.Add(row.Cells[4].Value.ToString());
             }
         }
 
         private void cmbPersonResponsible_SelectedIndexChanged(object sender, EventArgs e)
         {
             apply_filter();
+            fill_grid();
         }
 
         private void cmbDeptResponsible_SelectedIndexChanged(object sender, EventArgs e)
         {
             apply_filter();
+            fill_grid();
         }
 
         private void cmbCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
             apply_filter();
+            fill_grid();
+
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -162,10 +173,21 @@ namespace KPIAnalyser
             cmbDeptResponsible.Text = "";
             cmbCustomer.Text = "";
             apply_filter();
+            fill_grid();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+
+            Process[] processesBefore = Process.GetProcessesByName("excel");
+
+            //unformat the grid because it causes big issues
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                col.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            }
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //
             int customer_index = 0;
             customer_index = dataGridView1.Columns["Customer"].Index;
 
@@ -195,6 +217,10 @@ namespace KPIAnalyser
             // Format column D as text before pasting results, this was required for my data
             Microsoft.Office.Interop.Excel.Range rng = xlWorkSheet.get_Range("D:D").Cells;
             rng.NumberFormat = "@";
+
+            // Get Excel processes after opening the file. 
+            Process[] processesAfter = Process.GetProcessesByName("excel");
+
 
             // Paste clipboard results to worksheet range
             Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[1, 1];
@@ -247,7 +273,6 @@ namespace KPIAnalyser
             //app = null;
             //app = new Excel.Application(); // create a new instance
             excelApp.DisplayAlerts = false; //turn off annoying alerts that make me want to cryyyy
-            uint processID = 0;
 
             workbooks = excelApp.Workbooks;
             excelBook = workbooks.Add(FileName);
@@ -256,6 +281,24 @@ namespace KPIAnalyser
 
             //Range.Rows.AutoFit();
             //Range.Columns.AutoFit();
+
+            excelApp.Quit();
+            // Now find the process id that was created, and store it. 
+            int processID = 0;
+            foreach (Process process in processesAfter)
+            {
+                if (!processesBefore.Select(p => p.Id).Contains(process.Id))
+                {
+                    processID = process.Id;
+                    // And now kill the process. 
+                    if (processID != 0)
+                    {
+                        Process process2 = Process.GetProcessById(processID);
+                        process2.Kill();
+                    }
+                }
+            }
+
         }
 
         private void btnEmail_Click(object sender, EventArgs e)
@@ -286,5 +329,86 @@ namespace KPIAnalyser
 
             conn.Close();
         }
+
+        private void fill_grid()
+        {
+            string sql = "select COALESCE(max(u_painter_name.forename) + ' ' + max(u_painter_name.surname),'N/A') as [Person Responsible],count(painter_name) as [Number of Repaints],'£' + CAST(round(sum(COALESCE(repaint_cost,0)), 2) as nvarchar(max)) as [Total Cost] " +
+                "from dbo.repaints" +
+                " left join [user_info].dbo.[user] u_painter_name on u_painter_name.id = painter_name " +
+                "left join[dsl_kpi].dbo.department d on d.id = repaints.department " +
+                "LEFT join dbo.door door on door.id = dbo.repaints.door_id " +
+                "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = door.customer_acc_ref " +
+                "WHERE CAST(date_logged as date) >= '" + dateStart.ToString("yyyy-MM-dd") + "' AND CAST(date_logged as date) <= '" + dateEnd.ToString("yyyy-MM-dd") + "' ";
+            ////////////////////////////
+            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
+            {
+                conn.Open();
+                if (cmbPersonResponsible.Text.Length > 0)
+                {
+                    //work out which user it is 
+                    using (SqlCommand cmd = new SqlCommand("Select id from [user_info].dbo.[user] WHERE forename + ' ' + surname = '" + cmbPersonResponsible.Text + "'", conn))
+                    {
+                        int temp = Convert.ToInt32(cmd.ExecuteScalar());
+                        sql = sql + " AND [painter_name] = " + temp.ToString();
+                    }
+                }
+                if (cmbDeptResponsible.Text.Length > 0)
+                {
+                    //work out which user it is 
+                    using (SqlCommand cmd = new SqlCommand("select id from [dsl_kpi].dbo.[department] where department_name = '" + cmbDeptResponsible.Text + "'", conn))
+                    {
+                        var temp = Convert.ToString(cmd.ExecuteScalar());
+                        sql = sql + " AND r.department = " + temp.ToString();
+                    }
+                }
+                if (cmbCustomer.Text.Length > 0)
+                {
+                    sql = sql + " AND s.[NAME] = '" + cmbCustomer.Text.ToString() + "'";
+                }
+                /////////////////////////////
+                //check for dept
+                if (dept_only == -1)
+                {
+                    sql = sql + " and d.department_name = '" + dept + "'";
+                }
+                if (staff_only == -1)
+                {
+                    sql = sql + " AND  u_painter_name.forename + ' ' + u_painter_name.surname = '" + staff + "'";
+                }
+                sql = sql + " group by painter_name order by count(painter_name) desc";
+
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    if (staff_only != -1)
+                    {
+                        DataRow toInsert = dt.NewRow();
+                        // insert in the desired place
+                        dt.Rows.InsertAt(toInsert, dt.Rows.Count);
+                        dt.Rows[dt.Rows.Count - 1][0] = "Totals:";
+                        double totalCost = 0;
+                        int totalRemake = 0;
+                        for (int i = 0; i < dt.Rows.Count - 1; i++)
+                        {
+                            string temp = dt.Rows[i][2].ToString().Substring(1);
+                            totalRemake = totalRemake + Convert.ToInt32(dt.Rows[i][1]);
+                            totalCost = totalCost + Convert.ToDouble(temp);
+                        }
+
+                        dt.Rows[dt.Rows.Count - 1][1] = totalRemake;
+                        dt.Rows[dt.Rows.Count - 1][2] = "£" + totalCost.ToString();
+                    }
+                    dgvStaff.DataSource = dt;
+                    dgvStaff.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    dgvStaff.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvStaff.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvStaff.ClearSelection();
+                }
+            }
+        }
+
     }
 }

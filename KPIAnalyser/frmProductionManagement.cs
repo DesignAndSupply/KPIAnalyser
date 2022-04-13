@@ -334,12 +334,6 @@ namespace KPIAnalyser
                     ws3 = Convert.ToDateTime(reader[6]);
                     ws4 = Convert.ToDateTime(reader[9]);
 
-                    tempData.Add(reader[0].ToString());
-                    tempData.Add(reader[3].ToString());
-                    tempData.Add(reader[6].ToString());
-                    tempData.Add(reader[9].ToString());
-                    tempData.Reverse();
-
                     l1 = Convert.ToInt32(reader[1]);
                     l2 = Convert.ToInt32(reader[4]);
                     l3 = Convert.ToInt32(reader[7]);
@@ -370,7 +364,7 @@ namespace KPIAnalyser
 
                 new LineSeries
                 {
-                    Title = "Late",
+                    Title = "Repaint",
                     Values = new ChartValues<double> {l4, l3, l2, l1},
                     DataLabels = true
                 },
@@ -1349,7 +1343,7 @@ namespace KPIAnalyser
                 //},
                 new LineSeries
                 {
-                    Title = "Late",
+                    Title = "Repaint",
                     Values = new ChartValues<double> {l4, l3, l2, l1},
                     DataLabels = true
                 }
@@ -1713,7 +1707,7 @@ namespace KPIAnalyser
                 //},
                 new LineSeries
                 {
-                    Title = "Late",
+                    Title = "Repaints",
                     Values = new ChartValues<double> {l4, l3, l2, l1},
                     DataLabels = true
                 },
@@ -1988,8 +1982,8 @@ namespace KPIAnalyser
             }
 
             //fill the department dgv
-            string sql = "select COALESCE(max(u_painter_name.forename) + ' ' + max(u_painter_name.surname),'') as [Painter Name],count(painter_name) as [Number of Repaints],'£' + CAST(round(sum(repaint_cost),2) as nvarchar(max)) as [Total Cost]  from dbo.repaints " +
-                "left join[user_info].dbo.[user] u_painter_name on u_painter_name.id = painter_name WHERE date_painted >= '" + startDate.ToString("yyyy-MM-dd") + "' AND date_painted < '" + endDate.ToString("yyyy-MM-dd") + "' group by painter_name order by count(painter_name) desc";
+            string sql = "select COALESCE(max(u_painter_name.forename) + ' ' + max(u_painter_name.surname),'N/A') as [Person Responsible],count(painter_name) as [Number of Repaints],'£' + CAST(round(sum(repaint_cost),2) as nvarchar(max)) as [Total Cost]  from dbo.repaints " +
+                "left join[user_info].dbo.[user] u_painter_name on u_painter_name.id = painter_name WHERE CAST(date_logged as date) >= '" + startDate.ToString("yyyy-MM-dd") + "' AND CAST(date_logged as date) <= '" + endDate.ToString("yyyy-MM-dd") + "' group by painter_name order by count(painter_name) desc";
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
                 conn.Open();
@@ -2005,7 +1999,7 @@ namespace KPIAnalyser
                     dgvStaff.ClearSelection();
                 }
                 sql = "select d.department_name as [Department],count(painter_name) as [Number of Repaints],'£' + CAST(round(sum(repaint_cost),2) as nvarchar(max)) as [Total Cost]  from dbo.repaints left join[dsl_kpi].dbo.department d on d.id = repaints.department " +
-                    "WHERE date_painted >= '" + startDate.ToString("yyyy-MM-dd") + "' AND date_painted <= '" + endDate.ToString("yyyy-MM-dd") + "' group by d.department_name order by count(painter_name) desc";
+                    "WHERE CAST(date_logged as date) >= '" + startDate.ToString("yyyy-MM-dd") + "' AND CAST(date_logged as date) <= '" + endDate.ToString("yyyy-MM-dd") + "' group by d.department_name order by count(painter_name) desc";
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -2027,6 +2021,21 @@ namespace KPIAnalyser
                     dt.Rows[dt.Rows.Count - 1][1] = totalRemake;
                     dt.Rows[dt.Rows.Count - 1][2] = "£" + totalCost.ToString();
                     dgvDepartment.DataSource = dt;
+
+                    DataGridViewButtonColumn chartButton = new DataGridViewButtonColumn();
+                    chartButton.Name = " ";
+                    chartButton.Text = "Chart";
+                    chartButton.UseColumnTextForButtonValue = true;
+                    if (dgvDepartment.Columns.Contains(" ") == true)
+                    {
+                        dgvDepartment.Columns.Remove(" ");
+                    }
+                    int columnIndex = 3;
+                    if (dgvDepartment.Columns["chart_column"] == null)
+                    {
+                        dgvDepartment.Columns.Insert(columnIndex, chartButton);
+                    }
+
                     dgvDepartment.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     dgvDepartment.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvDepartment.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -2054,18 +2063,74 @@ namespace KPIAnalyser
         {
             int department_index = 0;
             department_index = dgvDepartment.Columns["Department"].Index;
-            //int button_index = 0;
-            //button_index = dgvDepartment.Columns[" "].Index;
+            int button_index = 0;
+            button_index = dgvDepartment.Columns[" "].Index;
 
             if (e.RowIndex == dgvDepartment.Rows.Count - 1)
                 return;
-            var senderGrid = (DataGridView)sender; 
+            var senderGrid = (DataGridView)sender;
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex == dgvDepartment.Rows.Count - 1)
                 return;
 
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex < dgvDepartment.Rows.Count - 1)
+            {
+                repaintDeptChart(dgvDepartment.Rows[e.RowIndex].Cells[department_index].Value.ToString());
+            }
+            else
+            {
 
 
 
+                //front of list and end 
+                // tempData[0].ToString();
+                //tempData[tempData.Count()].ToString();
+                DateTime endDate = DateTime.Now;
+                DateTime startDate = DateTime.Now;
+
+
+                if (rdoWeekly.Checked == true) //weekly is the only nice format 
+                {
+                    endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                    startDate = Convert.ToDateTime(tempData[department_index].ToString());
+                    endDate = endDate.AddDays(7); //because its the START of the week
+                                                  //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
+                }
+                else if (rdoMonthly.Checked == true)
+                {
+
+                    endDate = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01"); //THE FINAL ENTRY IS ALWAYS THIS CURRENT MONTH
+                    endDate = endDate.AddMonths(1); //we need to include this months data so if its januray its everything < feb
+                    startDate = endDate.AddYears(-1);
+                }
+                else if (rdoQuaterly.Checked == true)
+                {
+                    // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                    //after we have that take away 3 months for every position away from the final quater
+                    endDate = DateTime.Now;
+                    int quarterNumber = (endDate.Month - 1) / 3 + 1;
+                    endDate = new DateTime(endDate.Year, (quarterNumber - 1) * 3 + 1, 1); //get the current quarter because thats final quater on the graph <<<<<<<<<<<<<<<<<<<<<<<
+                    startDate = endDate.AddMonths(-9);
+                    endDate = endDate.AddMonths(3);
+
+                }
+                else if (rdoYearly.Checked == true)
+                {
+                    //this one should be fairly easy as the output is the year
+                    //MessageBox.Show( tempData[tempData.Count() -1].ToString());
+                    endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString() + "/01/01");
+                    startDate = endDate.AddYears(-3);
+                    endDate = endDate.AddYears(1);
+
+                    //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
+                }
+
+                frmRepaints frm = new frmRepaints(startDate, endDate, -1, dgvDepartment.Rows[e.RowIndex].Cells[department_index].Value.ToString(), 0, "");
+                frm.ShowDialog();
+            }
+        }
+
+        private void repaintDeptChart(string department)
+        {
             //front of list and end 
             // tempData[0].ToString();
             //tempData[tempData.Count()].ToString();
@@ -2075,10 +2140,11 @@ namespace KPIAnalyser
 
             if (rdoWeekly.Checked == true) //weekly is the only nice format 
             {
+                //MessageBox.Show(tempData[tempData.Count() - 1].ToString());
                 endDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
-                startDate = Convert.ToDateTime(tempData[department_index].ToString());
+                startDate = Convert.ToDateTime(tempData[0].ToString());
                 endDate = endDate.AddDays(7); //because its the START of the week
-                                              //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
+                //IF THE SELECT IS NOT < THEN WE NEED TO ADD 6 DAYS BECAUSE RIGHT NOW ITS ADDING THE FIRST DAY OF THE NEXT WEEK
             }
             else if (rdoMonthly.Checked == true)
             {
@@ -2109,8 +2175,16 @@ namespace KPIAnalyser
                 //startDate = Convert.ToDateTime(tempData[tempData.Count() - 1].ToString());
             }
 
-            frmRepaints frm = new frmRepaints(startDate, endDate, -1, dgvDepartment.Rows[e.RowIndex].Cells[department_index].Value.ToString(), 0, "");
-            frm.ShowDialog();
+            
+            string sql =  "select COALESCE(max(u_painter_name.forename) + ' ' + max(u_painter_name.surname),'N/A') as [Person Responsible],count(painter_name) as [Number of Repaints], round(sum(coalesce(repaint_cost, 0)), 2) as [Total Cost] " +
+                "from dbo.repaints left join [user_info].dbo.[user] u_painter_name on u_painter_name.id = painter_name left join[dsl_kpi].dbo.department d on dbo.repaints.department = d.id " +
+                "WHERE CAST(date_logged as date) >= '" + startDate.ToString("yyyy-MM-dd") + "' AND CAST(date_logged as date) <= '" + endDate.ToString("yyyyMMdd") + "' and d.department_name = '" +   department + "' " +
+                "group by painter_name order by count(painter_name) desc";
+
+            department = department + " Repaint From " + startDate.ToString("yyyy-MM-dd") + " to " + endDate.ToString("yyyy-MM-dd");
+
+            frmRemakeDepartment frm = new frmRemakeDepartment(sql, department,0);
+            frm.Show();
         }
 
         private void dgvStaff_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -2168,6 +2242,59 @@ namespace KPIAnalyser
             }
 
             frmRepaints frm = new frmRepaints(startDate, endDate, 0, "", -1, dgvStaff.Rows[e.RowIndex].Cells[0].Value.ToString());
+            frm.ShowDialog();
+        }
+
+        private void cartesianChart3_DataClick(object sender, ChartPoint p)
+        {
+            var asPixels = cartesianChart2.Base.ConvertToPixels(p.AsPoint());
+            //MessageBox.Show("[EVENT] You clicked ([EVENT] You clicked (" + p.X + ", " + p.Y + ") in pixels (" +
+            //            asPixels.X + ", " + asPixels.Y + ")");
+            //MessageBox.Show(Convert.ToInt32(p.X).ToString());
+            //   MessageBox.Show(tempData[Convert.ToInt32(p.X)].ToString());
+
+            //vvvv use this to get the current datatype tom uses for the chart 
+            tempData[Convert.ToInt32(p.X)].ToString();
+
+            //because the data types are so inconsistent we need to check which type it is
+            DateTime dateStart = DateTime.Today;
+            DateTime dateEnd = DateTime.Today;
+            if (rdoWeekly.Checked == true) //weekly is the only nice format 
+            {
+                dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString());
+                dateEnd = dateStart.AddDays(7);
+            }
+            else if (rdoMonthly.Checked == true)
+            {
+                int monthsToRemove = tempData.IndexOf(tempData[Convert.ToInt32(p.X)].ToString()) + 1; //add one because list stars at 0
+                monthsToRemove = monthsToRemove - tempData.Count(); //remove the current pos from the  list total to get the amount of jumps back we take
+                dateStart = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01");
+                dateStart = dateStart.AddMonths(monthsToRemove);
+                dateEnd = dateStart.AddMonths(1);
+            }
+            else if (rdoQuaterly.Checked == true)
+            {
+                // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                //after we have that take away 3 months for every position away from the final quater
+                int quarterNumber = (dateStart.Month - 1) / 3 + 1;
+                dateStart = new DateTime(dateStart.Year, (quarterNumber - 1) * 3 + 1, 1);
+
+                int monthsToRemove = tempData.IndexOf(tempData[Convert.ToInt32(p.X)].ToString()) + 1; //add one because list stars at 0
+                monthsToRemove = monthsToRemove - tempData.Count();
+                monthsToRemove = monthsToRemove * 3; //each quater is 3 months so this should take away the exact number of months to remove
+                dateStart = dateStart.AddMonths(monthsToRemove);
+                dateEnd = dateEnd.AddMonths(3);
+            }
+            else if (rdoYearly.Checked == true)
+            {
+                //this one should be fairly easy as the output is the year
+                dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString() + "/01/01");
+                dateEnd = dateStart.AddYears(1);
+            }
+
+            //should have the start and end dates for the new form now
+
+            frmRepaints frm = new frmRepaints(dateStart, dateEnd, 0, "", 0, "");
             frm.ShowDialog();
         }
     }

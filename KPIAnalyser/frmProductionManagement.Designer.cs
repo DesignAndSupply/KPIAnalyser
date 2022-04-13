@@ -137,6 +137,7 @@
             this.cartesianChart3.Size = new System.Drawing.Size(1250, 454);
             this.cartesianChart3.TabIndex = 1;
             this.cartesianChart3.Text = "cartesianChart3";
+            this.cartesianChart3.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart3_DataClick);
             // 
             // btnPrintLateness
             // 

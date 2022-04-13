@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnEmail = new System.Windows.Forms.Button();
             this.lblTotal = new System.Windows.Forms.Label();
@@ -40,13 +41,15 @@
             this.cmbPersonResponsible = new System.Windows.Forms.ComboBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvStaff = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPrint
             // 
             this.btnPrint.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnPrint.Location = new System.Drawing.Point(848, 57);
+            this.btnPrint.Location = new System.Drawing.Point(270, 145);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(98, 23);
             this.btnPrint.TabIndex = 32;
@@ -57,7 +60,7 @@
             // btnEmail
             // 
             this.btnEmail.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnEmail.Location = new System.Drawing.Point(952, 57);
+            this.btnEmail.Location = new System.Drawing.Point(374, 145);
             this.btnEmail.Name = "btnEmail";
             this.btnEmail.Size = new System.Drawing.Size(98, 23);
             this.btnEmail.TabIndex = 31;
@@ -78,7 +81,7 @@
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.Location = new System.Drawing.Point(532, 39);
+            this.label1.Location = new System.Drawing.Point(342, 88);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(216, 17);
             this.label1.TabIndex = 29;
@@ -89,7 +92,7 @@
             // 
             this.cmbCustomer.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbCustomer.FormattingEnabled = true;
-            this.cmbCustomer.Location = new System.Drawing.Point(529, 59);
+            this.cmbCustomer.Location = new System.Drawing.Point(339, 108);
             this.cmbCustomer.Name = "cmbCustomer";
             this.cmbCustomer.Size = new System.Drawing.Size(219, 21);
             this.cmbCustomer.TabIndex = 28;
@@ -98,7 +101,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnClear.Location = new System.Drawing.Point(763, 57);
+            this.btnClear.Location = new System.Drawing.Point(185, 145);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(79, 23);
             this.btnClear.TabIndex = 27;
@@ -109,7 +112,7 @@
             // label4
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.Location = new System.Drawing.Point(401, 36);
+            this.label4.Location = new System.Drawing.Point(211, 85);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(130, 20);
             this.label4.TabIndex = 24;
@@ -120,7 +123,7 @@
             // 
             this.cmbDeptResponsible.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbDeptResponsible.FormattingEnabled = true;
-            this.cmbDeptResponsible.Location = new System.Drawing.Point(402, 59);
+            this.cmbDeptResponsible.Location = new System.Drawing.Point(212, 108);
             this.cmbDeptResponsible.Name = "cmbDeptResponsible";
             this.cmbDeptResponsible.Size = new System.Drawing.Size(121, 21);
             this.cmbDeptResponsible.TabIndex = 23;
@@ -129,7 +132,7 @@
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label3.Location = new System.Drawing.Point(278, 39);
+            this.label3.Location = new System.Drawing.Point(88, 88);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(121, 17);
             this.label3.TabIndex = 22;
@@ -140,7 +143,7 @@
             // 
             this.cmbPersonResponsible.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbPersonResponsible.FormattingEnabled = true;
-            this.cmbPersonResponsible.Location = new System.Drawing.Point(275, 59);
+            this.cmbPersonResponsible.Location = new System.Drawing.Point(85, 108);
             this.cmbPersonResponsible.Name = "cmbPersonResponsible";
             this.cmbPersonResponsible.Size = new System.Drawing.Size(121, 21);
             this.cmbPersonResponsible.TabIndex = 21;
@@ -151,9 +154,9 @@
             this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.lblTitle.Location = new System.Drawing.Point(12, 9);
+            this.lblTitle.Location = new System.Drawing.Point(7, 34);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(1035, 27);
+            this.lblTitle.Size = new System.Drawing.Size(613, 27);
             this.lblTitle.TabIndex = 18;
             this.lblTitle.Text = "Repaints From: \'YYYYMMDD\' to \'YYYYMMDD\'";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -168,17 +171,40 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 86);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 185);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1035, 378);
+            this.dataGridView1.Size = new System.Drawing.Size(1035, 279);
             this.dataGridView1.TabIndex = 17;
+            // 
+            // dgvStaff
+            // 
+            this.dgvStaff.AllowUserToAddRows = false;
+            this.dgvStaff.AllowUserToDeleteRows = false;
+            this.dgvStaff.AllowUserToResizeColumns = false;
+            this.dgvStaff.AllowUserToResizeRows = false;
+            this.dgvStaff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaff.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvStaff.Location = new System.Drawing.Point(631, 9);
+            this.dgvStaff.Name = "dgvStaff";
+            this.dgvStaff.RowHeadersVisible = false;
+            this.dgvStaff.Size = new System.Drawing.Size(416, 170);
+            this.dgvStaff.TabIndex = 33;
             // 
             // frmRepaints
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1059, 496);
+            this.Controls.Add(this.dgvStaff);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.lblTotal);
@@ -196,6 +222,7 @@
             this.Text = "Repaints";
             this.Shown += new System.EventHandler(this.frmRepaints_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -214,5 +241,6 @@
         private System.Windows.Forms.ComboBox cmbPersonResponsible;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvStaff;
     }
 }
