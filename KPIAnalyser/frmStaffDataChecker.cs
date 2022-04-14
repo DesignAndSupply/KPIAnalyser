@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 
 namespace KPIAnalyser
 {
@@ -16,7 +17,7 @@ namespace KPIAnalyser
         public frmStaffDataChecker()
         {
             InitializeComponent();
-            string sql = "SELECT forename + ' ' +surname as staff from [user_info].dbo.[user] WHERE [current] =  1 and (non_user = 0 or non_user is null)";
+            string sql = "SELECT forename + ' ' +surname as staff from [user_info].dbo.[user] WHERE [current] =  1 and (non_user = 0 or non_user is null) order by forename "; //test aaa
 
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
@@ -68,7 +69,7 @@ namespace KPIAnalyser
                          " AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' ";
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
-                    lblAbsent.Text = "Total Absent Days: " +cmd.ExecuteScalar().ToString();
+                    lblAbsent.Text = "Total Absent Days: " + cmd.ExecuteScalar().ToString();
                 }
 
                 //late total
@@ -79,7 +80,7 @@ namespace KPIAnalyser
                         "AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' ";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    lblLate.Text = "Total Lade Days: " + cmd.ExecuteScalar().ToString();
+                    lblLate.Text = "Total Late Days: " + cmd.ExecuteScalar().ToString();
 
                 //absences
                 sql = "select  Convert(char,date_absent,103)  as [Absent Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Absent] from dbo.absent_holidays " +
@@ -114,7 +115,7 @@ namespace KPIAnalyser
             }
             format();
         }
-        
+
         private void format()
         {
             foreach (DataGridViewColumn col in dgvAbsent.Columns)
@@ -148,5 +149,67 @@ namespace KPIAnalyser
             //formatting here because it wont proc on open (instantly doing apply_filter)
             format();
         }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            print();
+        }
+        private void print()
+        {
+            try
+            {
+                Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                //bit.Save(@"C:\temp\temp.jpg");
+
+
+                Rectangle bounds = this.Bounds;
+                using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+                {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
+                    }
+                    bitmap.Save(@"C:\temp\temp.jpg");
+                }
+
+
+                //var frm = Form.ActiveForm;
+                //using (var bmp = new Bitmap(frm.Width, frm.Height))
+                //{
+                //    frm.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+                //    bmp.Save(@"C:\temp\temp.jpg");
+                //}
+
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += (sender, args) =>
+                {
+                    Image i = Image.FromFile(@"C:\temp\temp.jpg");
+                    Rectangle m = args.MarginBounds;
+                    if ((double)i.Width / (double)i.Height > (double)m.Width / (double)m.Height) // image is wider
+                    {
+                        m.Height = (int)((double)i.Height / (double)i.Width * (double)m.Width);
+                    }
+                    else
+                    {
+                        m.Width = (int)((double)i.Width / (double)i.Height * (double)m.Height);
+                    }
+                    args.Graphics.DrawImage(i, m);
+                };
+
+                pd.DefaultPageSettings.Landscape = false;
+                //Margins margins = new Margins(50, 50, 50, 50);
+                //pd.DefaultPageSettings.Margins = margins;
+                pd.Print();
+            }
+            catch
+            { }
+        }
+
     }
 }
+
