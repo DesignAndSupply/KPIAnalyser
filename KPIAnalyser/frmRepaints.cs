@@ -358,7 +358,7 @@ namespace KPIAnalyser
                     using (SqlCommand cmd = new SqlCommand("select id from [dsl_kpi].dbo.[department] where department_name = '" + cmbDeptResponsible.Text + "'", conn))
                     {
                         var temp = Convert.ToString(cmd.ExecuteScalar());
-                        sql = sql + " AND r.department = " + temp.ToString();
+                        sql = sql + " AND dbo.repaints.department = " + temp.ToString();
                     }
                 }
                 if (cmbCustomer.Text.Length > 0)
