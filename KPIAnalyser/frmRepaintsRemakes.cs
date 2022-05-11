@@ -348,8 +348,8 @@ namespace KPIAnalyser
 
             // For some reason column A is always blank in the worksheet. ¯\_(ツ)_/¯
             // Delete blank column A and select cell A1
-            Microsoft.Office.Interop.Excel.Range delRng = xlWorkSheet.get_Range("A:A").Cells;
-            delRng.Delete(Type.Missing);
+            //Microsoft.Office.Interop.Excel.Range delRng = xlWorkSheet.get_Range("A:A").Cells;
+            //delRng.Delete(Type.Missing);
             xlWorkSheet.get_Range("A1").Select();
 
             Microsoft.Office.Interop.Excel.Worksheet ws = xlexcel.ActiveWorkbook.Worksheets[1];
@@ -358,7 +358,7 @@ namespace KPIAnalyser
             //ws.Rows.ClearFormats();
             //range.EntireColumn.AutoFit();
             //range.EntireRow.AutoFit();
-            xlWorkSheet.Range["A1:H1"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A1:I1"].Interior.Color = System.Drawing.Color.LightSkyBlue;
             xlWorkSheet.Columns[2].ColumnWidth = 98.14;
             xlWorkSheet.Columns[2].WrapText = true;
             xlWorkSheet.Range["H1:H300"].NumberFormat = "£#,###,###.00";
@@ -524,6 +524,64 @@ namespace KPIAnalyser
                     }
                 }
             }
+        }
+
+        private void btnEmail_Click(object sender, EventArgs e)
+        {
+            //upload the current datagrid into the table ready to email
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmdWipe = new SqlCommand("DELETE FROM dbo.remake_data_email", conn);
+            cmdWipe.ExecuteNonQuery();
+            foreach (DataGridViewRow row in dgvRemakes.Rows)
+            {
+                string sql = "INSERT INTO dbo.remake_data_email (door_id,logged_by,remake_description,log_date,customer,person_responsible,department_responsible,department_noticed,cost) " +
+                    "VALUES ('" + row.Cells[0].Value.ToString() + "','" + row.Cells[1].Value.ToString() + "','" + row.Cells[2].Value.ToString() + "','" + Convert.ToDateTime(row.Cells[3].Value.ToString()).ToString("dd/MM/yyyy") + "','" + row.Cells[4].Value.ToString() + "','" + row.Cells[5].Value.ToString() + "'," +
+                    "'" + row.Cells[6].Value.ToString() + "','" + row.Cells[7].Value.ToString() + "','" + row.Cells[8].Value.ToString() + "')";
+                using (SqlCommand cmdInsert = new SqlCommand(sql, conn))
+                {
+                    cmdInsert.ExecuteNonQuery();
+                }
+            }
+
+            SqlCommand cmd = new SqlCommand("usp_remake_data_email", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@title", SqlDbType.Date).Value = "Remakes From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
+            cmd.Parameters.AddWithValue("@total", SqlDbType.Date).Value = lblTotalRemake.Text;
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show("Email Sent", "", MessageBoxButtons.OK);
+
+            conn.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //upload the current datagrid into the table ready to email
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmdWipe = new SqlCommand("DELETE FROM dbo.repaint_data_email", conn);
+            cmdWipe.ExecuteNonQuery();
+            foreach (DataGridViewRow row in dgvRepaints.Rows)
+            {
+                string sql = "INSERT INTO dbo.repaint_data_email (door_id,repaint_description,log_date,customer,person_responsible,department_responsible,cost) " +
+                    "VALUES ('" + row.Cells[0].Value.ToString() + "','" + row.Cells[1].Value.ToString() + "','" + Convert.ToDateTime(row.Cells[3].Value.ToString()).ToString("dd/MM/yyyy") + "','" + row.Cells[4].Value.ToString() + "','" + row.Cells[5].Value.ToString() + "'," +
+                    "'" + row.Cells[6].Value.ToString() + "','" + row.Cells[7].Value.ToString() + "')";
+                using (SqlCommand cmdInsert = new SqlCommand(sql, conn))
+                {
+                    cmdInsert.ExecuteNonQuery();
+                }
+            }
+
+            SqlCommand cmd = new SqlCommand("usp_repaint_data_email", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@title", SqlDbType.Date).Value = "Repaints From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
+            cmd.Parameters.AddWithValue("@total", SqlDbType.Date).Value = lblTotalPaint.Text;
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show("Email Sent", "", MessageBoxButtons.OK);
+
+            conn.Close();
         }
     }
 }
