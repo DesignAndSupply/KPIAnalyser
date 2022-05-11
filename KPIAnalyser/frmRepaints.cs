@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace KPIAnalyser
 {
-    public partial class frmRepaints : Form
+    public partial class frmRepaints : Form 
     {
         public DateTime dateStart { get; set; }
         public DateTime dateEnd { get; set; }

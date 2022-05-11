@@ -81,6 +81,8 @@
             this.lblDays = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.lblQuoteDays = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.lblSales = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.cviewestimatorsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).BeginInit();
@@ -94,6 +96,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -535,11 +538,32 @@
             this.lblQuoteDays.Text = "£0";
             this.lblQuoteDays.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.lblSales);
+            this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox7.Location = new System.Drawing.Point(13, 831);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(216, 62);
+            this.groupBox7.TabIndex = 33;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "       Total Sales";
+            // 
+            // lblSales
+            // 
+            this.lblSales.Location = new System.Drawing.Point(6, 29);
+            this.lblSales.Name = "lblSales";
+            this.lblSales.Size = new System.Drawing.Size(204, 27);
+            this.lblSales.TabIndex = 0;
+            this.lblSales.Text = "£0";
+            this.lblSales.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmEstimatingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 1061);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -589,6 +613,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -647,5 +672,7 @@
         private System.Windows.Forms.Label lblDays;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label lblQuoteDays;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label lblSales;
     }
 }

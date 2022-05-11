@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabEngineering = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
@@ -49,12 +50,17 @@
             this.btnEmail = new System.Windows.Forms.Button();
             this.dgvStaff = new System.Windows.Forms.DataGridView();
             this.dgvDepartment = new System.Windows.Forms.DataGridView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cartesianChart4 = new LiveCharts.WinForms.CartesianChart();
+            this.dgvRepaintRemake = new System.Windows.Forms.DataGridView();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRepaintRemake)).BeginInit();
             this.SuspendLayout();
             // 
             // tabEngineering
@@ -65,6 +71,7 @@
             this.tabEngineering.Controls.Add(this.tabPage1);
             this.tabEngineering.Controls.Add(this.tabPage2);
             this.tabEngineering.Controls.Add(this.tabPage3);
+            this.tabEngineering.Controls.Add(this.tabPage4);
             this.tabEngineering.Location = new System.Drawing.Point(12, 251);
             this.tabEngineering.Name = "tabEngineering";
             this.tabEngineering.SelectedIndex = 0;
@@ -90,7 +97,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.elementHost1.Location = new System.Drawing.Point(4, 6);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1247, 478);
+            this.elementHost1.Size = new System.Drawing.Size(1247, 448);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.cartesianChart1;
@@ -112,7 +119,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cartesianChart2.Location = new System.Drawing.Point(4, 3);
             this.cartesianChart2.Name = "cartesianChart2";
-            this.cartesianChart2.Size = new System.Drawing.Size(1250, 495);
+            this.cartesianChart2.Size = new System.Drawing.Size(1250, 454);
             this.cartesianChart2.TabIndex = 1;
             this.cartesianChart2.Text = "cartesianChart2";
             this.cartesianChart2.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart2_DataClick);
@@ -245,14 +252,14 @@
             this.dgvStaff.AllowUserToResizeRows = false;
             this.dgvStaff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStaff.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStaff.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvStaff.Location = new System.Drawing.Point(878, 12);
             this.dgvStaff.Name = "dgvStaff";
             this.dgvStaff.RowHeadersVisible = false;
@@ -270,14 +277,14 @@
             this.dgvDepartment.AllowUserToResizeRows = false;
             this.dgvDepartment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDepartment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDepartment.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDepartment.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvDepartment.Location = new System.Drawing.Point(406, 12);
             this.dgvDepartment.Name = "dgvDepartment";
             this.dgvDepartment.RowHeadersVisible = false;
@@ -286,11 +293,57 @@
             this.dgvDepartment.Visible = false;
             this.dgvDepartment.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDepartment_CellDoubleClick);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.cartesianChart4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1257, 460);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Remake/Repaint Value";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // cartesianChart4
+            // 
+            this.cartesianChart4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cartesianChart4.Location = new System.Drawing.Point(3, 3);
+            this.cartesianChart4.Name = "cartesianChart4";
+            this.cartesianChart4.Size = new System.Drawing.Size(1250, 454);
+            this.cartesianChart4.TabIndex = 2;
+            this.cartesianChart4.Text = "cartesianChart4";
+            this.cartesianChart4.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart4_DataClick);
+            // 
+            // dgvRepaintRemake
+            // 
+            this.dgvRepaintRemake.AllowUserToAddRows = false;
+            this.dgvRepaintRemake.AllowUserToDeleteRows = false;
+            this.dgvRepaintRemake.AllowUserToResizeColumns = false;
+            this.dgvRepaintRemake.AllowUserToResizeRows = false;
+            this.dgvRepaintRemake.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvRepaintRemake.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRepaintRemake.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvRepaintRemake.Location = new System.Drawing.Point(878, 12);
+            this.dgvRepaintRemake.Name = "dgvRepaintRemake";
+            this.dgvRepaintRemake.RowHeadersVisible = false;
+            this.dgvRepaintRemake.Size = new System.Drawing.Size(399, 202);
+            this.dgvRepaintRemake.TabIndex = 25;
+            this.dgvRepaintRemake.Visible = false;
+            // 
             // frmProductionManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1289, 749);
+            this.Controls.Add(this.dgvRepaintRemake);
             this.Controls.Add(this.dgvStaff);
             this.Controls.Add(this.dgvDepartment);
             this.Controls.Add(this.btnEmail);
@@ -313,6 +366,8 @@
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRepaintRemake)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -339,5 +394,8 @@
         private LiveCharts.WinForms.CartesianChart cartesianChart3;
         private System.Windows.Forms.DataGridView dgvStaff;
         private System.Windows.Forms.DataGridView dgvDepartment;
+        private System.Windows.Forms.TabPage tabPage4;
+        private LiveCharts.WinForms.CartesianChart cartesianChart4;
+        private System.Windows.Forms.DataGridView dgvRepaintRemake;
     }
 }

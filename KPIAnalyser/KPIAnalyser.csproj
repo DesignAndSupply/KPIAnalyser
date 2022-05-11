@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>57</ApplicationRevision>
+    <ApplicationRevision>65</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -215,6 +215,12 @@
     <Compile Include="frmRepaints.Designer.cs">
       <DependentUpon>frmRepaints.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRepaintsRemakes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRepaintsRemakes.Designer.cs">
+      <DependentUpon>frmRepaintsRemakes.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmReturnVisitDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -358,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRepaints.resx">
       <DependentUpon>frmRepaints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRepaintsRemakes.resx">
+      <DependentUpon>frmRepaintsRemakes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReturnVisitDetails.resx">
       <DependentUpon>frmReturnVisitDetails.cs</DependentUpon>

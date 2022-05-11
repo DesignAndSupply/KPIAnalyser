@@ -193,7 +193,7 @@ namespace KPIAnalyser
 
 
             //do a fancy card here real quick 
-           
+
             using (SqlConnection cardConn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
                 cardConn.Open();
@@ -201,13 +201,13 @@ namespace KPIAnalyser
                 string cardValue = "";
                 string cardDays = "";
                 string cardSql = "SELECT email_address FROM [user_info].dbo.[user] where forename + ' ' + surname = '" + staffName + "'";
-                using (SqlCommand cardCmd = new SqlCommand(cardSql,cardConn))
+                using (SqlCommand cardCmd = new SqlCommand(cardSql, cardConn))
                     cardEmail = Convert.ToString(cardCmd.ExecuteScalar());
 
                 cardSql = "SELECT sum(total_quotation_value) FROM solidworks_quotation_log as a INNER JOIN(SELECT max(quote_id) as max_quote_id, max(revision_number) as max_revision_number " +
-                "FROM dbo.solidworks_quotation_log group by quote_id) as b ON a.quote_id = max_quote_id AND a.revision_number = max_revision_number WHERE a.date_output > '" + startdate + "' and a.date_output < dateadd(d, 1, '" + enddate +"') " +
+                "FROM dbo.solidworks_quotation_log group by quote_id) as b ON a.quote_id = max_quote_id AND a.revision_number = max_revision_number WHERE a.date_output > '" + startdate + "' and a.date_output < dateadd(d, 1, '" + enddate + "') " +
                 "and a.emailed_to = '" + cardEmail + "'";
-                using (SqlCommand cardCmd = new SqlCommand(cardSql,cardConn))
+                using (SqlCommand cardCmd = new SqlCommand(cardSql, cardConn))
                 {
                     cardValue = Convert.ToString(cardCmd.ExecuteScalar());
                 }
@@ -265,11 +265,44 @@ namespace KPIAnalyser
                     lblQuoteDays.Text = "No Data";
                 }
                 ////////////////////////////////
-
             }
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
+
+            //sales card
+            string sql = "SELECT	round(sum(v.line_total),2) from dbo.door d left join dbo.view_door_value v on v.id = d.id left join dbo.door_type dt on dt.id = d.door_type_id " +
+                "where date_completion >= '" + startdate + "' AND date_completion <= '" + enddate + "' AND(status_id = 1 or status_id = 2 or status_id = 3) and (dt.slimline_y_n = 0 or dt.slimline_y_n  is null)";
+            using (SqlCommand salesCmd = new SqlCommand(sql, conn))
+            {
+                var value = salesCmd.ExecuteScalar().ToString();
+                if (value != null)
+                {
+                    string data = "";
+                    double temp2 = 0;
+                    data = value;
+                    temp2 = 0;
+                    temp2 = Convert.ToDouble(data);
+                    data = temp2.ToString("#,##0.00");
+
+                    //ammend stuff like colour and having £-100
+                    data = "£" + data;
+                    //first up is the - number
+
+                    if (data.Contains("-"))
+                    {
+                        data = data.Replace("-", "");
+                        data = data.Insert(0, "-");
+                    }
+                    lblSales.Text = data;
+
+                }
+                else
+                    lblSales.Text = "£0";
+            }
+            /////////////////////////////////////////////
+
+
             SqlCommand cmd = new SqlCommand("usp_kpi_estimators_daily", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -434,45 +467,45 @@ namespace KPIAnalyser
             }
 
 
-     
-                Type t1 = typeof(Brushes);
-                Brush b1 = (Brush)t1.GetProperty(c1).GetValue(null, null);
 
-                Type t2 = typeof(Brushes);
-                Brush b2 = (Brush)t2.GetProperty(c2).GetValue(null, null);
+            Type t1 = typeof(Brushes);
+            Brush b1 = (Brush)t1.GetProperty(c1).GetValue(null, null);
 
-                Type t3 = typeof(Brushes);
-                Brush b3 = (Brush)t1.GetProperty(c3).GetValue(null, null);
+            Type t2 = typeof(Brushes);
+            Brush b2 = (Brush)t2.GetProperty(c2).GetValue(null, null);
 
-                Type t4 = typeof(Brushes);
-                Brush b4 = (Brush)t4.GetProperty(c4).GetValue(null, null);
+            Type t3 = typeof(Brushes);
+            Brush b3 = (Brush)t1.GetProperty(c3).GetValue(null, null);
 
-                Type t5 = typeof(Brushes);
-                Brush b5 = (Brush)t5.GetProperty(c5).GetValue(null, null);
+            Type t4 = typeof(Brushes);
+            Brush b4 = (Brush)t4.GetProperty(c4).GetValue(null, null);
 
-                Type t6 = typeof(Brushes);
-                Brush b6 = (Brush)t6.GetProperty(c6).GetValue(null, null);
+            Type t5 = typeof(Brushes);
+            Brush b5 = (Brush)t5.GetProperty(c5).GetValue(null, null);
 
-                Type t7 = typeof(Brushes);
-                Brush b7 = (Brush)t7.GetProperty(c7).GetValue(null, null);
+            Type t6 = typeof(Brushes);
+            Brush b6 = (Brush)t6.GetProperty(c6).GetValue(null, null);
 
-                Type t8 = typeof(Brushes);
-                Brush b8 = (Brush)t8.GetProperty(c8).GetValue(null, null);
+            Type t7 = typeof(Brushes);
+            Brush b7 = (Brush)t7.GetProperty(c7).GetValue(null, null);
 
-                Type t9 = typeof(Brushes);
-                Brush b9 = (Brush)t9.GetProperty(c9).GetValue(null, null);
+            Type t8 = typeof(Brushes);
+            Brush b8 = (Brush)t8.GetProperty(c8).GetValue(null, null);
 
-                Type t10 = typeof(Brushes);
-                Brush b10 = (Brush)t10.GetProperty(c10).GetValue(null, null);
+            Type t9 = typeof(Brushes);
+            Brush b9 = (Brush)t9.GetProperty(c9).GetValue(null, null);
 
-                Type tf = typeof(Brushes);
-                Brush bf = (Brush)tf.GetProperty("Black").GetValue(null, null);
+            Type t10 = typeof(Brushes);
+            Brush b10 = (Brush)t10.GetProperty(c10).GetValue(null, null);
 
-
+            Type tf = typeof(Brushes);
+            Brush bf = (Brush)tf.GetProperty("Black").GetValue(null, null);
 
 
-           Func<ChartPoint, string> labelPoint = chartPoint =>
-           string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+
+
+            Func<ChartPoint, string> labelPoint = chartPoint =>
+            string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
 
             pieChart3.Series = new SeriesCollection
                 {

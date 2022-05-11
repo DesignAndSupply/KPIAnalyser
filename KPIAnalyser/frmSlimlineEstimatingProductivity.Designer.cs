@@ -55,9 +55,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.chkIncludeRevisions = new System.Windows.Forms.CheckBox();
             this.btnViewQuotes = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.lblSales = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // unpaidGuage
@@ -317,11 +320,32 @@
             this.btnViewQuotes.UseVisualStyleBackColor = true;
             this.btnViewQuotes.Click += new System.EventHandler(this.btnViewQuotes_Click);
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.lblSales);
+            this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox7.Location = new System.Drawing.Point(10, 292);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(216, 62);
+            this.groupBox7.TabIndex = 44;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "       Total Sales";
+            // 
+            // lblSales
+            // 
+            this.lblSales.Location = new System.Drawing.Point(6, 29);
+            this.lblSales.Name = "lblSales";
+            this.lblSales.Size = new System.Drawing.Size(204, 27);
+            this.lblSales.TabIndex = 0;
+            this.lblSales.Text = "£0";
+            this.lblSales.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmSlimlineEstimatingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1775, 752);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.btnViewQuotes);
             this.Controls.Add(this.pieChart1);
             this.Controls.Add(this.groupBox2);
@@ -347,6 +371,7 @@
             this.menuStrip1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -381,5 +406,7 @@
         private System.Windows.Forms.Button btnViewQuotes;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkIncludeRevisions;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label lblSales;
     }
 }

@@ -583,6 +583,38 @@ namespace KPIAnalyser
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
+
+            //sales card
+            string sql = "SELECT round(coalesce(sum(v.line_total),0),2) from dbo.door d left join dbo.view_door_value v on v.id = d.id left join dbo.door_type dt on dt.id = d.door_type_id " +
+                "where date_completion >= '" + startdate + "' AND date_completion <= '" + enddate + "' AND(status_id = 1 or status_id = 2 or status_id = 3) and (dt.slimline_y_n = -1)";
+            using (SqlCommand salesCmd = new SqlCommand(sql, conn))
+            {
+                var value = salesCmd.ExecuteScalar().ToString();
+                if (value != null)
+                {
+                    string data = "";
+                    double temp2 = 0;
+                    data = value;
+                    temp2 = 0;
+                    temp2 = Convert.ToDouble(data);
+                    data = temp2.ToString("#,##0.00");
+
+                    //ammend stuff like colour and having £-100
+                    data = "£" + data;
+                    //first up is the - number
+
+                    if (data.Contains("-"))
+                    {
+                        data = data.Replace("-", "");
+                        data = data.Insert(0, "-");
+                    }
+                    lblSales.Text = data;
+
+                }
+                else
+                    lblSales.Text = "£0";
+            }
+            /////////////////////////////////////////////
             SqlCommand cmd = new SqlCommand("usp_kpi_estimators_daily_slimline", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
