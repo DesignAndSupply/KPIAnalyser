@@ -39,6 +39,8 @@
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cartesianChart3 = new LiveCharts.WinForms.CartesianChart();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cartesianChart4 = new LiveCharts.WinForms.CartesianChart();
             this.btnPrintLateness = new System.Windows.Forms.Button();
             this.rdoYearly = new System.Windows.Forms.RadioButton();
             this.rdoQuaterly = new System.Windows.Forms.RadioButton();
@@ -50,16 +52,14 @@
             this.btnEmail = new System.Windows.Forms.Button();
             this.dgvStaff = new System.Windows.Forms.DataGridView();
             this.dgvDepartment = new System.Windows.Forms.DataGridView();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.cartesianChart4 = new LiveCharts.WinForms.CartesianChart();
             this.dgvRepaintRemake = new System.Windows.Forms.DataGridView();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).BeginInit();
-            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRepaintRemake)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,10 +72,10 @@
             this.tabEngineering.Controls.Add(this.tabPage2);
             this.tabEngineering.Controls.Add(this.tabPage3);
             this.tabEngineering.Controls.Add(this.tabPage4);
-            this.tabEngineering.Location = new System.Drawing.Point(12, 251);
+            this.tabEngineering.Location = new System.Drawing.Point(12, 372);
             this.tabEngineering.Name = "tabEngineering";
             this.tabEngineering.SelectedIndex = 0;
-            this.tabEngineering.Size = new System.Drawing.Size(1265, 486);
+            this.tabEngineering.Size = new System.Drawing.Size(1265, 365);
             this.tabEngineering.TabIndex = 14;
             this.tabEngineering.SelectedIndexChanged += new System.EventHandler(this.tabEngineering_SelectedIndexChanged);
             // 
@@ -85,7 +85,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1257, 460);
+            this.tabPage1.Size = new System.Drawing.Size(1257, 339);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Completed on Time";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.elementHost1.Location = new System.Drawing.Point(4, 6);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1247, 448);
+            this.elementHost1.Size = new System.Drawing.Size(1247, 327);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.cartesianChart1;
@@ -146,10 +146,32 @@
             this.cartesianChart3.Text = "cartesianChart3";
             this.cartesianChart3.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart3_DataClick);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.cartesianChart4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1257, 339);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Remake/Repaint Value";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // cartesianChart4
+            // 
+            this.cartesianChart4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cartesianChart4.Location = new System.Drawing.Point(3, 3);
+            this.cartesianChart4.Name = "cartesianChart4";
+            this.cartesianChart4.Size = new System.Drawing.Size(1250, 333);
+            this.cartesianChart4.TabIndex = 2;
+            this.cartesianChart4.Text = "cartesianChart4";
+            this.cartesianChart4.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart4_DataClick);
+            // 
             // btnPrintLateness
             // 
             this.btnPrintLateness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrintLateness.Location = new System.Drawing.Point(1179, 222);
+            this.btnPrintLateness.Location = new System.Drawing.Point(1183, 344);
             this.btnPrintLateness.Name = "btnPrintLateness";
             this.btnPrintLateness.Size = new System.Drawing.Size(94, 22);
             this.btnPrintLateness.TabIndex = 13;
@@ -207,7 +229,7 @@
             this.cmbCustomer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cmbCustomer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbCustomer.FormattingEnabled = true;
-            this.cmbCustomer.Location = new System.Drawing.Point(16, 222);
+            this.cmbCustomer.Location = new System.Drawing.Point(20, 344);
             this.cmbCustomer.Name = "cmbCustomer";
             this.cmbCustomer.Size = new System.Drawing.Size(309, 21);
             this.cmbCustomer.TabIndex = 19;
@@ -216,7 +238,7 @@
             // 
             // lblCustomer
             // 
-            this.lblCustomer.Location = new System.Drawing.Point(16, 206);
+            this.lblCustomer.Location = new System.Drawing.Point(21, 328);
             this.lblCustomer.Name = "lblCustomer";
             this.lblCustomer.Size = new System.Drawing.Size(309, 13);
             this.lblCustomer.TabIndex = 20;
@@ -225,7 +247,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(331, 222);
+            this.btnClear.Location = new System.Drawing.Point(335, 344);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(54, 23);
             this.btnClear.TabIndex = 21;
@@ -236,7 +258,7 @@
             // btnEmail
             // 
             this.btnEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEmail.Location = new System.Drawing.Point(1079, 222);
+            this.btnEmail.Location = new System.Drawing.Point(1083, 344);
             this.btnEmail.Name = "btnEmail";
             this.btnEmail.Size = new System.Drawing.Size(94, 22);
             this.btnEmail.TabIndex = 22;
@@ -263,7 +285,7 @@
             this.dgvStaff.Location = new System.Drawing.Point(878, 12);
             this.dgvStaff.Name = "dgvStaff";
             this.dgvStaff.RowHeadersVisible = false;
-            this.dgvStaff.Size = new System.Drawing.Size(399, 202);
+            this.dgvStaff.Size = new System.Drawing.Size(399, 310);
             this.dgvStaff.TabIndex = 24;
             this.dgvStaff.Visible = false;
             this.dgvStaff.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStaff_CellContentClick);
@@ -288,32 +310,10 @@
             this.dgvDepartment.Location = new System.Drawing.Point(406, 12);
             this.dgvDepartment.Name = "dgvDepartment";
             this.dgvDepartment.RowHeadersVisible = false;
-            this.dgvDepartment.Size = new System.Drawing.Size(456, 202);
+            this.dgvDepartment.Size = new System.Drawing.Size(456, 310);
             this.dgvDepartment.TabIndex = 23;
             this.dgvDepartment.Visible = false;
             this.dgvDepartment.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDepartment_CellDoubleClick);
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.cartesianChart4);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1257, 460);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Remake/Repaint Value";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // cartesianChart4
-            // 
-            this.cartesianChart4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cartesianChart4.Location = new System.Drawing.Point(3, 3);
-            this.cartesianChart4.Name = "cartesianChart4";
-            this.cartesianChart4.Size = new System.Drawing.Size(1250, 454);
-            this.cartesianChart4.TabIndex = 2;
-            this.cartesianChart4.Text = "cartesianChart4";
-            this.cartesianChart4.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart4_DataClick);
             // 
             // dgvRepaintRemake
             // 
@@ -334,7 +334,7 @@
             this.dgvRepaintRemake.Location = new System.Drawing.Point(878, 12);
             this.dgvRepaintRemake.Name = "dgvRepaintRemake";
             this.dgvRepaintRemake.RowHeadersVisible = false;
-            this.dgvRepaintRemake.Size = new System.Drawing.Size(399, 202);
+            this.dgvRepaintRemake.Size = new System.Drawing.Size(399, 310);
             this.dgvRepaintRemake.TabIndex = 25;
             this.dgvRepaintRemake.Visible = false;
             // 
@@ -364,9 +364,9 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).EndInit();
-            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRepaintRemake)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

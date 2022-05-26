@@ -454,14 +454,14 @@ namespace KPIAnalyser
                     o4 = Convert.ToInt32(reader[11]);
                     
                     //dgv stuff
-                    rem1 = Convert.ToInt32(reader[12]);
-                    rem2 = Convert.ToInt32(reader[13]);
-                    rem3 = Convert.ToInt32(reader[14]);
-                    rem4 = Convert.ToInt32(reader[15]);
-                    rep1 = Convert.ToInt32(reader[16]);
-                    rep2 = Convert.ToInt32(reader[17]);
-                    rep3 = Convert.ToInt32(reader[18]);
-                    rep4 = Convert.ToInt32(reader[19]);
+                    rem4 = Convert.ToInt32(reader[12]);
+                    rem3 = Convert.ToInt32(reader[13]);
+                    rem2 = Convert.ToInt32(reader[14]);
+                    rem1 = Convert.ToInt32(reader[15]);
+                    rep4 = Convert.ToInt32(reader[16]);
+                    rep3 = Convert.ToInt32(reader[17]);
+                    rep2 = Convert.ToInt32(reader[18]);
+                    rep1 = Convert.ToInt32(reader[19]);
                 }
 
 
@@ -1352,31 +1352,31 @@ namespace KPIAnalyser
                     o11 = Convert.ToInt32(reader[32]);
                     o12 = Convert.ToInt32(reader[35]);
 
-                    rem1 = Convert.ToInt32(reader[36]);
-                    rem2 = Convert.ToInt32(reader[37]);
-                    rem3 = Convert.ToInt32(reader[38]);
-                    rem4 = Convert.ToInt32(reader[39]);
-                    rem5 = Convert.ToInt32(reader[40]);
-                    rem6 = Convert.ToInt32(reader[41]);
-                    rem7 = Convert.ToInt32(reader[42]);
-                    rem8 = Convert.ToInt32(reader[43]);
-                    rem9 = Convert.ToInt32(reader[44]);
-                    rem10 = Convert.ToInt32(reader[45]);
-                    rem11 = Convert.ToInt32(reader[46]);
-                    rem12 = Convert.ToInt32(reader[47]);
+                    rem12 = Convert.ToInt32(reader[36]);
+                    rem11 = Convert.ToInt32(reader[37]);
+                    rem10 = Convert.ToInt32(reader[38]);
+                    rem9 = Convert.ToInt32(reader[39]);
+                    rem8 = Convert.ToInt32(reader[40]);
+                    rem7 = Convert.ToInt32(reader[41]);
+                    rem6 = Convert.ToInt32(reader[42]);
+                    rem5 = Convert.ToInt32(reader[43]);
+                    rem4 = Convert.ToInt32(reader[44]);
+                    rem3 = Convert.ToInt32(reader[45]);
+                    rem2 = Convert.ToInt32(reader[46]);
+                    rem1 = Convert.ToInt32(reader[47]);
 
-                    rep1 = Convert.ToInt32(reader[48]);
-                    rep2 = Convert.ToInt32(reader[49]);
-                    rep3 = Convert.ToInt32(reader[50]);
-                    rep4 = Convert.ToInt32(reader[51]);
-                    rep5 = Convert.ToInt32(reader[52]);
-                    rep6 = Convert.ToInt32(reader[53]);
-                    rep7 = Convert.ToInt32(reader[54]);
-                    rep8 = Convert.ToInt32(reader[55]);
-                    rep9 = Convert.ToInt32(reader[56]);
-                    rep10 = Convert.ToInt32(reader[57]);
-                    rep11 = Convert.ToInt32(reader[58]);
-                    rep12 = Convert.ToInt32(reader[59]);
+                    rep12 = Convert.ToInt32(reader[48]);
+                    rep11 = Convert.ToInt32(reader[49]);
+                    rep10 = Convert.ToInt32(reader[50]);
+                    rep9 = Convert.ToInt32(reader[51]);
+                    rep8 = Convert.ToInt32(reader[52]);
+                    rep7 = Convert.ToInt32(reader[53]);
+                    rep6 = Convert.ToInt32(reader[54]);
+                    rep5 = Convert.ToInt32(reader[55]);
+                    rep4 = Convert.ToInt32(reader[56]);
+                    rep3 = Convert.ToInt32(reader[57]);
+                    rep2 = Convert.ToInt32(reader[58]);
+                    rep1 = Convert.ToInt32(reader[59]);
 
 
 
@@ -1451,7 +1451,7 @@ namespace KPIAnalyser
                 m6[2] = rep7;
                 dt.Rows.Add(m6);
                 DataRow m5 = dt.NewRow();
-                m5[0] = n6;
+                m5[0] = n5;
                 m5[1] = rem8;
                 m5[2] = rep8;
                 dt.Rows.Add(m5);
@@ -1466,7 +1466,7 @@ namespace KPIAnalyser
                 m3[2] = rep10;
                 dt.Rows.Add(m3);
                 DataRow m2 = dt.NewRow();
-                m2[0] = m2;
+                m2[0] = n2;
                 m2[1] = rem11;
                 m2[2] = rep11;
                 dt.Rows.Add(m2);
@@ -1953,14 +1953,14 @@ namespace KPIAnalyser
                     o3 = Convert.ToInt32(reader[8]);
                     o4 = Convert.ToInt32(reader[11]);
 
-                    rem1 = Convert.ToInt32(reader[12]);
-                    rem2 = Convert.ToInt32(reader[13]);
-                    rem3 = Convert.ToInt32(reader[14]);
-                    rem4 = Convert.ToInt32(reader[15]);
-                    rep1 = Convert.ToInt32(reader[16]);
-                    rep2 = Convert.ToInt32(reader[17]);
-                    rep3 = Convert.ToInt32(reader[18]);
-                    rep4 = Convert.ToInt32(reader[19]);
+                    rem4 = Convert.ToInt32(reader[12]);
+                    rem3 = Convert.ToInt32(reader[13]);
+                    rem2 = Convert.ToInt32(reader[14]);
+                    rem1 = Convert.ToInt32(reader[15]);
+                    rep4 = Convert.ToInt32(reader[16]);
+                    rep3 = Convert.ToInt32(reader[17]);
+                    rep2 = Convert.ToInt32(reader[18]);
+                    rep1 = Convert.ToInt32(reader[19]);
 
 
                 }
@@ -2491,14 +2491,14 @@ namespace KPIAnalyser
                     o3 = Convert.ToInt32(reader[8]);
                     o4 = Convert.ToInt32(reader[11]);
 
-                    rem1 = Convert.ToInt32(reader[12]);
-                    rem2 = Convert.ToInt32(reader[13]);
-                    rem3 = Convert.ToInt32(reader[14]);
-                    rem4 = Convert.ToInt32(reader[15]);
-                    rep1 = Convert.ToInt32(reader[16]);
-                    rep2 = Convert.ToInt32(reader[17]);
-                    rep3 = Convert.ToInt32(reader[18]);
-                    rep4 = Convert.ToInt32(reader[19]);
+                    rem4 = Convert.ToInt32(reader[12]);
+                    rem3 = Convert.ToInt32(reader[13]);
+                    rem2 = Convert.ToInt32(reader[14]);
+                    rem1 = Convert.ToInt32(reader[15]);
+                    rep4 = Convert.ToInt32(reader[16]);
+                    rep3 = Convert.ToInt32(reader[17]);
+                    rep2 = Convert.ToInt32(reader[18]);
+                    rep1 = Convert.ToInt32(reader[19]);
 
                     //r1 = Convert.ToInt32(reader[12]);
                     //r2 = Convert.ToInt32(reader[13]);
