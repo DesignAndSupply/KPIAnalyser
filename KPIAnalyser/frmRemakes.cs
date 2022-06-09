@@ -9,6 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
+using System.Windows.Controls;
+using LiveCharts;
+using LiveCharts.Wpf;
+using Brushes = System.Windows.Media.Brushes;
+using System.Windows.Media;
+using System.Drawing.Printing;
+using Outlook = Microsoft.Office.Interop.Outlook;
+using Brush = System.Windows.Media.Brush;
 
 namespace KPIAnalyser
 {
@@ -29,6 +37,9 @@ namespace KPIAnalyser
             staff_only = _staff_only;
             staff = _staff;
             dept = _dept;
+
+            chart_stuff();
+
             if (dept_only == -1)
                 lblTitle.Text = dept + " Remakes From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
             else if (staff_only == -1)
@@ -37,6 +48,103 @@ namespace KPIAnalyser
                 lblTitle.Text = "Remakes From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
             apply_filter();
             this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void chart_stuff()
+        {
+            string sql = "select coalesce(max(u.forename),'') + ' ' + coalesce(max(u.surname),'') as [Person Responsibile] ,COUNT(d1.department_name) as [Number of Remakes],sum(remake.cost) as [Total Cost]  from dbo.remake " +
+                           "left join dbo.door on dbo.door.id = dbo.remake.door_id left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                           "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                           "where[date] >= '" + dateStart.ToString("yyyy-MM-dd") + "' AND[date] < '" + dateEnd.ToString("yyyyMMdd") + "'  AND d1.department_name LIKE '%" + dept + "%' group by dbo.remake.persons_responsible order by COUNT(dbo.remake.persons_responsible) desc,max(u.forename) asc";
+
+            label6.Text = dept + " Remakes From " + dateStart.ToString("yyyy-MM-dd") + " to " + dateEnd.ToString("yyyy-MM-dd");
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(sql, conn);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<DateTime> datelist = new List<DateTime>();
+            List<double> itemlist = new List<double>();
+            List<string> temp = new List<string>();
+            List<double> values = new List<double>();
+
+
+            while (reader.Read())
+            {
+                //datelist.Add(reader.GetDateTime(1));
+                //itemlist.Add(reader.GetInt32(1));
+                itemlist.Add(reader.GetDouble(2));
+                //MessageBox.Show(reader.GetString(0));
+                values.Add(reader.GetDouble(2));
+                // temp.Add(reader.GetDouble(2).ToString());
+                //vv this is old code
+                temp.Add((reader.GetString(0)) + " - " + Convert.ToString(reader.GetInt32(1)) + " Remakes");
+                ////values.Add(reader.GetDouble(2));
+            }
+
+
+            //string[] datearray = datelist.ToArray();
+            double[] itemarray = itemlist.ToArray();
+
+            cartesianChart1.AxisY.Clear();
+            cartesianChart1.AxisX.Clear();
+
+            cartesianChart1.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Remakes",
+                    FontSize = 10,
+                    DataLabels = true,
+
+                    Fill = System.Windows.Media.Brushes.Green,
+
+                    Values = new ChartValues<double>(itemarray)
+                }
+        };
+
+            //cartesianChart1.Series.Add(new LineSeries
+            //{
+            //    Title = "Value",
+            //    FontSize = 10,
+
+            //    Fill = System.Windows.Media.Brushes.Orange,
+            //    Values = new ChartValues<double> ( values )
+            //});
+
+
+
+            //string.Join(",", datearray)#
+            //string[] temp;
+            //List<string> strList = datearray.ToList;
+            //IList<string> testValues = datearray;
+
+            //IList<string> targetList = new List<string>(testValues.Cast<string>());
+
+
+
+            cartesianChart1.AxisX.Add(new Axis
+            {
+                Title = "Staff",
+                FontSize = 10,
+                Labels = temp
+            });
+
+            //
+
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                Title = "Remakes",
+                FontSize = 16,
+
+            });
+
+
+            //
+
+
         }
 
         private void format()
@@ -341,7 +449,7 @@ namespace KPIAnalyser
             ws.Columns.AutoFit();
             ws.Rows.AutoFit();
             range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            range.Borders.Color = ColorTranslator.ToOle(Color.Black);
+            range.Borders.Color = ColorTranslator.ToOle(System.Drawing.Color.Black);
 
             // Save the excel file under the captured location from the SaveFileDialog
             xlWorkBook.SaveAs(FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
@@ -378,7 +486,6 @@ namespace KPIAnalyser
             //Range.Rows.AutoFit();
             //Range.Columns.AutoFit();
         }
-
     }
 }
 
