@@ -96,7 +96,7 @@ namespace KPIAnalyser
                 }
                 sql = sql + " ORDER BY [DATE] asc, dbo.remake.door_id asc";
 
-                using (SqlCommand cmd = new SqlCommand(sql,conn))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -136,8 +136,8 @@ namespace KPIAnalyser
                 }
                 sql = sql + " ORDER BY r.date_logged asc,d.id asc";
 
-                
-                using (SqlCommand cmd = new SqlCommand(sql,conn))
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -310,6 +310,11 @@ namespace KPIAnalyser
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            //remove new line character from the dgv
+            foreach (DataGridViewRow row in dgvRemakes.Rows)
+                row.Cells[2].Value = row.Cells[2].Value.ToString().Replace("\n", "").Replace("\r", " - ");
+
+
 
             int customer_index = 0;
             customer_index = dgvRemakes.Columns["Customer"].Index;
@@ -321,7 +326,8 @@ namespace KPIAnalyser
                 dgvRemakes.Rows[i].Cells[customer_index].Value = temp;
             }
 
-            string FileName = @"C:\temp\temp.xls";
+            string FileName = @"C:\temp\temp" + DateTime.Now.ToString("yyyyMMddTHHmmss") + ".xls";
+             
             // Copy DataGridView results to clipboard
             dgvRemakes.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             dgvRemakes.SelectAll();
@@ -342,7 +348,7 @@ namespace KPIAnalyser
             rng.NumberFormat = "@";
 
             // Paste clipboard results to worksheet range
-            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[1, 1];
+            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[2, 1];
             CR.Select();
             xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
 
@@ -350,7 +356,7 @@ namespace KPIAnalyser
             // Delete blank column A and select cell A1
             //Microsoft.Office.Interop.Excel.Range delRng = xlWorkSheet.get_Range("A:A").Cells;
             //delRng.Delete(Type.Missing);
-            xlWorkSheet.get_Range("A1").Select();
+            xlWorkSheet.get_Range("A2").Select();
 
             Microsoft.Office.Interop.Excel.Worksheet ws = xlexcel.ActiveWorkbook.Worksheets[1];
             Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
@@ -358,10 +364,21 @@ namespace KPIAnalyser
             //ws.Rows.ClearFormats();
             //range.EntireColumn.AutoFit();
             //range.EntireRow.AutoFit();
-            xlWorkSheet.Range["A1:I1"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A1:I1"].Merge();
+            xlWorkSheet.Range["A1"].Value2 = "Remakes " + lblTitle.Text;
+            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            xlWorkSheet.Range["A1"].Cells.Font.Size = 22;
+
+            xlWorkSheet.Range["A2:I2"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A2:I2"].AutoFilter(1);
             xlWorkSheet.Columns[2].ColumnWidth = 98.14;
             xlWorkSheet.Columns[2].WrapText = true;
-            xlWorkSheet.Range["H1:H300"].NumberFormat = "£#,###,###.00";
+            xlWorkSheet.Range["H2:H300"].NumberFormat = "£#,###,###.00";
+
+            xlWorkSheet.Range["I" + (dgvRemakes.Rows.Count + 3).ToString()].Value2 = "=SUBTOTAL(9,I3:I" + (dgvRemakes.Rows.Count + 2).ToString() + ")";
+            xlWorkSheet.Range["I" + (dgvRemakes.Rows.Count + 3).ToString()].Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            xlWorkSheet.Range["I" + (dgvRemakes.Rows.Count + 3).ToString()].Borders.Color = ColorTranslator.ToOle(Color.Black);
+
             ws.Columns.AutoFit();
             ws.Rows.AutoFit();
             range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
@@ -405,6 +422,9 @@ namespace KPIAnalyser
 
         private void button2_Click(object sender, EventArgs e) //lazy
         {
+            foreach (DataGridViewRow row in dgvRepaints.Rows)
+                row.Cells[1].Value = row.Cells[1].Value.ToString().Replace("\n", "").Replace("\r", " - ");
+
             Process[] processesBefore = Process.GetProcessesByName("excel");
 
             //unformat the grid because it causes big issues
@@ -424,7 +444,8 @@ namespace KPIAnalyser
                 dgvRepaints.Rows[i].Cells[customer_index].Value = temp;
             }
 
-            string FileName = @"C:\temp\temp3.xls";
+            string FileName = @"C:\temp\temp" + DateTime.Now.ToString("yyyyMMddTHHmmss") + ".xls";
+             
             // Copy DataGridView results to clipboard
             dgvRepaints.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             dgvRepaints.SelectAll();
@@ -449,7 +470,7 @@ namespace KPIAnalyser
 
 
             // Paste clipboard results to worksheet range
-            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[1, 1];
+            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[2, 1];
             CR.Select();
             xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
 
@@ -457,7 +478,7 @@ namespace KPIAnalyser
             // Delete blank column A and select cell A1
             //Microsoft.Office.Interop.Excel.Range delRng = xlWorkSheet.get_Range("A:A").Cells;
             //delRng.Delete(Type.Missing);
-            xlWorkSheet.get_Range("A1").Select();
+            xlWorkSheet.get_Range("A2").Select();
 
             Microsoft.Office.Interop.Excel.Worksheet ws = xlexcel.ActiveWorkbook.Worksheets[1];
             Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
@@ -465,10 +486,21 @@ namespace KPIAnalyser
             //ws.Rows.ClearFormats();
             //range.EntireColumn.AutoFit();
             //range.EntireRow.AutoFit();
-            xlWorkSheet.Range["A1:H1"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A2:H2"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A1:H1"].Merge();
+            xlWorkSheet.Range["A2:H2"].AutoFilter(1);
+            xlWorkSheet.Range["A1"].Value2 = "Repaints " + lblTitle.Text;
+            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            xlWorkSheet.Range["A1"].Cells.Font.Size = 22;
             xlWorkSheet.Columns[2].ColumnWidth = 98.14;
             xlWorkSheet.Columns[2].WrapText = true;
-            xlWorkSheet.Range["H1:H300"].NumberFormat = "£#,###,###.00";
+            xlWorkSheet.Range["H2:H3000"].NumberFormat = "£#,###,###.00";
+
+
+            xlWorkSheet.Range["H" + (dgvRepaints.Rows.Count + 3).ToString()].Value2 = "=SUBTOTAL(9,H3:H" + (dgvRepaints.Rows.Count + 2).ToString() + ")";
+            xlWorkSheet.Range["H" + (dgvRepaints.Rows.Count + 3).ToString()].Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            xlWorkSheet.Range["H" + (dgvRepaints.Rows.Count + 3).ToString()].Borders.Color = ColorTranslator.ToOle(Color.Black);
+
             ws.Columns.AutoFit();
             ws.Rows.AutoFit();
             range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
@@ -549,6 +581,7 @@ namespace KPIAnalyser
             cmd.Parameters.AddWithValue("@title", SqlDbType.Date).Value = "Remakes From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
             cmd.Parameters.AddWithValue("@total", SqlDbType.Date).Value = lblTotalRemake.Text;
             cmd.ExecuteNonQuery();
+
 
             MessageBox.Show("Email Sent", "", MessageBoxButtons.OK);
 

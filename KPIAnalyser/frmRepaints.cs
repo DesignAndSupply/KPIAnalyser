@@ -178,6 +178,8 @@ namespace KPIAnalyser
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+                row.Cells[1].Value = row.Cells[1].Value.ToString().Replace("\n", "").Replace("\r", " - ");
 
             Process[] processesBefore = Process.GetProcessesByName("excel");
 
@@ -198,7 +200,8 @@ namespace KPIAnalyser
                 dataGridView1.Rows[i].Cells[customer_index].Value = temp;
             }
 
-            string FileName = @"C:\temp\temp.xls";
+            string FileName = @"C:\temp\temp" + DateTime.Now.ToString("yyyyMMddTHHmmss") + ".xls";
+             
             // Copy DataGridView results to clipboard
             dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             dataGridView1.SelectAll();
@@ -223,7 +226,7 @@ namespace KPIAnalyser
 
 
             // Paste clipboard results to worksheet range
-            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[1, 1];
+            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[2, 1];
             CR.Select();
             xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
 
@@ -231,7 +234,7 @@ namespace KPIAnalyser
             // Delete blank column A and select cell A1
             //Microsoft.Office.Interop.Excel.Range delRng = xlWorkSheet.get_Range("A:A").Cells;
             //delRng.Delete(Type.Missing);
-            xlWorkSheet.get_Range("A1").Select();
+            xlWorkSheet.get_Range("A2").Select();
 
             Microsoft.Office.Interop.Excel.Worksheet ws = xlexcel.ActiveWorkbook.Worksheets[1];
             Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
@@ -239,10 +242,21 @@ namespace KPIAnalyser
             //ws.Rows.ClearFormats();
             //range.EntireColumn.AutoFit();
             //range.EntireRow.AutoFit();
-            xlWorkSheet.Range["A1:G1"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A2:H2"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A1:H1"].Merge();
+            xlWorkSheet.Range["A2:H2"].AutoFilter(1);
+            xlWorkSheet.Range["A1"].Value2 = "" + lblTitle.Text;
+            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            xlWorkSheet.Range["A1"].Cells.Font.Size = 22;
             xlWorkSheet.Columns[2].ColumnWidth = 98.14;
             xlWorkSheet.Columns[2].WrapText = true;
             xlWorkSheet.Range["H1:H300"].NumberFormat = "£#,###,###.00";
+
+            xlWorkSheet.Range["H" + (dataGridView1.Rows.Count + 3).ToString()].Value2 = "=SUBTOTAL(9,H3:H" + (dataGridView1.Rows.Count + 2).ToString() + ")";
+            xlWorkSheet.Range["H" + (dataGridView1.Rows.Count + 3).ToString()].Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            xlWorkSheet.Range["H" + (dataGridView1.Rows.Count + 3).ToString()].Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+
             ws.Columns.AutoFit();
             ws.Rows.AutoFit();
             range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;

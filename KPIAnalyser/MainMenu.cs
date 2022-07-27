@@ -17,6 +17,7 @@ namespace KPIAnalyser
         public txtTraditionalConversionRate()
         {
             InitializeComponent();
+           
         }
 
         private void label1_Click(object sender, EventArgs e)

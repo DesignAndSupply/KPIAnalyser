@@ -61,7 +61,8 @@ namespace KPIAnalyser
         {
 
 
-            string FileName = @"C:\temp\temp.xls";
+            string FileName = @"C:\temp\temp" + DateTime.Now.ToString("yyyyMMddTHHmmss") + ".xls";
+             
             // Copy DataGridView results to clipboard
             dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             dataGridView1.SelectAll();

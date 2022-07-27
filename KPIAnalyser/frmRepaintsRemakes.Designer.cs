@@ -68,7 +68,7 @@
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(98, 23);
             this.btnPrint.TabIndex = 32;
-            this.btnPrint.Text = "Print Data";
+            this.btnPrint.Text = "Export to Excel";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
@@ -358,7 +358,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(98, 23);
             this.button2.TabIndex = 44;
-            this.button2.Text = "Print Data";
+            this.button2.Text = "Export to Excel";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 

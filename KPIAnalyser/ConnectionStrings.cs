@@ -8,6 +8,7 @@ namespace KPIAnalyser
 {
     class ConnectionStrings
     {
+        public static int excel_number;
         public const string ConnectionString = "user id=sa;" +
                              "password=Dodid1;Network Address=192.168.0.150\\sqlexpress;" +
                              "Trusted_Connection=no;" +

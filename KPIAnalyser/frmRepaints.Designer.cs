@@ -53,7 +53,7 @@
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(98, 23);
             this.btnPrint.TabIndex = 32;
-            this.btnPrint.Text = "Print Data";
+            this.btnPrint.Text = "Export to Excel";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 

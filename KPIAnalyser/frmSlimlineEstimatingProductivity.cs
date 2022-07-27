@@ -597,7 +597,7 @@ namespace KPIAnalyser
                     data = value;
                     temp2 = 0;
                     temp2 = Convert.ToDouble(data);
-                    data = temp2.ToString("#,##0.00");
+                    data = temp2.ToString("+#,##0.00");
 
                     //ammend stuff like colour and having £-100
                     data = "£" + data;
