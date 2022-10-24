@@ -47,6 +47,8 @@ namespace KPIAnalyser
             tempData.Clear();
             if (1 == 1)
             {
+
+
                 DateTime ws1 = DateTime.Today;
                 DateTime ws2 = DateTime.Today;
                 DateTime ws3 = DateTime.Today;
@@ -3241,7 +3243,8 @@ namespace KPIAnalyser
                 monthsToRemove = monthsToRemove - tempData.Count();
                 monthsToRemove = monthsToRemove * 3; //each quater is 3 months so this should take away the exact number of months to remove
                 dateStart = dateStart.AddMonths(monthsToRemove);
-                dateEnd = dateEnd.AddMonths(3);
+                dateEnd = dateStart.AddMonths(3);
+                dateEnd = new DateTime(dateEnd.Year, (dateEnd.Month), 1);
             }
             else if (rdoYearly.Checked == true)
             {
@@ -3252,8 +3255,13 @@ namespace KPIAnalyser
 
             //should have the start and end dates for the new form now
 
-            frmRepaintsRemakes frm = new frmRepaintsRemakes(dateStart, dateEnd);
+            //frmRepaintsRemakes frm = new frmRepaintsRemakes(dateStart, dateEnd);
+            //^^^^ no longer going straight to raw data > now we are going to split the graph into two seperate ones THEN raw data
+
+
+            frmRemakeRepaintGraph frm = new frmRemakeRepaintGraph(dateStart, dateEnd);
             frm.ShowDialog();
+
         }
     }
 }

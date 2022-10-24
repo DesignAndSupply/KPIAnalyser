@@ -314,8 +314,6 @@ namespace KPIAnalyser
             foreach (DataGridViewRow row in dgvRemakes.Rows)
                 row.Cells[2].Value = row.Cells[2].Value.ToString().Replace("\n", "").Replace("\r", " - ");
 
-
-
             int customer_index = 0;
             customer_index = dgvRemakes.Columns["Customer"].Index;
 
@@ -364,10 +362,15 @@ namespace KPIAnalyser
             //ws.Rows.ClearFormats();
             //range.EntireColumn.AutoFit();
             //range.EntireRow.AutoFit();
-            xlWorkSheet.Range["A1:I1"].Merge();
-            xlWorkSheet.Range["A1"].Value2 = "Remakes " + lblTitle.Text;
-            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            xlWorkSheet.Range["A1:D1"].Merge();
+            xlWorkSheet.Range["A1"].Value2 = lblTitle.Text;
+            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
             xlWorkSheet.Range["A1"].Cells.Font.Size = 22;
+
+            xlWorkSheet.Range["E1:I1"].Merge();
+            xlWorkSheet.Range["E1"].Value2 = "Report Generated on: " + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            xlWorkSheet.Range["E1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            xlWorkSheet.Range["E1"].Cells.Font.Size = 22;
 
             xlWorkSheet.Range["A2:I2"].Interior.Color = System.Drawing.Color.LightSkyBlue;
             xlWorkSheet.Range["A2:I2"].AutoFilter(1);
@@ -487,11 +490,18 @@ namespace KPIAnalyser
             //range.EntireColumn.AutoFit();
             //range.EntireRow.AutoFit();
             xlWorkSheet.Range["A2:H2"].Interior.Color = System.Drawing.Color.LightSkyBlue;
-            xlWorkSheet.Range["A1:H1"].Merge();
             xlWorkSheet.Range["A2:H2"].AutoFilter(1);
+
+            xlWorkSheet.Range["A1:D1"].Merge();
             xlWorkSheet.Range["A1"].Value2 = "Repaints " + lblTitle.Text;
-            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
             xlWorkSheet.Range["A1"].Cells.Font.Size = 22;
+
+            xlWorkSheet.Range["E1:H1"].Merge();
+            xlWorkSheet.Range["E1"].Value2 = "Report Generated on: " + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            xlWorkSheet.Range["E1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            xlWorkSheet.Range["E1"].Cells.Font.Size = 22;
+
             xlWorkSheet.Columns[2].ColumnWidth = 98.14;
             xlWorkSheet.Columns[2].WrapText = true;
             xlWorkSheet.Range["H2:H3000"].NumberFormat = "£#,###,###.00";
