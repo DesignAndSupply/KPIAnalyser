@@ -32,6 +32,8 @@
             this.remakeChart = new LiveCharts.WinForms.CartesianChart();
             this.lblRepaints = new System.Windows.Forms.Label();
             this.lblRemakes = new System.Windows.Forms.Label();
+            this.btnEmail = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // repaintChart
@@ -82,18 +84,42 @@
             this.lblRemakes.Text = "Department Repaints between XX/XX/XXXX  and XX/XX/XXXX";
             this.lblRemakes.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // btnEmail
+            // 
+            this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnEmail.Location = new System.Drawing.Point(1357, 8);
+            this.btnEmail.Name = "btnEmail";
+            this.btnEmail.Size = new System.Drawing.Size(91, 28);
+            this.btnEmail.TabIndex = 7;
+            this.btnEmail.Text = "Email";
+            this.btnEmail.UseVisualStyleBackColor = true;
+            this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnPrint.Location = new System.Drawing.Point(1260, 8);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(91, 28);
+            this.btnPrint.TabIndex = 8;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
             // frmRemakeRepaintGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1463, 996);
+            this.Controls.Add(this.btnPrint);
+            this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.lblRemakes);
             this.Controls.Add(this.lblRepaints);
             this.Controls.Add(this.remakeChart);
             this.Controls.Add(this.repaintChart);
             this.Name = "frmRemakeRepaintGraph";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "frmRemakeRepaintGraph";
+            this.Text = "Remake Repaint Graph";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 
@@ -105,5 +131,7 @@
         private LiveCharts.WinForms.CartesianChart remakeChart;
         private System.Windows.Forms.Label lblRepaints;
         private System.Windows.Forms.Label lblRemakes;
+        private System.Windows.Forms.Button btnEmail;
+        private System.Windows.Forms.Button btnPrint;
     }
 }

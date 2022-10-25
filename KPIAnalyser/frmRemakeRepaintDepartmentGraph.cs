@@ -7,11 +7,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace KPIAnalyser
 {
@@ -607,7 +609,7 @@ namespace KPIAnalyser
             xlWorkSheet.Range["A1"].Cells.Font.Size = 22;
 
             xlWorkSheet.Range["E1:I1"].Merge();
-            xlWorkSheet.Range["E1"].Value2 =  "Report Generated on: " + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            xlWorkSheet.Range["E1"].Value2 = "Report Generated on: " + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
             xlWorkSheet.Range["E1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
             xlWorkSheet.Range["E1"].Cells.Font.Size = 22;
 
@@ -669,6 +671,416 @@ namespace KPIAnalyser
             string staff = staffList[Convert.ToInt32(p.X)].ToString();
             cmbPersonResponsible.Text = staff;
             loadDGV();
+        }
+
+        private void btnEmail_Click(object sender, EventArgs e)
+        {
+            btnEmail.Visible = false;
+            btnClear.Visible = false;
+            btnPrint.Visible = false;
+            btnPrintScreen.Visible = false;
+            btnEmailExcel.Visible = false;
+
+            Application.DoEvents();
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                bit.Save(@"C:\temp\Chart.jpg");
+
+
+            }
+            catch
+            {
+
+            }
+            btnPrint.Visible = true;
+            btnClear.Visible = true;
+            btnPrintScreen.Visible = true;
+            btnEmail.Visible = true;
+            btnEmailExcel.Visible = true;
+
+            Outlook.Application outlookApp = new Outlook.Application();
+            Outlook.MailItem mailItem = outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+            mailItem.Subject = "";
+            mailItem.To = "";
+            string imageSrc = @"C:\Temp\Chart.jpg"; // Change path as needed
+
+            var attachments = mailItem.Attachments;
+            var attachment = attachments.Add(imageSrc);
+            attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x370E001F", "image/jpeg");
+            attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x3712001F", "myident"); // Image identifier found in the HTML code right after cid. Can be anything.
+            mailItem.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/id/{00062008-0000-0000-C000-000000000046}/8514000B", true);
+
+            // Set body format to HTML
+
+            mailItem.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
+            mailItem.Attachments.Add(imageSrc);
+            string msgHTMLBody = "";
+            mailItem.HTMLBody = msgHTMLBody;
+            mailItem.Display(true);
+        }
+        private void printImage()
+        {
+            try
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += (sender, args) =>
+                {
+                    System.Drawing.Image i = System.Drawing.Image.FromFile(@"C:\temp\chart.jpg");
+                    Point p = new Point(100, 100);
+                    args.Graphics.DrawImage(i, args.MarginBounds);
+
+                };
+
+                pd.DefaultPageSettings.Landscape = true;
+                Margins margins = new Margins(50, 50, 50, 50);
+                pd.DefaultPageSettings.Margins = margins;
+                pd.Print();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnPrintScreen_Click(object sender, EventArgs e)
+        {
+            btnPrint.Visible = false;
+            btnEmail.Visible = false;
+            btnClear.Visible = false;
+            btnPrintScreen.Visible = false;
+            btnEmailExcel.Visible = false;
+            Application.DoEvents();
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                bit.Save(@"C:\temp\Chart.jpg");
+                printImage();
+
+            }
+            catch
+            {
+
+            }
+            btnPrint.Visible = true;
+            btnEmail.Visible = true;
+            btnClear.Visible = true;
+            btnPrintScreen.Visible = true;
+            btnEmailExcel.Visible = true;
+        }
+
+        private void btnEmailExcel_Click(object sender, EventArgs e)
+        {
+            if (repaint == -1)
+                excelRepaintEmail();
+            else
+                excelRemakeEmail();
+        }
+
+        private void excelRepaintEmail()
+        {
+            foreach (DataGridViewRow row in dgvRemakesRepaints.Rows)
+                row.Cells[1].Value = row.Cells[1].Value.ToString().Replace("\n", "").Replace("\r", " - ");
+
+            Process[] processesBefore = Process.GetProcessesByName("excel");
+
+            //unformat the grid because it causes big issues
+            foreach (DataGridViewColumn col in dgvRemakesRepaints.Columns)
+            {
+                col.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            }
+            dgvRemakesRepaints.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //
+            int customer_index = 0;
+            customer_index = dgvRemakesRepaints.Columns["Customer"].Index;
+
+            for (int i = 0; i < dgvRemakesRepaints.Rows.Count; i++)
+            {
+                string temp = dgvRemakesRepaints.Rows[i].Cells[customer_index].Value.ToString();
+                temp = temp.Trim();
+                dgvRemakesRepaints.Rows[i].Cells[customer_index].Value = temp;
+            }
+
+            string FileName = @"C:\temp\Repaint_Data_" + DateTime.Now.ToString("mmss") + ".xls";
+
+            // Copy DataGridView results to clipboard
+            dgvRemakesRepaints.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dgvRemakesRepaints.SelectAll();
+
+            DataObject dataObj = dgvRemakesRepaints.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+
+            object misValue = System.Reflection.Missing.Value;
+            Microsoft.Office.Interop.Excel.Application xlexcel = new Microsoft.Office.Interop.Excel.Application();
+
+            xlexcel.DisplayAlerts = false; // Without this you will get two confirm overwrite prompts
+            Microsoft.Office.Interop.Excel.Workbook xlWorkBook = xlexcel.Workbooks.Add(misValue);
+            Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            // Format column D as text before pasting results, this was required for my data
+            Microsoft.Office.Interop.Excel.Range rng = xlWorkSheet.get_Range("D:D").Cells;
+            rng.NumberFormat = "@";
+
+            // Get Excel processes after opening the file. 
+            Process[] processesAfter = Process.GetProcessesByName("excel");
+
+
+            // Paste clipboard results to worksheet range
+            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[2, 1];
+            CR.Select();
+            xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+
+            // For some reason column A is always blank in the worksheet. ¯\_(ツ)_/¯
+            // Delete blank column A and select cell A1
+            //Microsoft.Office.Interop.Excel.Range delRng = xlWorkSheet.get_Range("A:A").Cells;
+            //delRng.Delete(Type.Missing);
+            xlWorkSheet.get_Range("A2").Select();
+
+            Microsoft.Office.Interop.Excel.Worksheet ws = xlexcel.ActiveWorkbook.Worksheets[1];
+            Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
+            //ws.Columns.ClearFormats();
+            //ws.Rows.ClearFormats();
+            //range.EntireColumn.AutoFit();
+            //range.EntireRow.AutoFit();
+            xlWorkSheet.Range["A2:H2"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A2:H2"].AutoFilter(1);
+
+            xlWorkSheet.Range["A1:D1"].Merge();
+            xlWorkSheet.Range["A1"].Value2 = "Repaints " + lblTitle.Text;
+            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
+            xlWorkSheet.Range["A1"].Cells.Font.Size = 22;
+
+            xlWorkSheet.Range["E1:H1"].Merge();
+            xlWorkSheet.Range["E1"].Value2 = "Report Generated on: " + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            xlWorkSheet.Range["E1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            xlWorkSheet.Range["E1"].Cells.Font.Size = 22;
+
+
+            xlWorkSheet.Columns[2].ColumnWidth = 98.14;
+            xlWorkSheet.Columns[2].WrapText = true;
+            xlWorkSheet.Range["H2:H3000"].NumberFormat = "£#,###,###.00";
+
+
+            xlWorkSheet.Range["H" + (dgvRemakesRepaints.Rows.Count + 3).ToString()].Value2 = "=SUBTOTAL(9,H3:H" + (dgvRemakesRepaints.Rows.Count + 2).ToString() + ")";
+            xlWorkSheet.Range["H" + (dgvRemakesRepaints.Rows.Count + 3).ToString()].Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            xlWorkSheet.Range["H" + (dgvRemakesRepaints.Rows.Count + 3).ToString()].Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+            ws.Columns.AutoFit();
+            ws.Rows.AutoFit();
+            range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            range.Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+            // Save the excel file under the captured location from the SaveFileDialog
+            xlWorkBook.SaveAs(FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            xlexcel.DisplayAlerts = true;
+            xlWorkBook.Close(true, misValue, misValue);
+            xlexcel.Quit();
+
+            //releaseObject(xlWorkSheet);
+            //releaseObject(xlWorkBook);
+            //releaseObject(xlexcel);
+
+            // Clear Clipboard and DataGridView selection
+            Clipboard.Clear();
+            dgvRemakesRepaints.ClearSelection();
+
+
+
+            // Now find the process id that was created, and store it. 
+            int processID = 0;
+            foreach (Process process in processesAfter)
+            {
+                if (!processesBefore.Select(p => p.Id).Contains(process.Id))
+                {
+                    processID = process.Id;
+                    // And now kill the process. 
+                    if (processID != 0)
+                    {
+                        Process process2 = Process.GetProcessById(processID);
+                        process2.Kill();
+                    }
+                }
+            }
+            ExcelEmail(FileName);
+
+        }
+        private void excelRemakeEmail()
+        {
+
+            //remove new line character from the dgv
+            foreach (DataGridViewRow row in dgvRemakesRepaints.Rows)
+                row.Cells[2].Value = row.Cells[2].Value.ToString().Replace("\n", "").Replace("\r", " - ");
+
+            int customer_index = 0;
+            customer_index = dgvRemakesRepaints.Columns["Customer"].Index;
+
+            for (int i = 0; i < dgvRemakesRepaints.Rows.Count; i++)
+            {
+                string temp = dgvRemakesRepaints.Rows[i].Cells[customer_index].Value.ToString();
+                temp = temp.Trim();
+                dgvRemakesRepaints.Rows[i].Cells[customer_index].Value = temp;
+            }
+
+            string FileName = @"C:\temp\Remake_Data_" + DateTime.Now.ToString("mmss") + ".xls";
+
+            // Copy DataGridView results to clipboard
+            dgvRemakesRepaints.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dgvRemakesRepaints.SelectAll();
+
+            DataObject dataObj = dgvRemakesRepaints.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+
+            object misValue = System.Reflection.Missing.Value;
+            Microsoft.Office.Interop.Excel.Application xlexcel = new Microsoft.Office.Interop.Excel.Application();
+
+            xlexcel.DisplayAlerts = false; // Without this you will get two confirm overwrite prompts
+            Microsoft.Office.Interop.Excel.Workbook xlWorkBook = xlexcel.Workbooks.Add(misValue);
+            Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            // Format column D as text before pasting results, this was required for my data
+            Microsoft.Office.Interop.Excel.Range rng = xlWorkSheet.get_Range("D:D").Cells;
+            rng.NumberFormat = "@";
+
+            // Paste clipboard results to worksheet range
+            Microsoft.Office.Interop.Excel.Range CR = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[2, 1];
+            CR.Select();
+            xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+
+            // For some reason column A is always blank in the worksheet. ¯\_(ツ)_/¯
+            // Delete blank column A and select cell A1
+            //Microsoft.Office.Interop.Excel.Range delRng = xlWorkSheet.get_Range("A:A").Cells;
+            //delRng.Delete(Type.Missing);
+            xlWorkSheet.get_Range("A2").Select();
+
+            Microsoft.Office.Interop.Excel.Worksheet ws = xlexcel.ActiveWorkbook.Worksheets[1];
+            Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
+            //ws.Columns.ClearFormats();
+            //ws.Rows.ClearFormats();
+            //range.EntireColumn.AutoFit();
+            //range.EntireRow.AutoFit();
+
+            xlWorkSheet.Range["A1:D1"].Merge();
+            xlWorkSheet.Range["A1"].Value2 = lblTitle.Text;
+            xlWorkSheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
+            xlWorkSheet.Range["A1"].Cells.Font.Size = 22;
+
+            xlWorkSheet.Range["E1:I1"].Merge();
+            xlWorkSheet.Range["E1"].Value2 = "Report Generated on: " + DateTime.Now.ToString("dd/MM/yyyy mm:ss");
+            xlWorkSheet.Range["E1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+            xlWorkSheet.Range["E1"].Cells.Font.Size = 22;
+
+            xlWorkSheet.Range["A2:I2"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+            xlWorkSheet.Range["A2:I2"].AutoFilter(1);
+            xlWorkSheet.Columns[2].ColumnWidth = 98.14;
+            xlWorkSheet.Columns[2].WrapText = true;
+            xlWorkSheet.Range["H2:H300"].NumberFormat = "£#,###,###.00";
+
+            xlWorkSheet.Range["I" + (dgvRemakesRepaints.Rows.Count + 3).ToString()].Value2 = "=SUBTOTAL(9,I3:I" + (dgvRemakesRepaints.Rows.Count + 2).ToString() + ")";
+            xlWorkSheet.Range["I" + (dgvRemakesRepaints.Rows.Count + 3).ToString()].Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            xlWorkSheet.Range["I" + (dgvRemakesRepaints.Rows.Count + 3).ToString()].Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+
+            ws.Columns.AutoFit();
+            ws.Rows.AutoFit();
+            range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+            range.Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+            // Save the excel file under the captured location from the SaveFileDialog
+            xlWorkBook.SaveAs(FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            xlexcel.DisplayAlerts = true;
+            xlWorkBook.Close(true, misValue, misValue);
+            xlexcel.Quit();
+
+            //releaseObject(xlWorkSheet);
+            //releaseObject(xlWorkBook);
+            //releaseObject(xlexcel);
+
+            // Clear Clipboard and DataGridView selection
+            Clipboard.Clear();
+            dgvRemakesRepaints.ClearSelection();
+            uint processID = 0;
+
+ 
+
+            //Range.Rows.AutoFit();
+            //Range.Columns.AutoFit();
+             ExcelEmail(FileName);
+        }
+
+        private void ExcelEmail(string file)
+        {
+            int attach_image = 0;
+            DialogResult result = MessageBox.Show("Would you like to attach a screenshot aswell?", "Attach Screenshot", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (result == DialogResult.Yes)
+            {
+                System.Threading.Thread.Sleep(1000);
+                attach_image = -1;
+                btnEmail.Visible = false;
+                btnClear.Visible = false;
+                btnPrint.Visible = false;
+                btnPrintScreen.Visible = false;
+                btnEmailExcel.Visible = false;
+
+                Application.DoEvents();
+                try
+                {
+                    System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                    Graphics gs = Graphics.FromImage(bit);
+
+                    gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                    bit.Save(@"C:\temp\Chart.jpg");
+
+
+                }
+                catch
+                {
+
+                }
+                btnPrint.Visible = true;
+                btnClear.Visible = true;
+                btnPrintScreen.Visible = true;
+                btnEmail.Visible = true;
+                btnEmailExcel.Visible = true;
+            }
+
+            Outlook.Application outlookApp = new Outlook.Application();
+            Outlook.MailItem mailItem = outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+            mailItem.Subject = "";
+            mailItem.To = "";
+            string imageSrc = @"C:\Temp\Chart.jpg"; // Change path as needed
+
+            var attachments2 = mailItem.Attachments;
+            var attachment2 = attachments2.Add(file);
+
+            if (attach_image == -1)
+            {
+                 var attachments = mailItem.Attachments;
+                var attachment = attachments.Add(imageSrc);
+                attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x370E001F", "image/jpeg");
+                attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x3712001F", "myident"); // Image identifier found in the HTML code right after cid. Can be anything.
+                mailItem.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/id/{00062008-0000-0000-C000-000000000046}/8514000B", true);
+            }
+            // Set body format to HTML
+
+            mailItem.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
+            mailItem.Attachments.Add(imageSrc);
+            string msgHTMLBody = "";
+            mailItem.HTMLBody = msgHTMLBody;
+            mailItem.Display(true);
         }
     }
 }
