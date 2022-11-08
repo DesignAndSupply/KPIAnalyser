@@ -1065,7 +1065,7 @@ namespace KPIAnalyser
 
             var attachments2 = mailItem.Attachments;
             var attachment2 = attachments2.Add(file);
-
+            mailItem.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
             if (attach_image == -1)
             {
                  var attachments = mailItem.Attachments;
@@ -1073,11 +1073,12 @@ namespace KPIAnalyser
                 attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x370E001F", "image/jpeg");
                 attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x3712001F", "myident"); // Image identifier found in the HTML code right after cid. Can be anything.
                 mailItem.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/id/{00062008-0000-0000-C000-000000000046}/8514000B", true);
+                mailItem.Attachments.Add(imageSrc);
             }
             // Set body format to HTML
 
-            mailItem.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
-            mailItem.Attachments.Add(imageSrc);
+          
+            
             string msgHTMLBody = "";
             mailItem.HTMLBody = msgHTMLBody;
             mailItem.Display(true);

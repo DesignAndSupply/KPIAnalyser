@@ -110,8 +110,6 @@
             // 
             // cmbStaffMember
             // 
-            this.cmbStaffMember.DataSource = this.cviewestimatorsBindingSource;
-            this.cmbStaffMember.DisplayMember = "fullname";
             this.cmbStaffMember.FormattingEnabled = true;
             this.cmbStaffMember.Location = new System.Drawing.Point(12, 49);
             this.cmbStaffMember.Name = "cmbStaffMember";

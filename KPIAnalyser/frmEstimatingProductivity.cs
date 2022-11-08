@@ -27,6 +27,28 @@ namespace KPIAnalyser
             InitializeComponent();
 
 
+            //add people to combobox
+
+
+            if (1 == 1)
+            {
+                string sql = "SELECT forename + ' ' + surname FROM dbo.[user] where [grouping] = 5 and [current] = 1 and (non_user = 0 or non_user is null) order by forename";
+                using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionStringUser))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            cmbStaffMember.Items.Add(row[0].ToString());
+                        }
+                    }
+                }
+            }
+
+
             //FORMAT ABSENT GUAGE
             absentGuage.Sections.Add(new AngularSection
             {
