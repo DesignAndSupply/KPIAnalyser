@@ -76,13 +76,14 @@
             // 
             this.lblRemakes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRemakes.BackColor = System.Drawing.Color.Transparent;
             this.lblRemakes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
             this.lblRemakes.Location = new System.Drawing.Point(12, 467);
             this.lblRemakes.Name = "lblRemakes";
             this.lblRemakes.Size = new System.Drawing.Size(1439, 28);
             this.lblRemakes.TabIndex = 6;
             this.lblRemakes.Text = "Department Repaints between XX/XX/XXXX  and XX/XX/XXXX";
-            this.lblRemakes.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblRemakes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // btnEmail
             // 

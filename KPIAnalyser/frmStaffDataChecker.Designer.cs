@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblRemakeRepaint = new System.Windows.Forms.Label();
+            this.dgvRemakeRepaint = new System.Windows.Forms.DataGridView();
+            this.lblPerformance = new System.Windows.Forms.Label();
+            this.dgvPerformance = new System.Windows.Forms.DataGridView();
+            this.lblLate = new System.Windows.Forms.Label();
+            this.lblAbsent = new System.Windows.Forms.Label();
             this.dgvLate = new System.Windows.Forms.DataGridView();
             this.dgvAbsent = new System.Windows.Forms.DataGridView();
             this.tabEngineering = new System.Windows.Forms.TabControl();
@@ -40,11 +48,11 @@
             this.dteEnd = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
-            this.lblAbsent = new System.Windows.Forms.Label();
-            this.lblLate = new System.Windows.Forms.Label();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnEmail = new System.Windows.Forms.Button();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRemakeRepaint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPerformance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbsent)).BeginInit();
             this.tabEngineering.SuspendLayout();
@@ -52,6 +60,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblRemakeRepaint);
+            this.tabPage1.Controls.Add(this.dgvRemakeRepaint);
+            this.tabPage1.Controls.Add(this.lblPerformance);
+            this.tabPage1.Controls.Add(this.dgvPerformance);
             this.tabPage1.Controls.Add(this.lblLate);
             this.tabPage1.Controls.Add(this.lblAbsent);
             this.tabPage1.Controls.Add(this.dgvLate);
@@ -59,10 +71,98 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(823, 757);
+            this.tabPage1.Size = new System.Drawing.Size(1678, 757);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Absence / Late";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lblRemakeRepaint
+            // 
+            this.lblRemakeRepaint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemakeRepaint.ForeColor = System.Drawing.Color.Red;
+            this.lblRemakeRepaint.Location = new System.Drawing.Point(1271, 3);
+            this.lblRemakeRepaint.Name = "lblRemakeRepaint";
+            this.lblRemakeRepaint.Size = new System.Drawing.Size(398, 28);
+            this.lblRemakeRepaint.TabIndex = 13;
+            this.lblRemakeRepaint.Text = "Repaint / Remake";
+            this.lblRemakeRepaint.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // dgvRemakeRepaint
+            // 
+            this.dgvRemakeRepaint.AllowUserToAddRows = false;
+            this.dgvRemakeRepaint.AllowUserToDeleteRows = false;
+            this.dgvRemakeRepaint.AllowUserToResizeColumns = false;
+            this.dgvRemakeRepaint.AllowUserToResizeRows = false;
+            this.dgvRemakeRepaint.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRemakeRepaint.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvRemakeRepaint.Location = new System.Drawing.Point(1271, 34);
+            this.dgvRemakeRepaint.Name = "dgvRemakeRepaint";
+            this.dgvRemakeRepaint.ReadOnly = true;
+            this.dgvRemakeRepaint.RowHeadersVisible = false;
+            this.dgvRemakeRepaint.Size = new System.Drawing.Size(398, 750);
+            this.dgvRemakeRepaint.TabIndex = 12;
+            // 
+            // lblPerformance
+            // 
+            this.lblPerformance.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPerformance.ForeColor = System.Drawing.Color.Red;
+            this.lblPerformance.Location = new System.Drawing.Point(846, 3);
+            this.lblPerformance.Name = "lblPerformance";
+            this.lblPerformance.Size = new System.Drawing.Size(398, 28);
+            this.lblPerformance.TabIndex = 11;
+            this.lblPerformance.Text = "0% Over Target";
+            this.lblPerformance.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // dgvPerformance
+            // 
+            this.dgvPerformance.AllowUserToAddRows = false;
+            this.dgvPerformance.AllowUserToDeleteRows = false;
+            this.dgvPerformance.AllowUserToResizeColumns = false;
+            this.dgvPerformance.AllowUserToResizeRows = false;
+            this.dgvPerformance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPerformance.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvPerformance.Location = new System.Drawing.Point(846, 34);
+            this.dgvPerformance.Name = "dgvPerformance";
+            this.dgvPerformance.ReadOnly = true;
+            this.dgvPerformance.RowHeadersVisible = false;
+            this.dgvPerformance.Size = new System.Drawing.Size(398, 750);
+            this.dgvPerformance.TabIndex = 10;
+            // 
+            // lblLate
+            // 
+            this.lblLate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLate.ForeColor = System.Drawing.Color.Red;
+            this.lblLate.Location = new System.Drawing.Point(426, 3);
+            this.lblLate.Name = "lblLate";
+            this.lblLate.Size = new System.Drawing.Size(391, 28);
+            this.lblLate.TabIndex = 9;
+            this.lblLate.Text = "Total Late Days: 0";
+            this.lblLate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // lblAbsent
+            // 
+            this.lblAbsent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAbsent.ForeColor = System.Drawing.Color.Red;
+            this.lblAbsent.Location = new System.Drawing.Point(6, 3);
+            this.lblAbsent.Name = "lblAbsent";
+            this.lblAbsent.Size = new System.Drawing.Size(392, 28);
+            this.lblAbsent.TabIndex = 8;
+            this.lblAbsent.Text = "Total Absent Days: 0";
+            this.lblAbsent.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // dgvLate
             // 
@@ -114,7 +214,7 @@
             this.tabEngineering.Location = new System.Drawing.Point(12, 88);
             this.tabEngineering.Name = "tabEngineering";
             this.tabEngineering.SelectedIndex = 0;
-            this.tabEngineering.Size = new System.Drawing.Size(831, 783);
+            this.tabEngineering.Size = new System.Drawing.Size(1686, 783);
             this.tabEngineering.TabIndex = 5;
             // 
             // cmbStaff
@@ -175,28 +275,6 @@
             this.lblDate.Text = "Date Range";
             this.lblDate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // lblAbsent
-            // 
-            this.lblAbsent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAbsent.ForeColor = System.Drawing.Color.Red;
-            this.lblAbsent.Location = new System.Drawing.Point(6, 3);
-            this.lblAbsent.Name = "lblAbsent";
-            this.lblAbsent.Size = new System.Drawing.Size(392, 28);
-            this.lblAbsent.TabIndex = 8;
-            this.lblAbsent.Text = "Total Absent Days: 0";
-            this.lblAbsent.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // lblLate
-            // 
-            this.lblLate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLate.ForeColor = System.Drawing.Color.Red;
-            this.lblLate.Location = new System.Drawing.Point(426, 3);
-            this.lblLate.Name = "lblLate";
-            this.lblLate.Size = new System.Drawing.Size(391, 28);
-            this.lblLate.TabIndex = 9;
-            this.lblLate.Text = "Total Late Days: 0";
-            this.lblLate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
             // btnPrint
             // 
             this.btnPrint.Location = new System.Drawing.Point(764, 50);
@@ -221,7 +299,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 883);
+            this.ClientSize = new System.Drawing.Size(1708, 883);
             this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lblDate);
@@ -240,6 +318,8 @@
             this.Load += new System.EventHandler(this.frmStaffDataChecker_Load);
             this.Shown += new System.EventHandler(this.frmStaffDataChecker_Shown);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRemakeRepaint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPerformance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbsent)).EndInit();
             this.tabEngineering.ResumeLayout(false);
@@ -262,5 +342,9 @@
         private System.Windows.Forms.Label lblAbsent;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.Button btnEmail;
+        private System.Windows.Forms.Label lblPerformance;
+        private System.Windows.Forms.DataGridView dgvPerformance;
+        private System.Windows.Forms.Label lblRemakeRepaint;
+        private System.Windows.Forms.DataGridView dgvRemakeRepaint;
     }
 }
