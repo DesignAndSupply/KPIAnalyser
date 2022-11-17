@@ -1201,7 +1201,6 @@ namespace KPIAnalyser
             {
                 programmingMoreDetail();
             }
-
         }
 
 

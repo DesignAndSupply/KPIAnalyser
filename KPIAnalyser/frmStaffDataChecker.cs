@@ -140,7 +140,7 @@ namespace KPIAnalyser
                 }
                 if (shopfloor == -1)
                 {
-                    sql = "select cast(d.date_plan as date) as date_plan,datename(WEEKDAY,date_plan) as day_of_week,cast([hours] as float) + coalesce((ot.overtime * 0.8),0) as [set_hours]," +
+                    sql = "select cast(d.date_plan as date) as date_plan,datename(WEEKDAY,date_plan) as day_of_week,round(cast([hours] as float) + coalesce((ot.overtime * 0.8),0),2) as [set_hours]," +
                         "COALESCE(worked.worked_hours,0) as worked_hours from dbo.power_plan_staff s " +
                         "left join dbo.power_plan_date d on s.date_id = d.id " +
                         "left join dbo.power_plan_overtime_remake ot on s.date_id = ot.date_id AND s.staff_id = ot.staff_id " +
@@ -379,7 +379,7 @@ namespace KPIAnalyser
                     args.Graphics.DrawImage(i, m);
                 };
 
-                pd.DefaultPageSettings.Landscape = false;
+                pd.DefaultPageSettings.Landscape = true;
                 //Margins margins = new Margins(50, 50, 50, 50);
                 //pd.DefaultPageSettings.Margins = margins;
                 pd.Print();
