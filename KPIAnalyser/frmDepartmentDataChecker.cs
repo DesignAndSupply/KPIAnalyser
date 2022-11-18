@@ -12,33 +12,15 @@ using System.Drawing.Printing;
 
 namespace KPIAnalyser
 {
-    public partial class frmStaffDataChecker : Form
+    public partial class frmDepartmentDataChecker : Form
     {
         public int shopfloor { get; set; }
         public int estimator { get; set; }
         public int engineer { get; set; }
-        public frmStaffDataChecker()
+        public frmDepartmentDataChecker()
         {
             InitializeComponent();
-            string sql = "SELECT forename + ' ' +surname as staff from [user_info].dbo.[user] WHERE [current] =  1 and (non_user = 0 or non_user is null) order by forename "; //test aaa
 
-            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
-            {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
-                {
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        cmbStaff.Items.Add(row[0].ToString());
-                    }
-                }
-                conn.Close();
-            }
-            //get the start and end of current month
             dteStart.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             dteEnd.Value = (dteStart.Value.AddMonths(1).AddDays(-1));
             apply_filter();
@@ -57,39 +39,18 @@ namespace KPIAnalyser
             {
                 conn.Open();
 
+                string sql = "SELECT id FROM [user_info].dbo.[user] WHERE forename + ' ' + surname = '" + cmbDepartment.Text + "' ";
                 int staff_id = 0;
-                string sql = "SELECT id FROM [user_info].dbo.[user] WHERE forename + ' ' + surname = '" + cmbStaff.Text + "' ";
-
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    staff_id = Convert.ToInt32(cmd.ExecuteScalar());
 
 
-                //absent total
-                sql = "select  coalesce(sum(1),0) as [Total Absent] from dbo.absent_holidays " +
-                         "left join[user_info].dbo.[user] u on u.id = staff_id " +
-                         "where(absent_type = 5 or absent_type = 8) AND " +
-                         "staff_id = " + staff_id.ToString() +
-                         " AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' ";
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
-                {
-                    lblAbsent.Text = "Total Absent Days: " + cmd.ExecuteScalar().ToString();
-                }
 
-                //late total
-                sql = "select  coalesce(sum(1),0) as [ Total Late] from dbo.absent_holidays " +
-                        "left join[user_info].dbo.[user] u on u.id = staff_id " +
-                        "where(absent_type = 7) AND " +
-                        "staff_id = " + staff_id.ToString() +
-                        "AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' ";
 
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    lblLate.Text = "Total Late Days: " + cmd.ExecuteScalar().ToString();
 
                 //absences
                 sql = "select  Convert(char,date_absent,103)  as [Absent Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Absent] from dbo.absent_holidays " +
                     "left join[user_info].dbo.[user] u on u.id = staff_id " +
                     "where(absent_type = 5 or absent_type = 8) AND " +
-                    "staff_id =  " + staff_id.ToString() +
+                    "default_in_department =  '" + cmbDepartment.Text.ToString() + "' " +
                     " AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                     "group by date_absent";
 
@@ -100,11 +61,17 @@ namespace KPIAnalyser
                     da.Fill(dt);
                     dgvAbsent.DataSource = dt;
                 }
+                //total absences
+                int temp_sum = 0;
+                foreach (DataGridViewRow row in dgvAbsent.Rows)
+                    temp_sum = temp_sum + Convert.ToInt32(row.Cells[2].Value.ToString());
+                lblAbsent.Text = "Total Absent Days: " + temp_sum.ToString();
+
                 //lates 
                 sql = "select  Convert(char,date_absent,103)  as [Late Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Late] from dbo.absent_holidays " +
                     "left join[user_info].dbo.[user] u on u.id = staff_id " +
                     "where(absent_type = 7) AND " +
-                    "staff_id =  " + staff_id.ToString() +
+                      "default_in_department  = '" + cmbDepartment.Text.ToString() + "' " +
                     "AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                     "group by date_absent";
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -114,41 +81,51 @@ namespace KPIAnalyser
                     da.Fill(dt);
                     dgvLate.DataSource = dt;
                 }
+                //total absences
+                 temp_sum = 0;
+                foreach (DataGridViewRow row in dgvLate.Rows)
+                    temp_sum = temp_sum + Convert.ToInt32(row.Cells[2].Value.ToString());
+                lblLate.Text = "Total Late Days: " + temp_sum.ToString();
 
                 //performance data
-                //look up shopfloor or office
-                sql = "select coalesce(ShopFloor,0),coalesce(isEngineer,0),coalesce(isEstimator,0) from [user_info].dbo.[user] where id = " + staff_id.ToString();
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
-                {
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    //dgvLate.DataSource = dt;
 
-                    try
+
+
+
+                if (cmbDepartment.Text == "Estimating")
+                {
+                }
+                else if (cmbDepartment.Text == "Programming")
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_staff_checker_programming_department", conn))  //change this so it looks at [isEngineer]
                     {
-                        shopfloor = Convert.ToInt32(dt.Rows[0][0].ToString());
-                        engineer = Convert.ToInt32(dt.Rows[0][1].ToString());
-                        estimator = Convert.ToInt32(dt.Rows[0][2].ToString());
-                    }
-                    catch
-                    {
-                        shopfloor = 0;
-                        engineer = 0;
-                        estimator = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dteStart.Value;
+                        cmd.Parameters.AddWithValue("@endDate", SqlDbType.DateTime).Value = dteEnd.Value;
+
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+
+                        da.Fill(dt);
+                        dgvPerformance.DataSource = dt;
                     }
                 }
-                if (shopfloor == -1)
+                else if (cmbDepartment.Text == "")
+                    dgvPerformance.DataSource = null;
+                else //has to be shopfloor
                 {
-                    sql = "select cast(d.date_plan as date) as date_plan,datename(WEEKDAY,date_plan) as day_of_week,round(cast([hours] as float) + coalesce((ot.overtime * 0.8),0),2) as [set_hours]," +
-                        "COALESCE(worked.worked_hours,0) as worked_hours from dbo.power_plan_staff s " +
-                        "left join dbo.power_plan_date d on s.date_id = d.id " +
-                        "left join dbo.power_plan_overtime_remake ot on s.date_id = ot.date_id AND s.staff_id = ot.staff_id " +
-                        "left join (SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours],staff_id FROM dbo.door_part_completion_log  " +
-                        "WHERE staff_id = " + staff_id.ToString() + " AND CAST(part_complete_date as DATE) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND CAST(part_complete_date as DATE) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
-                        "AND part_status = 'Complete'   GROUP BY CAST(part_complete_date as date),staff_id) as worked on d.date_plan = worked.date " +
-                        "where  s.staff_id = " + staff_id.ToString() + " and d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' AND d.date_plan <= CAST(GETDATE() as date) " +
-                        "order by d.date_plan";
+                    sql = "SELECT a.date_plan as [Work Date],a.day_of_week as [Day of Week],round(coalesce(a.set_hours,0),2) as [Set Hours],coalesce(b.worked_hours,0) as [Worked Hours] FROM (" +
+                        "select date_plan, max(day_of_week) as day_of_week,sum(set_hours) as set_hours from( " +
+                        " select cast(d.date_plan as date) as date_plan, datename(WEEKDAY, date_plan) as day_of_week, round(cast([hours] as float) + coalesce((ot.overtime * 0.8), 0), 2) as [set_hours] " +
+                        "from dbo.power_plan_staff s " +
+                        "left join dbo.power_plan_date d on s.date_id = d.id left join dbo.power_plan_overtime_remake ot on s.date_id = ot.date_id AND s.staff_id = ot.staff_id " +
+                        "where d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' and s.department = '" + cmbDepartment.Text + "' " +
+                        "AND d.date_plan <= CAST(GETDATE() as date)) as grouped group by date_plan) as a " +
+                        "left join( SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours] " +
+                        "FROM dbo.door_part_completion_log WHERE door_part_completion_log.op = 'Welding' " +
+                        "AND CAST(part_complete_date as DATE) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND CAST(part_complete_date as DATE) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                        "AND part_status = 'Complete'   GROUP BY CAST(part_complete_date as date)) as b on a.date_plan = b.date " +
+                        "order by a.date_plan";
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
                         SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -157,44 +134,31 @@ namespace KPIAnalyser
                         dgvPerformance.DataSource = dt;
                     }
                 }
-                else if (engineer == -1)
-                {
-                    using (SqlCommand cmd = new SqlCommand("usp_staff_checker_programming", conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dteStart.Value;
-                        cmd.Parameters.AddWithValue("@endDate", SqlDbType.DateTime).Value = dteEnd.Value;
-                        cmd.Parameters.AddWithValue("@staffID", SqlDbType.Int).Value = staff_id;
 
-                        SqlDataAdapter da = new SqlDataAdapter(cmd);
-                        DataTable dt = new DataTable();
-
-                        da.Fill(dt);
-                        dgvPerformance.DataSource = dt;
-                    }
-                }
-                else
-                    dgvPerformance.DataSource = null;
 
 
 
                 //remake/repaint
-                sql = "SELECT [date] as [Work Date],datename(WEEKDAY,[date]) as [Day of Week],sum(repaint_count) as [Repaint Count],sum(remake_count) as [Remake Count],sum(cost) as [Cost] FROM ( " +
-                         "select cast(date_logged as date) as [date],count(dept.department_name) as repaint_count,0 as remake_count,sum(COALESCE(round(r.repaint_cost, 2), 0)) as [cost] from dbo.door d " +
-                         "right join dbo.repaints r on r.door_id = d.id " +
+                sql = "SELECT[date] as [Work Date],datename(WEEKDAY,[date]) as [Day of Week],sum(repaint_count) as [Repaint Count],sum(remake_count) as [Remake Count],round(sum(cost),2) as [Cost] " +
+                         "FROM(select cast(date_logged as date) as [date], count(dept.department_name) as repaint_count, 0 as remake_count, sum(COALESCE(round(r.repaint_cost, 2), 0)) as [cost] " +
+                         "from dbo.door d right join dbo.repaints r on r.door_id = d.id " +
                          "left join [user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
-                         "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
+                         "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref  " +
                          "left join[dsl_kpi].dbo.department dept on dept.id = r.department " +
                          "left join[user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id " +
-                         "WHERE date_logged >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "'  AND date_logged<= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "'  and u_fault.id = " + staff_id.ToString() + " " +
-                         "group by cast(date_logged as date) union all " +
-                         "select cast([date] as date) as [date],0 as repaint_count,count(dbo.remake.id) as remake_count,sum(coalesce(cost, 0)) as Cost from dbo.remake left join dbo.door on dbo.door.id = dbo.remake.door_id " +
-                         "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left " +
-                         "join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
-                         "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left " +
-                         "join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
-                         "where [date] >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "'  AND[date] <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "'  and remake.persons_responsible = " + staff_id.ToString() + " " +
-                         "group by[date]) as a group by[date] order by[date] ";
+                         "WHERE date_logged >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "'  AND date_logged <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "'  and dept.department_name = '" + cmbDepartment.Text.Replace("Buffing", "Dressing") + "' " +
+                         "group by cast(date_logged as date) " +
+                         "union all " +
+                         "select cast([date] as date) as [date],0 as repaint_count,count(dbo.remake.id) as remake_count,round(sum(coalesce(cost, 0)),2) as Cost " +
+                         "from dbo.remake " +
+                         "left join dbo.door on dbo.door.id = dbo.remake.door_id " +
+                         "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref " +
+                         "left join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                         "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible " +
+                         "left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                         "where [date] >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "'  AND[date] <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "'  and d1.department_name = '" + cmbDepartment.Text.Replace("Buffing", "Dressing") + "' " +
+                         "group by[date]) as a group by[date] order by[date]";
+
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
@@ -250,7 +214,7 @@ namespace KPIAnalyser
             double red = 0;
             foreach (DataGridViewRow row in dgvPerformance.Rows)
             {
-                
+
                 if (Convert.ToDouble(row.Cells[2].Value.ToString()) <= Convert.ToDouble(row.Cells[3].Value.ToString()))
                 {
                     dgvPerformance.Rows[row.Index].Cells[2].Style.BackColor = Color.LightSeaGreen;
@@ -334,7 +298,6 @@ namespace KPIAnalyser
         }
         private void print()
         {
-
             string file_name = @"C:\temp\temp" + DateTime.Now.ToString("mmss") + ".jpg";
             try
             {

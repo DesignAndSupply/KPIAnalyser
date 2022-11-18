@@ -251,6 +251,12 @@
     <Compile Include="frmSlimlineEstimatingProductivity.Designer.cs">
       <DependentUpon>frmSlimlineEstimatingProductivity.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDepartmentDataChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDepartmentDataChecker.Designer.cs">
+      <DependentUpon>frmDepartmentDataChecker.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmStaffDataChecker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -394,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSlimlineEstimatingProductivity.resx">
       <DependentUpon>frmSlimlineEstimatingProductivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDepartmentDataChecker.resx">
+      <DependentUpon>frmDepartmentDataChecker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStaffDataChecker.resx">
       <DependentUpon>frmStaffDataChecker.cs</DependentUpon>

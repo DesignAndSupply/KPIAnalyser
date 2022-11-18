@@ -1273,5 +1273,11 @@ namespace KPIAnalyser
             frmStaffDataChecker frm = new frmStaffDataChecker();
             frm.ShowDialog();
         }
+
+        private void departmentDataCheckerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDepartmentDataChecker frm = new frmDepartmentDataChecker();
+            frm.ShowDialog();
+        }
     }
 }

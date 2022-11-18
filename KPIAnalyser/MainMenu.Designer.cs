@@ -260,6 +260,7 @@
             this.targetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uPLOADOVERTIMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.staffAbsenceCheckerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.departmentDataCheckerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -2622,7 +2623,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.uPLOADOVERTIMEToolStripMenuItem,
-            this.staffAbsenceCheckerToolStripMenuItem});
+            this.staffAbsenceCheckerToolStripMenuItem,
+            this.departmentDataCheckerToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1859, 24);
@@ -2656,6 +2658,13 @@
             this.staffAbsenceCheckerToolStripMenuItem.Size = new System.Drawing.Size(116, 20);
             this.staffAbsenceCheckerToolStripMenuItem.Text = "Staff Data Checker";
             this.staffAbsenceCheckerToolStripMenuItem.Click += new System.EventHandler(this.staffAbsenceCheckerToolStripMenuItem_Click);
+            // 
+            // departmentDataCheckerToolStripMenuItem
+            // 
+            this.departmentDataCheckerToolStripMenuItem.Name = "departmentDataCheckerToolStripMenuItem";
+            this.departmentDataCheckerToolStripMenuItem.Size = new System.Drawing.Size(155, 20);
+            this.departmentDataCheckerToolStripMenuItem.Text = "Department Data Checker";
+            this.departmentDataCheckerToolStripMenuItem.Click += new System.EventHandler(this.departmentDataCheckerToolStripMenuItem_Click);
             // 
             // txtTraditionalConversionRate
             // 
@@ -2958,6 +2967,7 @@
         private System.Windows.Forms.Button btnManagement;
         private System.Windows.Forms.Button btnProductionManagement;
         private System.Windows.Forms.ToolStripMenuItem staffAbsenceCheckerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem departmentDataCheckerToolStripMenuItem;
     }
 }
 
