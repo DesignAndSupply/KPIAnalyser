@@ -40,12 +40,7 @@ namespace KPIAnalyser
                 conn.Open();
 
                 string sql = "SELECT id FROM [user_info].dbo.[user] WHERE forename + ' ' + surname = '" + cmbDepartment.Text + "' ";
-                int staff_id = 0;
-
-
-
-
-
+               
                 //absences
                 sql = "select  Convert(char,date_absent,103)  as [Absent Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Absent] from dbo.absent_holidays " +
                     "left join[user_info].dbo.[user] u on u.id = staff_id " +
@@ -97,7 +92,7 @@ namespace KPIAnalyser
                 }
                 else if (cmbDepartment.Text == "Programming")
                 {
-                    using (SqlCommand cmd = new SqlCommand("usp_staff_checker_programming_department", conn))  //change this so it looks at [isEngineer]
+                    using (SqlCommand cmd = new SqlCommand("usp_staff_checker_programming_department", conn))  
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dteStart.Value;
@@ -119,10 +114,10 @@ namespace KPIAnalyser
                         " select cast(d.date_plan as date) as date_plan, datename(WEEKDAY, date_plan) as day_of_week, round(cast([hours] as float) + coalesce((ot.overtime * 0.8), 0), 2) as [set_hours] " +
                         "from dbo.power_plan_staff s " +
                         "left join dbo.power_plan_date d on s.date_id = d.id left join dbo.power_plan_overtime_remake ot on s.date_id = ot.date_id AND s.staff_id = ot.staff_id " +
-                        "where d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' and s.department = '" + cmbDepartment.Text + "' " +
+                        "where d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' and s.department = '" + cmbDepartment.Text.Replace("Buffing", "Dressing") + "' " +
                         "AND d.date_plan <= CAST(GETDATE() as date)) as grouped group by date_plan) as a " +
                         "left join( SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours] " +
-                        "FROM dbo.door_part_completion_log WHERE door_part_completion_log.op = 'Welding' " +
+                        "FROM dbo.door_part_completion_log WHERE door_part_completion_log.op = '" + cmbDepartment.Text.Replace("Buffing", "Dressing") + "' " +
                         "AND CAST(part_complete_date as DATE) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND CAST(part_complete_date as DATE) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                         "AND part_status = 'Complete'   GROUP BY CAST(part_complete_date as date)) as b on a.date_plan = b.date " +
                         "order by a.date_plan";
@@ -134,7 +129,6 @@ namespace KPIAnalyser
                         dgvPerformance.DataSource = dt;
                     }
                 }
-
 
 
 

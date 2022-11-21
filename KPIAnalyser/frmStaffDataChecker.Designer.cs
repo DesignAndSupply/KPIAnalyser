@@ -268,9 +268,9 @@
             // lblDate
             // 
             this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.Location = new System.Drawing.Point(225, 6);
+            this.lblDate.Location = new System.Drawing.Point(229, 6);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(440, 37);
+            this.lblDate.Size = new System.Drawing.Size(436, 37);
             this.lblDate.TabIndex = 11;
             this.lblDate.Text = "Date Range";
             this.lblDate.TextAlign = System.Drawing.ContentAlignment.BottomCenter;

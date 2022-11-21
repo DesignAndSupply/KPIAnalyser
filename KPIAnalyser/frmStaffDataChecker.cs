@@ -332,9 +332,8 @@ namespace KPIAnalyser
         {
             print();
         }
-        private void print()
+        private void print() 
         {
-
             string file_name = @"C:\temp\temp" + DateTime.Now.ToString("mmss") + ".jpg";
             try
             {
@@ -390,7 +389,7 @@ namespace KPIAnalyser
             { }
         }
 
-        private void btnEmail_Click(object sender, EventArgs e)
+        private void btnEmail_Click(object sender, EventArgs e) 
         {
             try
             {
@@ -402,8 +401,9 @@ namespace KPIAnalyser
 
                 //bit.Save(@"C:\temp\temp.jpg");
 
+                //this is the main reason why 
 
-                Rectangle bounds = this.Bounds;
+                Rectangle bounds = this.Bounds; 
                 using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
                 {
                     using (Graphics g = Graphics.FromImage(bitmap))
