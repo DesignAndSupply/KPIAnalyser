@@ -59,7 +59,7 @@ namespace KPIAnalyser
                 //total absences
                 int temp_sum = 0;
                 foreach (DataGridViewRow row in dgvAbsent.Rows)
-                    temp_sum = temp_sum + Convert.ToInt32(row.Cells[2].Value.ToString());
+                    temp_sum += Convert.ToInt32(row.Cells[2].Value.ToString());
                 lblAbsent.Text = "Total Absent Days: " + temp_sum.ToString();
 
                 //lates 
@@ -394,6 +394,30 @@ namespace KPIAnalyser
             }
             catch { }
 
+        }
+
+        private void dgvLate_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string sql = "select  u.forename + ' ' + u.surname as [Late Staff] " +
+                "from dbo.absent_holidays left join[user_info].dbo.[user] u on u.id = staff_id where(absent_type = 7) AND default_in_department = '" + cmbDepartment.Text.ToString() + "' " +
+                "AND date_absent = '" + Convert.ToDateTime(dgvLate.Rows[e.RowIndex].Cells[0].Value.ToString()).ToString("yyyy-MM-dd") + "'";
+
+            frmDepartmentEnhanced frm = new frmDepartmentEnhanced(sql, "Late Employees", Convert.ToDateTime(dgvLate.Rows[e.RowIndex].Cells[0].Value.ToString()));
+            frm.ShowDialog();
+
+
+        }
+
+        private void dgvAbsent_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string sql = "select  u.forename + ' ' + u.surname as [Late Staff] from dbo.absent_holidays " +
+                    "left join[user_info].dbo.[user] u on u.id = staff_id " +
+                    "where(absent_type = 5 or absent_type = 8) AND " +
+                    "default_in_department =  '" + cmbDepartment.Text.ToString() + "' " +
+                    " AND date_absent = '" + Convert.ToDateTime(dgvAbsent.Rows[e.RowIndex].Cells[0].Value.ToString()).ToString("yyyy-MM-dd")  + "'  ";
+
+            frmDepartmentEnhanced frm = new frmDepartmentEnhanced(sql, "Absent Employees", Convert.ToDateTime(dgvAbsent.Rows[e.RowIndex].Cells[0].Value.ToString()));
+            frm.ShowDialog();
         }
     }
 }

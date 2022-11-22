@@ -185,6 +185,7 @@
             this.dgvLate.RowHeadersVisible = false;
             this.dgvLate.Size = new System.Drawing.Size(392, 750);
             this.dgvLate.TabIndex = 3;
+            this.dgvLate.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLate_CellClick);
             // 
             // dgvAbsent
             // 

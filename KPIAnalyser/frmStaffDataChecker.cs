@@ -438,6 +438,11 @@ namespace KPIAnalyser
             catch { }
 
         }
+
+        private void dgvLate_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
 
