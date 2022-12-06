@@ -43,8 +43,8 @@ namespace KPIAnalyser
                
                 //absences
                 sql = "select  Convert(char,date_absent,103)  as [Absent Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Absent] from dbo.absent_holidays " +
-                    "left join[user_info].dbo.[user] u on u.id = staff_id " +
-                    "where(absent_type = 5 or absent_type = 8) AND " +
+                    "left join [user_info].dbo.[user] u on u.id = staff_id " +
+                    "where(absent_type = 5 or absent_type = 8) AND u.[current] = 1 AND " +
                     "default_in_department =  '" + cmbDepartment.Text.ToString() + "' " +
                     " AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                     "group by date_absent";
@@ -65,7 +65,7 @@ namespace KPIAnalyser
                 //lates 
                 sql = "select  Convert(char,date_absent,103)  as [Late Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Late] from dbo.absent_holidays " +
                     "left join[user_info].dbo.[user] u on u.id = staff_id " +
-                    "where(absent_type = 7) AND " +
+                    "where(absent_type = 7) AND u.[current] = 1 AND " +
                       "default_in_department  = '" + cmbDepartment.Text.ToString() + "' " +
                     "AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                     "group by date_absent";
