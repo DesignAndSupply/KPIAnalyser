@@ -19,10 +19,12 @@ namespace KPIAnalyser
     {
         List<string> tempData = new List<string>();
         public string customerAccRef { get; set; }
+        public int slimline_chart { get; set; }
         public frmProductionManagement()
         {
             InitializeComponent();
             customerAccRef = "";
+            slimline_chart = 0;
 
             //fill the combobox of customers
             string sql = "SELECT [NAME] FROM dbo.[sales_ledger] ";
@@ -44,6 +46,14 @@ namespace KPIAnalyser
 
         private void rdoWeekly_Click(object sender, EventArgs e)
         {
+            string sql = "";
+
+            if (slimline_chart == -1)
+                sql = "usp_kpi_production_manager_remake_repaint_slimline";
+            else
+                sql = "usp_kpi_production_manager_remake_repaint";
+
+
             tempData.Clear();
             if (1 == 1)
             {
@@ -431,7 +441,7 @@ namespace KPIAnalyser
 
                 SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("usp_kpi_production_manager_remake_repaint", conn);
+                SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Weekly";
@@ -580,6 +590,13 @@ namespace KPIAnalyser
 
         private void rdoMonthly_Click(object sender, EventArgs e)
         {
+            string sql = "";
+
+            if (slimline_chart == -1)
+                sql = "usp_kpi_production_manager_remake_repaint_slimline";
+            else
+                sql = "usp_kpi_production_manager_remake_repaint";
+
             tempData.Clear();
             if (1 == 1)
             {
@@ -1305,7 +1322,7 @@ namespace KPIAnalyser
 
                 SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("usp_kpi_production_manager_remake_repaint", conn);
+                SqlCommand cmd = new SqlCommand(sql, conn); ;
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Monthly";
@@ -1562,6 +1579,13 @@ namespace KPIAnalyser
 
         private void rdoQuaterly_Click(object sender, EventArgs e)
         {
+            string sql = "";
+
+            if (slimline_chart == -1)
+                sql = "usp_kpi_production_manager_remake_repaint_slimline";
+            else
+                sql = "usp_kpi_production_manager_remake_repaint";
+
             tempData.Clear();
             if (1 == 1)
             {
@@ -1931,7 +1955,7 @@ namespace KPIAnalyser
 
                 SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("usp_kpi_production_manager_remake_repaint", conn);
+                SqlCommand cmd = new SqlCommand(sql, conn); ;
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Quaterly";
@@ -2078,6 +2102,13 @@ namespace KPIAnalyser
 
         private void rdoYearly_Click(object sender, EventArgs e)
         {
+            string sql = "";
+
+            if (slimline_chart == -1)
+                sql = "usp_kpi_production_manager_remake_repaint_slimline";
+            else
+                sql = "usp_kpi_production_manager_remake_repaint";
+
             tempData.Clear();
             if (1 == 1)
             {
@@ -2467,7 +2498,7 @@ namespace KPIAnalyser
 
                 SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("usp_kpi_production_manager_remake_repaint", conn);
+                SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@rangeType", SqlDbType.NVarChar).Value = "Yearly";
@@ -3259,8 +3290,33 @@ namespace KPIAnalyser
             //^^^^ no longer going straight to raw data > now we are going to split the graph into two seperate ones THEN raw data
 
 
-            frmRemakeRepaintGraph frm = new frmRemakeRepaintGraph(dateStart, dateEnd);
+            frmRemakeRepaintGraph frm = new frmRemakeRepaintGraph(dateStart, dateEnd,slimline_chart);
             frm.ShowDialog();
+
+        }
+
+        private void btnRemakeRepaint_Click(object sender, EventArgs e)
+        {
+            if (slimline_chart == -1)
+            {
+                slimline_chart = 0;
+                btnRemakeRepaint.Text = "Show Slimline";
+            }
+            else
+            {
+                slimline_chart = -1;
+                btnRemakeRepaint.Text = "Show Traditional";
+            }
+
+
+            if (rdoWeekly.Checked == true)
+                rdoWeekly.PerformClick();
+            else if (rdoMonthly.Checked == true)
+                rdoMonthly.PerformClick();
+            else if (rdoQuaterly.Checked == true)
+                rdoQuaterly.PerformClick();
+            else
+                rdoYearly.PerformClick();
 
         }
     }

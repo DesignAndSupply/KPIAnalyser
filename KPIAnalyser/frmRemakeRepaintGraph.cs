@@ -22,11 +22,13 @@ namespace KPIAnalyser
         List<string> remakeDepartments = new List<string>();
 
         List<string> repaintDepartments = new List<string>();
-        public frmRemakeRepaintGraph(DateTime _startDate, DateTime _endDate)
+        public int slimline { get; set; }
+        public frmRemakeRepaintGraph(DateTime _startDate, DateTime _endDate,int _slimline)
         {
             InitializeComponent();
             startDate = _startDate;
             endDate = _endDate;
+            slimline = _slimline;
             loadCharts();
         }
 
@@ -42,6 +44,7 @@ namespace KPIAnalyser
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@startDate", SqlDbType.DateTime).Value = startDate;
                     cmd.Parameters.Add("@endDate", SqlDbType.DateTime).Value = endDate;
+                    cmd.Parameters.Add("@slimline", SqlDbType.Int).Value = slimline;
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -100,6 +103,7 @@ namespace KPIAnalyser
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@startDate", SqlDbType.DateTime).Value = startDate;
                     cmd.Parameters.Add("@endDate", SqlDbType.DateTime).Value = endDate;
+                    cmd.Parameters.Add("@slimline", SqlDbType.Int).Value = slimline;
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -158,7 +162,7 @@ namespace KPIAnalyser
         {
             var asPixels = repaintChart.Base.ConvertToPixels(p.AsPoint());
             string department = repaintDepartments[Convert.ToInt32(p.X)].ToString();
-            frmRemakeRepaintDepartmentGraph frm = new frmRemakeRepaintDepartmentGraph(startDate, endDate, department, -1);
+            frmRemakeRepaintDepartmentGraph frm = new frmRemakeRepaintDepartmentGraph(startDate, endDate, department, -1,slimline);
             frm.ShowDialog();
         }
 
@@ -166,7 +170,7 @@ namespace KPIAnalyser
         {
             var asPixels = repaintChart.Base.ConvertToPixels(p.AsPoint());
             string department = remakeDepartments[Convert.ToInt32(p.X)].ToString();
-            frmRemakeRepaintDepartmentGraph frm = new frmRemakeRepaintDepartmentGraph(startDate, endDate, department, 0);
+            frmRemakeRepaintDepartmentGraph frm = new frmRemakeRepaintDepartmentGraph(startDate, endDate, department, 0,slimline);
                 frm.ShowDialog();
 
 

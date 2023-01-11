@@ -40,14 +40,21 @@ namespace KPIAnalyser
                 conn.Open();
 
                 string sql = "SELECT id FROM [user_info].dbo.[user] WHERE forename + ' ' + surname = '" + cmbDepartment.Text + "' ";
-               
+
                 //absences
                 sql = "select  Convert(char,date_absent,103)  as [Absent Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Absent] from dbo.absent_holidays " +
                     "left join [user_info].dbo.[user] u on u.id = staff_id " +
-                    "where(absent_type = 5 or absent_type = 8) AND u.[current] = 1 AND " +
-                    "default_in_department =  '" + cmbDepartment.Text.ToString() + "' " +
-                    " AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
-                    "group by date_absent";
+                    "where(absent_type = 5 or absent_type = 8) AND u.[current] = 1 AND ";
+
+                if (cmbDepartment.Text == "Slimline Office")
+                    sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null) and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+                else if (cmbDepartment.Text == "Slimline Production")
+                    sql = sql + " u.slimline = -1 and u.ShopFloor = -1 and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+                else
+                    sql = sql + "default_in_department =  '" + cmbDepartment.Text.ToString() + "' ";
+
+                sql = sql + " AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                        "group by date_absent";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
@@ -65,9 +72,14 @@ namespace KPIAnalyser
                 //lates 
                 sql = "select  Convert(char,date_absent,103)  as [Late Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Late] from dbo.absent_holidays " +
                     "left join[user_info].dbo.[user] u on u.id = staff_id " +
-                    "where(absent_type = 7) AND u.[current] = 1 AND " +
-                      "default_in_department  = '" + cmbDepartment.Text.ToString() + "' " +
-                    "AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                    "where(absent_type = 7) AND u.[current] = 1 AND ";
+                if (cmbDepartment.Text == "Slimline Office")
+                    sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null) and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+                else if (cmbDepartment.Text == "Slimline Production")
+                    sql = sql + " u.slimline = -1 and u.ShopFloor = -1 and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+                else
+                    sql = sql + "default_in_department =  '" + cmbDepartment.Text.ToString() + "' ";
+                sql = sql + "AND date_absent >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND date_absent <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                     "group by date_absent";
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
@@ -77,7 +89,7 @@ namespace KPIAnalyser
                     dgvLate.DataSource = dt;
                 }
                 //total absences
-                 temp_sum = 0;
+                temp_sum = 0;
                 foreach (DataGridViewRow row in dgvLate.Rows)
                     temp_sum = temp_sum + Convert.ToInt32(row.Cells[2].Value.ToString());
                 lblLate.Text = "Total Late Days: " + temp_sum.ToString();
@@ -89,10 +101,61 @@ namespace KPIAnalyser
 
                 if (cmbDepartment.Text == "Estimating")
                 {
+                    sql = "select date_output,day_of_week,coalesce(allocated_estimators * 90,0) as goal,coalesce(items,0) from " +
+                        "(select cast(date_output as date) as date_output, datename(WEEKDAY, cast(date_output as date)) as day_of_week,sum(item_count) as items " +
+                        "from dbo.solidworks_quotation_log l group by cast(date_output as date)) as solidworks " +
+                        "left join (select cast(placement_date as date) as placement_date,count(string) as allocated_estimators " +
+                        "from [order_database].dbo.view_department_reverse_concat_office where department = 'Estimating' " +
+                        " " +
+                        "group by placement_date) placement on solidworks.date_output = placement.placement_date " +
+                        "where cast(date_output as date) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and cast(date_output as date) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "'";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvPerformance.DataSource = dt;
+                    }
+                }
+                else if (cmbDepartment.Text == "Slimline Office")
+                {
+                    sql = "select cast(quote_date as date) as quote_date,datename(WEEKDAY, cast(quote_date as date)) as day_of_week,62500,sum(coalesce(price,0)) as price " +
+                        "from [price_master].dbo.sl_quotation " +
+                        "where highest_issue = -1 AND cast(quote_date as date) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and cast(quote_date as date) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                        "group by quote_date ";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvPerformance.DataSource = dt;
+                    }
+                }
+                else if (cmbDepartment.Text == "Slimline Production")
+                {
+                    sql = "SELECT a.date_plan as [Work Date],a.day_of_week as [Day of Week],round(coalesce(a.set_hours,0),2) as [Set Hours],coalesce(b.worked_hours,0) as [Worked Hours] FROM (" +
+                           "select date_plan, max(day_of_week) as day_of_week,sum(set_hours) as set_hours from( " +
+                           " select cast(d.date_plan as date) as date_plan, datename(WEEKDAY, date_plan) as day_of_week, round(cast([hours] as float) + coalesce((ot.overtime * 0.8), 0), 2) as [set_hours] " +
+                           "from dbo.power_plan_staff s " +
+                           "left join dbo.power_plan_date d on s.date_id = d.id left join dbo.power_plan_overtime_remake ot on s.date_id = ot.date_id AND s.staff_id = ot.staff_id " +
+                           "where d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' and s.department = 'Slimline' " +
+                           "AND d.date_plan <= CAST(GETDATE() as date)) as grouped group by date_plan) as a " +
+                           "left join( SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours] " +
+                           "FROM dbo.door_part_completion_log WHERE part_percent_complete is not null " +
+                           "AND CAST(part_complete_date as DATE) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND CAST(part_complete_date as DATE) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                           "AND part_status = 'Complete'   GROUP BY CAST(part_complete_date as date)) as b on a.date_plan = b.date " +
+                           "order by a.date_plan";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvPerformance.DataSource = dt;
+                    }
                 }
                 else if (cmbDepartment.Text == "Programming")
                 {
-                    using (SqlCommand cmd = new SqlCommand("usp_staff_checker_programming_department", conn))  
+                    using (SqlCommand cmd = new SqlCommand("usp_staff_checker_programming_department", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dteStart.Value;
@@ -188,20 +251,39 @@ namespace KPIAnalyser
             }
 
             //performance stuffs -- if shopfloor
-            if (shopfloor == -1)
+
+            try
             {
-                dgvPerformance.Columns[0].HeaderText = "Work Date";
-                dgvPerformance.Columns[1].HeaderText = "Day of Week";
-                dgvPerformance.Columns[2].HeaderText = "Set Hours";
-                dgvPerformance.Columns[3].HeaderText = "Worked Hours";
+                if (cmbDepartment.Text == "Programming")
+                {
+                    dgvPerformance.Columns[0].HeaderText = "Work Date";
+                    dgvPerformance.Columns[1].HeaderText = "Day of Week";
+                    dgvPerformance.Columns[2].HeaderText = "Goal Points";
+                    dgvPerformance.Columns[3].HeaderText = "Actual Points";
+                }
+                else if (cmbDepartment.Text == "Slimline Office")
+                {
+                    dgvPerformance.Columns[0].HeaderText = "Work Date";
+                    dgvPerformance.Columns[1].HeaderText = "Day of Week";
+                    dgvPerformance.Columns[2].HeaderText = "Target";
+                    dgvPerformance.Columns[3].HeaderText = "Value Quoted";
+                }
+                else if (cmbDepartment.Text == "Estimating")
+                {
+                    dgvPerformance.Columns[0].HeaderText = "Work Date";
+                    dgvPerformance.Columns[1].HeaderText = "Day of Week";
+                    dgvPerformance.Columns[2].HeaderText = "Target";
+                    dgvPerformance.Columns[3].HeaderText = "Items Quoted";
+                }
+                else
+                {
+                    dgvPerformance.Columns[0].HeaderText = "Work Date";
+                    dgvPerformance.Columns[1].HeaderText = "Day of Week";
+                    dgvPerformance.Columns[2].HeaderText = "Set Hours";
+                    dgvPerformance.Columns[3].HeaderText = "Worked Hours";
+                }
             }
-            else if (engineer == -1)
-            {
-                dgvPerformance.Columns[0].HeaderText = "Work Date";
-                dgvPerformance.Columns[1].HeaderText = "Day of Week";
-                dgvPerformance.Columns[2].HeaderText = "Goal Points";
-                dgvPerformance.Columns[3].HeaderText = "Actual Points";
-            }
+            catch { }
 
             //colours
             double green = 0;
@@ -399,8 +481,14 @@ namespace KPIAnalyser
         private void dgvLate_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string sql = "select  u.forename + ' ' + u.surname as [Late Staff] " +
-                "from dbo.absent_holidays left join[user_info].dbo.[user] u on u.id = staff_id where(absent_type = 7) AND default_in_department = '" + cmbDepartment.Text.ToString() + "' " +
-                "AND date_absent = '" + Convert.ToDateTime(dgvLate.Rows[e.RowIndex].Cells[0].Value.ToString()).ToString("yyyy-MM-dd") + "'";
+                "from dbo.absent_holidays left join[user_info].dbo.[user] u on u.id = staff_id where(absent_type = 7) AND ";
+            if (cmbDepartment.Text == "Slimline Office")
+                sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null) and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+            else if (cmbDepartment.Text == "Slimline Production")
+                sql = sql + " u.slimline = -1 and u.ShopFloor = -1 and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+            else
+                sql = sql + "default_in_department =  '" + cmbDepartment.Text.ToString() + "' ";
+            sql = sql + "AND date_absent = '" + Convert.ToDateTime(dgvLate.Rows[e.RowIndex].Cells[0].Value.ToString()).ToString("yyyy-MM-dd") + "'";
 
             frmDepartmentEnhanced frm = new frmDepartmentEnhanced(sql, "Late Employees", Convert.ToDateTime(dgvLate.Rows[e.RowIndex].Cells[0].Value.ToString()));
             frm.ShowDialog();
@@ -412,9 +500,14 @@ namespace KPIAnalyser
         {
             string sql = "select  u.forename + ' ' + u.surname as [Late Staff] from dbo.absent_holidays " +
                     "left join[user_info].dbo.[user] u on u.id = staff_id " +
-                    "where(absent_type = 5 or absent_type = 8) AND " +
-                    "default_in_department =  '" + cmbDepartment.Text.ToString() + "' " +
-                    " AND date_absent = '" + Convert.ToDateTime(dgvAbsent.Rows[e.RowIndex].Cells[0].Value.ToString()).ToString("yyyy-MM-dd")  + "'  ";
+                    "where(absent_type = 5 or absent_type = 8) AND ";
+            if (cmbDepartment.Text == "Slimline Office")
+                sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null) and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+            else if (cmbDepartment.Text == "Slimline Production")
+                sql = sql + " u.slimline = -1 and u.ShopFloor = -1 and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+            else
+                sql = sql + "default_in_department =  '" + cmbDepartment.Text.ToString() + "' ";
+            sql = sql + " AND date_absent = '" + Convert.ToDateTime(dgvAbsent.Rows[e.RowIndex].Cells[0].Value.ToString()).ToString("yyyy-MM-dd") + "'  ";
 
             frmDepartmentEnhanced frm = new frmDepartmentEnhanced(sql, "Absent Employees", Convert.ToDateTime(dgvAbsent.Rows[e.RowIndex].Cells[0].Value.ToString()));
             frm.ShowDialog();

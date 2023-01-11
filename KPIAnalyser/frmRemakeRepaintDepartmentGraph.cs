@@ -23,13 +23,15 @@ namespace KPIAnalyser
         public DateTime endDate { get; set; }
         public string department { get; set; }
         public int repaint { get; set; }
+        public int slimline { get; set; }
         public string repaint_or_remake { get; set; }
         List<string> staffList = new List<string>();
-        public frmRemakeRepaintDepartmentGraph(DateTime _startDate, DateTime _endDate, string _department, int _repaint)
+        public frmRemakeRepaintDepartmentGraph(DateTime _startDate, DateTime _endDate, string _department, int _repaint, int _slimline)
         {
             InitializeComponent();
             startDate = _startDate;
             endDate = _endDate;
+            slimline = _slimline;
             department = _department;
             repaint = _repaint;
 
@@ -56,23 +58,61 @@ namespace KPIAnalyser
             string sql = "";
             if (repaint == -1)
             {
-                sql = "select COALESCE(u_fault.forename + ' ' + u_fault.surname,'N/A') as [Person Responsible],sum(COALESCE(round(r.repaint_cost,2),0)) as [Repaint Cost] from dbo.door d " +
-                    "right join dbo.repaints r on r.door_id = d.id " +
-                    "left join[user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
-                    "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
-                    "left join[dsl_kpi].dbo.department dept on dept.id = r.department " +
-                    "left join[user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id " +
-                    "WHERE date_logged >= '" + startDate.ToString("yyyyMMdd") + "' AND date_logged < '" + endDate.ToString("yyyyMMdd") + "'  AND dept.department_name = '" + department + "' " +
-                    "group by COALESCE(u_fault.forename + ' ' + u_fault.surname, 'N/A') " +
-                    "order by  sum(COALESCE(round(r.repaint_cost, 2), 0)) desc";
+                if (slimline == -1)
+                {
+                    sql = "select COALESCE(u_fault.forename + ' ' + u_fault.surname,'N/A') as [Person Responsible],sum(COALESCE(round(r.repaint_cost,2),0)) as [Repaint Cost] from dbo.door d " +
+                        "right join dbo.repaints r on r.door_id = d.id " +
+                        "left join[user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
+                        "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
+                        "left join[dsl_kpi].dbo.department dept on dept.id = r.department " +
+                        "left join[user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id " +
+                        "left join dbo.door_type dt on d.door_type_id = dt.id " +
+                        "WHERE date_logged >= '" + startDate.ToString("yyyyMMdd") + "' AND date_logged < '" + endDate.ToString("yyyyMMdd") + "'  " +
+                        "AND dept.department_name = '" + department + "' AND (slimline_y_n = -1) " +
+                        "group by COALESCE(u_fault.forename + ' ' + u_fault.surname, 'N/A') " +
+                        "order by  sum(COALESCE(round(r.repaint_cost, 2), 0)) desc";
+                }
+                else
+                {
+                    sql = "select COALESCE(u_fault.forename + ' ' + u_fault.surname,'N/A') as [Person Responsible],sum(COALESCE(round(r.repaint_cost,2),0)) as [Repaint Cost] from dbo.door d " +
+                        "right join dbo.repaints r on r.door_id = d.id " +
+                        "left join[user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
+                        "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
+                        "left join[dsl_kpi].dbo.department dept on dept.id = r.department " +
+                        "left join[user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id " +
+                        "left join dbo.door_type dt on d.door_type_id = dt.id " +
+                        "WHERE date_logged >= '" + startDate.ToString("yyyyMMdd") + "' AND date_logged < '" + endDate.ToString("yyyyMMdd") + "'  " +
+                        "AND dept.department_name = '" + department + "' AND (slimline_y_n = 0 or slimline_y_n is null) " +
+                        "group by COALESCE(u_fault.forename + ' ' + u_fault.surname, 'N/A') " +
+                        "order by  sum(COALESCE(round(r.repaint_cost, 2), 0)) desc";
+                }
             }
             else
             {
-                sql = "select coalesce(u.forename + ' ' + u.surname,'') as [Person Responsible],sum(coalesce(cost, 0)) as Cost from dbo.remake left join dbo.door on dbo.door.id = dbo.remake.door_id " +
-                    "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
-                    "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
-                    "where[date] >= '" + startDate.ToString("yyyyMMdd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' and d1.department_name = '" + department + "'" +
-                    "group by coalesce(u.forename + ' ' + u.surname, '') order by sum(coalesce(cost, 0)) desc";
+                if (slimline == -1)
+                {
+                    sql = "select coalesce(u.forename + ' ' + u.surname,'') as [Person Responsible],sum(coalesce(cost, 0)) as Cost from dbo.remake left join dbo.door on dbo.door.id = dbo.remake.door_id " +
+                        "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref " +
+                        "left join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                        "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible " +
+                        "left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                        "left join dbo.door_type dt on door.door_type_id = dt.id " +
+                        "where [date] >= '" + startDate.ToString("yyyyMMdd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' " +
+                        "and d1.department_name = '" + department + "' AND (slimline_y_n = -1) " +
+                        "group by coalesce(u.forename + ' ' + u.surname, '') order by sum(coalesce(cost, 0)) desc";
+                }
+                else
+                {
+                    sql = "select coalesce(u.forename + ' ' + u.surname,'') as [Person Responsible],sum(coalesce(cost, 0)) as Cost from dbo.remake left join dbo.door on dbo.door.id = dbo.remake.door_id " +
+                        "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref " +
+                        "left join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                        "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible " +
+                        "left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                        "left join dbo.door_type dt on door.door_type_id = dt.id " +
+                        "where [date] >= '" + startDate.ToString("yyyyMMdd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' " +
+                        "and d1.department_name = '" + department + "' AND (slimline_y_n = 0 or slimline_y_n is null) " +
+                        "group by coalesce(u.forename + ' ' + u.surname, '') order by sum(coalesce(cost, 0)) desc";
+                }
             }
 
             //fill the graph with data
@@ -160,14 +200,34 @@ namespace KPIAnalyser
                 conn.Open();
                 if (repaint == -1)
                 {
-                    sql = "select d.id as [Door ID],r.reason_for_repaint as [Repaint Reason],u_logged.forename + ' ' + u_logged.surname as [Logged By],r.date_logged as [Log Date],s.[NAME] as [Customer],COALESCE(u_fault.forename + ' ' + u_fault.surname,'N/A') as [Person Responsible], " +
-                        "dept.department_name as [Department Responsible],COALESCE(round(r.repaint_cost,2),0) as [Repaint Cost] from dbo.door d " +
-                        "right join dbo.repaints r on r.door_id = d.id  " +
-                        "left join [user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
-                        "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref  " +
-                        "left join[dsl_kpi].dbo.department dept on dept.id = r.department  " +
-                        "left join [user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id  " +
-                        "WHERE  date_logged >= '" + startDate.ToString("yyyyMMdd") + "' AND date_logged < '" + endDate.ToString("yyyyMMdd") + "' and dept.department_name = '" + department + "'";
+                    if (slimline == -1)
+                    {
+                        sql = "select d.id as [Door ID],r.reason_for_repaint as [Repaint Reason],u_logged.forename + ' ' + u_logged.surname as [Logged By],r.date_logged as [Log Date],s.[NAME] as [Customer],COALESCE(u_fault.forename + ' ' + u_fault.surname,'N/A') as [Person Responsible], " +
+                            "dept.department_name as [Department Responsible],COALESCE(round(r.repaint_cost,2),0) as [Repaint Cost] from dbo.door d " +
+                            "right join dbo.repaints r on r.door_id = d.id  " +
+                            "left join [user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
+                            "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref  " +
+                            "left join[dsl_kpi].dbo.department dept on dept.id = r.department  " +
+                            "left join [user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id  " +
+                            "left join dbo.door_type dt on d.door_type_id = dt.id " +
+                            "WHERE  date_logged >= '" + startDate.ToString("yyyyMMdd") + "' AND date_logged < '" + endDate.ToString("yyyyMMdd") + "' " +
+                            "AND (dt.slimline_y_n = -1) " +
+                            "and dept.department_name = '" + department + "'";
+                    }
+                    else
+                    {
+                        sql = "select d.id as [Door ID],r.reason_for_repaint as [Repaint Reason],u_logged.forename + ' ' + u_logged.surname as [Logged By],r.date_logged as [Log Date],s.[NAME] as [Customer],COALESCE(u_fault.forename + ' ' + u_fault.surname,'N/A') as [Person Responsible], " +
+                            "dept.department_name as [Department Responsible],COALESCE(round(r.repaint_cost,2),0) as [Repaint Cost] from dbo.door d " +
+                            "right join dbo.repaints r on r.door_id = d.id  " +
+                            "left join [user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
+                            "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref  " +
+                            "left join[dsl_kpi].dbo.department dept on dept.id = r.department  " +
+                            "left join [user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id  " +
+                            "left join dbo.door_type dt on d.door_type_id = dt.id " +
+                            "WHERE  date_logged >= '" + startDate.ToString("yyyyMMdd") + "' AND date_logged < '" + endDate.ToString("yyyyMMdd") + "' " +
+                            "AND (dt.slimline_y_n = 0 or dt.slimline_y_n is null) " +
+                            "and dept.department_name = '" + department + "'";
+                    }
                     if (cmbPersonResponsible.Text.Length > 0)
                     {
                         //work out which user it is 
@@ -194,11 +254,36 @@ namespace KPIAnalyser
                 }
                 else
                 {
-                    sql = "select dbo.remake.door_id as [Door ID],[User] as [Logged By],[description] as [Remake Description],[date] as [Log Date],[NAME] as Customer,coalesce(u.forename + ' ' + u.surname,'') as [Person Responsible]," +
-                        "d1.department_name as [Department Responsible] ,d2.department_name as [Department Noticed] ,coalesce(cost, 0) as Cost from dbo.remake left join dbo.door on dbo.door.id = dbo.remake.door_id " +
-                        "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
-                        "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
-                        "where [date] >= '" + startDate.ToString("yyyyMMdd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' AND d1.department_name = '" + department + "' ";
+                    if (slimline == -1)
+                    {
+                        sql = "select dbo.remake.door_id as [Door ID],[User] as [Logged By],[description] as [Remake Description],[date] as [Log Date],[NAME] as Customer," +
+                            "coalesce(u.forename + ' ' + u.surname,'') as [Person Responsible]," +
+                            "d1.department_name as [Department Responsible] ,d2.department_name as [Department Noticed] ,coalesce(cost, 0) as Cost " +
+                            "from dbo.remake " +
+                            "left join dbo.door on dbo.door.id = dbo.remake.door_id " +
+                            "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref " +
+                            "left join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                            "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible " +
+                            "left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                            "left join dbo.door_type dt on door.door_type_id = dt.id " +
+                            "where [date] >= '" + startDate.ToString("yyyyMMdd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' " +
+                            "AND d1.department_name = '" + department + "' AND (dt.slimline_y_n = -1) ";
+                    }
+                    else
+                    {
+                        sql = "select dbo.remake.door_id as [Door ID],[User] as [Logged By],[description] as [Remake Description],[date] as [Log Date],[NAME] as Customer," +
+                            "coalesce(u.forename + ' ' + u.surname,'') as [Person Responsible]," +
+                            "d1.department_name as [Department Responsible] ,d2.department_name as [Department Noticed] ,coalesce(cost, 0) as Cost " +
+                            "from dbo.remake " +
+                            "left join dbo.door on dbo.door.id = dbo.remake.door_id " +
+                            "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref " +
+                            "left join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                            "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible " +
+                            "left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                            "left join dbo.door_type dt on door.door_type_id = dt.id " +
+                            "where [date] >= '" + startDate.ToString("yyyyMMdd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' " +
+                            "AND d1.department_name = '" + department + "' AND (dt.slimline_y_n = 0 or dt.slimline_y_n is null) ";
+                    }
                     if (cmbLoggedBy.Text.Length > 0)
                         sql = sql + " AND [user] = '" + cmbLoggedBy.Text.ToString() + "'";
 
@@ -1012,11 +1097,11 @@ namespace KPIAnalyser
             dgvRemakesRepaints.ClearSelection();
             uint processID = 0;
 
- 
+
 
             //Range.Rows.AutoFit();
             //Range.Columns.AutoFit();
-             ExcelEmail(FileName);
+            ExcelEmail(FileName);
         }
 
         private void ExcelEmail(string file)
@@ -1068,7 +1153,7 @@ namespace KPIAnalyser
             mailItem.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
             if (attach_image == -1)
             {
-                 var attachments = mailItem.Attachments;
+                var attachments = mailItem.Attachments;
                 var attachment = attachments.Add(imageSrc);
                 attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x370E001F", "image/jpeg");
                 attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x3712001F", "myident"); // Image identifier found in the HTML code right after cid. Can be anything.
@@ -1077,8 +1162,8 @@ namespace KPIAnalyser
             }
             // Set body format to HTML
 
-          
-            
+
+
             string msgHTMLBody = "";
             mailItem.HTMLBody = msgHTMLBody;
             mailItem.Display(true);

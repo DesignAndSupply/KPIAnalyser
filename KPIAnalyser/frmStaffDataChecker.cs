@@ -17,6 +17,7 @@ namespace KPIAnalyser
         public int shopfloor { get; set; }
         public int estimator { get; set; }
         public int engineer { get; set; }
+        public int slimline { get; set; }
         public frmStaffDataChecker()
         {
             InitializeComponent();
@@ -117,7 +118,7 @@ namespace KPIAnalyser
 
                 //performance data
                 //look up shopfloor or office
-                sql = "select coalesce(ShopFloor,0),coalesce(isEngineer,0),coalesce(isEstimator,0) from [user_info].dbo.[user] where id = " + staff_id.ToString();
+                sql = "select coalesce(ShopFloor,0),coalesce(isEngineer,0),coalesce(isEstimator,0),coalesce(slimline,0) from [user_info].dbo.[user] where id = " + staff_id.ToString();
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -130,6 +131,7 @@ namespace KPIAnalyser
                         shopfloor = Convert.ToInt32(dt.Rows[0][0].ToString());
                         engineer = Convert.ToInt32(dt.Rows[0][1].ToString());
                         estimator = Convert.ToInt32(dt.Rows[0][2].ToString());
+                        slimline = Convert.ToInt32(dt.Rows[0][3].ToString());
                     }
                     catch
                     {
@@ -172,6 +174,60 @@ namespace KPIAnalyser
                         da.Fill(dt);
                         dgvPerformance.DataSource = dt;
                     }
+                }
+                else if (estimator == -1)
+                {
+                    sql = "select date_output,day_of_week,coalesce(allocated_estimators * 90,0) as goal,coalesce(items,0) from " +
+                          "(select cast(date_output as date) as date_output, datename(WEEKDAY, cast(date_output as date)) as day_of_week,sum(item_count) as items " +
+                          "from dbo.solidworks_quotation_log l where quoted_by = '" + cmbStaff.Text + "' group by cast(date_output as date)) as solidworks " +
+                          "left join (select cast(placement_date as date) as placement_date,count(string) as allocated_estimators " +
+                          "from [order_database].dbo.view_department_reverse_concat_office where department = 'Estimating' " +
+                          " " +
+                          "group by placement_date) placement on solidworks.date_output = placement.placement_date " +
+                          "where cast(date_output as date) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and cast(date_output as date) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "'";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvPerformance.DataSource = dt;
+                    }
+                }
+                else if (slimline == -1)
+                {
+                    sql = "select cast(quote_date as date) as quote_date,datename(WEEKDAY, cast(quote_date as date)) as day_of_week,62500,sum(coalesce(price,0)) as price " +
+                          "from [price_master].dbo.sl_quotation " +
+                          "left join [user_info].dbo.[user] u on sl_quotation.created_by_id = u.id " +
+                          "where highest_issue = -1 AND u.forename + ' ' + u.surname = '" + cmbStaff.Text + "' AND " +
+                          "cast(quote_date as date) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and cast(quote_date as date) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                          "group by quote_date ";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvPerformance.DataSource = dt;
+                    }
+                }
+                else if (slimline == -1 && shopfloor == -1)
+                {
+                    sql = "select cast(d.date_plan as date) as date_plan,datename(WEEKDAY,date_plan) as day_of_week,round(cast([hours] as float) + coalesce((ot.overtime * 0.8),0),2) as [set_hours]," +
+                          "COALESCE(worked.worked_hours,0) as worked_hours from dbo.power_plan_staff s " +
+                          "left join dbo.power_plan_date d on s.date_id = d.id " +
+                          "left join dbo.power_plan_overtime_remake ot on s.date_id = ot.date_id AND s.staff_id = ot.staff_id " +
+                          "left join (SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours],staff_id FROM dbo.door_part_completion_log  " +
+                          "WHERE part_percent_complete is not null AND staff_id = " + staff_id.ToString() + " AND CAST(part_complete_date as DATE) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND CAST(part_complete_date as DATE) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                          "AND part_status = 'Complete'   GROUP BY CAST(part_complete_date as date),staff_id) as worked on d.date_plan = worked.date " +
+                          "where  s.staff_id = " + staff_id.ToString() + " and d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' AND d.date_plan <= CAST(GETDATE() as date) " +
+                          "order by d.date_plan";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dgvPerformance.DataSource = dt;
+                    }
+
                 }
                 else
                     dgvPerformance.DataSource = null;
@@ -244,13 +300,27 @@ namespace KPIAnalyser
                 dgvPerformance.Columns[2].HeaderText = "Goal Points";
                 dgvPerformance.Columns[3].HeaderText = "Actual Points";
             }
+            else if (estimator == -1)
+            {
+                dgvPerformance.Columns[0].HeaderText = "Work Date";
+                dgvPerformance.Columns[1].HeaderText = "Day of Week";
+                dgvPerformance.Columns[2].HeaderText = "Target";
+                dgvPerformance.Columns[3].HeaderText = "Items Quoted";
+            }
+            else if (slimline == -1)
+            {
+                dgvPerformance.Columns[0].HeaderText = "Work Date";
+                dgvPerformance.Columns[1].HeaderText = "Day of Week";
+                dgvPerformance.Columns[2].HeaderText = "Target";
+                dgvPerformance.Columns[3].HeaderText = "Value Quoted";
+            }
 
             //colours
             double green = 0;
             double red = 0;
             foreach (DataGridViewRow row in dgvPerformance.Rows)
             {
-                
+
                 if (Convert.ToDouble(row.Cells[2].Value.ToString()) <= Convert.ToDouble(row.Cells[3].Value.ToString()))
                 {
                     dgvPerformance.Rows[row.Index].Cells[2].Style.BackColor = Color.LightSeaGreen;
@@ -332,7 +402,7 @@ namespace KPIAnalyser
         {
             print();
         }
-        private void print() 
+        private void print()
         {
             string file_name = @"C:\temp\temp" + DateTime.Now.ToString("mmss") + ".jpg";
             try
@@ -389,7 +459,7 @@ namespace KPIAnalyser
             { }
         }
 
-        private void btnEmail_Click(object sender, EventArgs e) 
+        private void btnEmail_Click(object sender, EventArgs e)
         {
             try
             {
@@ -403,7 +473,7 @@ namespace KPIAnalyser
 
                 //this is the main reason why 
 
-                Rectangle bounds = this.Bounds; 
+                Rectangle bounds = this.Bounds;
                 using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
                 {
                     using (Graphics g = Graphics.FromImage(bitmap))
