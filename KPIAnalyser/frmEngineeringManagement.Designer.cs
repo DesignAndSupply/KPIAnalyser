@@ -86,9 +86,9 @@
             this.elementHost1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.elementHost1.Location = new System.Drawing.Point(4, 34);
+            this.elementHost1.Location = new System.Drawing.Point(4, 6);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1199, 262);
+            this.elementHost1.Size = new System.Drawing.Size(1199, 301);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.cartesianChart1;
@@ -131,9 +131,9 @@
             this.cartesianChart3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cartesianChart3.Location = new System.Drawing.Point(5, 5);
+            this.cartesianChart3.Location = new System.Drawing.Point(5, 3);
             this.cartesianChart3.Name = "cartesianChart3";
-            this.cartesianChart3.Size = new System.Drawing.Size(1199, 313);
+            this.cartesianChart3.Size = new System.Drawing.Size(1199, 307);
             this.cartesianChart3.TabIndex = 1;
             this.cartesianChart3.Text = "cartesianChart3";
             // 

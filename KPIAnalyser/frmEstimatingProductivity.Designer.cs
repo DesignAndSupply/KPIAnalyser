@@ -110,6 +110,7 @@
             // 
             // cmbStaffMember
             // 
+            this.cmbStaffMember.DisplayMember = "id";
             this.cmbStaffMember.FormattingEnabled = true;
             this.cmbStaffMember.Location = new System.Drawing.Point(12, 49);
             this.cmbStaffMember.Name = "cmbStaffMember";
@@ -461,7 +462,7 @@
             // 
             this.cartesianChart1.Location = new System.Drawing.Point(243, 720);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(1504, 223);
+            this.cartesianChart1.Size = new System.Drawing.Size(1504, 281);
             this.cartesianChart1.TabIndex = 28;
             this.cartesianChart1.Text = "cartesianChart1";
             this.cartesianChart1.DataClick += new LiveCharts.Events.DataClickHandler(this.CartesianChart1_DataClick);

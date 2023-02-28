@@ -40,6 +40,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cartesianChart3 = new LiveCharts.WinForms.CartesianChart();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnRemakeRepaint = new System.Windows.Forms.Button();
             this.cartesianChart4 = new LiveCharts.WinForms.CartesianChart();
             this.btnPrintLateness = new System.Windows.Forms.Button();
             this.rdoYearly = new System.Windows.Forms.RadioButton();
@@ -53,7 +54,6 @@
             this.dgvStaff = new System.Windows.Forms.DataGridView();
             this.dgvDepartment = new System.Windows.Forms.DataGridView();
             this.dgvRepaintRemake = new System.Windows.Forms.DataGridView();
-            this.btnRemakeRepaint = new System.Windows.Forms.Button();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -118,9 +118,9 @@
             this.cartesianChart2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cartesianChart2.Location = new System.Drawing.Point(4, 3);
+            this.cartesianChart2.Location = new System.Drawing.Point(8, 7);
             this.cartesianChart2.Name = "cartesianChart2";
-            this.cartesianChart2.Size = new System.Drawing.Size(1250, 454);
+            this.cartesianChart2.Size = new System.Drawing.Size(1250, 329);
             this.cartesianChart2.TabIndex = 1;
             this.cartesianChart2.Text = "cartesianChart2";
             this.cartesianChart2.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart2_DataClick);
@@ -142,7 +142,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cartesianChart3.Location = new System.Drawing.Point(4, 3);
             this.cartesianChart3.Name = "cartesianChart3";
-            this.cartesianChart3.Size = new System.Drawing.Size(1250, 454);
+            this.cartesianChart3.Size = new System.Drawing.Size(1250, 333);
             this.cartesianChart3.TabIndex = 1;
             this.cartesianChart3.Text = "cartesianChart3";
             this.cartesianChart3.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart3_DataClick);
@@ -157,6 +157,17 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Remake/Repaint Value";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btnRemakeRepaint
+            // 
+            this.btnRemakeRepaint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemakeRepaint.Location = new System.Drawing.Point(1159, 3);
+            this.btnRemakeRepaint.Name = "btnRemakeRepaint";
+            this.btnRemakeRepaint.Size = new System.Drawing.Size(94, 23);
+            this.btnRemakeRepaint.TabIndex = 26;
+            this.btnRemakeRepaint.Text = "Show Slimline";
+            this.btnRemakeRepaint.UseVisualStyleBackColor = true;
+            this.btnRemakeRepaint.Click += new System.EventHandler(this.btnRemakeRepaint_Click);
             // 
             // cartesianChart4
             // 
@@ -339,16 +350,6 @@
             this.dgvRepaintRemake.Size = new System.Drawing.Size(399, 310);
             this.dgvRepaintRemake.TabIndex = 25;
             this.dgvRepaintRemake.Visible = false;
-            // 
-            // btnRemakeRepaint
-            // 
-            this.btnRemakeRepaint.Location = new System.Drawing.Point(1159, 3);
-            this.btnRemakeRepaint.Name = "btnRemakeRepaint";
-            this.btnRemakeRepaint.Size = new System.Drawing.Size(94, 23);
-            this.btnRemakeRepaint.TabIndex = 26;
-            this.btnRemakeRepaint.Text = "Show Slimline";
-            this.btnRemakeRepaint.UseVisualStyleBackColor = true;
-            this.btnRemakeRepaint.Click += new System.EventHandler(this.btnRemakeRepaint_Click);
             // 
             // frmProductionManagement
             // 

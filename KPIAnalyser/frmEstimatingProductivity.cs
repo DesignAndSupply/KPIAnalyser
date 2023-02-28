@@ -336,6 +336,8 @@ namespace KPIAnalyser
 
             List<DateTime> datelist = new List<DateTime>();
             List<int> itemlist = new List<int>();
+            List<int> chaseList = new List<int>();
+            List<int> correspondenceList = new List<int>();
             List<string> temp = new List<string>();
 
 
@@ -345,11 +347,15 @@ namespace KPIAnalyser
                 //datelist.Add(reader.GetDateTime(1));
                 temp.Add(reader.GetDateTime(1).ToShortDateString());
                 itemlist.Add(reader.GetInt32(0));
+                chaseList.Add(reader.GetInt32(2));
+                correspondenceList.Add(reader.GetInt32(3));
             }
 
 
             //string[] datearray = datelist.ToArray();
             int[] itemarray = itemlist.ToArray();
+            int[] chasearray = chaseList.ToArray();
+            int[] correspondencearray = correspondenceList.ToArray();
 
             cartesianChart1.AxisY.Clear();
             cartesianChart1.AxisX.Clear();
@@ -364,6 +370,24 @@ namespace KPIAnalyser
                     Fill = System.Windows.Media.Brushes.Green,
 
                     Values = new ChartValues<int>(itemarray)
+                },
+                 new ColumnSeries
+                {
+                    Title = "Chase",
+                    FontSize = 10,
+                    DataLabels = true,
+                    Fill = System.Windows.Media.Brushes.LightSkyBlue,
+
+                    Values = new ChartValues<int>(chasearray)
+                },
+                 new ColumnSeries
+                {
+                    Title = "Correspondence",
+                    FontSize = 10,
+                    DataLabels = true,
+                    Fill = System.Windows.Media.Brushes.PaleVioletRed,
+
+                    Values = new ChartValues<int>(correspondencearray)
                 }
 
             };
