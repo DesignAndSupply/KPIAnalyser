@@ -57,6 +57,8 @@
             this.btnViewQuotes = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.lblSales = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -65,7 +67,7 @@
             // 
             // unpaidGuage
             // 
-            this.unpaidGuage.Location = new System.Drawing.Point(28, 277);
+            this.unpaidGuage.Location = new System.Drawing.Point(28, 267);
             this.unpaidGuage.Name = "unpaidGuage";
             this.unpaidGuage.Size = new System.Drawing.Size(193, 186);
             this.unpaidGuage.TabIndex = 23;
@@ -73,7 +75,7 @@
             // 
             // lateGuage
             // 
-            this.lateGuage.Location = new System.Drawing.Point(1537, 86);
+            this.lateGuage.Location = new System.Drawing.Point(1537, 76);
             this.lateGuage.Name = "lateGuage";
             this.lateGuage.Size = new System.Drawing.Size(193, 186);
             this.lateGuage.TabIndex = 22;
@@ -81,7 +83,7 @@
             // 
             // annualLeaveGuage
             // 
-            this.annualLeaveGuage.Location = new System.Drawing.Point(1328, 86);
+            this.annualLeaveGuage.Location = new System.Drawing.Point(1328, 76);
             this.annualLeaveGuage.Name = "annualLeaveGuage";
             this.annualLeaveGuage.Size = new System.Drawing.Size(193, 186);
             this.annualLeaveGuage.TabIndex = 21;
@@ -89,7 +91,7 @@
             // 
             // absentGuage
             // 
-            this.absentGuage.Location = new System.Drawing.Point(1119, 86);
+            this.absentGuage.Location = new System.Drawing.Point(1119, 76);
             this.absentGuage.Name = "absentGuage";
             this.absentGuage.Size = new System.Drawing.Size(193, 186);
             this.absentGuage.TabIndex = 20;
@@ -104,7 +106,7 @@
             this.groupBox1.Controls.Add(this.unpaidLeave);
             this.groupBox1.Controls.Add(this.lblDailyAverage);
             this.groupBox1.Controls.Add(this.unpaidGuage);
-            this.groupBox1.Location = new System.Drawing.Point(1091, 38);
+            this.groupBox1.Location = new System.Drawing.Point(1091, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(672, 481);
             this.groupBox1.TabIndex = 24;
@@ -114,7 +116,7 @@
             // absentDays
             // 
             this.absentDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.absentDays.Location = new System.Drawing.Point(24, 23);
+            this.absentDays.Location = new System.Drawing.Point(24, 13);
             this.absentDays.Name = "absentDays";
             this.absentDays.Size = new System.Drawing.Size(193, 20);
             this.absentDays.TabIndex = 15;
@@ -124,7 +126,7 @@
             // annualLeave
             // 
             this.annualLeave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.annualLeave.Location = new System.Drawing.Point(233, 25);
+            this.annualLeave.Location = new System.Drawing.Point(233, 15);
             this.annualLeave.Name = "annualLeave";
             this.annualLeave.Size = new System.Drawing.Size(193, 20);
             this.annualLeave.TabIndex = 16;
@@ -133,7 +135,7 @@
             // 
             // dailyItemsGuage
             // 
-            this.dailyItemsGuage.Location = new System.Drawing.Point(237, 277);
+            this.dailyItemsGuage.Location = new System.Drawing.Point(237, 267);
             this.dailyItemsGuage.Name = "dailyItemsGuage";
             this.dailyItemsGuage.Size = new System.Drawing.Size(193, 186);
             this.dailyItemsGuage.TabIndex = 33;
@@ -142,7 +144,7 @@
             // lateDays
             // 
             this.lateDays.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lateDays.Location = new System.Drawing.Point(442, 23);
+            this.lateDays.Location = new System.Drawing.Point(442, 13);
             this.lateDays.Name = "lateDays";
             this.lateDays.Size = new System.Drawing.Size(193, 20);
             this.lateDays.TabIndex = 17;
@@ -152,7 +154,7 @@
             // unpaidLeave
             // 
             this.unpaidLeave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unpaidLeave.Location = new System.Drawing.Point(24, 254);
+            this.unpaidLeave.Location = new System.Drawing.Point(24, 244);
             this.unpaidLeave.Name = "unpaidLeave";
             this.unpaidLeave.Size = new System.Drawing.Size(193, 20);
             this.unpaidLeave.TabIndex = 18;
@@ -162,7 +164,7 @@
             // lblDailyAverage
             // 
             this.lblDailyAverage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDailyAverage.Location = new System.Drawing.Point(233, 254);
+            this.lblDailyAverage.Location = new System.Drawing.Point(233, 244);
             this.lblDailyAverage.Name = "lblDailyAverage";
             this.lblDailyAverage.Size = new System.Drawing.Size(197, 20);
             this.lblDailyAverage.TabIndex = 34;
@@ -249,21 +251,20 @@
             // 
             // cartesianChart1
             // 
-            this.cartesianChart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cartesianChart1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.cartesianChart1.Location = new System.Drawing.Point(15, 525);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(1742, 209);
+            this.cartesianChart1.Size = new System.Drawing.Size(877, 209);
             this.cartesianChart1.TabIndex = 41;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(600, 501);
+            this.label4.Location = new System.Drawing.Point(15, 501);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(485, 18);
+            this.label4.Size = new System.Drawing.Size(877, 18);
             this.label4.TabIndex = 11;
             this.label4.Text = "Daily Value";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -340,11 +341,34 @@
             this.lblSales.Text = "£0";
             this.lblSales.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(898, 501);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(877, 18);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "Daily Chases";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cartesianChart2
+            // 
+            this.cartesianChart2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cartesianChart2.Location = new System.Drawing.Point(898, 525);
+            this.cartesianChart2.Name = "cartesianChart2";
+            this.cartesianChart2.Size = new System.Drawing.Size(865, 209);
+            this.cartesianChart2.TabIndex = 46;
+            this.cartesianChart2.Text = "cartesianChart2";
+            // 
             // frmSlimlineEstimatingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1775, 752);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cartesianChart2);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.btnViewQuotes);
             this.Controls.Add(this.pieChart1);
@@ -408,5 +432,7 @@
         private System.Windows.Forms.CheckBox chkIncludeRevisions;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label lblSales;
+        private System.Windows.Forms.Label label6;
+        private LiveCharts.WinForms.CartesianChart cartesianChart2;
     }
 }

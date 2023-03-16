@@ -83,6 +83,7 @@
             this.lblQuoteDays = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.lblSales = new System.Windows.Forms.Label();
+            this.BtnWorkload = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.cviewestimatorsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_infoDataSet11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cviewsalesprogramusersBindingSource)).BeginInit();
@@ -557,11 +558,22 @@
             this.lblSales.Text = "£0";
             this.lblSales.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // BtnWorkload
+            // 
+            this.BtnWorkload.Location = new System.Drawing.Point(1753, 720);
+            this.BtnWorkload.Name = "BtnWorkload";
+            this.BtnWorkload.Size = new System.Drawing.Size(99, 23);
+            this.BtnWorkload.TabIndex = 34;
+            this.BtnWorkload.Text = "WORK LOAD";
+            this.BtnWorkload.UseVisualStyleBackColor = true;
+            this.BtnWorkload.Click += new System.EventHandler(this.BtnWorkload_Click);
+            // 
             // frmEstimatingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 1061);
+            this.Controls.Add(this.BtnWorkload);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -673,5 +685,6 @@
         private System.Windows.Forms.Label lblQuoteDays;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label lblSales;
+        private System.Windows.Forms.Button BtnWorkload;
     }
 }

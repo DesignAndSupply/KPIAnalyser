@@ -24,7 +24,8 @@ namespace KPIAnalyser
         private void FrmEstimatorComparison_Load(object sender, EventArgs e)
         {
 
-            string sql = "SELECT forename + ' ' + surname,* FROM dbo.[user] where [grouping] = 5 and [current] = 1 and (non_user = 0 or non_user is null) order by forename";
+            string sql = "SELECT forename + ' ' + surname,* FROM dbo.[user] where [grouping] = 5 and [current] = 1 AND (non_user is null or non_user = 0)  order by forename";
+            lstStaff.Items.Add("Tomas Grother");
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionStringUser))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))

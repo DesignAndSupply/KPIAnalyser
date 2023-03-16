@@ -16,6 +16,9 @@ using System.Windows.Media;
 using System.Drawing.Printing;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using Brush = System.Windows.Media.Brush;
+using System.Runtime.InteropServices.ComTypes;
+using System.Windows.Documents;
+using System.Windows;
 
 namespace KPIAnalyser
 {
@@ -597,7 +600,7 @@ namespace KPIAnalyser
                     data = value;
                     temp2 = 0;
                     temp2 = Convert.ToDouble(data);
-                    data = temp2.ToString("+#,##0.00");
+                    data = temp2.ToString("#,##0.00");
 
                     //ammend stuff like colour and having £-100
                     data = "£" + data;
@@ -650,6 +653,7 @@ namespace KPIAnalyser
                 {
                     Title = "Value",
                     FontSize = 10,
+                    Foreground = Brushes.Black,
                     DataLabels = true,
                     Fill = System.Windows.Media.Brushes.Green,
 
@@ -672,6 +676,7 @@ namespace KPIAnalyser
             {
                 Title = "Dates",
                 FontSize = 10,
+                Foreground = Brushes.Black,
                 Labels = temp
             });
 
@@ -684,6 +689,93 @@ namespace KPIAnalyser
 
             });
 
+
+            //chases
+        }
+
+        private void drawDailychase()
+        {
+
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = cmbStaffMember.Text;
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("usp_kpi_daily_chase_slimline", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
+            cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
+            cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            List<DateTime> datelist = new List<DateTime>();
+            List<int> valueList = new List<int>();
+            List<string> temp = new List<string>();
+
+
+
+            while (reader.Read())
+            {
+                //datelist.Add(reader.GetDateTime(1));
+                temp.Add(reader.GetDateTime(1).ToShortDateString());
+                valueList.Add(reader.GetInt32(0));
+            }
+
+
+            //string[] datearray = datelist.ToArray();
+            int[] itemarray = valueList.ToArray();
+
+            cartesianChart2.AxisY.Clear();
+            cartesianChart2.AxisX.Clear();
+
+            cartesianChart2.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Value",
+                    FontSize = 10,
+                    Foreground = Brushes.Black,
+                    DataLabels = true,
+                    Fill = System.Windows.Media.Brushes.LightSkyBlue,
+
+                    Values = new ChartValues<int>(valueList)
+                }
+
+            };
+
+
+            //string.Join(",", datearray)#
+            //string[] temp;
+            //List<string> strList = datearray.ToList;
+            //IList<string> testValues = datearray;
+
+            //IList<string> targetList = new List<string>(testValues.Cast<string>());
+
+
+
+            cartesianChart2.AxisX.Add(new Axis
+            {
+                Title = "Dates",
+                FontSize = 10,
+                Foreground = Brushes.Black,
+                Labels = temp
+            }); ;
+
+            //
+
+            cartesianChart2.AxisY.Add(new Axis
+            {
+                Title = "Value",
+                FontSize = 16,
+
+            });
+
+            conn.Close();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -692,6 +784,7 @@ namespace KPIAnalyser
             absentHolidaysLate();
             averageDailyItems();
             drawDailyValue();
+            drawDailychase();
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)

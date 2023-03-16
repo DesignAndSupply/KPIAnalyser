@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>97</ApplicationRevision>
+    <ApplicationRevision>100</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -130,6 +130,12 @@
     </Compile>
     <Compile Include="frmEstimatorIssuesLogged.Designer.cs">
       <DependentUpon>frmEstimatorIssuesLogged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEstimatorWorkload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEstimatorWorkload.Designer.cs">
+      <DependentUpon>frmEstimatorWorkload.cs</DependentUpon>
     </Compile>
     <Compile Include="frmProductionManagement.cs">
       <SubType>Form</SubType>
@@ -346,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmEstimatorIssuesLogged.resx">
       <DependentUpon>frmEstimatorIssuesLogged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEstimatorWorkload.resx">
+      <DependentUpon>frmEstimatorWorkload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProductionManagement.resx">
       <DependentUpon>frmProductionManagement.cs</DependentUpon>
