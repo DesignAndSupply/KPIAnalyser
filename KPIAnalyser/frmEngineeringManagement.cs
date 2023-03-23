@@ -1490,7 +1490,7 @@ namespace KPIAnalyser
             string sql = "select d1.department_name as [Department] ,COUNT(d1.department_name) as [Number of Remakes],'£' + Cast(sum(remake.cost) as nvarchar(max)) as [Total Cost]  from dbo.remake " +
                 "left join dbo.door on dbo.door.id = dbo.remake.door_id left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
                 "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
-                "where[date] >= '" + startDate.ToString("yyyy-MM-dd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' group by d1.department_name order by COUNT(d1.department_name) desc";
+                "where[date] >= '" + startDate.ToString("yyyy-MM-dd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' and dbo.remake.dept_responsible = 7 group by d1.department_name order by COUNT(d1.department_name) desc";
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -1544,7 +1544,7 @@ namespace KPIAnalyser
             sql = "select max(u.forename) + ' ' + max(u.surname) as [Person Responsibile] ,COUNT(d1.department_name) as [Number of Remakes],'£' + Cast(sum(remake.cost) as nvarchar(max)) as [Total Cost]  from dbo.remake " +
     "left join dbo.door on dbo.door.id = dbo.remake.door_id left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
     "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
-    "where[date] >= '" + startDate.ToString("yyyy-MM-dd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' group by dbo.remake.persons_responsible order by COUNT(dbo.remake.persons_responsible) desc,max(u.forename) asc";
+    "where[date] >= '" + startDate.ToString("yyyy-MM-dd") + "' AND[date] < '" + endDate.ToString("yyyyMMdd") + "' and dbo.remake.dept_responsible = 7 group by dbo.remake.persons_responsible order by COUNT(dbo.remake.persons_responsible) desc,max(u.forename) asc";
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))

@@ -100,7 +100,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1209, 313);
+            this.tabPage2.Size = new System.Drawing.Size(1209, 305);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Remake Frequency";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -110,9 +110,9 @@
             this.cartesianChart2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cartesianChart2.Location = new System.Drawing.Point(4, 4);
+            this.cartesianChart2.Location = new System.Drawing.Point(4, 6);
             this.cartesianChart2.Name = "cartesianChart2";
-            this.cartesianChart2.Size = new System.Drawing.Size(1199, 313);
+            this.cartesianChart2.Size = new System.Drawing.Size(1199, 293);
             this.cartesianChart2.TabIndex = 0;
             this.cartesianChart2.Text = "cartesianChart2";
             this.cartesianChart2.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart2_DataClick);
@@ -122,7 +122,7 @@
             this.tabPage3.Controls.Add(this.cartesianChart3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1209, 313);
+            this.tabPage3.Size = new System.Drawing.Size(1209, 305);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Remakes Returned";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -134,7 +134,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cartesianChart3.Location = new System.Drawing.Point(5, 3);
             this.cartesianChart3.Name = "cartesianChart3";
-            this.cartesianChart3.Size = new System.Drawing.Size(1199, 307);
+            this.cartesianChart3.Size = new System.Drawing.Size(1199, 299);
             this.cartesianChart3.TabIndex = 1;
             this.cartesianChart3.Text = "cartesianChart3";
             // 
