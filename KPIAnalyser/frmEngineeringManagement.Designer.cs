@@ -47,6 +47,7 @@
             this.dgvDepartment = new System.Windows.Forms.DataGridView();
             this.dgvStaff = new System.Windows.Forms.DataGridView();
             this.btnEmail = new System.Windows.Forms.Button();
+            this.lblGraphTitle = new System.Windows.Forms.Label();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -63,10 +64,10 @@
             this.tabEngineering.Controls.Add(this.tabPage1);
             this.tabEngineering.Controls.Add(this.tabPage2);
             this.tabEngineering.Controls.Add(this.tabPage3);
-            this.tabEngineering.Location = new System.Drawing.Point(15, 232);
+            this.tabEngineering.Location = new System.Drawing.Point(15, 240);
             this.tabEngineering.Name = "tabEngineering";
             this.tabEngineering.SelectedIndex = 0;
-            this.tabEngineering.Size = new System.Drawing.Size(1217, 339);
+            this.tabEngineering.Size = new System.Drawing.Size(1217, 331);
             this.tabEngineering.TabIndex = 4;
             this.tabEngineering.SelectedIndexChanged += new System.EventHandler(this.tabEngineering_SelectedIndexChanged);
             // 
@@ -76,7 +77,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1209, 313);
+            this.tabPage1.Size = new System.Drawing.Size(1209, 305);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Programming Lateness";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -88,7 +89,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.elementHost1.Location = new System.Drawing.Point(4, 6);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1199, 301);
+            this.elementHost1.Size = new System.Drawing.Size(1199, 293);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.cartesianChart1;
@@ -251,6 +252,18 @@
             this.btnEmail.UseVisualStyleBackColor = true;
             this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
             // 
+            // lblGraphTitle
+            // 
+            this.lblGraphTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblGraphTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.lblGraphTitle.Location = new System.Drawing.Point(19, 215);
+            this.lblGraphTitle.Name = "lblGraphTitle";
+            this.lblGraphTitle.Size = new System.Drawing.Size(1209, 29);
+            this.lblGraphTitle.TabIndex = 27;
+            this.lblGraphTitle.Text = "Programming Lateness";
+            this.lblGraphTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmEngineeringManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -265,6 +278,7 @@
             this.Controls.Add(this.rdoMonthly);
             this.Controls.Add(this.rdoWeekly);
             this.Controls.Add(this.tabEngineering);
+            this.Controls.Add(this.lblGraphTitle);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmEngineeringManagement";
             this.Text = "Engineering Manager KPI";
@@ -298,5 +312,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private LiveCharts.WinForms.CartesianChart cartesianChart3;
         private System.Windows.Forms.Button btnEmail;
+        private System.Windows.Forms.Label lblGraphTitle;
     }
 }

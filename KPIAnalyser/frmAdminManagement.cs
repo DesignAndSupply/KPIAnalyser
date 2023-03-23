@@ -1632,6 +1632,14 @@ namespace KPIAnalyser
             mailItem.HTMLBody = msgHTMLBody;
             mailItem.Display(true);
         }
+
+        private void tabEngineering_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabEngineering.SelectedIndex == 0)
+                lblGraphTitle.Text = "Booked in on Time";
+            if (tabEngineering.SelectedIndex == 1)
+                lblGraphTitle.Text = "Acknowledged on time";
+        }
     }
 }
 

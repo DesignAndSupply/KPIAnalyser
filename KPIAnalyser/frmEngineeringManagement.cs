@@ -1603,6 +1603,15 @@ namespace KPIAnalyser
                 dgvDepartment.Visible = false;
                 dgvStaff.Visible = false;
             }
+
+            if (tabEngineering.SelectedIndex == 0)
+                lblGraphTitle.Text = "Programming Lateness";
+            if (tabEngineering.SelectedIndex == 1)
+                lblGraphTitle.Text = "Remake Frequency";
+            if (tabEngineering.SelectedIndex == 2)
+                lblGraphTitle.Text = "Remakes Returned";
+
+
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

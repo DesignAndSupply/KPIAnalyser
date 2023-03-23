@@ -2995,6 +2995,16 @@ namespace KPIAnalyser
                 dgvStaff.Visible = false;
                 dgvRepaintRemake.Visible = false;
             }
+
+            if (tabEngineering.SelectedIndex == 0)
+                lblGraphTitle.Text = "Completed on Time";
+            if (tabEngineering.SelectedIndex == 1)
+                lblGraphTitle.Text = "Absenteeism";
+            if (tabEngineering.SelectedIndex == 2)
+                lblGraphTitle.Text = "Repaints";
+            if (tabEngineering.SelectedIndex == 3)
+                lblGraphTitle.Text = "Remake/Repaint Value";
+
         }
 
         private void dgvDepartment_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

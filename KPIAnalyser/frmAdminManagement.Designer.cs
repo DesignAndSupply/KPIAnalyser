@@ -42,6 +42,7 @@
             this.rdoMonthly = new System.Windows.Forms.RadioButton();
             this.rdoWeekly = new System.Windows.Forms.RadioButton();
             this.btnEmail = new System.Windows.Forms.Button();
+            this.lblGraphTitle = new System.Windows.Forms.Label();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -59,6 +60,7 @@
             this.tabEngineering.SelectedIndex = 0;
             this.tabEngineering.Size = new System.Drawing.Size(1265, 527);
             this.tabEngineering.TabIndex = 5;
+            this.tabEngineering.SelectedIndexChanged += new System.EventHandler(this.tabEngineering_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -91,7 +93,7 @@
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Size = new System.Drawing.Size(1257, 501);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Acknowledge on time";
+            this.tabPage2.Text = "Acknowledged on time";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -101,7 +103,7 @@
             this.label1.ForeColor = System.Drawing.Color.IndianRed;
             this.label1.Location = new System.Drawing.Point(3, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(437, 16);
+            this.label1.Size = new System.Drawing.Size(436, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "*** Acknowledgement sent within 8 hours of the assessing date";
             // 
@@ -184,6 +186,18 @@
             this.btnEmail.UseVisualStyleBackColor = true;
             this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
             // 
+            // lblGraphTitle
+            // 
+            this.lblGraphTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblGraphTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.lblGraphTitle.Location = new System.Drawing.Point(16, 94);
+            this.lblGraphTitle.Name = "lblGraphTitle";
+            this.lblGraphTitle.Size = new System.Drawing.Size(1257, 29);
+            this.lblGraphTitle.TabIndex = 28;
+            this.lblGraphTitle.Text = "Booked in on Time";
+            this.lblGraphTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmAdminManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -196,6 +210,7 @@
             this.Controls.Add(this.rdoMonthly);
             this.Controls.Add(this.rdoWeekly);
             this.Controls.Add(this.tabEngineering);
+            this.Controls.Add(this.lblGraphTitle);
             this.Name = "frmAdminManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAdminManagement";
@@ -226,5 +241,6 @@
         private LiveCharts.Wpf.CartesianChart cartesianChart2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnEmail;
+        private System.Windows.Forms.Label lblGraphTitle;
     }
 }
