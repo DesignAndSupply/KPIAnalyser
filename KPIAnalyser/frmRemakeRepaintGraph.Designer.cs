@@ -34,6 +34,7 @@
             this.lblRemakes = new System.Windows.Forms.Label();
             this.btnEmail = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.btnAllDepartments = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // repaintChart
@@ -87,8 +88,9 @@
             // 
             // btnEmail
             // 
+            this.btnEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.btnEmail.Location = new System.Drawing.Point(1357, 8);
+            this.btnEmail.Location = new System.Drawing.Point(1140, 5);
             this.btnEmail.Name = "btnEmail";
             this.btnEmail.Size = new System.Drawing.Size(91, 28);
             this.btnEmail.TabIndex = 7;
@@ -98,8 +100,9 @@
             // 
             // btnPrint
             // 
+            this.btnPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.btnPrint.Location = new System.Drawing.Point(1260, 8);
+            this.btnPrint.Location = new System.Drawing.Point(1043, 5);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(91, 28);
             this.btnPrint.TabIndex = 8;
@@ -107,11 +110,24 @@
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // btnAllDepartments
+            // 
+            this.btnAllDepartments.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAllDepartments.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnAllDepartments.Location = new System.Drawing.Point(1237, 5);
+            this.btnAllDepartments.Name = "btnAllDepartments";
+            this.btnAllDepartments.Size = new System.Drawing.Size(214, 28);
+            this.btnAllDepartments.TabIndex = 9;
+            this.btnAllDepartments.Text = "Email Multiple Departments";
+            this.btnAllDepartments.UseVisualStyleBackColor = true;
+            this.btnAllDepartments.Click += new System.EventHandler(this.btnAllDepartments_Click);
+            // 
             // frmRemakeRepaintGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1463, 996);
+            this.Controls.Add(this.btnAllDepartments);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.lblRemakes);
@@ -134,5 +150,6 @@
         private System.Windows.Forms.Label lblRemakes;
         private System.Windows.Forms.Button btnEmail;
         private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Button btnAllDepartments;
     }
 }

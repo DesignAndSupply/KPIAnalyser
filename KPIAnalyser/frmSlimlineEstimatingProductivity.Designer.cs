@@ -59,6 +59,8 @@
             this.lblSales = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
+            this.chaseGague = new LiveCharts.WinForms.AngularGauge();
+            this.lblChase = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -99,6 +101,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chaseGague);
+            this.groupBox1.Controls.Add(this.lblChase);
             this.groupBox1.Controls.Add(this.absentDays);
             this.groupBox1.Controls.Add(this.annualLeave);
             this.groupBox1.Controls.Add(this.dailyItemsGuage);
@@ -362,6 +366,24 @@
             this.cartesianChart2.TabIndex = 46;
             this.cartesianChart2.Text = "cartesianChart2";
             // 
+            // chaseGague
+            // 
+            this.chaseGague.Location = new System.Drawing.Point(446, 267);
+            this.chaseGague.Name = "chaseGague";
+            this.chaseGague.Size = new System.Drawing.Size(193, 186);
+            this.chaseGague.TabIndex = 35;
+            this.chaseGague.Text = "~~~~~~~~~~~~";
+            // 
+            // lblChase
+            // 
+            this.lblChase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChase.Location = new System.Drawing.Point(442, 244);
+            this.lblChase.Name = "lblChase";
+            this.lblChase.Size = new System.Drawing.Size(197, 20);
+            this.lblChase.TabIndex = 36;
+            this.lblChase.Text = "Average Chases:";
+            this.lblChase.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmSlimlineEstimatingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -434,5 +456,7 @@
         private System.Windows.Forms.Label lblSales;
         private System.Windows.Forms.Label label6;
         private LiveCharts.WinForms.CartesianChart cartesianChart2;
+        private LiveCharts.WinForms.AngularGauge chaseGague;
+        private System.Windows.Forms.Label lblChase;
     }
 }

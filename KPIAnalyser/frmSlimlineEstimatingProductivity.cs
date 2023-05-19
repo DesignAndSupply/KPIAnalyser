@@ -46,6 +46,31 @@ namespace KPIAnalyser
             //
 
 
+
+            //FORMAT chase  guage
+            chaseGague.Sections.Add(new AngularSection
+            {
+                FromValue = 0,
+                ToValue = 5,
+                Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(247, 166, 37))
+            });
+            chaseGague.Sections.Add(new AngularSection
+            {
+                FromValue = 5,
+                ToValue = 20,
+                Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(254, 57, 57))
+            });
+            chaseGague.FromValue = 0;
+            chaseGague.ToValue = 20;
+            chaseGague.TicksForeground = Brushes.White;
+            chaseGague.Base.Foreground = Brushes.White;
+            chaseGague.Base.FontWeight = System.Windows.FontWeights.Bold;
+            chaseGague.Base.FontSize = 12;
+            chaseGague.SectionsInnerRadius = 0.5;
+            /////
+            ///
+
+
             cmbStaffMember.SelectedIndex = 0;
             //FORMAT ABSENT GUAGE
             absentGuage.Sections.Add(new AngularSection
@@ -785,7 +810,51 @@ namespace KPIAnalyser
             averageDailyItems();
             drawDailyValue();
             drawDailychase();
+
+            averageChase();
         }
+
+        private void averageChase()
+        {
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = cmbStaffMember.Text;
+
+
+            double estimatorIssues = 0;
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("usp_kpi_estimator_chase_slimline", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
+            cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
+            cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
+
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                try
+                {
+                    estimatorIssues = reader.GetDouble(0);
+                }
+                catch
+                {
+                    estimatorIssues = 0;
+                }
+
+            }
+
+            chaseGague.Value = estimatorIssues;
+
+            lblChase.Text = "Average Chases: " + estimatorIssues;
+            conn.Close();
+        }
+
 
         private void groupBox2_Enter(object sender, EventArgs e)
         {

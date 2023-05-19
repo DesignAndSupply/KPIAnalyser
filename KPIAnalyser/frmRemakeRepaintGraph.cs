@@ -267,5 +267,11 @@ namespace KPIAnalyser
             btnPrint.Visible = true;
             btnEmail.Visible = true;
         }
+
+        private void btnAllDepartments_Click(object sender, EventArgs e)
+        {
+            frmRemakeRepaintMultipleSelection frm = new frmRemakeRepaintMultipleSelection(startDate,endDate);
+            frm.ShowDialog();
+        }
     }
 }

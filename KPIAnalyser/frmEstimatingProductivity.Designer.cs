@@ -355,13 +355,13 @@
             // 
             // lblDailyAverage
             // 
-            this.lblDailyAverage.AutoSize = true;
             this.lblDailyAverage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDailyAverage.Location = new System.Drawing.Point(31, 220);
+            this.lblDailyAverage.Location = new System.Drawing.Point(13, 220);
             this.lblDailyAverage.Name = "lblDailyAverage";
-            this.lblDailyAverage.Size = new System.Drawing.Size(154, 20);
+            this.lblDailyAverage.Size = new System.Drawing.Size(216, 20);
             this.lblDailyAverage.TabIndex = 22;
             this.lblDailyAverage.Text = "Daily Average Items:";
+            this.lblDailyAverage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // problemsGuage
             // 
@@ -373,13 +373,13 @@
             // 
             // lblEstimatorissues
             // 
-            this.lblEstimatorissues.AutoSize = true;
             this.lblEstimatorissues.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstimatorissues.Location = new System.Drawing.Point(50, 414);
+            this.lblEstimatorissues.Location = new System.Drawing.Point(0, 414);
             this.lblEstimatorissues.Name = "lblEstimatorissues";
-            this.lblEstimatorissues.Size = new System.Drawing.Size(112, 20);
+            this.lblEstimatorissues.Size = new System.Drawing.Size(229, 20);
             this.lblEstimatorissues.TabIndex = 24;
-            this.lblEstimatorissues.Text = "Issues logged:";
+            this.lblEstimatorissues.Text = "Average Correspondence:";
+            this.lblEstimatorissues.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuStrip1
             // 

@@ -172,11 +172,11 @@ namespace KPIAnalyser
             problemsGuage.Sections.Add(new AngularSection
             {
                 FromValue = 5,
-                ToValue = 50,
+                ToValue = 20,
                 Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(254, 57, 57))
             });
             problemsGuage.FromValue = 0;
-            problemsGuage.ToValue = 50;
+            problemsGuage.ToValue = 20;
             problemsGuage.TicksForeground = Brushes.White;
             problemsGuage.Base.Foreground = Brushes.White;
             problemsGuage.Base.FontWeight = System.Windows.FontWeights.Bold;
@@ -203,7 +203,11 @@ namespace KPIAnalyser
             drawTopCustomersByvalue(); //done
             absentHolidaysLate(); //done
             averageDailyItems(); //done but doesnt really work
-            countEstimatorIssues(); //cant  really be done
+
+            //countEstimatorIssues(); //cant  really be done
+
+            estimatorCorrespondence();
+
             drawTopDoorTypes();
             drawDailyItems();
         }
@@ -1499,6 +1503,47 @@ namespace KPIAnalyser
             frmEstimatorWorkload frm = new frmEstimatorWorkload();
             frm.ShowDialog();
         }
+        private void estimatorCorrespondence()
+        {
+            string startdate = dteStart.Value.ToString("yyyyMMdd");
+            string enddate = dteEnd.Value.ToString("yyyyMMdd");
+            string staffName = cmbStaffMember.Text;
+
+
+            double estimatorIssues = 0;
+
+
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("usp_kpi_estimator_correspondence", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@staffName", SqlDbType.NVarChar).Value = staffName;
+            cmd.Parameters.Add("@startDate", SqlDbType.NVarChar).Value = startdate;
+            cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
+
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                try
+                {
+                    estimatorIssues = reader.GetDouble(0);
+                }
+                catch
+                {
+                    estimatorIssues = 0;
+                }
+
+            }
+
+            problemsGuage.Value = estimatorIssues;
+
+            lblEstimatorissues.Text = "Average Correspondence: " + estimatorIssues;
+            conn.Close();
+        }
+
     }
 }
 
