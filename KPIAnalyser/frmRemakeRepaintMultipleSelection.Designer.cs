@@ -50,11 +50,10 @@
             this.chkRepaintProgramming = new System.Windows.Forms.CheckBox();
             this.chkRepaintSlBuff = new System.Windows.Forms.CheckBox();
             this.chkRepaintBuffing = new System.Windows.Forms.CheckBox();
-            this.btnEmailRemakes = new System.Windows.Forms.Button();
-            this.btnEmailRepaints = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnEmail = new System.Windows.Forms.Button();
             this.dgvExcelTemp = new System.Windows.Forms.DataGridView();
+            this.btnOpenExcel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExcelTemp)).BeginInit();
@@ -239,7 +238,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.groupBox2.Location = new System.Drawing.Point(308, 69);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(271, 198);
+            this.groupBox2.Size = new System.Drawing.Size(271, 260);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Repaint Department Selection";
@@ -340,26 +339,6 @@
             this.chkRepaintBuffing.Text = "Buffing";
             this.chkRepaintBuffing.UseVisualStyleBackColor = true;
             // 
-            // btnEmailRemakes
-            // 
-            this.btnEmailRemakes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.btnEmailRemakes.Location = new System.Drawing.Point(12, 335);
-            this.btnEmailRemakes.Name = "btnEmailRemakes";
-            this.btnEmailRemakes.Size = new System.Drawing.Size(271, 41);
-            this.btnEmailRemakes.TabIndex = 14;
-            this.btnEmailRemakes.Text = "Email Remakes";
-            this.btnEmailRemakes.UseVisualStyleBackColor = true;
-            // 
-            // btnEmailRepaints
-            // 
-            this.btnEmailRepaints.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.btnEmailRepaints.Location = new System.Drawing.Point(308, 273);
-            this.btnEmailRepaints.Name = "btnEmailRepaints";
-            this.btnEmailRepaints.Size = new System.Drawing.Size(271, 41);
-            this.btnEmailRepaints.TabIndex = 15;
-            this.btnEmailRepaints.Text = "Email Repaints";
-            this.btnEmailRepaints.UseVisualStyleBackColor = true;
-            // 
             // lblTitle
             // 
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
@@ -373,11 +352,11 @@
             // btnEmail
             // 
             this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.btnEmail.Location = new System.Drawing.Point(148, 445);
+            this.btnEmail.Location = new System.Drawing.Point(308, 335);
             this.btnEmail.Name = "btnEmail";
             this.btnEmail.Size = new System.Drawing.Size(271, 41);
             this.btnEmail.TabIndex = 17;
-            this.btnEmail.Text = "Email !!!!!!!";
+            this.btnEmail.Text = "Email Excel";
             this.btnEmail.UseVisualStyleBackColor = true;
             this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
             // 
@@ -390,22 +369,32 @@
             this.dgvExcelTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvExcelTemp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvExcelTemp.Location = new System.Drawing.Point(596, 9);
+            this.dgvExcelTemp.Location = new System.Drawing.Point(596, -263);
             this.dgvExcelTemp.Name = "dgvExcelTemp";
             this.dgvExcelTemp.RowHeadersVisible = false;
-            this.dgvExcelTemp.Size = new System.Drawing.Size(667, 634);
+            this.dgvExcelTemp.Size = new System.Drawing.Size(0, 634);
             this.dgvExcelTemp.TabIndex = 47;
+            // 
+            // btnOpenExcel
+            // 
+            this.btnOpenExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnOpenExcel.Location = new System.Drawing.Point(16, 335);
+            this.btnOpenExcel.Name = "btnOpenExcel";
+            this.btnOpenExcel.Size = new System.Drawing.Size(271, 41);
+            this.btnOpenExcel.TabIndex = 48;
+            this.btnOpenExcel.Text = "Open Excel";
+            this.btnOpenExcel.UseVisualStyleBackColor = true;
+            this.btnOpenExcel.Click += new System.EventHandler(this.btnOpenExcel_Click);
             // 
             // frmRemakeRepaintMultipleSelection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1275, 655);
+            this.ClientSize = new System.Drawing.Size(589, 383);
+            this.Controls.Add(this.btnOpenExcel);
             this.Controls.Add(this.dgvExcelTemp);
             this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnEmailRepaints);
-            this.Controls.Add(this.btnEmailRemakes);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
@@ -446,10 +435,9 @@
         private System.Windows.Forms.CheckBox chkRepaintProgramming;
         private System.Windows.Forms.CheckBox chkRepaintSlBuff;
         private System.Windows.Forms.CheckBox chkRepaintBuffing;
-        private System.Windows.Forms.Button btnEmailRemakes;
-        private System.Windows.Forms.Button btnEmailRepaints;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnEmail;
         private System.Windows.Forms.DataGridView dgvExcelTemp;
+        private System.Windows.Forms.Button btnOpenExcel;
     }
 }
