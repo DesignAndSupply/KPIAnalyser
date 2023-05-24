@@ -270,7 +270,7 @@ namespace KPIAnalyser
 
         private void btnAllDepartments_Click(object sender, EventArgs e)
         {
-            frmRemakeRepaintMultipleSelection frm = new frmRemakeRepaintMultipleSelection(startDate,endDate);
+            frmRemakeRepaintMultipleSelection frm = new frmRemakeRepaintMultipleSelection(startDate,endDate,slimline);
             frm.ShowDialog();
         }
     }

@@ -41,6 +41,11 @@
             this.chkRemakeSurvey = new System.Windows.Forms.CheckBox();
             this.chkRemakeNA = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkRemakeSlimlinePainting = new System.Windows.Forms.CheckBox();
+            this.chkRemakeSlimlineDispatch = new System.Windows.Forms.CheckBox();
+            this.chkRemakeSlimlineOffice = new System.Windows.Forms.CheckBox();
+            this.chkRemakeSlimlineProduction = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chkRepaintPunching = new System.Windows.Forms.CheckBox();
             this.chkRepaintWelding = new System.Windows.Forms.CheckBox();
@@ -205,6 +210,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkRemakeSlimlinePainting);
+            this.groupBox1.Controls.Add(this.chkRemakeSlimlineDispatch);
+            this.groupBox1.Controls.Add(this.chkRemakeSlimlineOffice);
+            this.groupBox1.Controls.Add(this.chkRemakeSlimlineProduction);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.chkRemakePunching);
             this.groupBox1.Controls.Add(this.chkRemakeNA);
             this.groupBox1.Controls.Add(this.chkRemakeBending);
@@ -220,10 +230,67 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.groupBox1.Location = new System.Drawing.Point(12, 69);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(271, 260);
+            this.groupBox1.Size = new System.Drawing.Size(271, 334);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Remake Department Selection";
+            // 
+            // chkRemakeSlimlinePainting
+            // 
+            this.chkRemakeSlimlinePainting.AutoSize = true;
+            this.chkRemakeSlimlinePainting.Enabled = false;
+            this.chkRemakeSlimlinePainting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.chkRemakeSlimlinePainting.Location = new System.Drawing.Point(171, 269);
+            this.chkRemakeSlimlinePainting.Name = "chkRemakeSlimlinePainting";
+            this.chkRemakeSlimlinePainting.Size = new System.Drawing.Size(78, 21);
+            this.chkRemakeSlimlinePainting.TabIndex = 15;
+            this.chkRemakeSlimlinePainting.Text = "Painting";
+            this.chkRemakeSlimlinePainting.UseVisualStyleBackColor = true;
+            // 
+            // chkRemakeSlimlineDispatch
+            // 
+            this.chkRemakeSlimlineDispatch.AutoSize = true;
+            this.chkRemakeSlimlineDispatch.Enabled = false;
+            this.chkRemakeSlimlineDispatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.chkRemakeSlimlineDispatch.Location = new System.Drawing.Point(171, 301);
+            this.chkRemakeSlimlineDispatch.Name = "chkRemakeSlimlineDispatch";
+            this.chkRemakeSlimlineDispatch.Size = new System.Drawing.Size(82, 21);
+            this.chkRemakeSlimlineDispatch.TabIndex = 16;
+            this.chkRemakeSlimlineDispatch.Text = "Dispatch";
+            this.chkRemakeSlimlineDispatch.UseVisualStyleBackColor = true;
+            // 
+            // chkRemakeSlimlineOffice
+            // 
+            this.chkRemakeSlimlineOffice.AutoSize = true;
+            this.chkRemakeSlimlineOffice.Enabled = false;
+            this.chkRemakeSlimlineOffice.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.chkRemakeSlimlineOffice.Location = new System.Drawing.Point(25, 269);
+            this.chkRemakeSlimlineOffice.Name = "chkRemakeSlimlineOffice";
+            this.chkRemakeSlimlineOffice.Size = new System.Drawing.Size(116, 21);
+            this.chkRemakeSlimlineOffice.TabIndex = 13;
+            this.chkRemakeSlimlineOffice.Text = "Slimline Office";
+            this.chkRemakeSlimlineOffice.UseVisualStyleBackColor = true;
+            // 
+            // chkRemakeSlimlineProduction
+            // 
+            this.chkRemakeSlimlineProduction.AutoSize = true;
+            this.chkRemakeSlimlineProduction.Enabled = false;
+            this.chkRemakeSlimlineProduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.chkRemakeSlimlineProduction.Location = new System.Drawing.Point(25, 301);
+            this.chkRemakeSlimlineProduction.Name = "chkRemakeSlimlineProduction";
+            this.chkRemakeSlimlineProduction.Size = new System.Drawing.Size(147, 21);
+            this.chkRemakeSlimlineProduction.TabIndex = 14;
+            this.chkRemakeSlimlineProduction.Text = "Slimline Production";
+            this.chkRemakeSlimlineProduction.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(6, 254);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(259, 1);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "label1";
             // 
             // groupBox2
             // 
@@ -236,9 +303,9 @@
             this.groupBox2.Controls.Add(this.chkRepaintSlBuff);
             this.groupBox2.Controls.Add(this.chkRepaintBuffing);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.groupBox2.Location = new System.Drawing.Point(308, 69);
+            this.groupBox2.Location = new System.Drawing.Point(289, 69);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(271, 260);
+            this.groupBox2.Size = new System.Drawing.Size(271, 334);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Repaint Department Selection";
@@ -344,7 +411,7 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
             this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(567, 37);
+            this.lblTitle.Size = new System.Drawing.Size(548, 37);
             this.lblTitle.TabIndex = 16;
             this.lblTitle.Text = "Date Range:";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -352,9 +419,9 @@
             // btnEmail
             // 
             this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.btnEmail.Location = new System.Drawing.Point(308, 335);
+            this.btnEmail.Location = new System.Drawing.Point(287, 409);
             this.btnEmail.Name = "btnEmail";
-            this.btnEmail.Size = new System.Drawing.Size(271, 41);
+            this.btnEmail.Size = new System.Drawing.Size(124, 41);
             this.btnEmail.TabIndex = 17;
             this.btnEmail.Text = "Email Excel";
             this.btnEmail.UseVisualStyleBackColor = true;
@@ -369,7 +436,7 @@
             this.dgvExcelTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvExcelTemp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvExcelTemp.Location = new System.Drawing.Point(596, -263);
+            this.dgvExcelTemp.Location = new System.Drawing.Point(596, -187);
             this.dgvExcelTemp.Name = "dgvExcelTemp";
             this.dgvExcelTemp.RowHeadersVisible = false;
             this.dgvExcelTemp.Size = new System.Drawing.Size(0, 634);
@@ -378,9 +445,9 @@
             // btnOpenExcel
             // 
             this.btnOpenExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.btnOpenExcel.Location = new System.Drawing.Point(16, 335);
+            this.btnOpenExcel.Location = new System.Drawing.Point(157, 409);
             this.btnOpenExcel.Name = "btnOpenExcel";
-            this.btnOpenExcel.Size = new System.Drawing.Size(271, 41);
+            this.btnOpenExcel.Size = new System.Drawing.Size(124, 41);
             this.btnOpenExcel.TabIndex = 48;
             this.btnOpenExcel.Text = "Open Excel";
             this.btnOpenExcel.UseVisualStyleBackColor = true;
@@ -390,7 +457,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 383);
+            this.ClientSize = new System.Drawing.Size(569, 459);
             this.Controls.Add(this.btnOpenExcel);
             this.Controls.Add(this.dgvExcelTemp);
             this.Controls.Add(this.btnEmail);
@@ -439,5 +506,10 @@
         private System.Windows.Forms.Button btnEmail;
         private System.Windows.Forms.DataGridView dgvExcelTemp;
         private System.Windows.Forms.Button btnOpenExcel;
+        private System.Windows.Forms.CheckBox chkRemakeSlimlinePainting;
+        private System.Windows.Forms.CheckBox chkRemakeSlimlineDispatch;
+        private System.Windows.Forms.CheckBox chkRemakeSlimlineOffice;
+        private System.Windows.Forms.CheckBox chkRemakeSlimlineProduction;
+        private System.Windows.Forms.Label label1;
     }
 }

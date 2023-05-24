@@ -25,7 +25,8 @@ namespace KPIAnalyser
         public int repaint_selected { get; set; }
         public string remake_sheet_name { get; set; }
         public string repaint_sheet_name { get; set; }
-        public frmRemakeRepaintMultipleSelection(DateTime _start_date, DateTime _end_date)
+        public int slimline { get; set; }
+        public frmRemakeRepaintMultipleSelection(DateTime _start_date, DateTime _end_date, int _slimline)
         {
             InitializeComponent();
             start_date = _start_date;
@@ -33,6 +34,8 @@ namespace KPIAnalyser
 
             remake_selected = 0;
             repaint_selected = 0;
+
+            slimline = _slimline;
 
             lblTitle.Text = "Date Range: " + start_date.ToString("dd/MM/yyyy") + " to " + end_date.ToString("dd/MM/yyyy");
 
@@ -55,8 +58,11 @@ namespace KPIAnalyser
                       "left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
                       "left join dbo.door d on  remake.door_id = d.id " +
                       "left join dbo.door_type dt on d.door_type_id = dt.id " +
-                      "where [date] >= '" + start_date.ToString("yyyyMMdd") + "' AND [date] < '" + end_date.ToString("yyyyMMdd") + "' AND " +
-                      "(dt.slimline_y_n = 0 or dt.slimline_y_n is null)";
+                      "where [date] >= '" + start_date.ToString("yyyyMMdd") + "' AND [date] < '" + end_date.ToString("yyyyMMdd") + "' AND ";
+                if (slimline == 0)
+                    sql = sql + " (dt.slimline_y_n = 0 or dt.slimline_y_n is null)";
+                else
+                    sql = sql + " (dt.slimline_y_n = -1)";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
@@ -66,30 +72,45 @@ namespace KPIAnalyser
 
                     foreach (DataRow row in dt.Rows)
                     {
-                        if (row[0].ToString() == "Punching")
-                            chkRemakePunching.Enabled = true;
-                        if (row[0].ToString() == "Bending")
-                            chkRemakeBending.Enabled = true;
-                        if (row[0].ToString() == "Welding")
-                            chkRemakeWelding.Enabled = true;
-                        if (row[0].ToString() == "Dressing")
-                            chkRemakeBuffing.Enabled = true;
-                        if (row[0].ToString() == "Painting")
-                            chkRemakePainting.Enabled = true;
-                        if (row[0].ToString() == "Packing")
-                            chkRemakePacking.Enabled = true;
-                        if (row[0].ToString() == "Dispatch")
-                            chkRemakeDispatch.Enabled = true;
-                        if (row[0].ToString() == "Estimating")
-                            chkRemakeEstimating.Enabled = true;
-                        if (row[0].ToString() == "Programming")
-                            chkRemakeProgramming.Enabled = true;
-                        if (row[0].ToString() == "Survey")
-                            chkRemakeSurvey.Enabled = true;
-                        if (row[0].ToString() == "External")
-                            chkRemakeExternal.Enabled = true;
-                        if (row[0].ToString() == "N/A")
-                            chkRemakeNA.Enabled = true;
+                        if (slimline == 0)
+                        {
+                            if (row[0].ToString() == "Punching")
+                                chkRemakePunching.Enabled = true;
+                            if (row[0].ToString() == "Bending")
+                                chkRemakeBending.Enabled = true;
+                            if (row[0].ToString() == "Welding")
+                                chkRemakeWelding.Enabled = true;
+                            if (row[0].ToString() == "Dressing")
+                                chkRemakeBuffing.Enabled = true;
+                            if (row[0].ToString() == "Painting")
+                                chkRemakePainting.Enabled = true;
+                            if (row[0].ToString() == "Packing")
+                                chkRemakePacking.Enabled = true;
+                            if (row[0].ToString() == "Dispatch")
+                                chkRemakeDispatch.Enabled = true;
+                            if (row[0].ToString() == "Estimating")
+                                chkRemakeEstimating.Enabled = true;
+                            if (row[0].ToString() == "Programming")
+                                chkRemakeProgramming.Enabled = true;
+                            if (row[0].ToString() == "Survey")
+                                chkRemakeSurvey.Enabled = true;
+                            if (row[0].ToString() == "External")
+                                chkRemakeExternal.Enabled = true;
+                            if (row[0].ToString() == "N/A")
+                                chkRemakeNA.Enabled = true;
+                        }
+                        else
+                        {
+                            //slimline check boxes
+                            if (row[0].ToString() == "Slimline Office")
+                                chkRemakeSlimlineOffice.Enabled = true;
+                            if (row[0].ToString() == "Slimline Production")
+                                chkRemakeSlimlineProduction.Enabled = true;
+                            if (row[0].ToString() == "Painting")
+                                chkRemakeSlimlinePainting.Enabled = true;
+                            if (row[0].ToString() == "Dispatch")
+                                chkRemakeSlimlineDispatch.Enabled = true;
+                        }
                     }
 
                 }
@@ -103,8 +124,11 @@ namespace KPIAnalyser
                     "left join[dsl_kpi].dbo.department dept on dept.id = r.department  " +
                     "left join [user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id  " +
                     "left join dbo.door_type dt on d.door_type_id = dt.id " +
-                    "WHERE CAST(date_logged as date) >= '" + start_date.ToString("yyyyMMdd") + "' AND CAST(date_logged as date) <= '" + end_date.ToString("yyyyMMdd") + "' " +
-                    "AND (slimline_y_n = 0 or slimline_y_n is null)";
+                    "WHERE CAST(date_logged as date) >= '" + start_date.ToString("yyyyMMdd") + "' AND CAST(date_logged as date) <= '" + end_date.ToString("yyyyMMdd") + "' ";
+                if (slimline == 0)
+                    sql = sql + "AND (slimline_y_n = 0 or slimline_y_n is null)";
+                else
+                    sql = sql + "AND (slimline_y_n = -1)";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
@@ -114,22 +138,24 @@ namespace KPIAnalyser
 
                     foreach (DataRow row in dt.Rows)
                     {
-                        if (row[0].ToString() == "Punching")
-                            chkRepaintPunching.Enabled = true;
-                        if (row[0].ToString() == "Welding")
-                            chkRepaintWelding.Enabled = true;
-                        if (row[0].ToString() == "Dressing")
-                            chkRepaintBuffing.Enabled = true;
-                        if (row[0].ToString() == "Painting")
-                            chkRepaintPainting.Enabled = true;
-                        if (row[0].ToString() == "Packing")
-                            chkRepaintPacking.Enabled = true;
-                        if (row[0].ToString() == "Office")
-                            chkRepaintOffice.Enabled = true;
-                        if (row[0].ToString() == "Programming")
-                            chkRepaintProgramming.Enabled = true;
-                        if (row[0].ToString() == "SL Buff")
-                            chkRepaintSlBuff.Enabled = true;
+                     
+                            if (row[0].ToString() == "Punching")
+                                chkRepaintPunching.Enabled = true;
+                            if (row[0].ToString() == "Welding")
+                                chkRepaintWelding.Enabled = true;
+                            if (row[0].ToString() == "Dressing")
+                                chkRepaintBuffing.Enabled = true;
+                            if (row[0].ToString() == "Painting")
+                                chkRepaintPainting.Enabled = true;
+                            if (row[0].ToString() == "Packing")
+                                chkRepaintPacking.Enabled = true;
+                            if (row[0].ToString() == "Office")
+                                chkRepaintOffice.Enabled = true;
+                            if (row[0].ToString() == "Programming")
+                                chkRepaintProgramming.Enabled = true;
+                            if (row[0].ToString() == "SL Buff")
+                                chkRepaintSlBuff.Enabled = true;
+      
                     }
 
                 }
@@ -253,8 +279,11 @@ namespace KPIAnalyser
                          "left join [user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id  " +
                          "left join dbo.door_type dt on d.door_type_id = dt.id " +
                          "WHERE  date_logged >= '" + start_date.ToString("yyyyMMdd") + "' AND date_logged < '" + end_date.ToString("yyyyMMdd") + "' " +
-                         "AND (dt.slimline_y_n = 0 or dt.slimline_y_n is null) " +
-                         "and dept.department_name = '" + repaintDepartmentList[sheetNumber - 1].ToString() + "'";
+                         "and dept.department_name = '" + repaintDepartmentList[sheetNumber - 1].ToString() + "' ";
+                if (slimline == 0)
+                    repaint_sql = repaint_sql + "AND (dt.slimline_y_n = 0 or dt.slimline_y_n is null) ";
+                else
+                    repaint_sql = repaint_sql + "AND (dt.slimline_y_n = -1) ";
 
                 using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
                 {
@@ -351,9 +380,9 @@ namespace KPIAnalyser
                             range.Borders.Color = ColorTranslator.ToOle(Color.Black);
 
 
-                            //make column C a certain length
-                            xlWorkSheet.Columns[3].ColumnWidth = 98.14;
-                            xlWorkSheet.Columns[3].WrapText = true;
+                            ////make column C a certain length
+                            //xlWorkSheet.Columns[3].ColumnWidth = 98.14;
+                            //xlWorkSheet.Columns[3].WrapText = true;
 
                             //releaseObject(xlWorkSheet);
                             //releaseObject(xlWorkBook);
@@ -498,6 +527,34 @@ namespace KPIAnalyser
                     remakeSheetNumber.Add(remakeCount);
                     remake_selected++;
                 }
+                if (chkRemakeSlimlineOffice.Checked == true)
+                {
+                    remakeCount++;
+                    remakeDepartmentList.Add("Slimline Office");
+                    remakeSheetNumber.Add(remakeCount);
+                    remake_selected++;
+                }
+                if (chkRemakeSlimlineProduction.Checked == true)
+                {
+                    remakeCount++;
+                    remakeDepartmentList.Add("Slimline Production");
+                    remakeSheetNumber.Add(remakeCount);
+                    remake_selected++;
+                }
+                if (chkRemakeSlimlinePainting.Checked == true)
+                {
+                    remakeCount++;
+                    remakeDepartmentList.Add("Painting");
+                    remakeSheetNumber.Add(remakeCount);
+                    remake_selected++;
+                }
+                if (chkRemakeSlimlineDispatch.Checked == true)
+                {
+                    remakeCount++;
+                    remakeDepartmentList.Add("Dispatch");
+                    remakeSheetNumber.Add(remakeCount);
+                    remake_selected++;
+                }
                 if (remake_selected == 0)
                     return;
             }
@@ -534,7 +591,11 @@ namespace KPIAnalyser
                             "left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
                             "left join dbo.door_type dt on door.door_type_id = dt.id " +
                             "where [date] >= '" + start_date.ToString("yyyyMMdd") + "' AND[date] < '" + end_date.ToString("yyyyMMdd") + "' " +
-                            "AND d1.department_name = '" + remakeDepartmentList[sheetNumber - 1].ToString() + "' AND (dt.slimline_y_n = 0 or dt.slimline_y_n is null) ";
+                            "AND d1.department_name = '" + remakeDepartmentList[sheetNumber - 1].ToString() + "'";
+                if (slimline == 0)
+                remake_sql = remake_sql + "AND (dt.slimline_y_n = 0 or dt.slimline_y_n is null) ";
+                else
+                    remake_sql = remake_sql + "AND (dt.slimline_y_n = -1) ";
 
                 using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
                 {
@@ -753,7 +814,7 @@ namespace KPIAnalyser
 
             mailItem.GetInspector.Activate();
             var signature = mailItem.HTMLBody;
-            
+
             mailItem.HTMLBody = "" /*+ signature*/ + mailItem.HTMLBody;
             mailItem.Display(true);
 
