@@ -84,7 +84,8 @@ namespace KPIAnalyser
                     repaintChart.AxisX.Add(new Axis
                     {
                         Title = "Departments",
-                        FontSize = 10,
+                        FontSize = 13,
+                        Foreground = System.Windows.Media.Brushes.Black,
                         Labels = department
                     });
 
@@ -143,7 +144,8 @@ namespace KPIAnalyser
                     remakeChart.AxisX.Add(new Axis
                     {
                         Title = "Departments",
-                        FontSize = 10,
+                        FontSize = 13,
+                        Foreground = System.Windows.Media.Brushes.Black,
                         Labels = department
                     });
 

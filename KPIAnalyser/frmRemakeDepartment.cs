@@ -76,7 +76,8 @@ namespace KPIAnalyser
                 new ColumnSeries
                 {
                     Title = type,
-                    FontSize = 10,
+                                     FontSize = 13,
+                        Foreground = System.Windows.Media.Brushes.Black,
                     DataLabels = true,
                     
                     Fill = System.Windows.Media.Brushes.Green,

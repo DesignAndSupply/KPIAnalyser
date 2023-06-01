@@ -176,7 +176,8 @@ namespace KPIAnalyser
                     repaintRemakeChart.AxisX.Add(new Axis
                     {
                         Title = "Staff",
-                        FontSize = 10,
+                        FontSize = 13,
+                        Foreground = System.Windows.Media.Brushes.Black,
                         Labels = department
                     });
 
