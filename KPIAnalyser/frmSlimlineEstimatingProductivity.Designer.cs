@@ -33,6 +33,8 @@
             this.annualLeaveGuage = new LiveCharts.WinForms.AngularGauge();
             this.absentGuage = new LiveCharts.WinForms.AngularGauge();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chaseGague = new LiveCharts.WinForms.AngularGauge();
+            this.lblChase = new System.Windows.Forms.Label();
             this.absentDays = new System.Windows.Forms.Label();
             this.annualLeave = new System.Windows.Forms.Label();
             this.dailyItemsGuage = new LiveCharts.WinForms.AngularGauge();
@@ -59,8 +61,8 @@
             this.lblSales = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
-            this.chaseGague = new LiveCharts.WinForms.AngularGauge();
-            this.lblChase = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnA3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -116,6 +118,24 @@
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "attendance";
+            // 
+            // chaseGague
+            // 
+            this.chaseGague.Location = new System.Drawing.Point(446, 267);
+            this.chaseGague.Name = "chaseGague";
+            this.chaseGague.Size = new System.Drawing.Size(193, 186);
+            this.chaseGague.TabIndex = 35;
+            this.chaseGague.Text = "~~~~~~~~~~~~";
+            // 
+            // lblChase
+            // 
+            this.lblChase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChase.Location = new System.Drawing.Point(442, 244);
+            this.lblChase.Name = "lblChase";
+            this.lblChase.Size = new System.Drawing.Size(197, 20);
+            this.lblChase.TabIndex = 36;
+            this.lblChase.Text = "Average Chases:";
+            this.lblChase.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // absentDays
             // 
@@ -366,29 +386,35 @@
             this.cartesianChart2.TabIndex = 46;
             this.cartesianChart2.Text = "cartesianChart2";
             // 
-            // chaseGague
+            // btnPrint
             // 
-            this.chaseGague.Location = new System.Drawing.Point(446, 267);
-            this.chaseGague.Name = "chaseGague";
-            this.chaseGague.Size = new System.Drawing.Size(193, 186);
-            this.chaseGague.TabIndex = 35;
-            this.chaseGague.Text = "~~~~~~~~~~~~";
+            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnPrint.Location = new System.Drawing.Point(15, 360);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(200, 34);
+            this.btnPrint.TabIndex = 47;
+            this.btnPrint.Text = "Print A4";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // lblChase
+            // btnA3
             // 
-            this.lblChase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChase.Location = new System.Drawing.Point(442, 244);
-            this.lblChase.Name = "lblChase";
-            this.lblChase.Size = new System.Drawing.Size(197, 20);
-            this.lblChase.TabIndex = 36;
-            this.lblChase.Text = "Average Chases:";
-            this.lblChase.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnA3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnA3.Location = new System.Drawing.Point(15, 400);
+            this.btnA3.Name = "btnA3";
+            this.btnA3.Size = new System.Drawing.Size(200, 34);
+            this.btnA3.TabIndex = 48;
+            this.btnA3.Text = "Print A3";
+            this.btnA3.UseVisualStyleBackColor = true;
+            this.btnA3.Click += new System.EventHandler(this.btnA3_Click);
             // 
             // frmSlimlineEstimatingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1775, 752);
+            this.Controls.Add(this.btnA3);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cartesianChart2);
             this.Controls.Add(this.groupBox7);
@@ -458,5 +484,7 @@
         private LiveCharts.WinForms.CartesianChart cartesianChart2;
         private LiveCharts.WinForms.AngularGauge chaseGague;
         private System.Windows.Forms.Label lblChase;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Button btnA3;
     }
 }

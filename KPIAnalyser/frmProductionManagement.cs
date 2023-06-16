@@ -159,6 +159,8 @@ namespace KPIAnalyser
                 cartesianChart1.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { "Week Commencing " + ws4.ToShortDateString(), "Week Commencing " + ws3.ToShortDateString(), "Week Commencing " + ws2.ToShortDateString(), "Week Commencing " + ws1.ToShortDateString() },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -166,6 +168,8 @@ namespace KPIAnalyser
                 cartesianChart1.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -175,6 +179,8 @@ namespace KPIAnalyser
                 {
                     Foreground = System.Windows.Media.Brushes.Orange,
                     Title = "Trend %",
+                    FontSize = 13,
+                   // Foreground = System.Windows.Media.Brushes.Black,
                     Position = AxisPosition.RightTop,
                     LabelFormatter = value => value + " % Late",
                     MinValue = 0,
@@ -280,6 +286,8 @@ namespace KPIAnalyser
                 cartesianChart2.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { "Week Commencing " + ws4.ToShortDateString(), "Week Commencing " + ws3.ToShortDateString(), "Week Commencing " + ws2.ToShortDateString(), "Week Commencing " + ws1.ToShortDateString() },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -287,6 +295,8 @@ namespace KPIAnalyser
                 cartesianChart2.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -385,6 +395,8 @@ namespace KPIAnalyser
                 cartesianChart3.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { "Week Commencing " + ws4.ToShortDateString(), "Week Commencing " + ws3.ToShortDateString(), "Week Commencing " + ws2.ToShortDateString(), "Week Commencing " + ws1.ToShortDateString() },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -392,6 +404,8 @@ namespace KPIAnalyser
                 cartesianChart3.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -401,6 +415,8 @@ namespace KPIAnalyser
                 {
                     Foreground = System.Windows.Media.Brushes.Orange,
                     Title = "Trend %",
+                    FontSize = 13,
+                    ////Foreground = System.Windows.Media.Brushes.Black,
                     Position = AxisPosition.RightTop,
                     LabelFormatter = value => value + " % Late",
                     MinValue = 0,
@@ -553,12 +569,17 @@ namespace KPIAnalyser
                 {
                     Title = "Date Range",
                     Labels = new[] { "Week Commencing " + ws4.ToShortDateString(), "Week Commencing " + ws3.ToShortDateString(), "Week Commencing " + ws2.ToShortDateString(), "Week Commencing " + ws1.ToShortDateString() },
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Separator = DefaultAxes.CleanSeparator
+
                 });
 
                 cartesianChart4.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => "£" + value + ""
                 });
 
@@ -808,6 +829,8 @@ namespace KPIAnalyser
                 cartesianChart1.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { n12, n11, n10, n9, n8, n7, n6, n5, n4, n3, n2, n1, },
                     Separator = DefaultAxes.CleanSeparator
 
@@ -816,6 +839,8 @@ namespace KPIAnalyser
                 cartesianChart1.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -824,6 +849,8 @@ namespace KPIAnalyser
                 {
                     Foreground = System.Windows.Media.Brushes.Orange,
                     Title = "Trend %",
+                    FontSize = 13,
+                    //Foreground = System.Windows.Media.Brushes.Black,
                     Position = AxisPosition.RightTop,
                     LabelFormatter = value => value + " % Late",
                     MinValue = 0,
@@ -1013,6 +1040,8 @@ namespace KPIAnalyser
                 cartesianChart2.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { n12, n11, n10, n9, n8, n7, n6, n5, n4, n3, n2, n1, },
                     Separator = DefaultAxes.CleanSeparator
 
@@ -1021,6 +1050,8 @@ namespace KPIAnalyser
                 cartesianChart2.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -1209,6 +1240,8 @@ namespace KPIAnalyser
                 cartesianChart3.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { n12, n11, n10, n9, n8, n7, n6, n5, n4, n3, n2, n1, },
                     Separator = DefaultAxes.CleanSeparator
 
@@ -1541,6 +1574,8 @@ namespace KPIAnalyser
                 cartesianChart4.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { n12, n11, n10, n9, n8, n7, n6, n5, n4, n3, n2, n1, },
                     Separator = DefaultAxes.CleanSeparator
 
@@ -1549,6 +1584,8 @@ namespace KPIAnalyser
                 cartesianChart4.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => "£" + value + ""
                 });
 
@@ -1692,6 +1729,8 @@ namespace KPIAnalyser
                 cartesianChart1.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { "Q" + n4, "Q" + n3, "Q" + n2, "Q" + n1 },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -1699,6 +1738,8 @@ namespace KPIAnalyser
                 cartesianChart1.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -1706,6 +1747,8 @@ namespace KPIAnalyser
                 {
                     Foreground = System.Windows.Media.Brushes.Orange,
                     Title = "Trend %",
+                    FontSize = 13,
+                    //Foreground = System.Windows.Media.Brushes.Black,
                     Position = AxisPosition.RightTop,
                     LabelFormatter = value => value + " % Late",
                     MinValue = 0,
@@ -1808,6 +1851,8 @@ namespace KPIAnalyser
                 cartesianChart2.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { "Q" + n4, "Q" + n3, "Q" + n2, "Q" + n1 },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -1815,6 +1860,8 @@ namespace KPIAnalyser
                 cartesianChart2.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -1913,6 +1960,8 @@ namespace KPIAnalyser
                 cartesianChart3.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { "Q" + n4, "Q" + n3, "Q" + n2, "Q" + n1 },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -1920,6 +1969,8 @@ namespace KPIAnalyser
                 cartesianChart3.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -2069,6 +2120,8 @@ namespace KPIAnalyser
                 cartesianChart4.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { "Q" + n4, "Q" + n3, "Q" + n2, "Q" + n1 },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -2076,6 +2129,8 @@ namespace KPIAnalyser
                 cartesianChart4.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => "£" + value + ""
                 });
 
@@ -2222,6 +2277,8 @@ namespace KPIAnalyser
                 cartesianChart1.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { n4, n3, n2, n1 },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -2229,6 +2286,8 @@ namespace KPIAnalyser
                 cartesianChart1.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -2237,6 +2296,8 @@ namespace KPIAnalyser
                 {
                     Foreground = System.Windows.Media.Brushes.Orange,
                     Title = "Trend %",
+                    FontSize = 13,
+                    //Foreground = System.Windows.Media.Brushes.Black,
                     Position = AxisPosition.RightTop,
                     LabelFormatter = value => value + " % Late",
                     MinValue = 0,
@@ -2345,6 +2406,8 @@ namespace KPIAnalyser
                 cartesianChart2.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { n4, n3, n2, n1 },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -2352,6 +2415,8 @@ namespace KPIAnalyser
                 cartesianChart2.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -2454,6 +2519,8 @@ namespace KPIAnalyser
                 cartesianChart3.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { n4, n3, n2, n1 },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -2461,6 +2528,8 @@ namespace KPIAnalyser
                 cartesianChart3.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => value + ""
                 });
 
@@ -2616,6 +2685,8 @@ namespace KPIAnalyser
                 cartesianChart4.AxisX.Add(new Axis
                 {
                     Title = "Date Range",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     Labels = new[] { n4, n3, n2, n1 },
                     Separator = DefaultAxes.CleanSeparator
                 });
@@ -2623,6 +2694,8 @@ namespace KPIAnalyser
                 cartesianChart4.AxisY.Add(new Axis
                 {
                     Title = "Output",
+                    FontSize = 13,
+                    Foreground = System.Windows.Media.Brushes.Black,
                     LabelFormatter = value => "£" + value + ""
                 });
 

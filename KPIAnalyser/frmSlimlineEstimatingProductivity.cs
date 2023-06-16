@@ -24,6 +24,7 @@ namespace KPIAnalyser
 {
     public partial class frmSlimlineEstimatingProductivity : Form
     {
+        public string print_file { get; set; }
         public frmSlimlineEstimatingProductivity()
         {
             InitializeComponent();
@@ -97,11 +98,11 @@ namespace KPIAnalyser
 
             //FORMAT ANNUALLEAVE GUAGE
             annualLeaveGuage.Sections.Add(new AngularSection
-                {
-                    FromValue = 0,
-                    ToValue = 23,
-                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(247, 166, 37))
-                });
+            {
+                FromValue = 0,
+                ToValue = 23,
+                Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(247, 166, 37))
+            });
             annualLeaveGuage.Sections.Add(new AngularSection
             {
                 FromValue = 23,
@@ -183,7 +184,7 @@ namespace KPIAnalyser
             /////
             ///
 
-           
+
         }
 
         private void drawTopCustomerByItems()
@@ -235,7 +236,7 @@ namespace KPIAnalyser
             int loopcount = 1;
             while (reader.Read())
             {
-               
+
                 switch (loopcount)
                 {
                     case 1:
@@ -276,7 +277,8 @@ namespace KPIAnalyser
 
                             loopcount += 1;
                         }
-                        catch {
+                        catch
+                        {
                             c3 = "";
                             i3 = 0;
                             loopcount += 1;
@@ -305,7 +307,8 @@ namespace KPIAnalyser
 
                             loopcount += 1;
                         }
-                        catch {
+                        catch
+                        {
                             c5 = "";
                             i5 = 0;
                             loopcount += 1;
@@ -333,7 +336,8 @@ namespace KPIAnalyser
 
                             loopcount += 1;
                         }
-                        catch {
+                        catch
+                        {
                             c7 = "";
                             i7 = 0;
                             loopcount += 1;
@@ -875,6 +879,87 @@ namespace KPIAnalyser
         {
             frmEstimatorComparisonSlimline frmec = new frmEstimatorComparisonSlimline();
             frmec.Show();
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+
+            print_file = @"C:\temp\slimline_" + DateTime.Now.ToString("hh_mm_ss") + ".jpg";
+
+
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new System.Drawing.Point(0, 0), new System.Drawing.Point(0, 0), bit.Size);
+
+                bit.Save(print_file);
+
+                printImage("A4");
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void printImage(string paperType)
+        {
+            try
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += (sender, args) =>
+                {
+                    System.Drawing.Image i = System.Drawing.Image.FromFile(print_file);
+                    System.Drawing.Point p = new System.Drawing.Point(100, 100);
+                    args.Graphics.DrawImage(i, args.MarginBounds);
+
+                };
+
+                pd.DefaultPageSettings.Landscape = true;
+
+                PrinterSettings ps = new PrinterSettings();
+                IEnumerable<PaperSize> paperSizes = ps.PaperSizes.Cast<PaperSize>();
+                PaperSize type = paperSizes.First<PaperSize>(size => size.Kind == PaperKind.A4);
+                if (paperType == "A3")
+                    type = paperSizes.First<PaperSize>(size => size.Kind == PaperKind.A3);
+                else
+                    type = paperSizes.First<PaperSize>(size => size.Kind == PaperKind.A4); // setting paper size to A4 size
+                pd.DefaultPageSettings.PaperSize = type;
+
+                Margins margins = new Margins(50, 50, 50, 50);
+                pd.DefaultPageSettings.Margins = margins;
+                pd.Print();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btnA3_Click(object sender, EventArgs e)
+        {
+            print_file = @"C:\temp\slimline_" + DateTime.Now.ToString("hh_mm_ss") + ".jpg";
+
+
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new System.Drawing.Point(0, 0), new System.Drawing.Point(0, 0), bit.Size);
+
+                bit.Save(print_file);
+
+                printImage("A3");
+            }
+            catch
+            {
+
+            }
         }
     }
 }
