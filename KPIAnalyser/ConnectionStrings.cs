@@ -21,12 +21,12 @@ namespace KPIAnalyser
                      "password=Dodid1;Network Address=192.168.0.150\\sqlexpress;" +
                      "Trusted_Connection=no;" +
                      "database=complaint; " +
-                     "connection timeout=60";
+                     "connection timeout=120";
 
         public const string ConnectionStringUser = "user id=sa;" +
                                "password=Dodid1;Network Address=192.168.0.150\\sqlexpress;" +
                                "Trusted_Connection=no;" +
                                "database=user_info; " +
-                               "connection timeout=60";
+                               "connection timeout=120";
     }
 }
