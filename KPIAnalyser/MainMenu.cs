@@ -27,9 +27,9 @@ namespace KPIAnalyser
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (cmbMonth.Text == "")
-                refreshProgramming();
-            else
+            //if (cmbMonth.Text == "")
+            //    refreshProgramming();
+            //else
                 refreshData();
         }
         private void refreshProgramming()
@@ -59,10 +59,10 @@ namespace KPIAnalyser
 
         private void getCurrent()
         {
-            DateTime dateString;
+            //DateTime dateString;
 
-            DateConversion DC = new DateConversion();
-            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+            //DateConversion DC = new DateConversion();
+            //dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
             //dateString = Convert.ToDateTime("23/08/2018");
 
@@ -73,8 +73,10 @@ namespace KPIAnalyser
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@start_Date", SqlDbType.DateTime).Value = dateString;
+                    //cmd.Parameters.Add("@start_Date", SqlDbType.DateTime).Value = dateString;
 
+                    cmd.Parameters.Add("@start_Date", SqlDbType.DateTime).Value = dteStart.Value;
+                    cmd.Parameters.Add("@end_Date", SqlDbType.DateTime).Value = dteEnd.Value;
 
                     con.Open();
 
@@ -111,13 +113,13 @@ namespace KPIAnalyser
 
 
                         //Install related
-                        txtReturnInternal.Text = reader["NumberOfReturnVisitsInternal"].ToString();
-                        txtReturnExternal.Text = reader["NumberOfReturnVisitsExternal"].ToString();
-                        txtReturnValue.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["ValueOfReturnVisits"]);
+                        //txtReturnInternal.Text = reader["NumberOfReturnVisitsInternal"].ToString();
+                        //txtReturnExternal.Text = reader["NumberOfReturnVisitsExternal"].ToString();
+                        //txtReturnValue.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["ValueOfReturnVisits"]);
 
-                        txtInstallationCost.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["InstallationCost"]);
-                        txtInstallationSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["InstallationSales"]);
-                        txtInstallationMarkup.Text = reader["InstallationMarkup"].ToString() + '%';
+                        //txtInstallationCost.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["InstallationCost"]);
+                        //txtInstallationSales.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["InstallationSales"]);
+                        //txtInstallationMarkup.Text = reader["InstallationMarkup"].ToString() + '%';
 
                         txtBookingInDelay.Text = reader["BookingInDelay"].ToString();
 
@@ -150,10 +152,10 @@ namespace KPIAnalyser
         }
         private void populateBuffTimingsGrid()
         {
-            DateTime dateString;
+            //DateTime dateString;
 
-            DateConversion DC = new DateConversion();
-            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+            //DateConversion DC = new DateConversion();
+            //dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
             //dateString = Convert.ToDateTime("23/08/2018");
 
@@ -169,7 +171,12 @@ namespace KPIAnalyser
             SqlParameter param = new SqlParameter();
             param = cmd.Parameters.Add("@start_Date", SqlDbType.DateTime);
             param.Direction = ParameterDirection.Input;
-            param.Value = dateString;
+            param.Value = dteStart.Value;
+
+            SqlParameter param2 = new SqlParameter();
+            param2 = cmd.Parameters.Add("@end_date", SqlDbType.DateTime);
+            param2.Direction = ParameterDirection.Input;
+            param2.Value = dteEnd.Value;
 
             SqlDataAdapter adap = new SqlDataAdapter(cmd);
 
@@ -179,10 +186,10 @@ namespace KPIAnalyser
         }
         private void populateWeldTimingsGrid()
         {
-            DateTime dateString;
+            //DateTime dateString;
 
-            DateConversion DC = new DateConversion();
-            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+            //DateConversion DC = new DateConversion();
+            //dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
             //dateString = Convert.ToDateTime("23/08/2018");
 
@@ -196,7 +203,12 @@ namespace KPIAnalyser
             SqlParameter param = new SqlParameter();
             param = cmd.Parameters.Add("@start_Date", SqlDbType.DateTime);
             param.Direction = ParameterDirection.Input;
-            param.Value = dateString;
+            param.Value = dteStart.Value;
+
+            SqlParameter param2 = new SqlParameter();
+            param2 = cmd.Parameters.Add("@end_date", SqlDbType.DateTime);
+            param2.Direction = ParameterDirection.Input;
+            param2.Value = dteEnd.Value;
 
             SqlDataAdapter adap = new SqlDataAdapter(cmd);
 
@@ -208,10 +220,10 @@ namespace KPIAnalyser
 
         private void populatePackTimingsGrid()
         {
-            DateTime dateString;
+            //DateTime dateString;
 
-            DateConversion DC = new DateConversion();
-            dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
+            //DateConversion DC = new DateConversion();
+            //dateString = DC.GetDate(cmbMonth.Text, cmbYear.Text);
 
             //dateString = Convert.ToDateTime("23/08/2018");
 
@@ -226,7 +238,12 @@ namespace KPIAnalyser
             SqlParameter param = new SqlParameter();
             param = cmd.Parameters.Add("@start_Date", SqlDbType.DateTime);
             param.Direction = ParameterDirection.Input;
-            param.Value = dateString;
+            param.Value = dteStart.Value;
+
+            SqlParameter param2 = new SqlParameter();
+            param2 = cmd.Parameters.Add("@end_date", SqlDbType.DateTime);
+            param2.Direction = ParameterDirection.Input;
+            param2.Value = dteEnd.Value;
 
             SqlDataAdapter adap = new SqlDataAdapter(cmd);
 
@@ -239,71 +256,74 @@ namespace KPIAnalyser
 
         private void fillAccounts()
         {
-            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("select * from dbo.kpi_accounts where [Month]=@month and [Year]=@year", conn);
-            cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
-            cmd.Parameters.AddWithValue("@year", cmbYear.Text);
+            //SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            //conn.Open();
 
-            SqlDataReader rdr = cmd.ExecuteReader();
+            //string sql = "";
 
+            //SqlCommand cmd = new SqlCommand("select * from dbo.kpi_accounts where [Month]=@month and [Year]=@year", conn);
+            //cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
+            //cmd.Parameters.AddWithValue("@year", cmbYear.Text);
 
-            while (rdr.Read())
-            {
-                txtTurnover.Text = rdr["turnover"].ToString();
-                txtGrossProfit.Text = rdr["gross_profit"].ToString();
-                txtDebtorsCurrent.Text = rdr["debt_current"].ToString();
-                txtDebtors30.Text = rdr["debt_30"].ToString();
-                txtDebtors60.Text = rdr["debt_60"].ToString();
-                txtDebtors90.Text = rdr["debt_90"].ToString();
-                txtDebtorsOlder.Text = rdr["debt_older"].ToString();
-                txtCreditorsCurrent.Text = rdr["credit_current"].ToString();
-                txtCreditors30.Text = rdr["credit_30"].ToString();
-                txtCreditors60.Text = rdr["credit_60"].ToString();
-                txtCreditors90.Text = rdr["credit_90"].ToString();
-                txtCreditorsOlder.Text = rdr["credit_older"].ToString();
-
-            }
+            //SqlDataReader rdr = cmd.ExecuteReader();
 
 
-            conn.Close();
+            //while (rdr.Read())
+            //{
+            //    txtTurnover.Text = rdr["turnover"].ToString();
+            //    txtGrossProfit.Text = rdr["gross_profit"].ToString();
+            //    txtDebtorsCurrent.Text = rdr["debt_current"].ToString();
+            //    txtDebtors30.Text = rdr["debt_30"].ToString();
+            //    txtDebtors60.Text = rdr["debt_60"].ToString();
+            //    txtDebtors90.Text = rdr["debt_90"].ToString();
+            //    txtDebtorsOlder.Text = rdr["debt_older"].ToString();
+            //    txtCreditorsCurrent.Text = rdr["credit_current"].ToString();
+            //    txtCreditors30.Text = rdr["credit_30"].ToString();
+            //    txtCreditors60.Text = rdr["credit_60"].ToString();
+            //    txtCreditors90.Text = rdr["credit_90"].ToString();
+            //    txtCreditorsOlder.Text = rdr["credit_older"].ToString();
+
+            //}
+
+
+            //conn.Close();
 
         }
         private void getTarget()
         {
-            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-            conn.Open();
+            //SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            //conn.Open();
 
-            SqlCommand cmd = new SqlCommand("select * from dbo.forecast_target where forecast_month=@month and forecast_year = @year", conn);
-            cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
-            cmd.Parameters.AddWithValue("@year", cmbYear.Text);
+            //SqlCommand cmd = new SqlCommand("select * from dbo.forecast_target where forecast_month=@month and forecast_year = @year", conn);
+            //cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
+            //cmd.Parameters.AddWithValue("@year", cmbYear.Text);
 
-            SqlDataReader reader = cmd.ExecuteReader();
+            //SqlDataReader reader = cmd.ExecuteReader();
 
-            while (reader.Read())
-            {
-                txtTraditionalSalesT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["target_value"]);
-                txtTraditionalEstimatingT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["traditional_estimating_target"]);
-                txtTraditionalTurnaroundT.Text = reader["traditional_estimating_turnaround"] + " Hours";
-                txtSlimlineSalesT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["slimline_target_value"]);
-                txtSlimlineEstimatingT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["slimline_estimating_target"]);
-                txtSlimlineTurnaroundT.Text = reader["slimline_quotation_turnaround"] + " Hours";
+            //while (reader.Read())
+            //{
+            //    txtTraditionalSalesT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["target_value"]);
+            //    txtTraditionalEstimatingT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["traditional_estimating_target"]);
+            //    txtTraditionalTurnaroundT.Text = reader["traditional_estimating_turnaround"] + " Hours";
+            //    txtSlimlineSalesT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["slimline_target_value"]);
+            //    txtSlimlineEstimatingT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["slimline_estimating_target"]);
+            //    txtSlimlineTurnaroundT.Text = reader["slimline_quotation_turnaround"] + " Hours";
 
-                txtMeetingsT.Text = reader["meeting_target"].ToString(); ;
-                txtPipelineEntriesT.Text = reader["pipeline_entry_target"].ToString();
-                txtPipelineValuesT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["pipeline_value_target"]);
+            //    txtMeetingsT.Text = reader["meeting_target"].ToString(); ;
+            //    txtPipelineEntriesT.Text = reader["pipeline_entry_target"].ToString();
+            //    txtPipelineValuesT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["pipeline_value_target"]);
 
-                txtReturnInternalT.Text = reader["return_visit_internal_target"].ToString();
-                txtReturnExternalT.Text = reader["return_visit_external_target"].ToString();
-                txtReturnValueT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["return_visit_value_target"]);
+            //    //txtReturnInternalT.Text = reader["return_visit_internal_target"].ToString();
+            //    //txtReturnExternalT.Text = reader["return_visit_external_target"].ToString();
+            //    //txtReturnValueT.Text = string.Format(CultureInfo.CurrentCulture, "{0:C2}", reader["return_visit_value_target"]);
 
-                txtOATurnaroundT.Text = reader["acknowledgement_turn_around_target"] + " Days";
+            //    txtOATurnaroundT.Text = reader["acknowledgement_turn_around_target"] + " Days";
 
-                txtBookingInDelayT.Text = reader["booking_in_delay_target"] + " Hours";
+            //    txtBookingInDelayT.Text = reader["booking_in_delay_target"] + " Hours";
 
-            }
+            //}
 
-            conn.Close();
+            //conn.Close();
         }
 
         private void paint()
@@ -329,17 +349,18 @@ namespace KPIAnalyser
 
         private void fillEngineeringGrid()
         {
-            DateTime dateString;
+            //DateTime dateString;
 
-            DateConversion dc = new DateConversion();
-            dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
+            //DateConversion dc = new DateConversion();
+            //dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
             SqlCommand cmd = new SqlCommand("usp_kpi_engineering_loop", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dateString;
+            cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dteStart.Value;
+            cmd.Parameters.AddWithValue("@endDate", SqlDbType.DateTime).Value = dteEnd.Value;
 
 
             SqlDataAdapter ad = new SqlDataAdapter(cmd);
@@ -359,18 +380,18 @@ namespace KPIAnalyser
 
         private void fillEngineeringOvertime()
         {
-            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("SELECT employee_name as 'Employee' , OT_Hours 'Total Overtime' from dbo.kpi_overtime_hours WHERE [month]= @month and [year] = @year and is_engineer = -1 order by employee_name", conn);
+            //SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            //conn.Open();
+            //SqlCommand cmd = new SqlCommand("SELECT employee_name as 'Employee' , OT_Hours 'Total Overtime' from dbo.kpi_overtime_hours WHERE [month]= @month and [year] = @year and is_engineer = -1 order by employee_name", conn);
 
-            cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
-            cmd.Parameters.AddWithValue("@year", cmbYear.Text);
+            //cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
+            //cmd.Parameters.AddWithValue("@year", cmbYear.Text);
 
-            SqlDataAdapter ad = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            ad.Fill(dt);
-            //dgEngineerOvertime.DataSource = dt;
-            conn.Close();
+            //SqlDataAdapter ad = new SqlDataAdapter(cmd);
+            //DataTable dt = new DataTable();
+            //ad.Fill(dt);
+            ////dgEngineerOvertime.DataSource = dt;
+            //conn.Close();
         }
 
         private void paintEngineeringGrid()
@@ -442,18 +463,22 @@ namespace KPIAnalyser
 
         private void paintWeldingGrid()
         {
-            foreach (DataGridViewRow Myrow in dgWeldTimings.Rows)
-            {            //Here 2 cell is target value and 1 cell is Volume
-                if (Convert.ToDouble(Myrow.Cells[3].Value) > 100)// Or your condition 
-                {
-                    Myrow.DefaultCellStyle.BackColor = Color.PaleVioletRed;
-                }
-                else
-                {
-                    Myrow.DefaultCellStyle.BackColor = Color.LightSeaGreen;
+            try
+            {
+                foreach (DataGridViewRow Myrow in dgWeldTimings.Rows)
+                {            //Here 2 cell is target value and 1 cell is Volume
+                    if (Convert.ToDouble(Myrow.Cells[3].Value) > 100)// Or your condition 
+                    {
+                        Myrow.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+                    }
+                    else
+                    {
+                        Myrow.DefaultCellStyle.BackColor = Color.LightSeaGreen;
 
+                    }
                 }
             }
+            catch { }
 
             dgvMonthly.ClearSelection();
         }
@@ -570,18 +595,19 @@ namespace KPIAnalyser
 
         private void generateEngineerData(string fullname)
         {
-            DateTime dateString;
+            //DateTime dateString;
             if (cmbMonth.Text == "")
             {
-                DateConversion dc = new DateConversion();
-                dateString = dc.GetDate("January", cmbYear.Text);
+                //DateConversion dc = new DateConversion();
+                //dateString = dc.GetDate("January", cmbYear.Text);
                 lblEngineerName.Text = fullname;
                 SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("usp_kpi_detailed_engineering_info_yearly", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@fullName", SqlDbType.NVarChar).Value = fullname;
-                cmd.Parameters.AddWithValue("@startDate", SqlDbType.Date).Value = dateString;
+                cmd.Parameters.AddWithValue("@startDate", SqlDbType.Date).Value = dteStart.Value;
+                cmd.Parameters.AddWithValue("@endDate", SqlDbType.Date).Value = dteEnd.Value;
                 SqlDataReader rdr = cmd.ExecuteReader();
                 if (rdr.Read())
                 {
@@ -600,15 +626,16 @@ namespace KPIAnalyser
             }
             else
             {
-                DateConversion dc = new DateConversion();
-                dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
+                //DateConversion dc = new DateConversion();
+                //dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
                 lblEngineerName.Text = fullname;
                 SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("usp_kpi_detailed_engineering_info", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@fullName", SqlDbType.NVarChar).Value = fullname;
-                cmd.Parameters.AddWithValue("@startDate", SqlDbType.Date).Value = dateString;
+                cmd.Parameters.AddWithValue("@startDate", SqlDbType.Date).Value = dteStart.Value;
+                cmd.Parameters.AddWithValue("@endDate", SqlDbType.Date).Value = dteEnd.Value;
                 SqlDataReader rdr = cmd.ExecuteReader();
                 if (rdr.Read())
                 {
@@ -633,17 +660,18 @@ namespace KPIAnalyser
 
         private void populateDailyEngineerGridYearly(string fullname)
         {
-            DateTime dateString;
+            //DateTime dateString;
 
-            DateConversion dc = new DateConversion();
-            dateString = dc.GetDate("January", cmbYear.Text);
+            //DateConversion dc = new DateConversion();
+            //dateString = dc.GetDate("January", cmbYear.Text);
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
             SqlCommand cmd = new SqlCommand("usp_kpi_engineering_loop_daily_yearly", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dateString;
+            cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dteStart.Value;
+            cmd.Parameters.AddWithValue("@endDate", SqlDbType.DateTime).Value = dteEnd.Value;
             cmd.Parameters.AddWithValue("@staffName", SqlDbType.NVarChar).Value = fullname;
 
             SqlDataAdapter ad = new SqlDataAdapter(cmd);
@@ -660,15 +688,16 @@ namespace KPIAnalyser
         {
             DateTime dateString;
 
-            DateConversion dc = new DateConversion();
-            dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
+            //DateConversion dc = new DateConversion();
+            //dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
 
 
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
             SqlCommand cmd = new SqlCommand("usp_kpi_engineering_loop_daily", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dateString;
+            cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dteStart.Value;
+            cmd.Parameters.AddWithValue("@endDate", SqlDbType.DateTime).Value = dteEnd.Value;
             cmd.Parameters.AddWithValue("@staffName", SqlDbType.NVarChar).Value = fullname;
 
             SqlDataAdapter ad = new SqlDataAdapter(cmd);
@@ -966,55 +995,55 @@ namespace KPIAnalyser
 
         }
 
-        private void btnCommitAccounts_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(cmbMonth.Text) || string.IsNullOrWhiteSpace(cmbYear.Text))
-            {
-                MessageBox.Show("Please ensure you have a month and a year selected", "Missing month or year", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
+        //private void btnCommitAccounts_Click(object sender, EventArgs e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(cmbMonth.Text) || string.IsNullOrWhiteSpace(cmbYear.Text))
+        //    {
+        //        MessageBox.Show("Please ensure you have a month and a year selected", "Missing month or year", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //    else
+        //    {
 
-                try
-                {
-                    SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-                    conn.Open();
+        //        try
+        //        {
+        //            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+        //            conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("UPDATE dbo.kpi_accounts set turnover=@turnover,gross_profit=@grossProfit," +
-                                                    "debt_current=@debtCurrent,debt_30=@debt30, debt_60=@debt60,debt_90=@debt90,debt_older=@debtOlder," +
-                                                    "credit_current=@creditCurrent, credit_30=@credit30, credit_60 =@credit60, credit_90=@credit90, credit_older =@creditOlder " +
-                                                    "where [Month] = @month and [Year]=@year", conn);
+        //            SqlCommand cmd = new SqlCommand("UPDATE dbo.kpi_accounts set turnover=@turnover,gross_profit=@grossProfit," +
+        //                                            "debt_current=@debtCurrent,debt_30=@debt30, debt_60=@debt60,debt_90=@debt90,debt_older=@debtOlder," +
+        //                                            "credit_current=@creditCurrent, credit_30=@credit30, credit_60 =@credit60, credit_90=@credit90, credit_older =@creditOlder " +
+        //                                            "where [Month] = @month and [Year]=@year", conn);
 
-                    cmd.Parameters.AddWithValue("@turnover", txtTurnover.Text);
-                    cmd.Parameters.AddWithValue("@grossProfit", txtGrossProfit.Text);
-                    cmd.Parameters.AddWithValue("@debtCurrent", txtDebtorsCurrent.Text);
-                    cmd.Parameters.AddWithValue("@debt30", txtDebtors30.Text);
-                    cmd.Parameters.AddWithValue("@debt60", txtDebtors60.Text);
-                    cmd.Parameters.AddWithValue("@debt90", txtDebtors90.Text);
-                    cmd.Parameters.AddWithValue("@debtOlder", txtDebtorsOlder.Text);
+        //            cmd.Parameters.AddWithValue("@turnover", txtTurnover.Text);
+        //            cmd.Parameters.AddWithValue("@grossProfit", txtGrossProfit.Text);
+        //            cmd.Parameters.AddWithValue("@debtCurrent", txtDebtorsCurrent.Text);
+        //            cmd.Parameters.AddWithValue("@debt30", txtDebtors30.Text);
+        //            cmd.Parameters.AddWithValue("@debt60", txtDebtors60.Text);
+        //            cmd.Parameters.AddWithValue("@debt90", txtDebtors90.Text);
+        //            cmd.Parameters.AddWithValue("@debtOlder", txtDebtorsOlder.Text);
 
-                    cmd.Parameters.AddWithValue("@CreditCurrent", txtCreditorsCurrent.Text);
-                    cmd.Parameters.AddWithValue("@Credit30", txtCreditors30.Text);
-                    cmd.Parameters.AddWithValue("@Credit60", txtCreditors60.Text);
-                    cmd.Parameters.AddWithValue("@Credit90", txtCreditors90.Text);
-                    cmd.Parameters.AddWithValue("@CreditOlder", txtCreditorsOlder.Text);
+        //            cmd.Parameters.AddWithValue("@CreditCurrent", txtCreditorsCurrent.Text);
+        //            cmd.Parameters.AddWithValue("@Credit30", txtCreditors30.Text);
+        //            cmd.Parameters.AddWithValue("@Credit60", txtCreditors60.Text);
+        //            cmd.Parameters.AddWithValue("@Credit90", txtCreditors90.Text);
+        //            cmd.Parameters.AddWithValue("@CreditOlder", txtCreditorsOlder.Text);
 
-                    cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
-                    cmd.Parameters.AddWithValue("@year", cmbYear.Text);
+        //            cmd.Parameters.AddWithValue("@month", cmbMonth.Text);
+        //            cmd.Parameters.AddWithValue("@year", cmbYear.Text);
 
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+        //            cmd.ExecuteNonQuery();
+        //            conn.Close();
 
-                    MessageBox.Show("Accounts data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch
-                {
-                    MessageBox.Show("An error has occured, if this error persists please contact IT", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+        //            MessageBox.Show("Accounts data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //        catch
+        //        {
+        //            MessageBox.Show("An error has occured, if this error persists please contact IT", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
 
 
-            }
-        }
+        //    }
+        //}
 
         private void tabPage3_Click(object sender, EventArgs e)
         {

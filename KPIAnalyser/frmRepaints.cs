@@ -49,8 +49,9 @@ namespace KPIAnalyser
                 "left join [user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
                 "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
                 "left join[dsl_kpi].dbo.department dept on dept.id = r.department " +
+                "left join dbo.door_type dt on d.door_type_id = dt.id " +
                 "left join [user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id " +
-                "WHERE  date_logged >= '" + dateStart.ToString("yyyy-MM-dd") + "' AND date_logged < '" + dateEnd.ToString("yyyy-MM-dd") + "'";
+                "WHERE  date_logged >= '" + dateStart.ToString("yyyy-MM-dd") + "' AND date_logged < '" + dateEnd.ToString("yyyy-MM-dd") + "' AND (slimline_y_n = 0 or slimline_y_n is null) ";
 
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {

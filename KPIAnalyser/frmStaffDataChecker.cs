@@ -18,6 +18,7 @@ namespace KPIAnalyser
         public int estimator { get; set; }
         public int engineer { get; set; }
         public int slimline { get; set; }
+        public int staff_id { get; set; }
         public frmStaffDataChecker()
         {
             InitializeComponent();
@@ -58,7 +59,7 @@ namespace KPIAnalyser
             {
                 conn.Open();
 
-                int staff_id = 0;
+                staff_id = 0;
                 string sql = "SELECT id FROM [user_info].dbo.[user] WHERE forename + ' ' + surname = '" + cmbStaff.Text + "' ";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -213,9 +214,9 @@ namespace KPIAnalyser
                 {
                     sql = "select cast(d.date_plan as date) as date_plan,datename(WEEKDAY,date_plan) as day_of_week,round(cast([hours] as float) + coalesce((ot.overtime * 0.8),0),2) as [set_hours]," +
                           "COALESCE(worked.worked_hours,0) as worked_hours from dbo.power_plan_staff s " +
-                          "left join dbo.power_plan_date d on s.date_id = d.id " +
-                          "left join dbo.power_plan_overtime_remake ot on s.date_id = ot.date_id AND s.staff_id = ot.staff_id " +
-                          "left join (SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours],staff_id FROM dbo.door_part_completion_log  " +
+                          "left  merge join dbo.power_plan_date d on s.date_id = d.id " +
+                          "left  merge join dbo.power_plan_overtime_remake ot on s.date_id = ot.date_id AND s.staff_id = ot.staff_id " +
+                          "left merge join (SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours],staff_id FROM dbo.door_part_completion_log  " +
                           "WHERE part_percent_complete is not null AND staff_id = " + staff_id.ToString() + " AND CAST(part_complete_date as DATE) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND CAST(part_complete_date as DATE) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                           "AND part_status = 'Complete'   GROUP BY CAST(part_complete_date as date),staff_id) as worked on d.date_plan = worked.date " +
                           "where  s.staff_id = " + staff_id.ToString() + " and d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' AND d.date_plan <= CAST(GETDATE() as date) " +
@@ -239,15 +240,15 @@ namespace KPIAnalyser
                          "select cast(date_logged as date) as [date],count(dept.department_name) as repaint_count,0 as remake_count,sum(COALESCE(round(r.repaint_cost, 2), 0)) as [cost] from dbo.door d " +
                          "right join dbo.repaints r on r.door_id = d.id " +
                          "left join [user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
-                         "left join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
-                         "left join[dsl_kpi].dbo.department dept on dept.id = r.department " +
+                         "left merge join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
+                         "left merge join[dsl_kpi].dbo.department dept on dept.id = r.department " +
                          "left join[user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id " +
                          "WHERE date_logged >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "'  AND date_logged<= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "'  and u_fault.id = " + staff_id.ToString() + " " +
                          "group by cast(date_logged as date) union all " +
                          "select cast([date] as date) as [date],0 as repaint_count,count(dbo.remake.id) as remake_count,sum(coalesce(cost, 0)) as Cost from dbo.remake left join dbo.door on dbo.door.id = dbo.remake.door_id " +
-                         "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left " +
+                         "left merge join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left " +
                          "join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
-                         "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left " +
+                         "left merge join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left  merge " +
                          "join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
                          "where [date] >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "'  AND[date] <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "'  and remake.persons_responsible = " + staff_id.ToString() + " " +
                          "group by[date]) as a group by[date] order by[date] ";
@@ -337,23 +338,102 @@ namespace KPIAnalyser
 
             //total cost of remake/repaint
             double total_cost = 0;
-            for (int i = 0; i < dgvRemakeRepaint.Rows.Count; i++)
-                total_cost = total_cost + Convert.ToDouble(dgvRemakeRepaint.Rows[i].Cells[4].Value.ToString());
+            //for (int i = 0; i < dgvRemakeRepaint.Rows.Count; i++)
+            //    total_cost = total_cost + Convert.ToDouble(dgvRemakeRepaint.Rows[i].Cells[4].Value.ToString());
 
-
-            string total_cost_string = total_cost.ToString("#,##0.00");
-            //ammend stuff like colour and having £-100
-            total_cost_string = "£" + total_cost_string;
-            //first up is the - number
-
-            if (total_cost_string.Contains("-"))
+            //get the values for remake/repaint seperately 
+            string total_cost_string = "";
+            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
-                total_cost_string = total_cost_string.Replace("-", "");
-                total_cost_string = total_cost_string.Insert(0, "-");
+                conn.Open();
+
+                //remake
+                string sql = "select COALESCE(sum(coalesce(cost, 0)),0) as Cost " +
+                    "from dbo.remake left join dbo.door on dbo.door.id = dbo.remake.door_id " +
+                    "left merge join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref " +
+                    "left join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                    "left merge join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible " +
+                    "left merge join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                    "where [date] >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "'  AND[date] <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                    "and remake.persons_responsible = " + staff_id.ToString();
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+
+                    var getData = cmd.ExecuteScalar();
+                    if (getData != null)
+                    {
+                        lblRemake.Text = getData.ToString();
+
+                        total_cost_string = Convert.ToDouble(cmd.ExecuteScalar().ToString()).ToString("#,##0.00");
+                        //ammend stuff like colour and having £-100
+                        total_cost_string = "£" + total_cost_string;
+                        //first up is the - number
+
+                        if (total_cost_string.Contains("-"))
+                        {
+                            total_cost_string = total_cost_string.Replace("-", "");
+                            total_cost_string = total_cost_string.Insert(0, "-");
+                        }
+                        lblRemake.Text = total_cost_string;
+                    }
+                    else
+                        lblRemake.Text = "£0";
+
+                }
+
+                //repaint
+                sql = "select coalesce(sum(COALESCE(round(r.repaint_cost, 2), 0)),0) as [cost] " +
+                    "from dbo.door d " +
+                    "right join dbo.repaints r on r.door_id = d.id " +
+                    "left  join [user_info].dbo.[user] u_fault on u_fault.id = r.painter_name " +
+                    "left merge join dbo.SALES_LEDGER s on s.ACCOUNT_REF = d.customer_acc_ref " +
+                    "left merge join[dsl_kpi].dbo.department dept on dept.id = r.department " +
+                    "left  join[user_info].dbo.[user] u_logged on u_logged.id = r.logged_by_id " +
+                    "WHERE date_logged >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "'  AND date_logged<= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
+                    "and u_fault.id = " + staff_id.ToString();
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+
+                    var getData = cmd.ExecuteScalar();
+                    if (getData != null)
+                    {
+                        lblRepaint.Text = getData.ToString();
+
+                        total_cost_string = Convert.ToDouble(cmd.ExecuteScalar().ToString()).ToString("#,##0.00");
+                        //ammend stuff like colour and having £-100
+                        total_cost_string = "£" + total_cost_string;
+                        //first up is the - number
+
+                        if (total_cost_string.Contains("-"))
+                        {
+                            total_cost_string = total_cost_string.Replace("-", "");
+                            total_cost_string = total_cost_string.Insert(0, "-");
+                        }
+                        lblRepaint.Text = total_cost_string;
+                    }
+                    else
+                        lblRepaint.Text = "£0";
+
+                }
+
+                conn.Close();
             }
 
 
-            lblRemakeRepaint.Text = "Remake/Repaint Cost: " + total_cost_string;
+            //    string total_cost_string = total_cost.ToString("#,##0.00");
+            ////ammend stuff like colour and having £-100
+            //total_cost_string = "£" + total_cost_string;
+            ////first up is the - number
+
+            //if (total_cost_string.Contains("-"))
+            //{
+            //    total_cost_string = total_cost_string.Replace("-", "");
+            //    total_cost_string = total_cost_string.Insert(0, "-");
+            //}
+
+
+          //  lblRemakeRepaint.Text = "Remake/Repaint Cost: " + total_cost_string;
 
             //work out percentage
             if (green == 0 && red == 0)
