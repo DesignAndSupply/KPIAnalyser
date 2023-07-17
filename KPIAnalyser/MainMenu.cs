@@ -17,7 +17,31 @@ namespace KPIAnalyser
         public txtTraditionalConversionRate()
         {
             InitializeComponent();
-           
+
+            string sql = "select forename + ' ' + surname  FROM [user_info].dbo.[user] WHERE [current] = 1 AND isEngineer = -1 and id <> 3 AND id <> 260 AND id <> 29 order by id";
+            using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    cmbEngineer.Items.Add("ALL");
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        cmbEngineer.Items.Add(row[0].ToString());
+                    }
+
+                    cmbEngineer.Text = "ALL";
+
+                    conn.Close();
+                }
+            }
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -30,7 +54,7 @@ namespace KPIAnalyser
             //if (cmbMonth.Text == "")
             //    refreshProgramming();
             //else
-                refreshData();
+            refreshData();
         }
         private void refreshProgramming()
         {
@@ -361,6 +385,7 @@ namespace KPIAnalyser
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@startDate", SqlDbType.DateTime).Value = dteStart.Value;
             cmd.Parameters.AddWithValue("@endDate", SqlDbType.DateTime).Value = dteEnd.Value;
+            cmd.Parameters.AddWithValue("@engineerName", SqlDbType.NVarChar).Value = cmbEngineer.Text;
 
 
             SqlDataAdapter ad = new SqlDataAdapter(cmd);
@@ -487,15 +512,20 @@ namespace KPIAnalyser
         {
             foreach (DataGridViewRow Myrow in dgBuffTimings.Rows)
             {            //Here 2 cell is target value and 1 cell is Volume
-                if (Convert.ToDouble(Myrow.Cells[3].Value) > 100)// Or your condition 
+                try
                 {
-                    Myrow.DefaultCellStyle.BackColor = Color.PaleVioletRed;
-                }
-                else
-                {
-                    Myrow.DefaultCellStyle.BackColor = Color.LightSeaGreen;
+                    if (Convert.ToDouble(Myrow.Cells[3].Value) > 100)// Or your condition 
+                    {
+                        Myrow.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+                    }
+                    else
+                    {
+                        Myrow.DefaultCellStyle.BackColor = Color.LightSeaGreen;
 
+                    }
                 }
+                catch
+                { }
             }
 
             dgvMonthly.ClearSelection();
@@ -596,36 +626,38 @@ namespace KPIAnalyser
         private void generateEngineerData(string fullname)
         {
             //DateTime dateString;
-            if (cmbMonth.Text == "")
-            {
-                //DateConversion dc = new DateConversion();
-                //dateString = dc.GetDate("January", cmbYear.Text);
-                lblEngineerName.Text = fullname;
-                SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("usp_kpi_detailed_engineering_info_yearly", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@fullName", SqlDbType.NVarChar).Value = fullname;
-                cmd.Parameters.AddWithValue("@startDate", SqlDbType.Date).Value = dteStart.Value;
-                cmd.Parameters.AddWithValue("@endDate", SqlDbType.Date).Value = dteEnd.Value;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                if (rdr.Read())
-                {
-                    lblProg.Text = rdr[0].ToString();
-                    lblAssess.Text = rdr[1].ToString();
-                    lblCheck.Text = rdr[2].ToString();
-                    lblDraw.Text = rdr[3].ToString();
-                    lblHoliday.Text = rdr[4].ToString();
-                    lblAbsent.Text = rdr[5].ToString();
-                    lblLate.Text = rdr[6].ToString();
-                    lblOvertimeHours.Text = rdr[7].ToString();
-                }
-                conn.Close();
-                populateDailyEngineerGridYearly(fullname);
+            //if (cmbMonth.Text == "")
+            //{
+            //    //DateConversion dc = new DateConversion();
+            //    //dateString = dc.GetDate("January", cmbYear.Text);
+            //    lblEngineerName.Text = fullname;
+            //    SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            //    conn.Open();
+            //    SqlCommand cmd = new SqlCommand("usp_kpi_detailed_engineering_info_yearly", conn);
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.Parameters.AddWithValue("@fullName", SqlDbType.NVarChar).Value = fullname;
+            //    cmd.Parameters.AddWithValue("@startDate", SqlDbType.Date).Value = dteStart.Value;
+            //    cmd.Parameters.AddWithValue("@endDate", SqlDbType.Date).Value = dteEnd.Value;
+            //    SqlDataReader rdr = cmd.ExecuteReader();
+            //    if (rdr.Read())
+            //    {
+            //        lblProg.Text = rdr[0].ToString();
+            //        lblAssess.Text = rdr[1].ToString();
+            //        lblCheck.Text = rdr[2].ToString();
+            //        lblDraw.Text = rdr[3].ToString();
+            //        lblHoliday.Text = rdr[4].ToString();
+            //        lblAbsent.Text = rdr[5].ToString();
+            //        lblLate.Text = rdr[6].ToString();
+            //        lblOvertimeHours.Text = rdr[7].ToString();
+            //        lblProgramed_value.Text = rdr[8].ToString();
+            //        lblRemakeValue.Text = rdr[9].ToString();
+            //    }
+            //    conn.Close();
+            //    populateDailyEngineerGridYearly(fullname);
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 //DateConversion dc = new DateConversion();
                 //dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
                 lblEngineerName.Text = fullname;
@@ -647,13 +679,15 @@ namespace KPIAnalyser
                     lblAbsent.Text = rdr[5].ToString();
                     lblLate.Text = rdr[6].ToString();
                     lblOvertimeHours.Text = rdr[7].ToString();
+                    lblProgramed_value.Text = Math.Round(Convert.ToDouble(rdr[8].ToString()), 2).ToString("C", CultureInfo.CurrentCulture);
+                lblRemakeValue.Text = Math.Round(Convert.ToDouble(rdr[9].ToString()),2).ToString("C", CultureInfo.CurrentCulture);
                 }
 
 
                 conn.Close();
                 populateDailyEngineerGrid(fullname);
-            }
-            
+            //}
+
             paintEngineeringGridDaily();
             programmingLessDetail();
         }
@@ -1076,7 +1110,7 @@ namespace KPIAnalyser
 
                 DataGridViewRow selectedRow = dgvMonthly.Rows[selectedrowindex];
 
-                string a = Convert.ToString(selectedRow.Cells["fullname"].Value); 
+                string a = Convert.ToString(selectedRow.Cells["fullname"].Value);
 
                 generateEngineerData(a);
 

@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblRemake = new System.Windows.Forms.Label();
+            this.lblRepaint = new System.Windows.Forms.Label();
+            this.lblRemakeRepaint = new System.Windows.Forms.Label();
             this.dgvRemakeRepaint = new System.Windows.Forms.DataGridView();
             this.lblPerformance = new System.Windows.Forms.Label();
             this.dgvPerformance = new System.Windows.Forms.DataGridView();
@@ -49,9 +52,7 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnEmail = new System.Windows.Forms.Button();
-            this.lblRemake = new System.Windows.Forms.Label();
-            this.lblRepaint = new System.Windows.Forms.Label();
-            this.lblRemakeRepaint = new System.Windows.Forms.Label();
+            this.btnExport = new System.Windows.Forms.Button();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRemakeRepaint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerformance)).BeginInit();
@@ -80,6 +81,39 @@
             this.tabPage1.Text = "Absence / Late";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // lblRemake
+            // 
+            this.lblRemake.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemake.ForeColor = System.Drawing.Color.Red;
+            this.lblRemake.Location = new System.Drawing.Point(1490, 34);
+            this.lblRemake.Name = "lblRemake";
+            this.lblRemake.Size = new System.Drawing.Size(179, 28);
+            this.lblRemake.TabIndex = 18;
+            this.lblRemake.Text = "0";
+            this.lblRemake.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // lblRepaint
+            // 
+            this.lblRepaint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRepaint.ForeColor = System.Drawing.Color.Red;
+            this.lblRepaint.Location = new System.Drawing.Point(1271, 34);
+            this.lblRepaint.Name = "lblRepaint";
+            this.lblRepaint.Size = new System.Drawing.Size(178, 28);
+            this.lblRepaint.TabIndex = 17;
+            this.lblRepaint.Text = "0";
+            this.lblRepaint.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // lblRemakeRepaint
+            // 
+            this.lblRemakeRepaint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemakeRepaint.ForeColor = System.Drawing.Color.Red;
+            this.lblRemakeRepaint.Location = new System.Drawing.Point(1271, 3);
+            this.lblRemakeRepaint.Name = "lblRemakeRepaint";
+            this.lblRemakeRepaint.Size = new System.Drawing.Size(398, 28);
+            this.lblRemakeRepaint.TabIndex = 16;
+            this.lblRemakeRepaint.Text = "Repaint            ||          Remake";
+            this.lblRemakeRepaint.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // dgvRemakeRepaint
             // 
             this.dgvRemakeRepaint.AllowUserToAddRows = false;
@@ -87,14 +121,14 @@
             this.dgvRemakeRepaint.AllowUserToResizeColumns = false;
             this.dgvRemakeRepaint.AllowUserToResizeRows = false;
             this.dgvRemakeRepaint.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRemakeRepaint.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRemakeRepaint.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvRemakeRepaint.Location = new System.Drawing.Point(1271, 65);
             this.dgvRemakeRepaint.Name = "dgvRemakeRepaint";
             this.dgvRemakeRepaint.ReadOnly = true;
@@ -120,14 +154,14 @@
             this.dgvPerformance.AllowUserToResizeColumns = false;
             this.dgvPerformance.AllowUserToResizeRows = false;
             this.dgvPerformance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPerformance.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPerformance.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvPerformance.Location = new System.Drawing.Point(846, 34);
             this.dgvPerformance.Name = "dgvPerformance";
             this.dgvPerformance.ReadOnly = true;
@@ -164,14 +198,14 @@
             this.dgvLate.AllowUserToResizeColumns = false;
             this.dgvLate.AllowUserToResizeRows = false;
             this.dgvLate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvLate.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvLate.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvLate.Location = new System.Drawing.Point(426, 34);
             this.dgvLate.Name = "dgvLate";
             this.dgvLate.ReadOnly = true;
@@ -187,14 +221,14 @@
             this.dgvAbsent.AllowUserToResizeColumns = false;
             this.dgvAbsent.AllowUserToResizeRows = false;
             this.dgvAbsent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAbsent.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAbsent.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvAbsent.Location = new System.Drawing.Point(6, 34);
             this.dgvAbsent.Name = "dgvAbsent";
             this.dgvAbsent.ReadOnly = true;
@@ -291,44 +325,23 @@
             this.btnEmail.UseVisualStyleBackColor = true;
             this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
             // 
-            // lblRemake
+            // btnExport
             // 
-            this.lblRemake.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemake.ForeColor = System.Drawing.Color.Red;
-            this.lblRemake.Location = new System.Drawing.Point(1490, 34);
-            this.lblRemake.Name = "lblRemake";
-            this.lblRemake.Size = new System.Drawing.Size(179, 28);
-            this.lblRemake.TabIndex = 18;
-            this.lblRemake.Text = "0";
-            this.lblRemake.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // lblRepaint
-            // 
-            this.lblRepaint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRepaint.ForeColor = System.Drawing.Color.Red;
-            this.lblRepaint.Location = new System.Drawing.Point(1271, 34);
-            this.lblRepaint.Name = "lblRepaint";
-            this.lblRepaint.Size = new System.Drawing.Size(178, 28);
-            this.lblRepaint.TabIndex = 17;
-            this.lblRepaint.Text = "0";
-            this.lblRepaint.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // lblRemakeRepaint
-            // 
-            this.lblRemakeRepaint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemakeRepaint.ForeColor = System.Drawing.Color.Red;
-            this.lblRemakeRepaint.Location = new System.Drawing.Point(1271, 3);
-            this.lblRemakeRepaint.Name = "lblRemakeRepaint";
-            this.lblRemakeRepaint.Size = new System.Drawing.Size(398, 28);
-            this.lblRemakeRepaint.TabIndex = 16;
-            this.lblRemakeRepaint.Text = "Repaint            ||          Remake";
-            this.lblRemakeRepaint.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnExport.Location = new System.Drawing.Point(867, 48);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(123, 29);
+            this.btnExport.TabIndex = 14;
+            this.btnExport.Text = "Export All Data";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // frmStaffDataChecker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1708, 883);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lblDate);
@@ -377,5 +390,6 @@
         private System.Windows.Forms.Label lblRemake;
         private System.Windows.Forms.Label lblRepaint;
         private System.Windows.Forms.Label lblRemakeRepaint;
+        private System.Windows.Forms.Button btnExport;
     }
 }

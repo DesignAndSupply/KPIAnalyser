@@ -158,6 +158,8 @@
             this.txtNewCustomer = new System.Windows.Forms.TextBox();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cmbEngineer = new System.Windows.Forms.ComboBox();
             this.label78 = new System.Windows.Forms.Label();
             this.btnMoreLess = new System.Windows.Forms.Button();
             this.btnProgrammerProductivity = new System.Windows.Forms.Button();
@@ -215,6 +217,10 @@
             this.dteEnd = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.lblProgramed_value = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.lblRemakeValue = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1524,6 +1530,12 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblRemakeValue);
+            this.tabPage1.Controls.Add(this.label58);
+            this.tabPage1.Controls.Add(this.lblProgramed_value);
+            this.tabPage1.Controls.Add(this.label27);
+            this.tabPage1.Controls.Add(this.label14);
+            this.tabPage1.Controls.Add(this.cmbEngineer);
             this.tabPage1.Controls.Add(this.label78);
             this.tabPage1.Controls.Add(this.btnMoreLess);
             this.tabPage1.Controls.Add(this.btnProgrammerProductivity);
@@ -1565,6 +1577,25 @@
             this.tabPage1.Text = "Programming";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(718, 6);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(79, 18);
+            this.label14.TabIndex = 47;
+            this.label14.Text = "Engineer:";
+            // 
+            // cmbEngineer
+            // 
+            this.cmbEngineer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.cmbEngineer.FormattingEnabled = true;
+            this.cmbEngineer.Location = new System.Drawing.Point(797, 5);
+            this.cmbEngineer.Name = "cmbEngineer";
+            this.cmbEngineer.Size = new System.Drawing.Size(175, 23);
+            this.cmbEngineer.TabIndex = 46;
             // 
             // label78
             // 
@@ -2179,6 +2210,50 @@
             this.label13.TabIndex = 23;
             this.label13.Text = "End Date";
             // 
+            // lblProgramed_value
+            // 
+            this.lblProgramed_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.lblProgramed_value.ForeColor = System.Drawing.Color.Red;
+            this.lblProgramed_value.Location = new System.Drawing.Point(1435, 286);
+            this.lblProgramed_value.Name = "lblProgramed_value";
+            this.lblProgramed_value.Size = new System.Drawing.Size(147, 25);
+            this.lblProgramed_value.TabIndex = 49;
+            this.lblProgramed_value.Text = "label84";
+            this.lblProgramed_value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.label27.ForeColor = System.Drawing.Color.Red;
+            this.label27.Location = new System.Drawing.Point(1226, 286);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(203, 25);
+            this.label27.TabIndex = 48;
+            this.label27.Text = "Programmed Value:";
+            // 
+            // lblRemakeValue
+            // 
+            this.lblRemakeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.lblRemakeValue.ForeColor = System.Drawing.Color.Red;
+            this.lblRemakeValue.Location = new System.Drawing.Point(1435, 331);
+            this.lblRemakeValue.Name = "lblRemakeValue";
+            this.lblRemakeValue.Size = new System.Drawing.Size(147, 25);
+            this.lblRemakeValue.TabIndex = 51;
+            this.lblRemakeValue.Text = "label84";
+            this.lblRemakeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.label58.ForeColor = System.Drawing.Color.Red;
+            this.label58.Location = new System.Drawing.Point(1270, 331);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(159, 25);
+            this.label58.TabIndex = 50;
+            this.label58.Text = "Remake Value:";
+            // 
             // txtTraditionalConversionRate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2429,6 +2504,12 @@
         private System.Windows.Forms.DateTimePicker dteEnd;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cmbEngineer;
+        private System.Windows.Forms.Label lblRemakeValue;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label lblProgramed_value;
+        private System.Windows.Forms.Label label27;
     }
 }
 

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing.Printing;
+using System.Diagnostics;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace KPIAnalyser
 {
@@ -433,7 +435,7 @@ namespace KPIAnalyser
             //}
 
 
-          //  lblRemakeRepaint.Text = "Remake/Repaint Cost: " + total_cost_string;
+            //  lblRemakeRepaint.Text = "Remake/Repaint Cost: " + total_cost_string;
 
             //work out percentage
             if (green == 0 && red == 0)
@@ -591,6 +593,406 @@ namespace KPIAnalyser
 
         private void dgvLate_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (cmbStaff.Text == "")
+                return;
+
+            Excel.PageSetup xlPageSetUp;
+
+            object misValue = System.Reflection.Missing.Value;
+            // Store the Excel processes before opening. 
+            Process[] processesBefore = Process.GetProcessesByName("excel");
+
+            // Open the file in Excel. 
+            string fileName = @"C:\temp\" + cmbStaff.Text.Replace(" ", "_") + "Export_" + DateTime.Now.ToString("hh_mm_ss") + ".xls";
+            var xlApp = new Excel.Application();
+            var xlWorkbooks = xlApp.Workbooks;
+            var xlWorkbook = xlWorkbooks.Add(Type.Missing);
+            var xlWorksheet = xlWorkbook.Sheets[1];
+
+            xlApp.DisplayAlerts = false; //turn off annoying alerts that make me want to cryyyy
+
+            xlWorkbook.Worksheets[1].Name = "TARGET";
+
+            // Get Excel processes after opening the file. 
+            Process[] processesAfter = Process.GetProcessesByName("excel");
+
+            if ("target" == "target")
+            {
+                //target formatting
+                xlWorksheet.Range["A1:D1"].Merge();
+                xlWorksheet.Range["A1"].Value2 = cmbStaff.Text + " Target";
+                xlWorksheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                xlWorksheet.Range["A1"].Cells.Font.Size = 22;
+
+                xlWorksheet.Range["A2:D2"].Merge();
+                xlWorksheet.Range["A2"].Value2 = dteStart.Value.ToString("dd/MM/yyyy") + " - " + dteEnd.Value.ToString("dd/MM/yyyy");
+                xlWorksheet.Range["A2"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                xlWorksheet.Range["A2"].Cells.Font.Size = 22;
+
+                xlWorksheet.Range["A3:D3"].Merge();
+                xlWorksheet.Range["A3"].Value2 = lblPerformance.Text;
+                xlWorksheet.Range["A3"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                xlWorksheet.Range["A3"].Cells.Font.Size = 22;
+
+                //headers
+                xlWorksheet.Range["A4"].Value2 = "Work Date";
+                xlWorksheet.Range["B4"].Value2 = "Day of Week";
+                xlWorksheet.Range["C4"].Value2 = dgvPerformance.Columns[2].HeaderText;
+                xlWorksheet.Range["D4"].Value2 = dgvPerformance.Columns[3].HeaderText;
+
+
+                //loop through the dgv and add to the table
+
+                int current_excel_row = 5;
+
+                for (int i = 0; i < dgvPerformance.Rows.Count; i++)
+                {
+                    xlWorksheet.Cells[1][current_excel_row].Value2 = dgvPerformance.Rows[i].Cells[0].Value;
+                    xlWorksheet.Cells[2][current_excel_row].Value2 = dgvPerformance.Rows[i].Cells[1].Value.ToString();
+                    xlWorksheet.Cells[3][current_excel_row].Value2 = dgvPerformance.Rows[i].Cells[2].Value.ToString();
+                    //colours
+                    if (dgvPerformance.Rows[i].Cells[2].Style.BackColor == Color.PaleVioletRed)
+                        xlWorksheet.Cells[3][current_excel_row].Interior.Color = System.Drawing.Color.PaleVioletRed;
+                    if (dgvPerformance.Rows[i].Cells[2].Style.BackColor == Color.LightSeaGreen)
+                        xlWorksheet.Cells[3][current_excel_row].Interior.Color = System.Drawing.Color.LightSeaGreen;
+
+                    xlWorksheet.Cells[4][current_excel_row].Value2 = dgvPerformance.Rows[i].Cells[3].Value.ToString();
+                    //colours
+                    if (dgvPerformance.Rows[i].Cells[3].Style.BackColor == Color.PaleVioletRed)
+                        xlWorksheet.Cells[4][current_excel_row].Interior.Color = System.Drawing.Color.PaleVioletRed;
+                    if (dgvPerformance.Rows[i].Cells[3].Style.BackColor == Color.LightSeaGreen)
+                        xlWorksheet.Cells[4][current_excel_row].Interior.Color = System.Drawing.Color.LightSeaGreen;
+
+                    current_excel_row++;
+                }
+
+                Microsoft.Office.Interop.Excel.Worksheet ws = xlApp.ActiveWorkbook.Worksheets[1];
+                Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
+                ws.Columns.AutoFit();
+                ws.Rows.AutoFit();
+
+                range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                range.Borders.Color = ColorTranslator.ToOle(Color.Black);
+                xlWorksheet.Columns.AutoFit();
+                xlWorksheet.Rows.AutoFit();
+
+                xlWorksheet.Range["A:A"].NumberFormat = "dd/MM/yyyy";
+
+
+                xlPageSetUp = xlWorksheet.PageSetup;
+
+                xlPageSetUp.Zoom = false;
+
+                xlPageSetUp.FitToPagesWide = 1;
+
+                xlPageSetUp.Orientation = Excel.XlPageOrientation.xlPortrait;
+            }
+
+            if ("remakes" == "remakes")
+            {
+                //INSERT NEW SHEET
+                Excel.Worksheet remakeSheet = xlWorkbook.Sheets.Add(After: xlWorkbook.ActiveSheet);
+
+                xlWorksheet = xlWorkbook.Sheets[2];
+
+                //xlWorksheet.Select(remakeSheet);
+
+
+
+                xlWorkbook.Worksheets[2].Name = " REMAKES";
+
+                //all the remakes by this person
+                string sql = "select dbo.remake.door_id as [Door ID],[User] as [Logged By],[description] as [Remake Description],[date] as [Log Date],[NAME] as Customer," +
+                            "coalesce(u.forename + ' ' + u.surname,'') as [Person Responsible]," +
+                            "d1.department_name as [Department Responsible] ,d2.department_name as [Department Noticed] ,coalesce(cost, 0) as Cost " +
+                            "from dbo.remake " +
+                            "left join dbo.door on dbo.door.id = dbo.remake.door_id " +
+                            "left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref " +
+                            "left join [user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
+                            "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible " +
+                            "left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
+                            "left join dbo.door_type dt on door.door_type_id = dt.id " +
+                            "where [date] >= '" + dteStart.Value.ToString("yyyyMMdd") + "' AND[date] < '" + dteEnd.Value.ToString("yyyyMMdd") + "' " +
+                            "AND  (dt.slimline_y_n = 0 or dt.slimline_y_n is null) AND u.forename + ' ' + u.surname = '" + cmbStaff.Text + "' " +
+                            "ORDER BY [DATE] asc, dbo.remake.door_id asc";
+
+                DataTable dt = new DataTable();
+                using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt);
+                    }
+
+                    conn.Close();
+                }
+
+                //remove new line character from the dgv
+                foreach (DataRow row in dt.Rows)
+                    row[2] = row[2].ToString().Replace("\n", "").Replace("\r", " - ");
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    string temp = dt.Rows[i][5].ToString();
+                    temp = temp.Trim();
+                    dt.Rows[i][5] = temp;
+                }
+
+
+                //target formatting
+                xlWorksheet.Range["A1:I1"].Merge();
+                xlWorksheet.Range["A1"].Value2 = "Remakes";
+                xlWorksheet.Range["A1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                xlWorksheet.Range["A1"].Cells.Font.Size = 22;
+
+
+                //headers
+                xlWorksheet.Range["A2"].Value2 = dt.Columns[0].ColumnName;
+                xlWorksheet.Range["B2"].Value2 = dt.Columns[1].ColumnName;
+                xlWorksheet.Range["C2"].Value2 = dt.Columns[2].ColumnName;
+                xlWorksheet.Range["D2"].Value2 = dt.Columns[3].ColumnName;
+                xlWorksheet.Range["E2"].Value2 = dt.Columns[4].ColumnName;
+                xlWorksheet.Range["F2"].Value2 = dt.Columns[5].ColumnName;
+                xlWorksheet.Range["G2"].Value2 = dt.Columns[6].ColumnName;
+                xlWorksheet.Range["H2"].Value2 = dt.Columns[7].ColumnName;
+                xlWorksheet.Range["I2"].Value2 = dt.Columns[8].ColumnName;
+
+
+                //loop through the dgv and add to the table
+
+                int current_excel_row = 3;
+                double cost_total = 0;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+                    xlWorksheet.Cells[1][current_excel_row].Value2 = dt.Rows[i][0].ToString();
+                    xlWorksheet.Cells[2][current_excel_row].Value2 = dt.Rows[i][1].ToString();
+                    xlWorksheet.Cells[3][current_excel_row].Value2 = dt.Rows[i][2].ToString();
+                    xlWorksheet.Cells[4][current_excel_row].Value2 = dt.Rows[i][3].ToString();
+                    xlWorksheet.Cells[5][current_excel_row].Value2 = dt.Rows[i][4].ToString();
+                    xlWorksheet.Cells[6][current_excel_row].Value2 = dt.Rows[i][5].ToString();
+                    xlWorksheet.Cells[7][current_excel_row].Value2 = dt.Rows[i][6].ToString();
+                    xlWorksheet.Cells[8][current_excel_row].Value2 = dt.Rows[i][7].ToString();
+                    xlWorksheet.Cells[9][current_excel_row].Value2 = dt.Rows[i][8].ToString();
+                    cost_total = cost_total + Convert.ToDouble(dt.Rows[i][8].ToString());
+
+                    current_excel_row++;
+                }
+
+                xlWorksheet.Range["A1"].Value2 = cmbStaff.Text + " - Remakes - £" +  cost_total.ToString() + " - " + dteStart.Value.ToString("dd/MM/yyyy") + " to " + dteEnd.Value.ToString("dd/MM/yyyy"); 
+
+                // Format column D as text before pasting results, this was required for my data
+                //xlWorksheet.Range["I:I"].NumberFormat = "@";
+
+                xlWorksheet.Range["A2:I2"].Interior.Color = System.Drawing.Color.LightSkyBlue;
+                xlWorksheet.Range["A2:I2"].AutoFilter(1);
+                xlWorksheet.Columns[3].ColumnWidth = 98.14;
+                xlWorksheet.Columns[3].WrapText = true;
+                xlWorksheet.Range["H:H"].NumberFormat = "£#,###,###.00";
+
+                Microsoft.Office.Interop.Excel.Worksheet ws = xlApp.ActiveWorkbook.Worksheets[2];
+                Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
+                range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                range.Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+
+                xlWorksheet.Range["I" + (dt.Rows.Count + 3).ToString()].Value2 = "=SUBTOTAL(9,I3:I" + (dt.Rows.Count + 2).ToString() + ")";
+                xlWorksheet.Range["I" + (dt.Rows.Count + 3).ToString()].Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                xlWorksheet.Range["I" + (dt.Rows.Count + 3).ToString()].Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+                ws.Columns.AutoFit();
+                ws.Rows.AutoFit();
+
+
+                xlWorksheet.Columns.AutoFit();
+                xlWorksheet.Rows.AutoFit();
+
+                xlWorksheet.Columns[3].ColumnWidth = 98.14;
+                xlWorksheet.Columns[3].WrapText = true;
+
+                xlPageSetUp = xlWorksheet.PageSetup;
+
+                xlPageSetUp.Zoom = false;
+
+                xlPageSetUp.FitToPagesWide = 1;
+
+                xlPageSetUp.Orientation = Excel.XlPageOrientation.xlLandscape;
+
+            }
+
+            if ("absence" == "absence")
+            {
+
+                //INSERT NEW SHEET
+                Excel.Worksheet remakeSheet = xlWorkbook.Sheets.Add(After: xlWorkbook.ActiveSheet);
+
+                xlWorksheet = xlWorkbook.Sheets[3];
+
+                //xlWorksheet.Select(remakeSheet);
+                xlWorkbook.Worksheets[3].Name = "ABSENCE AND LATES";
+
+                xlWorksheet.Range["A:A"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
+
+                //target formatting
+                xlWorksheet.Range["A2:C2"].Merge();
+                xlWorksheet.Range["A2"].Value2 = "ABSENCE";
+                xlWorksheet.Range["A2"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                xlWorksheet.Range["A2"].Cells.Font.Size = 22;
+
+                xlWorksheet.Range["A3:C3"].Merge();
+                xlWorksheet.Range["A3"].Value2 = lblAbsent.Text;
+                xlWorksheet.Range["A3"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                xlWorksheet.Range["A3"].Cells.Font.Size = 22;
+
+                //headers
+                xlWorksheet.Range["A4"].Value2 = "Absence Date";
+                xlWorksheet.Range["B4"].Value2 = "Day of Week";
+                xlWorksheet.Range["C4"].Value2 = dgvAbsent.Columns[2].HeaderText;
+
+                xlWorksheet.Range["A:A"].NumberFormat = "dd/MM/yyyy";
+                //loop through the dgv and add to the table
+
+                int current_excel_row = 4;
+
+                for (int i = 0; i < dgvAbsent.Rows.Count; i++)
+                {
+                    xlWorksheet.Cells[1][current_excel_row].Value2 = Convert.ToDateTime(dgvAbsent.Rows[i].Cells[0].Value).ToString("dd/MM/yyyy");
+                    xlWorksheet.Cells[2][current_excel_row].Value2 = dgvAbsent.Rows[i].Cells[1].Value.ToString();
+                    xlWorksheet.Cells[3][current_excel_row].Value2 = dgvAbsent.Rows[i].Cells[2].Value.ToString();
+
+                    current_excel_row++;
+                }
+
+                Microsoft.Office.Interop.Excel.Worksheet ws = xlApp.ActiveWorkbook.Worksheets[3];
+                Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
+                ws.Columns.AutoFit();
+                ws.Rows.AutoFit();
+
+                range.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                range.Borders.Color = ColorTranslator.ToOle(Color.Black);
+                xlWorksheet.Columns.AutoFit();
+                xlWorksheet.Rows.AutoFit();
+
+                xlWorksheet.Columns[2].ColumnWidth = 16.00;
+
+                xlPageSetUp = xlWorksheet.PageSetup;
+
+                xlPageSetUp.Zoom = false;
+
+                xlPageSetUp.FitToPagesWide = 1;
+
+                xlPageSetUp.Orientation = Excel.XlPageOrientation.xlPortrait;
+            }
+
+
+
+            if ("Late" == "Late")
+            {
+                //xlWorksheet.Select(remakeSheet);
+                xlWorkbook.Worksheets[3].Name = "ABSENCE AND LATES";
+
+                xlWorksheet.Range["C:G"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
+
+                xlWorksheet.Range["A1:G1"].Merge();
+                xlWorksheet.Range["A1"].Value2 = cmbStaff.Text + " - " + dteStart.Value.ToString("dd/MM/yyyy") + " to " + dteEnd.Value.ToString("dd/MM/yyyy");
+                xlWorksheet.Range["A1"].Cells.Font.Size = 22;
+                xlWorksheet.Range["A1:G1"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+
+                //target formatting
+                xlWorksheet.Range["E2:G2"].Merge();
+                xlWorksheet.Range["E2"].Value2 = "LATE";
+                xlWorksheet.Range["E2"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                xlWorksheet.Range["E2"].Cells.Font.Size = 22;
+
+                xlWorksheet.Range["E3:G3"].Merge();
+                xlWorksheet.Range["E3"].Value2 = lblLate.Text;
+                xlWorksheet.Range["E3"].Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                xlWorksheet.Range["E3"].Cells.Font.Size = 22;
+
+                //headers
+                xlWorksheet.Range["E4"].Value2 = "Late Date";
+                xlWorksheet.Range["F4"].Value2 = "Day of Week";
+                xlWorksheet.Range["G4"].Value2 = dgvLate.Columns[2].HeaderText;
+
+                xlWorksheet.Range["E:E"].NumberFormat = "dd/MM/yyyy";
+
+                //loop through the dgv and add to the table
+
+                int current_excel_row = 5;
+
+                for (int i = 0; i < dgvLate.Rows.Count; i++)
+                {
+                    xlWorksheet.Cells[5][current_excel_row].Value2 = dgvLate.Rows[i].Cells[0].Value;
+                    xlWorksheet.Cells[6][current_excel_row].Value2 = dgvLate.Rows[i].Cells[1].Value.ToString();
+                    xlWorksheet.Cells[7][current_excel_row].Value2 = dgvLate.Rows[i].Cells[2].Value.ToString();
+
+                    current_excel_row++;
+                }
+
+                Microsoft.Office.Interop.Excel.Worksheet ws = xlApp.ActiveWorkbook.Worksheets[3];
+                Microsoft.Office.Interop.Excel.Range range = ws.UsedRange;
+                ws.Columns.AutoFit();
+                ws.Rows.AutoFit();
+
+                current_excel_row--;
+
+                xlWorksheet.Range["E1:G" + current_excel_row.ToString()].Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                xlWorksheet.Range["E1:G" + current_excel_row.ToString()].Borders.Color = ColorTranslator.ToOle(Color.Black);
+                xlWorksheet.Columns.AutoFit();
+                xlWorksheet.Rows.AutoFit();
+
+                xlWorksheet.Columns[2].ColumnWidth = 16.00;
+                xlWorksheet.Columns[3].ColumnWidth = 16.00;
+                xlWorksheet.Columns[6].ColumnWidth = 16.00;
+                xlWorksheet.Columns[7].ColumnWidth = 10.00;
+
+                xlPageSetUp = xlWorksheet.PageSetup;
+                xlPageSetUp.Zoom = false;
+
+                xlPageSetUp.FitToPagesWide = 1;
+
+                xlPageSetUp.Orientation = Excel.XlPageOrientation.xlPortrait;
+            }
+
+
+
+
+
+            xlPageSetUp = xlWorksheet.PageSetup;
+            xlPageSetUp.Zoom = false;
+            xlPageSetUp.FitToPagesWide = 1;
+            xlPageSetUp.Orientation = Excel.XlPageOrientation.xlPortrait;
+            xlWorkbook.SaveAs(fileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+
+
+            xlWorkbook.Close(false); //close the excel sheet without saving 
+            xlApp.Quit();
+
+            // Now find the process id that was created, and store it. 
+            int processID = 0;
+            foreach (Process process in processesAfter)
+            {
+                if (!processesBefore.Select(p => p.Id).Contains(process.Id))
+                    processID = process.Id;
+            }
+
+            // And now kill the process we opened earlier. 
+            if (processID != 0)
+            {
+                Process process = Process.GetProcessById(processID);
+                process.Kill();
+            }
+
+            Process.Start(fileName);
 
         }
     }
