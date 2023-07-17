@@ -158,6 +158,10 @@
             this.txtNewCustomer = new System.Windows.Forms.TextBox();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblRemakeValue = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.lblProgramed_value = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbEngineer = new System.Windows.Forms.ComboBox();
             this.label78 = new System.Windows.Forms.Label();
@@ -217,10 +221,8 @@
             this.dteEnd = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.lblProgramed_value = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.lblRemakeValue = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
+            this.lblPercent = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1530,6 +1532,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblPercent);
+            this.tabPage1.Controls.Add(this.label57);
             this.tabPage1.Controls.Add(this.lblRemakeValue);
             this.tabPage1.Controls.Add(this.label58);
             this.tabPage1.Controls.Add(this.lblProgramed_value);
@@ -1577,6 +1581,50 @@
             this.tabPage1.Text = "Programming";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
+            // 
+            // lblRemakeValue
+            // 
+            this.lblRemakeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.lblRemakeValue.ForeColor = System.Drawing.Color.Red;
+            this.lblRemakeValue.Location = new System.Drawing.Point(1439, 293);
+            this.lblRemakeValue.Name = "lblRemakeValue";
+            this.lblRemakeValue.Size = new System.Drawing.Size(147, 25);
+            this.lblRemakeValue.TabIndex = 51;
+            this.lblRemakeValue.Text = "£0";
+            this.lblRemakeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.label58.ForeColor = System.Drawing.Color.Red;
+            this.label58.Location = new System.Drawing.Point(1274, 293);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(159, 25);
+            this.label58.TabIndex = 50;
+            this.label58.Text = "Remake Value:";
+            // 
+            // lblProgramed_value
+            // 
+            this.lblProgramed_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.lblProgramed_value.ForeColor = System.Drawing.Color.Red;
+            this.lblProgramed_value.Location = new System.Drawing.Point(1439, 242);
+            this.lblProgramed_value.Name = "lblProgramed_value";
+            this.lblProgramed_value.Size = new System.Drawing.Size(147, 25);
+            this.lblProgramed_value.TabIndex = 49;
+            this.lblProgramed_value.Text = "£0";
+            this.lblProgramed_value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.label27.ForeColor = System.Drawing.Color.Red;
+            this.label27.Location = new System.Drawing.Point(1230, 242);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(203, 25);
+            this.label27.TabIndex = 48;
+            this.label27.Text = "Programmed Value:";
             // 
             // label14
             // 
@@ -2210,49 +2258,27 @@
             this.label13.TabIndex = 23;
             this.label13.Text = "End Date";
             // 
-            // lblProgramed_value
+            // lblPercent
             // 
-            this.lblProgramed_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
-            this.lblProgramed_value.ForeColor = System.Drawing.Color.Red;
-            this.lblProgramed_value.Location = new System.Drawing.Point(1435, 286);
-            this.lblProgramed_value.Name = "lblProgramed_value";
-            this.lblProgramed_value.Size = new System.Drawing.Size(147, 25);
-            this.lblProgramed_value.TabIndex = 49;
-            this.lblProgramed_value.Text = "£0";
-            this.lblProgramed_value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.lblPercent.ForeColor = System.Drawing.Color.Red;
+            this.lblPercent.Location = new System.Drawing.Point(1439, 344);
+            this.lblPercent.Name = "lblPercent";
+            this.lblPercent.Size = new System.Drawing.Size(147, 25);
+            this.lblPercent.TabIndex = 53;
+            this.lblPercent.Text = "0%";
+            this.lblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label27
+            // label57
             // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
-            this.label27.ForeColor = System.Drawing.Color.Red;
-            this.label27.Location = new System.Drawing.Point(1226, 286);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(203, 25);
-            this.label27.TabIndex = 48;
-            this.label27.Text = "Programmed Value:";
-            // 
-            // lblRemakeValue
-            // 
-            this.lblRemakeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
-            this.lblRemakeValue.ForeColor = System.Drawing.Color.Red;
-            this.lblRemakeValue.Location = new System.Drawing.Point(1435, 331);
-            this.lblRemakeValue.Name = "lblRemakeValue";
-            this.lblRemakeValue.Size = new System.Drawing.Size(147, 25);
-            this.lblRemakeValue.TabIndex = 51;
-            this.lblRemakeValue.Text = "£0";
-            this.lblRemakeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
-            this.label58.ForeColor = System.Drawing.Color.Red;
-            this.label58.Location = new System.Drawing.Point(1270, 331);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(159, 25);
-            this.label58.TabIndex = 50;
-            this.label58.Text = "Remake Value:";
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.label57.ForeColor = System.Drawing.Color.Red;
+            this.label57.Location = new System.Drawing.Point(1311, 344);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(122, 25);
+            this.label57.TabIndex = 52;
+            this.label57.Text = "Remake %:";
             // 
             // txtTraditionalConversionRate
             // 
@@ -2510,6 +2536,8 @@
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label lblProgramed_value;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label lblPercent;
+        private System.Windows.Forms.Label label57;
     }
 }
 

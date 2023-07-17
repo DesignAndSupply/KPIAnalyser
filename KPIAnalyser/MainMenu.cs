@@ -681,6 +681,13 @@ namespace KPIAnalyser
                 lblOvertimeHours.Text = rdr[7].ToString();
                 lblProgramed_value.Text = Math.Round(Convert.ToDouble(rdr[8].ToString()), 2).ToString("C", CultureInfo.CurrentCulture);
                 lblRemakeValue.Text = Math.Round(Convert.ToDouble(rdr[9].ToString()), 2).ToString("C", CultureInfo.CurrentCulture);
+
+                double percent = Math.Round((Convert.ToDouble(rdr[9].ToString()) / (Convert.ToDouble(rdr[8].ToString()))) * 100, 2);
+                if (percent == double.PositiveInfinity)
+                    percent = 0;
+                if (double.IsNaN(percent))
+                    percent = 0;
+                lblPercent.Text = percent.ToString() + "%";
             }
 
 
