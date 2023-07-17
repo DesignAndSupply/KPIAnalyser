@@ -658,34 +658,34 @@ namespace KPIAnalyser
             //}
             //else
             //{
-                //DateConversion dc = new DateConversion();
-                //dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
-                lblEngineerName.Text = fullname;
-                SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("usp_kpi_detailed_engineering_info", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@fullName", SqlDbType.NVarChar).Value = fullname;
-                cmd.Parameters.AddWithValue("@startDate", SqlDbType.Date).Value = dteStart.Value;
-                cmd.Parameters.AddWithValue("@endDate", SqlDbType.Date).Value = dteEnd.Value;
-                SqlDataReader rdr = cmd.ExecuteReader();
-                if (rdr.Read())
-                {
-                    lblProg.Text = rdr[0].ToString();
-                    lblAssess.Text = rdr[1].ToString();
-                    lblCheck.Text = rdr[2].ToString();
-                    lblDraw.Text = rdr[3].ToString();
-                    lblHoliday.Text = rdr[4].ToString();
-                    lblAbsent.Text = rdr[5].ToString();
-                    lblLate.Text = rdr[6].ToString();
-                    lblOvertimeHours.Text = rdr[7].ToString();
-                    lblProgramed_value.Text = Math.Round(Convert.ToDouble(rdr[8].ToString()), 2).ToString("C", CultureInfo.CurrentCulture);
-                lblRemakeValue.Text = Math.Round(Convert.ToDouble(rdr[9].ToString()),2).ToString("C", CultureInfo.CurrentCulture);
-                }
+            //DateConversion dc = new DateConversion();
+            //dateString = dc.GetDate(cmbMonth.Text, cmbYear.Text);
+            lblEngineerName.Text = fullname;
+            SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("usp_kpi_detailed_engineering_info", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@fullName", SqlDbType.NVarChar).Value = fullname;
+            cmd.Parameters.AddWithValue("@startDate", SqlDbType.Date).Value = dteStart.Value;
+            cmd.Parameters.AddWithValue("@endDate", SqlDbType.Date).Value = dteEnd.Value;
+            SqlDataReader rdr = cmd.ExecuteReader();
+            if (rdr.Read())
+            {
+                lblProg.Text = rdr[0].ToString();
+                lblAssess.Text = rdr[1].ToString();
+                lblCheck.Text = rdr[2].ToString();
+                lblDraw.Text = rdr[3].ToString();
+                lblHoliday.Text = rdr[4].ToString();
+                lblAbsent.Text = rdr[5].ToString();
+                lblLate.Text = rdr[6].ToString();
+                lblOvertimeHours.Text = rdr[7].ToString();
+                lblProgramed_value.Text = Math.Round(Convert.ToDouble(rdr[8].ToString()), 2).ToString("C", CultureInfo.CurrentCulture);
+                lblRemakeValue.Text = Math.Round(Convert.ToDouble(rdr[9].ToString()), 2).ToString("C", CultureInfo.CurrentCulture);
+            }
 
 
-                conn.Close();
-                populateDailyEngineerGrid(fullname);
+            conn.Close();
+            populateDailyEngineerGrid(fullname);
             //}
 
             paintEngineeringGridDaily();

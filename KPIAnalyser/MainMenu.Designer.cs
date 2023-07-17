@@ -2218,7 +2218,7 @@
             this.lblProgramed_value.Name = "lblProgramed_value";
             this.lblProgramed_value.Size = new System.Drawing.Size(147, 25);
             this.lblProgramed_value.TabIndex = 49;
-            this.lblProgramed_value.Text = "label84";
+            this.lblProgramed_value.Text = "£0";
             this.lblProgramed_value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label27
@@ -2240,7 +2240,7 @@
             this.lblRemakeValue.Name = "lblRemakeValue";
             this.lblRemakeValue.Size = new System.Drawing.Size(147, 25);
             this.lblRemakeValue.TabIndex = 51;
-            this.lblRemakeValue.Text = "label84";
+            this.lblRemakeValue.Text = "£0";
             this.lblRemakeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label58
