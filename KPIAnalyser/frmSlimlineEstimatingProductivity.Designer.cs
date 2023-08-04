@@ -63,6 +63,7 @@
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnA3 = new System.Windows.Forms.Button();
+            this.btnEmail = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -408,11 +409,23 @@
             this.btnA3.UseVisualStyleBackColor = true;
             this.btnA3.Click += new System.EventHandler(this.btnA3_Click);
             // 
+            // btnEmail
+            // 
+            this.btnEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnEmail.Location = new System.Drawing.Point(15, 440);
+            this.btnEmail.Name = "btnEmail";
+            this.btnEmail.Size = new System.Drawing.Size(200, 34);
+            this.btnEmail.TabIndex = 49;
+            this.btnEmail.Text = "EMAIL";
+            this.btnEmail.UseVisualStyleBackColor = true;
+            this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
+            // 
             // frmSlimlineEstimatingProductivity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1775, 752);
+            this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.btnA3);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.label6);
@@ -486,5 +499,6 @@
         private System.Windows.Forms.Label lblChase;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.Button btnA3;
+        private System.Windows.Forms.Button btnEmail;
     }
 }
