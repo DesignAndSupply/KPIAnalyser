@@ -745,6 +745,7 @@ namespace KPIAnalyser
             List<DateTime> datelist = new List<DateTime>();
             List<int> valueList = new List<int>();
             List<string> temp = new List<string>();
+            List<int> correspondenceList = new List<int>();
 
 
 
@@ -753,11 +754,13 @@ namespace KPIAnalyser
                 //datelist.Add(reader.GetDateTime(1));
                 temp.Add(reader.GetDateTime(1).ToShortDateString());
                 valueList.Add(reader.GetInt32(0));
+                correspondenceList.Add(reader.GetInt32(2));
             }
 
 
             //string[] datearray = datelist.ToArray();
             int[] itemarray = valueList.ToArray();
+            int[] correspondencearray = correspondenceList.ToArray();
 
             cartesianChart2.AxisY.Clear();
             cartesianChart2.AxisX.Clear();
@@ -773,6 +776,15 @@ namespace KPIAnalyser
                     Fill = System.Windows.Media.Brushes.LightSkyBlue,
 
                     Values = new ChartValues<int>(valueList)
+                },
+                 new ColumnSeries
+                {
+                    Title = "Correspondence",
+                    FontSize = 10,
+                    DataLabels = true,
+                    Fill = System.Windows.Media.Brushes.PaleVioletRed,
+
+                    Values = new ChartValues<int>(correspondencearray)
                 }
 
             };
