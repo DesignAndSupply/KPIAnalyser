@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>\\designsvr1\apps\Design and Supply CSharp\MiniApps\KPIAnalyser\</InstallUrl>
-    <ApplicationRevision>133</ApplicationRevision>
+    <ApplicationRevision>135</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -281,11 +281,23 @@
     <Compile Include="frmStaffDataChecker.Designer.cs">
       <DependentUpon>frmStaffDataChecker.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTimeInMotion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTimeInMotion.Designer.cs">
+      <DependentUpon>frmTimeInMotion.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpload.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmUpload.Designer.cs">
       <DependentUpon>frmUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmViewCorrespondence.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViewCorrespondence.Designer.cs">
+      <DependentUpon>frmViewCorrespondence.cs</DependentUpon>
     </Compile>
     <Compile Include="frmViewDoors.cs">
       <SubType>Form</SubType>
@@ -434,8 +446,14 @@
     <EmbeddedResource Include="frmStaffDataChecker.resx">
       <DependentUpon>frmStaffDataChecker.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmTimeInMotion.resx">
+      <DependentUpon>frmTimeInMotion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUpload.resx">
       <DependentUpon>frmUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViewCorrespondence.resx">
+      <DependentUpon>frmViewCorrespondence.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewDoors.resx">
       <DependentUpon>frmViewDoors.cs</DependentUpon>

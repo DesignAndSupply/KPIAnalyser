@@ -1093,19 +1093,19 @@ namespace KPIAnalyser
 
         private void btnWeldStaffTimingBreakdown_Click(object sender, EventArgs e)
         {
-            ProductionStaffTimings pst = new ProductionStaffTimings("Welding", this.cmbMonth.Text, this.cmbYear.Text);
+            ProductionStaffTimings pst = new ProductionStaffTimings("Welding", dteStart.Value,dteEnd.Value);
             pst.ShowDialog();
         }
 
         private void btnPackStaffTimingBreakdown_Click(object sender, EventArgs e)
         {
-            ProductionStaffTimings pst = new ProductionStaffTimings("Packing", this.cmbMonth.Text, this.cmbYear.Text);
+            ProductionStaffTimings pst = new ProductionStaffTimings("Packing", dteStart.Value, dteEnd.Value);
             pst.ShowDialog();
         }
 
         private void btnBuffStaffTimingBreakdown_Click(object sender, EventArgs e)
         {
-            ProductionStaffTimings pst = new ProductionStaffTimings("Buffing", this.cmbMonth.Text, this.cmbYear.Text);
+            ProductionStaffTimings pst = new ProductionStaffTimings("Buffing", dteStart.Value, dteEnd.Value);
             pst.ShowDialog();
         }
 
@@ -1347,6 +1347,12 @@ namespace KPIAnalyser
         private void departmentDataCheckerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmDepartmentDataChecker frm = new frmDepartmentDataChecker();
+            frm.ShowDialog();
+        }
+
+        private void btnTimeInMotion_Click(object sender, EventArgs e)
+        {
+            frmTimeInMotion frm = new frmTimeInMotion();
             frm.ShowDialog();
         }
     }

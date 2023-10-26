@@ -24,17 +24,20 @@ namespace KPIAnalyser
         string _staffName;
         int _staffID;
 
-
+        DateTime dateStart;
+        DateTime dateEnd;
 
         
-        public ProductionStaffTimings(string department, string month, string year)
+        public ProductionStaffTimings(string department, DateTime _dateStart,DateTime _dateEnd)
         {
             InitializeComponent();
        
             //Sets up the date string
             DateConversion DC = new DateConversion();
-            _dateString = DC.GetDate(month, year);
+            //_dateString = DC.GetDate(month, year);
             _department = department;
+            dateStart = _dateStart;
+            dateEnd = _dateEnd;
             populateCombo();
             //populateStaffTimings();
         
@@ -66,7 +69,8 @@ namespace KPIAnalyser
             SqlCommand cmd = new SqlCommand(storedProcName, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@start_Date", SqlDbType.DateTime).Value = _dateString;
+            cmd.Parameters.Add("@start_Date", SqlDbType.DateTime).Value = dateStart;
+            cmd.Parameters.Add("@end_Date", SqlDbType.DateTime).Value = dateEnd;
             cmd.Parameters.Add("@staff_id", SqlDbType.Int).Value = _staffID;
 
             SqlDataAdapter adap = new SqlDataAdapter(cmd);
@@ -93,7 +97,7 @@ namespace KPIAnalyser
 
             SqlCommand cmd = new SqlCommand("usp_kpi_get_staff_in_department",conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@start_date", SqlDbType.DateTime).Value = _dateString;
+            cmd.Parameters.Add("@start_date", SqlDbType.DateTime).Value = dateStart;
             cmd.Parameters.Add("@department", SqlDbType.NVarChar).Value = _department;
 
             SqlDataReader rdr = cmd.ExecuteReader();

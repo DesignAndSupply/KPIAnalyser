@@ -26,6 +26,8 @@ namespace KPIAnalyser
         public int slimline { get; set; }
         public string repaint_or_remake { get; set; }
         List<string> staffList = new List<string>();
+
+
         public frmRemakeRepaintDepartmentGraph(DateTime _startDate, DateTime _endDate, string _department, int _repaint, int _slimline)
         {
             InitializeComponent();

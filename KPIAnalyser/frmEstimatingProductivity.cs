@@ -22,6 +22,9 @@ namespace KPIAnalyser
 {
     public partial class frmEstimatingProductivity : Form
     {
+
+        List<string> static_date_list = new List<string>();
+
         public frmEstimatingProductivity()
         {
             InitializeComponent();
@@ -338,7 +341,7 @@ namespace KPIAnalyser
             cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
 
             SqlDataReader reader = cmd.ExecuteReader();
-
+            static_date_list.Clear();
             List<DateTime> datelist = new List<DateTime>();
             List<int> itemlist = new List<int>();
             List<int> chaseList = new List<int>();
@@ -351,6 +354,7 @@ namespace KPIAnalyser
             {
                 //datelist.Add(reader.GetDateTime(1));
                 temp.Add(reader.GetDateTime(1).ToShortDateString());
+                static_date_list.Add(reader.GetDateTime(1).ToShortDateString());
                 itemlist.Add(reader.GetInt32(0));
                 chaseList.Add(reader.GetInt32(2));
                 correspondenceList.Add(reader.GetInt32(3));
@@ -1480,9 +1484,22 @@ namespace KPIAnalyser
 
         private void CartesianChart1_DataClick(object sender, ChartPoint p)
         {
+            //var asPixels = cartesianChart1.Base.ConvertToPixels(p.AsPoint());
+            //MessageBox.Show("[EVENT] You clicked (" + p.X + ", " + p.Y + ") in pixels (" +
+            //                asPixels.X + ", " + asPixels.Y + ")");
+
             var asPixels = cartesianChart1.Base.ConvertToPixels(p.AsPoint());
-            MessageBox.Show("[EVENT] You clicked (" + p.X + ", " + p.Y + ") in pixels (" +
-                            asPixels.X + ", " + asPixels.Y + ")");
+            string date = static_date_list[Convert.ToInt32(p.X)].ToString();
+
+            //MessageBox.Show(date);
+
+            frmViewCorrespondence frm = new frmViewCorrespondence(date, cmbStaffMember.Text);
+            frm.ShowDialog();
+
+
+            //cmbPersonResponsible.Text = staff;
+            //loadDGV();
+
         }
 
         private void BtnIssuesLogged_Click(object sender, EventArgs e)

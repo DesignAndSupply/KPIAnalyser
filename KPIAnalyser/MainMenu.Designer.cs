@@ -158,6 +158,8 @@
             this.txtNewCustomer = new System.Windows.Forms.TextBox();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblPercent = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
             this.lblRemakeValue = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.lblProgramed_value = new System.Windows.Forms.Label();
@@ -221,8 +223,7 @@
             this.dteEnd = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.lblPercent = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
+            this.btnTimeInMotion = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1582,6 +1583,28 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
             // 
+            // lblPercent
+            // 
+            this.lblPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.lblPercent.ForeColor = System.Drawing.Color.Red;
+            this.lblPercent.Location = new System.Drawing.Point(1439, 344);
+            this.lblPercent.Name = "lblPercent";
+            this.lblPercent.Size = new System.Drawing.Size(147, 25);
+            this.lblPercent.TabIndex = 53;
+            this.lblPercent.Text = "0%";
+            this.lblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
+            this.label57.ForeColor = System.Drawing.Color.Red;
+            this.label57.Location = new System.Drawing.Point(1311, 344);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(122, 25);
+            this.label57.TabIndex = 52;
+            this.label57.Text = "Remake %:";
+            // 
             // lblRemakeValue
             // 
             this.lblRemakeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
@@ -2041,6 +2064,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnTimeInMotion);
             this.tabPage3.Controls.Add(this.btnProductionManagement);
             this.tabPage3.Controls.Add(this.label67);
             this.tabPage3.Controls.Add(this.groupBox13);
@@ -2258,27 +2282,16 @@
             this.label13.TabIndex = 23;
             this.label13.Text = "End Date";
             // 
-            // lblPercent
+            // btnTimeInMotion
             // 
-            this.lblPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
-            this.lblPercent.ForeColor = System.Drawing.Color.Red;
-            this.lblPercent.Location = new System.Drawing.Point(1439, 344);
-            this.lblPercent.Name = "lblPercent";
-            this.lblPercent.Size = new System.Drawing.Size(147, 25);
-            this.lblPercent.TabIndex = 53;
-            this.lblPercent.Text = "0%";
-            this.lblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
-            this.label57.ForeColor = System.Drawing.Color.Red;
-            this.label57.Location = new System.Drawing.Point(1311, 344);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(122, 25);
-            this.label57.TabIndex = 52;
-            this.label57.Text = "Remake %:";
+            this.btnTimeInMotion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            this.btnTimeInMotion.Location = new System.Drawing.Point(948, 683);
+            this.btnTimeInMotion.Name = "btnTimeInMotion";
+            this.btnTimeInMotion.Size = new System.Drawing.Size(262, 34);
+            this.btnTimeInMotion.TabIndex = 45;
+            this.btnTimeInMotion.Text = "Comparison over time";
+            this.btnTimeInMotion.UseVisualStyleBackColor = true;
+            this.btnTimeInMotion.Click += new System.EventHandler(this.btnTimeInMotion_Click);
             // 
             // txtTraditionalConversionRate
             // 
@@ -2538,6 +2551,7 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label lblPercent;
         private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Button btnTimeInMotion;
     }
 }
 
