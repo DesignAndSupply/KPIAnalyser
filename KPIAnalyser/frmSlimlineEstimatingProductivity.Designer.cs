@@ -386,6 +386,7 @@
             this.cartesianChart2.Size = new System.Drawing.Size(865, 209);
             this.cartesianChart2.TabIndex = 46;
             this.cartesianChart2.Text = "cartesianChart2";
+            this.cartesianChart2.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart2_DataClick);
             // 
             // btnPrint
             // 

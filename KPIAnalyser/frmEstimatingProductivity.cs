@@ -24,6 +24,7 @@ namespace KPIAnalyser
     {
 
         List<string> static_date_list = new List<string>();
+        List<int> static_correspondence_list = new List<int>();
 
         public frmEstimatingProductivity()
         {
@@ -342,6 +343,7 @@ namespace KPIAnalyser
 
             SqlDataReader reader = cmd.ExecuteReader();
             static_date_list.Clear();
+            static_correspondence_list.Clear();
             List<DateTime> datelist = new List<DateTime>();
             List<int> itemlist = new List<int>();
             List<int> chaseList = new List<int>();
@@ -358,6 +360,7 @@ namespace KPIAnalyser
                 itemlist.Add(reader.GetInt32(0));
                 chaseList.Add(reader.GetInt32(2));
                 correspondenceList.Add(reader.GetInt32(3));
+                static_correspondence_list.Add(reader.GetInt32(3));
             }
 
 
@@ -1491,7 +1494,10 @@ namespace KPIAnalyser
             var asPixels = cartesianChart1.Base.ConvertToPixels(p.AsPoint());
             string date = static_date_list[Convert.ToInt32(p.X)].ToString();
 
-            //MessageBox.Show(date);
+            string temp = static_correspondence_list[Convert.ToInt32(p.X)].ToString();
+
+            if (temp == "0")
+                return;
 
             frmViewCorrespondence frm = new frmViewCorrespondence(date, cmbStaffMember.Text);
             frm.ShowDialog();

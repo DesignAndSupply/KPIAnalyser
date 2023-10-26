@@ -25,12 +25,14 @@ namespace KPIAnalyser
     public partial class frmSlimlineEstimatingProductivity : Form
     {
         public string print_file { get; set; }
+        List<string> static_date_list = new List<string>();
+        List<int> static_correspondence_list = new List<int>();
         public frmSlimlineEstimatingProductivity()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             //add to the combobox
-            string sql = "SELECT forename + ' ' + surname FROM [user_info].dbo.[user] WHERE grouping = 25 and id <> 7 and id <> 24 ";
+            string sql = "SELECT forename + ' ' + surname FROM [user_info].dbo.[user] WHERE grouping = 25 and id <> 7 and id <> 24 and [current] = 1";
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -741,7 +743,8 @@ namespace KPIAnalyser
             cmd.Parameters.Add("@endDate", SqlDbType.NVarChar).Value = enddate;
 
             SqlDataReader reader = cmd.ExecuteReader();
-
+            static_date_list.Clear();
+            static_correspondence_list.Clear();
             List<DateTime> datelist = new List<DateTime>();
             List<int> valueList = new List<int>();
             List<string> temp = new List<string>();
@@ -753,8 +756,11 @@ namespace KPIAnalyser
             {
                 //datelist.Add(reader.GetDateTime(1));
                 temp.Add(reader.GetDateTime(1).ToShortDateString());
+                static_date_list.Add(reader.GetDateTime(1).ToShortDateString());
                 valueList.Add(reader.GetInt32(0));
                 correspondenceList.Add(reader.GetInt32(2));
+                static_correspondence_list.Add(reader.GetInt32(2));
+
             }
 
 
@@ -1016,6 +1022,24 @@ namespace KPIAnalyser
             string msgHTMLBody = "";
             mailItem.HTMLBody = msgHTMLBody;
             mailItem.Display(true);
+        }
+
+        private void cartesianChart2_DataClick(object sender, ChartPoint p)
+        {
+
+            var asPixels = cartesianChart2.Base.ConvertToPixels(p.AsPoint());
+            string date = static_date_list[Convert.ToInt32(p.X)].ToString();
+
+            string temp = static_correspondence_list[Convert.ToInt32(p.X)].ToString();
+
+            if (temp == "0")
+                return;
+
+            //MessageBox.Show(date);
+
+            frmViewCorrespondence frm = new frmViewCorrespondence(date, cmbStaffMember.Text);
+            frm.ShowDialog();
+
         }
     }
 }
