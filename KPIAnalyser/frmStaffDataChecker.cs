@@ -180,9 +180,20 @@ namespace KPIAnalyser
                 }
                 else if (estimator == -1)
                 {
-                    sql = "select date_output,day_of_week,coalesce(allocated_estimators * 90,0) as goal,coalesce(items,0) from " +
+                    string estSwitch;
+                    estSwitch = cmbStaff.Text;
+
+                    if (estSwitch == "Nicholas Thomas")
+                    {
+                        estSwitch = "Nick Thomas";
+                    }
+                    
+
+
+
+                    sql = "select date_output,day_of_week,coalesce(1* 90,0) as goal,coalesce(items,0) from " +
                           "(select cast(date_output as date) as date_output, datename(WEEKDAY, cast(date_output as date)) as day_of_week,sum(item_count) as items " +
-                          "from dbo.solidworks_quotation_log l where quoted_by = '" + cmbStaff.Text + "' group by cast(date_output as date)) as solidworks " +
+                          "from dbo.solidworks_quotation_log l where quoted_by = '" + estSwitch + "' group by cast(date_output as date)) as solidworks " +
                           "left join (select cast(placement_date as date) as placement_date,count(string) as allocated_estimators " +
                           "from [order_database].dbo.view_department_reverse_concat_office where department = 'Estimating' " +
                           " " +

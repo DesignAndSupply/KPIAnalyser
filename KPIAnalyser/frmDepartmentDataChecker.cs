@@ -44,7 +44,7 @@ namespace KPIAnalyser
                 //absences
                 sql = "select  Convert(char,date_absent,103)  as [Absent Date],datename(WEEKDAY,date_absent) as [Day of Week],sum(1) [Absent] from dbo.absent_holidays " +
                     "left join [user_info].dbo.[user] u on u.id = staff_id " +
-                    "where(absent_type = 5 or absent_type = 8) AND u.[current] = 1 AND ";
+                    "where(absent_type = 5 or absent_type = 8) AND [current] = 1 AND ";
 
                 if (cmbDepartment.Text == "Slimline Office")
                     sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null) and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
@@ -180,7 +180,7 @@ namespace KPIAnalyser
                         "where d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' and s.department = '" + cmbDepartment.Text.Replace("Buffing", "Dressing") + "' " +
                         "AND d.date_plan <= CAST(GETDATE() as date)) as grouped group by date_plan) as a " +
                         "left merge join( SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours] " +
-                        "FROM dbo.door_part_completion_log WHERE door_part_completion_log.op = '" + cmbDepartment.Text.Replace("Buffing", "Dressing") + "' " +
+                        "FROM dbo.door_part_completion_log WHERE door_part_completion_log.op = '" + "Buffing" + "' " +
                         "AND CAST(part_complete_date as DATE) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND CAST(part_complete_date as DATE) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                         "AND part_status = 'Complete'   GROUP BY CAST(part_complete_date as date)) as b on a.date_plan = b.date " +
                         "order by a.date_plan";
@@ -560,11 +560,11 @@ namespace KPIAnalyser
         private void dgvLate_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string sql = "select  u.forename + ' ' + u.surname as [Late Staff] " +
-                "from dbo.absent_holidays left join[user_info].dbo.[user] u on u.id = staff_id where(absent_type = 7) AND ";
+                "from dbo.absent_holidays left join[user_info].dbo.[user] u on u.id = staff_id where(absent_type = 7) and u.[current] = 1 AND ";
             if (cmbDepartment.Text == "Slimline Office")
-                sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null) and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+                sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null)  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
             else if (cmbDepartment.Text == "Slimline Production")
-                sql = sql + " u.slimline = -1 and u.ShopFloor = -1 and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+                sql = sql + " u.slimline = -1 and u.ShopFloor = -1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
             else
                 sql = sql + "default_in_department =  '" + cmbDepartment.Text.ToString() + "' ";
             sql = sql + "AND date_absent = '" + Convert.ToDateTime(dgvLate.Rows[e.RowIndex].Cells[0].Value.ToString()).ToString("yyyy-MM-dd") + "'";
@@ -577,19 +577,24 @@ namespace KPIAnalyser
 
         private void dgvAbsent_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string sql = "select  u.forename + ' ' + u.surname as [Late Staff] from dbo.absent_holidays " +
+            string sql = "select  u.forename + ' ' + u.surname as [Absent Staff] from dbo.absent_holidays " +
                     "left join[user_info].dbo.[user] u on u.id = staff_id " +
-                    "where(absent_type = 5 or absent_type = 8) AND ";
+                    "where(absent_type = 5 or absent_type = 8) AND u.[current] = 1  AND ";
             if (cmbDepartment.Text == "Slimline Office")
-                sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null) and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+                sql = sql + " u.slimline = -1 and (u.ShopFloor = 0 or u.ShopFloor is null) and (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
             else if (cmbDepartment.Text == "Slimline Production")
-                sql = sql + " u.slimline = -1 and u.ShopFloor = -1 and u.[current] = 1  AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
+                sql = sql + " u.slimline = -1 and u.ShopFloor = -1 AND (u.id <> 3 and u.id <> 9 and u.id <> 29) ";
             else
                 sql = sql + "default_in_department =  '" + cmbDepartment.Text.ToString() + "' ";
             sql = sql + " AND date_absent = '" + Convert.ToDateTime(dgvAbsent.Rows[e.RowIndex].Cells[0].Value.ToString()).ToString("yyyy-MM-dd") + "'  ";
 
             frmDepartmentEnhanced frm = new frmDepartmentEnhanced(sql, "Absent Employees", Convert.ToDateTime(dgvAbsent.Rows[e.RowIndex].Cells[0].Value.ToString()));
             frm.ShowDialog();
+        }
+
+        private void dgvPerformance_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

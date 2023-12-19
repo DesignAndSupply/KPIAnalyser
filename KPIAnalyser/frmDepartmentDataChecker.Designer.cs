@@ -33,6 +33,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblRemake = new System.Windows.Forms.Label();
+            this.lblRepaint = new System.Windows.Forms.Label();
             this.lblRemakeRepaint = new System.Windows.Forms.Label();
             this.dgvRemakeRepaint = new System.Windows.Forms.DataGridView();
             this.lblPerformance = new System.Windows.Forms.Label();
@@ -50,8 +52,6 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnEmail = new System.Windows.Forms.Button();
-            this.lblRepaint = new System.Windows.Forms.Label();
-            this.lblRemake = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRemakeRepaint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPerformance)).BeginInit();
@@ -79,6 +79,28 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Absence / Late";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lblRemake
+            // 
+            this.lblRemake.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemake.ForeColor = System.Drawing.Color.Red;
+            this.lblRemake.Location = new System.Drawing.Point(1490, 34);
+            this.lblRemake.Name = "lblRemake";
+            this.lblRemake.Size = new System.Drawing.Size(179, 28);
+            this.lblRemake.TabIndex = 15;
+            this.lblRemake.Text = "0";
+            this.lblRemake.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // lblRepaint
+            // 
+            this.lblRepaint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRepaint.ForeColor = System.Drawing.Color.Red;
+            this.lblRepaint.Location = new System.Drawing.Point(1271, 34);
+            this.lblRepaint.Name = "lblRepaint";
+            this.lblRepaint.Size = new System.Drawing.Size(178, 28);
+            this.lblRepaint.TabIndex = 14;
+            this.lblRepaint.Text = "0";
+            this.lblRepaint.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblRemakeRepaint
             // 
@@ -145,6 +167,7 @@
             this.dgvPerformance.RowHeadersVisible = false;
             this.dgvPerformance.Size = new System.Drawing.Size(398, 717);
             this.dgvPerformance.TabIndex = 10;
+            this.dgvPerformance.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPerformance_CellContentClick);
             // 
             // lblLate
             // 
@@ -314,28 +337,6 @@
             this.btnEmail.Text = "Email";
             this.btnEmail.UseVisualStyleBackColor = true;
             this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
-            // 
-            // lblRepaint
-            // 
-            this.lblRepaint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRepaint.ForeColor = System.Drawing.Color.Red;
-            this.lblRepaint.Location = new System.Drawing.Point(1271, 34);
-            this.lblRepaint.Name = "lblRepaint";
-            this.lblRepaint.Size = new System.Drawing.Size(178, 28);
-            this.lblRepaint.TabIndex = 14;
-            this.lblRepaint.Text = "0";
-            this.lblRepaint.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // lblRemake
-            // 
-            this.lblRemake.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemake.ForeColor = System.Drawing.Color.Red;
-            this.lblRemake.Location = new System.Drawing.Point(1490, 34);
-            this.lblRemake.Name = "lblRemake";
-            this.lblRemake.Size = new System.Drawing.Size(179, 28);
-            this.lblRemake.TabIndex = 15;
-            this.lblRemake.Text = "0";
-            this.lblRemake.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // frmDepartmentDataChecker
             // 

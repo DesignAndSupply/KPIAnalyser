@@ -302,7 +302,7 @@ namespace KPIAnalyser
             conn.Open();
 
             //sales card
-            string sql = "SELECT	round(sum(v.line_total),2) from dbo.door d left join dbo.view_door_value v on v.id = d.id left join dbo.door_type dt on dt.id = d.door_type_id " +
+            string sql = "SELECT round(coalesce(sum(v.line_total),0),2) from dbo.door d left join dbo.view_door_value v on v.id = d.id left join dbo.door_type dt on dt.id = d.door_type_id " +
                 "where date_completion >= '" + startdate + "' AND date_completion <= '" + enddate + "' AND(status_id = 1 or status_id = 2 or status_id = 3) and (dt.slimline_y_n = 0 or dt.slimline_y_n  is null)";
             using (SqlCommand salesCmd = new SqlCommand(sql, conn))
             {
