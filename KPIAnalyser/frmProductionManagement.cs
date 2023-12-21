@@ -3402,5 +3402,11 @@ namespace KPIAnalyser
                 rdoYearly.PerformClick();
 
         }
+
+        private void btnLastWeek_Click(object sender, EventArgs e)
+        {
+            frmProductionManagementLastWeek frm = new frmProductionManagementLastWeek();
+            frm.ShowDialog();
+        }
     }
 }

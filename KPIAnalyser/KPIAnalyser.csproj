@@ -26,7 +26,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>140</ApplicationRevision>
+    <ApplicationRevision>141</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -143,6 +143,12 @@
     </Compile>
     <Compile Include="frmProductionManagement.Designer.cs">
       <DependentUpon>frmProductionManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProductionManagementLastWeek.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductionManagementLastWeek.Designer.cs">
+      <DependentUpon>frmProductionManagementLastWeek.cs</DependentUpon>
     </Compile>
     <Compile Include="frmProgrammerComparison.cs">
       <SubType>Form</SubType>
@@ -377,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmProductionManagement.resx">
       <DependentUpon>frmProductionManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProductionManagementLastWeek.resx">
+      <DependentUpon>frmProductionManagementLastWeek.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProgrammerComparison.resx">
       <DependentUpon>frmProgrammerComparison.cs</DependentUpon>
