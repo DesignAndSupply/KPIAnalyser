@@ -45,6 +45,7 @@
             this.completedOnTime.Size = new System.Drawing.Size(910, 450);
             this.completedOnTime.TabIndex = 3;
             this.completedOnTime.Text = "cartesianChart4";
+            this.completedOnTime.DataClick += new LiveCharts.Events.DataClickHandler(this.completedOnTime_DataClick);
             // 
             // remakeRepaintValue
             // 

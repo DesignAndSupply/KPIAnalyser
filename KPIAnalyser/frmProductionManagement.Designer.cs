@@ -33,8 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabEngineering = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.cartesianChart1 = new LiveCharts.Wpf.CartesianChart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -56,6 +54,7 @@
             this.dgvRepaintRemake = new System.Windows.Forms.DataGridView();
             this.lblGraphTitle = new System.Windows.Forms.Label();
             this.btnLastWeek = new System.Windows.Forms.Button();
+            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.tabEngineering.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -84,7 +83,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.elementHost1);
+            this.tabPage1.Controls.Add(this.cartesianChart1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -92,18 +91,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Completed on Time";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // elementHost1
-            // 
-            this.elementHost1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.elementHost1.Location = new System.Drawing.Point(4, 6);
-            this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1247, 327);
-            this.elementHost1.TabIndex = 0;
-            this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.cartesianChart1;
             // 
             // tabPage2
             // 
@@ -376,6 +363,18 @@
             this.btnLastWeek.UseVisualStyleBackColor = true;
             this.btnLastWeek.Click += new System.EventHandler(this.btnLastWeek_Click);
             // 
+            // cartesianChart1
+            // 
+            this.cartesianChart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cartesianChart1.Location = new System.Drawing.Point(8, 6);
+            this.cartesianChart1.Name = "cartesianChart1";
+            this.cartesianChart1.Size = new System.Drawing.Size(1243, 327);
+            this.cartesianChart1.TabIndex = 28;
+            this.cartesianChart1.Text = "cartesianChart1";
+            this.cartesianChart1.DataClick += new LiveCharts.Events.DataClickHandler(this.cartesianChart1_DataClick);
+            // 
             // frmProductionManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,8 +416,6 @@
 
         private System.Windows.Forms.TabControl tabEngineering;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private LiveCharts.Wpf.CartesianChart cartesianChart1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btnPrintLateness;
         private System.Windows.Forms.RadioButton rdoYearly;
@@ -440,5 +437,6 @@
         private System.Windows.Forms.Button btnRemakeRepaint;
         private System.Windows.Forms.Label lblGraphTitle;
         private System.Windows.Forms.Button btnLastWeek;
+        private LiveCharts.WinForms.CartesianChart cartesianChart1;
     }
 }

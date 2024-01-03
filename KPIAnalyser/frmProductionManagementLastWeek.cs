@@ -638,7 +638,7 @@ namespace KPIAnalyser
 
         private void remakeRepaintValue_DataClick(object sender, ChartPoint p)
         {
-           // var asPixels = cartesianChart2.Base.ConvertToPixels(p.AsPoint());
+            // var asPixels = cartesianChart2.Base.ConvertToPixels(p.AsPoint());
             //MessageBox.Show("[EVENT] You clicked ([EVENT] You clicked (" + p.X + ", " + p.Y + ") in pixels (" +
             //            asPixels.X + ", " + asPixels.Y + ")");
             //MessageBox.Show(Convert.ToInt32(p.X).ToString());
@@ -651,11 +651,29 @@ namespace KPIAnalyser
             DateTime dateStart = DateTime.Today;
             DateTime dateEnd = DateTime.Today;
 
-                dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString());
-                dateEnd = dateStart.AddDays(7);
-        
+            dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString());
+            dateEnd = dateStart.AddDays(7);
+
 
             frmRemakeRepaintGraph frm = new frmRemakeRepaintGraph(dateStart, dateEnd, 0);
+            frm.ShowDialog();
+        }
+
+        private void completedOnTime_DataClick(object sender, ChartPoint p)
+        {
+            tempData[Convert.ToInt32(p.X)].ToString();
+            int today = 0;
+
+            //because the data types are so inconsistent we need to check which type it is
+            DateTime dateStart = DateTime.Today;
+            DateTime dateEnd = DateTime.Today;
+
+            dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString());
+            dateEnd = dateStart.AddDays(7);
+
+
+
+            frmLateness frm = new frmLateness(dateStart, dateEnd);
             frm.ShowDialog();
         }
     }

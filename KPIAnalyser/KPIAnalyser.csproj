@@ -26,7 +26,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>141</ApplicationRevision>
+    <ApplicationRevision>145</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -137,6 +137,12 @@
     </Compile>
     <Compile Include="frmEstimatorWorkload.Designer.cs">
       <DependentUpon>frmEstimatorWorkload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLateness.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLateness.Designer.cs">
+      <DependentUpon>frmLateness.cs</DependentUpon>
     </Compile>
     <Compile Include="frmProductionManagement.cs">
       <SubType>Form</SubType>
@@ -380,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmEstimatorWorkload.resx">
       <DependentUpon>frmEstimatorWorkload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLateness.resx">
+      <DependentUpon>frmLateness.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProductionManagement.resx">
       <DependentUpon>frmProductionManagement.cs</DependentUpon>

@@ -180,10 +180,10 @@ namespace KPIAnalyser
                         "where d.date_plan >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' and d.date_plan <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' and s.department = '" + cmbDepartment.Text.Replace("Buffing", "Dressing") + "' " +
                         "AND d.date_plan <= CAST(GETDATE() as date)) as grouped group by date_plan) as a " +
                         "left merge join( SELECT CAST(part_complete_date as date) as [date],ROUND((SUM(time_for_part) / 60), 2) as [worked_hours] " +
-                        "FROM dbo.door_part_completion_log WHERE door_part_completion_log.op = '" + "Buffing" + "' " +
+                        "FROM dbo.door_part_completion_log WHERE door_part_completion_log.op = '" + cmbDepartment.Text + "' " +
                         "AND CAST(part_complete_date as DATE) >= '" + dteStart.Value.ToString("yyyy-MM-dd") + "' AND CAST(part_complete_date as DATE) <= '" + dteEnd.Value.ToString("yyyy-MM-dd") + "' " +
                         "AND part_status = 'Complete'   GROUP BY CAST(part_complete_date as date)) as b on a.date_plan = b.date " +
-                        "order by a.date_plan";
+                        "where [worked_hours] > 0 order by a.date_plan";
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
                         SqlDataAdapter da = new SqlDataAdapter(cmd);

@@ -3408,5 +3408,54 @@ namespace KPIAnalyser
             frmProductionManagementLastWeek frm = new frmProductionManagementLastWeek();
             frm.ShowDialog();
         }
+
+        private void cartesianChart1_DataClick(object sender, ChartPoint p)
+        {
+            tempData[Convert.ToInt32(p.X)].ToString();
+            int today = 0;
+
+            //because the data types are so inconsistent we need to check which type it is
+            DateTime dateStart = DateTime.Today;
+            DateTime dateEnd = DateTime.Today;
+
+            if (rdoWeekly.Checked == true) //weekly is the only nice format 
+            {
+                dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString());
+                dateEnd = dateStart.AddDays(7);
+            }
+            else if (rdoMonthly.Checked == true)
+            {
+                int monthsToRemove = tempData.IndexOf(tempData[Convert.ToInt32(p.X)].ToString()) + 1; //add one because list stars at 0
+                monthsToRemove = monthsToRemove - tempData.Count(); //remove the current pos from the  list total to get the amount of jumps back we take
+                dateStart = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month + "/01");
+                dateStart = dateStart.AddMonths(monthsToRemove);
+                dateEnd = dateStart.AddMonths(1);
+            }
+            else if (rdoQuaterly.Checked == true)
+            {
+                // find out what is the start month of the quater we are currently in (this should always be the final quater on the graph
+                //after we have that take away 3 months for every position away from the final quater
+                int quarterNumber = (dateStart.Month - 1) / 3 + 1;
+                dateStart = new DateTime(dateStart.Year, (quarterNumber - 1) * 3 + 1, 1);
+
+                int monthsToRemove = tempData.IndexOf(tempData[Convert.ToInt32(p.X)].ToString()) + 1; //add one because list stars at 0
+                monthsToRemove = monthsToRemove - tempData.Count();
+                monthsToRemove = monthsToRemove * 3; //each quater is 3 months so this should take away the exact number of months to remove
+                dateStart = dateStart.AddMonths(monthsToRemove);
+                dateEnd = dateStart.AddMonths(3);
+                dateEnd = new DateTime(dateEnd.Year, (dateEnd.Month), 1);
+            }
+            else if (rdoYearly.Checked == true)
+            {
+                //this one should be fairly easy as the output is the year
+                dateStart = Convert.ToDateTime(tempData[Convert.ToInt32(p.X)].ToString() + "/01/01");
+                dateEnd = dateStart.AddYears(1);
+            }
+
+
+
+            frmLateness frm = new frmLateness(dateStart, dateEnd);
+            frm.ShowDialog();
+        }
     }
 }
