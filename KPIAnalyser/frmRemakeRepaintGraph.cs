@@ -242,7 +242,7 @@ namespace KPIAnalyser
             mailItem.Attachments.Add(imageSrc);
             string msgHTMLBody = "";
             mailItem.HTMLBody = msgHTMLBody;
-            mailItem.Display(true);
+            mailItem.Display(false);
         }
 
         private void btnPrint_Click(object sender, EventArgs e)

@@ -26,6 +26,7 @@ namespace KPIAnalyser
 
             string sql = "SELECT forename + ' ' + surname,* FROM dbo.[user] where [grouping] = 5 and [current] = 1 AND (non_user is null or non_user = 0)  order by forename";
             lstStaff.Items.Add("Tomas Grother");
+            lstStaff.Items.Add("Brandon Evans");
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionStringUser))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -1147,7 +1148,7 @@ namespace KPIAnalyser
             mailItem.Attachments.Add(imageSrc);
             string msgHTMLBody = "";
             mailItem.HTMLBody = msgHTMLBody;
-            mailItem.Display(true);
+            mailItem.Display(false);
             //mailItem.Send();
         }
 

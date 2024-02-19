@@ -816,7 +816,7 @@ namespace KPIAnalyser
             var signature = mailItem.HTMLBody;
 
             mailItem.HTMLBody = "" /*+ signature*/ + mailItem.HTMLBody;
-            mailItem.Display(true);
+            mailItem.Display(false);
 
         }
 

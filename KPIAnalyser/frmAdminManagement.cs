@@ -1630,7 +1630,7 @@ namespace KPIAnalyser
             mailItem.Attachments.Add(imageSrc);
             string msgHTMLBody = "";
             mailItem.HTMLBody = msgHTMLBody;
-            mailItem.Display(true);
+            mailItem.Display(false);
         }
 
         private void tabEngineering_SelectedIndexChanged(object sender, EventArgs e)

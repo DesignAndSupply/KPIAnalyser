@@ -179,7 +179,7 @@ namespace KPIAnalyser
                     }
                 }
                 else if (estimator == -1)
-                {
+                { 
                     string estSwitch;
                     estSwitch = cmbStaff.Text;
 
@@ -595,7 +595,7 @@ namespace KPIAnalyser
                 mailItem.Attachments.Add(imageSrc);
                 string msgHTMLBody = "";
                 mailItem.HTMLBody = msgHTMLBody;
-                mailItem.Display(true);
+                mailItem.Display(false);
 
             }
             catch { }
