@@ -3411,6 +3411,7 @@ namespace KPIAnalyser
 
         private void cartesianChart1_DataClick(object sender, ChartPoint p)
         {
+            
             tempData[Convert.ToInt32(p.X)].ToString();
             int today = 0;
 

@@ -56,7 +56,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 39);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1092, 606);
+            this.dataGridView1.Size = new System.Drawing.Size(1237, 660);
             this.dataGridView1.TabIndex = 0;
             // 
             // lblTitle
@@ -66,7 +66,7 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(1092, 27);
+            this.lblTitle.Size = new System.Drawing.Size(1237, 27);
             this.lblTitle.TabIndex = 19;
             this.lblTitle.Text = "Repaints From: \'YYYYMMDD\' to \'YYYYMMDD\'";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -76,7 +76,7 @@
             this.chkAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAll.AutoSize = true;
             this.chkAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.chkAll.Location = new System.Drawing.Point(976, 12);
+            this.chkAll.Location = new System.Drawing.Point(1121, 12);
             this.chkAll.Name = "chkAll";
             this.chkAll.Size = new System.Drawing.Size(128, 21);
             this.chkAll.TabIndex = 20;
@@ -88,7 +88,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1116, 651);
+            this.ClientSize = new System.Drawing.Size(1261, 705);
             this.Controls.Add(this.chkAll);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.dataGridView1);

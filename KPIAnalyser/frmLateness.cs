@@ -33,7 +33,7 @@ namespace KPIAnalyser
         {
             string sql = "SELECT RTRIM(s.NAME) as Customer,door.id as [Door ID],door_ref as [Door Ref],order_number as [Order Number], dbo.door.date_completion as [Date Compeletion], " +
                 "date_complete_on_order_acknowledgement as [Date Complete on Order Acknowledgement], " +
-                "CASE WHEN date_completion <= date_complete_on_order_acknowledgement THEN cast(-1 as bit) ELSE cast(0 as bit) END AS [Completed on Time] " +
+                "CASE WHEN date_completion <= date_complete_on_order_acknowledgement THEN cast(-1 as bit) ELSE cast(0 as bit) END AS [Completed on Time],packing_note as [Packing Note] " +
                 "FROM dbo.door " +
                 "LEFT OUTER JOIN dbo.door_type ON dbo.door.door_type_id = dbo.door_type.id " +
                 "left join dbo.sales_ledger s on s.ACCOUNT_REF = door.customer_acc_ref " +
@@ -67,7 +67,11 @@ namespace KPIAnalyser
             foreach (DataGridViewColumn col in dataGridView1.Columns)
                 col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[dataGridView1.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGridView1.Columns[dataGridView1.Columns.Count - 1].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         private void frmLateness_Shown(object sender, EventArgs e)
