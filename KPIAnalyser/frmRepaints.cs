@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.IO;
 using System.Diagnostics;
+using System.Drawing.Printing;
 
 namespace KPIAnalyser
 {
@@ -318,6 +319,7 @@ namespace KPIAnalyser
 
         private void btnEmail_Click(object sender, EventArgs e)
         {
+            
             //upload the current datagrid into the table ready to email
             SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString);
             conn.Open();
@@ -326,8 +328,8 @@ namespace KPIAnalyser
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 string sql = "INSERT INTO dbo.repaint_data_email (door_id,repaint_description,log_date,customer,person_responsible,department_responsible,cost) " +
-                    "VALUES ('" + row.Cells[0].Value.ToString() + "','" + row.Cells[1].Value.ToString() + "','" + Convert.ToDateTime(row.Cells[2].Value.ToString()).ToString("dd/MM/yyyy") + "','" + row.Cells[3].Value.ToString() + "','" + row.Cells[4].Value.ToString() + "'," +
-                    "'" + row.Cells[5].Value.ToString() + "','" + row.Cells[6].Value.ToString() + "')";
+                    "VALUES ('" + row.Cells[0].Value.ToString() + "','" + row.Cells[1].Value.ToString() + "','" + Convert.ToDateTime(row.Cells[3].Value).ToString("dd/MM/yyyy") + "','" + row.Cells[4].Value.ToString() + "'," +
+                    "'" + row.Cells[5].Value.ToString() + "','" + row.Cells[6].Value.ToString()  + "','" + row.Cells[7].Value.ToString() + "')";
                 using (SqlCommand cmdInsert = new SqlCommand(sql, conn))
                 {
                     cmdInsert.ExecuteNonQuery();
@@ -422,6 +424,50 @@ namespace KPIAnalyser
                     dgvStaff.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvStaff.ClearSelection();
                 }
+            }
+        }
+
+        private void brnPrintout_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Drawing.Image bit = new Bitmap(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+
+                Graphics gs = Graphics.FromImage(bit);
+
+                gs.CopyFromScreen(new Point(0, 0), new Point(0, 0), bit.Size);
+
+                bit.Save(@"C:\temp\temp.jpg");
+
+                printImage();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void printImage()
+        {
+            try
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += (sender, args) =>
+                {
+                    System.Drawing.Image i = System.Drawing.Image.FromFile(@"C:\temp\temp.jpg");
+                    Point p = new Point(100, 100);
+                    args.Graphics.DrawImage(i, args.MarginBounds);
+
+                };
+
+                pd.DefaultPageSettings.Landscape = true;
+                Margins margins = new Margins(50, 50, 50, 50);
+                pd.DefaultPageSettings.Margins = margins;
+                pd.Print();
+            }
+            catch
+            {
+
             }
         }
 

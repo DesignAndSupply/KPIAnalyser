@@ -18,11 +18,13 @@ namespace KPIAnalyser
     {
         public DateTime dateStart { get; set; }
         public DateTime dateEnd { get; set; }
-        public frmRepaintsRemakes(DateTime _dateStart, DateTime _dateEnd)
+        public frmRepaintsRemakes(DateTime _dateStart, DateTime _dateEnd,string staff)
         {
             dateStart = _dateStart;
             dateEnd = _dateEnd;
             InitializeComponent();
+            cmbPersonResponsible.Text = staff;
+            cmbPaintPersonResponsible.Text = staff;
             lblTitle.Text = "From: " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy");
             this.WindowState = FormWindowState.Maximized;
             apply_filter();

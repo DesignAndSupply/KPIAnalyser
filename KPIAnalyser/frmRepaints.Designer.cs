@@ -42,6 +42,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dgvStaff = new System.Windows.Forms.DataGridView();
+            this.brnPrintout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaff)).BeginInit();
             this.SuspendLayout();
@@ -101,7 +102,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnClear.Location = new System.Drawing.Point(185, 145);
+            this.btnClear.Location = new System.Drawing.Point(81, 145);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(79, 23);
             this.btnClear.TabIndex = 27;
@@ -199,11 +200,23 @@
             this.dgvStaff.Size = new System.Drawing.Size(416, 170);
             this.dgvStaff.TabIndex = 33;
             // 
+            // brnPrintout
+            // 
+            this.brnPrintout.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.brnPrintout.Location = new System.Drawing.Point(166, 145);
+            this.brnPrintout.Name = "brnPrintout";
+            this.brnPrintout.Size = new System.Drawing.Size(98, 23);
+            this.brnPrintout.TabIndex = 34;
+            this.brnPrintout.Text = "PRINT";
+            this.brnPrintout.UseVisualStyleBackColor = true;
+            this.brnPrintout.Click += new System.EventHandler(this.brnPrintout_Click);
+            // 
             // frmRepaints
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1059, 496);
+            this.Controls.Add(this.brnPrintout);
             this.Controls.Add(this.dgvStaff);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnEmail);
@@ -242,5 +255,6 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dgvStaff;
+        private System.Windows.Forms.Button brnPrintout;
     }
 }

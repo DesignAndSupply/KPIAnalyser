@@ -34,6 +34,8 @@ namespace KPIAnalyser
             cmbStaff.Items.Add("All");
             cmbStaff.Items.Add("Tomas Grother");
             cmbStaff.Items.Add("Brandon Evans");
+            cmbStaff.Items.Add("Lewis Hargreaves");
+            cmbStaff.Items.Add("Geraint Lee");
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionStringUser))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))

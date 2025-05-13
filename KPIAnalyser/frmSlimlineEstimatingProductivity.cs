@@ -33,6 +33,7 @@ namespace KPIAnalyser
             this.WindowState = FormWindowState.Maximized;
             //add to the combobox
             string sql = "SELECT forename + ' ' + surname FROM [user_info].dbo.[user] WHERE grouping = 25 and id <> 7 and id <> 24 and [current] = 1";
+            cmbStaffMember.Items.Add("Jenny Jones");
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))

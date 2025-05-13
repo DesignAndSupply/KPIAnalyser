@@ -202,6 +202,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnManagement = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnTimeInMotion = new System.Windows.Forms.Button();
             this.btnProductionManagement = new System.Windows.Forms.Button();
             this.label67 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -223,7 +224,7 @@
             this.dteEnd = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.btnTimeInMotion = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1342,7 +1343,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1635, 35);
+            this.button2.Location = new System.Drawing.Point(1141, 35);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(168, 23);
             this.button2.TabIndex = 20;
@@ -1352,7 +1353,7 @@
             // 
             // btnEstimating
             // 
-            this.btnEstimating.Location = new System.Drawing.Point(1635, 6);
+            this.btnEstimating.Location = new System.Drawing.Point(1141, 6);
             this.btnEstimating.Name = "btnEstimating";
             this.btnEstimating.Size = new System.Drawing.Size(168, 23);
             this.btnEstimating.TabIndex = 20;
@@ -2080,6 +2081,17 @@
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
+            // btnTimeInMotion
+            // 
+            this.btnTimeInMotion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            this.btnTimeInMotion.Location = new System.Drawing.Point(948, 683);
+            this.btnTimeInMotion.Name = "btnTimeInMotion";
+            this.btnTimeInMotion.Size = new System.Drawing.Size(262, 34);
+            this.btnTimeInMotion.TabIndex = 45;
+            this.btnTimeInMotion.Text = "Comparison over time";
+            this.btnTimeInMotion.UseVisualStyleBackColor = true;
+            this.btnTimeInMotion.Click += new System.EventHandler(this.btnTimeInMotion_Click);
+            // 
             // btnProductionManagement
             // 
             this.btnProductionManagement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -2282,22 +2294,22 @@
             this.label13.TabIndex = 23;
             this.label13.Text = "End Date";
             // 
-            // btnTimeInMotion
+            // label26
             // 
-            this.btnTimeInMotion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            this.btnTimeInMotion.Location = new System.Drawing.Point(948, 683);
-            this.btnTimeInMotion.Name = "btnTimeInMotion";
-            this.btnTimeInMotion.Size = new System.Drawing.Size(262, 34);
-            this.btnTimeInMotion.TabIndex = 45;
-            this.btnTimeInMotion.Text = "Comparison over time";
-            this.btnTimeInMotion.UseVisualStyleBackColor = true;
-            this.btnTimeInMotion.Click += new System.EventHandler(this.btnTimeInMotion_Click);
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Calibri", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(648, 66);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(150, 33);
+            this.label26.TabIndex = 24;
+            this.label26.Text = "KPI Analyser";
             // 
             // txtTraditionalConversionRate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1859, 955);
+            this.Controls.Add(this.label26);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.dteEnd);
@@ -2552,6 +2564,7 @@
         private System.Windows.Forms.Label lblPercent;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Button btnTimeInMotion;
+        private System.Windows.Forms.Label label26;
     }
 }
 

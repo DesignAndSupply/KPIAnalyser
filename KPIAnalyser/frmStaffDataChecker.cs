@@ -451,20 +451,20 @@ namespace KPIAnalyser
             //work out percentage
             if (green == 0 && red == 0)
             {
-                lblPerformance.Text = "0% Over Target";
+                lblPerformance.Text = "0% Under Target";
             }//nothing
             else
             {
                 if (green == 0)
-                    lblPerformance.Text = "0% Over Target";
+                    lblPerformance.Text = "100% Under Target";
                 else if (red == 0)
-                    lblPerformance.Text = "100% Over Target";
+                    lblPerformance.Text = "0% Under Target";
                 else
                 {
                     double test = 0;
-                    test = Math.Round((green / (green + red) * 100), 2);
+                    test = Math.Round((red / (green + red) * 100), 2);
                     //Math.Round((green / red) * 100,2);
-                    lblPerformance.Text = test.ToString() + "% Over Target";
+                    lblPerformance.Text = test.ToString() + "% Under Target";
                 }
             }
         }
@@ -1005,6 +1005,17 @@ namespace KPIAnalyser
 
             Process.Start(fileName);
 
+        }
+
+        private void dgvRemakeRepaint_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex == -1)
+                return;
+
+                frmRepaintsRemakes frm = new frmRepaintsRemakes(Convert.ToDateTime(dgvRemakeRepaint.Rows[e.RowIndex].Cells[0].Value.ToString()), Convert.ToDateTime(dgvRemakeRepaint.Rows[e.RowIndex].Cells[0].Value.ToString()).AddDays(1), cmbStaff.Text);
+                frm.ShowDialog();
+            
         }
     }
 }

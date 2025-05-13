@@ -28,6 +28,9 @@ namespace KPIAnalyser
             lstStaff.Items.Add("Tomas Grother");
             lstStaff.Items.Add("Brandon Evans");
             lstStaff.Items.Add("Rhys Davies");
+            lstStaff.Items.Add("Lewis Hargreaves");
+            lstStaff.Items.Add("Jack Lockett");
+            lstStaff.Items.Add("Geraint Lee");
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionStringUser))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))

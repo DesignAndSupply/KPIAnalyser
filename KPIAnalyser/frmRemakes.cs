@@ -52,7 +52,7 @@ namespace KPIAnalyser
 
         private void chart_stuff()
         {
-            string sql = "select coalesce(max(u.forename),'') + ' ' + coalesce(max(u.surname),'') as [Person Responsibile] ,COUNT(d1.department_name) as [Number of Remakes],sum(remake.cost) as [Total Cost]  from dbo.remake " +
+            string sql = "select coalesce(max(u.forename),'') + ' ' + coalesce(max(u.surname),'') as [Person Responsibile] ,COUNT(d1.department_name) as [Number of Remakes],sum(coalesce(remake.cost,0)) as [Total Cost]  from dbo.remake " +
                            "left join dbo.door on dbo.door.id = dbo.remake.door_id left join dbo.SALES_LEDGER on dbo.SALES_LEDGER.ACCOUNT_REF = dbo.door.customer_acc_ref left join[user_info].dbo.[user] as u on u.id = dbo.remake.persons_responsible " +
                            "left join dsl_kpi.dbo.department as d1 on d1.id = dbo.remake.dept_responsible left join dsl_kpi.dbo.department as d2 on d2.id = dbo.remake.dept_noticed " +
                            "where[date] >= '" + dateStart.ToString("yyyy-MM-dd") + "' AND[date] < '" + dateEnd.ToString("yyyyMMdd") + "'  AND d1.department_name LIKE '%" + dept + "%' group by dbo.remake.persons_responsible order by COUNT(dbo.remake.persons_responsible) desc,max(u.forename) asc";

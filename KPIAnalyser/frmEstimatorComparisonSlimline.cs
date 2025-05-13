@@ -23,7 +23,8 @@ namespace KPIAnalyser
             lstStaff.Items.Add("All");
             this.WindowState = FormWindowState.Maximized;
             //add to the combobox
-            string sql = "SELECT forename + ' ' + surname FROM [user_info].dbo.[user] WHERE grouping = 25 and id <> 7 and id <> 24 ";
+            lstStaff.Items.Add("Jenny Jones");
+            string sql = "SELECT forename + ' ' + surname FROM [user_info].dbo.[user] WHERE grouping = 25 and id <> 7 and id <> 24 and [current] = 1 AND (non_user is null or non_user = 0)  order by forename ";
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
