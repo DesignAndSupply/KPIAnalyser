@@ -36,14 +36,17 @@ namespace KPIAnalyser
 
             if (1 == 1)
             {
-                cmbStaffMember.Items.Add("Tomas Grother");
-                cmbStaffMember.Items.Add("Brandon Evans");
-                cmbStaffMember.Items.Add("Lewis Hargreaves");
+                //cmbStaffMember.Items.Add("Tomas Grother");
+                //cmbStaffMember.Items.Add("Brandon Evans");
+                //cmbStaffMember.Items.Add("Lewis Hargreaves");
                 cmbStaffMember.Items.Add("Rhys Davies");
                 cmbStaffMember.Items.Add("Jack Lockett");
                 cmbStaffMember.Items.Add("Geraint Lee");
                 cmbStaffMember.Items.Add("Aaron Carter");
                 cmbStaffMember.Items.Add("Joseph Hamilton");
+
+                cmbStaffMember.Sorted = true;
+
                 string sql = "SELECT forename + ' ' + surname FROM dbo.[user] where [grouping] = 5 and [current] = 1 and (non_user is null or non_user = 0)  order by forename";
                 using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionStringUser))
                 {
