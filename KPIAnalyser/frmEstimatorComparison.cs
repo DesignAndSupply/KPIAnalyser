@@ -40,6 +40,7 @@ namespace KPIAnalyser
             lstStaff.Items.Add("Geraint Lee");
             lstStaff.Items.Add("Aaron Carter");
             lstStaff.Items.Add("Joseph Hamilton");
+            lstStaff.Items.Add("Nick Thomas");
             lstStaff.Sorted = true;
             //
 
@@ -252,7 +253,7 @@ namespace KPIAnalyser
                             }
                             catch
                             {
-                                user2 ="";
+                                user2 = "";
                                 daily2 = 0;
                                 target2 = 0;
                             }

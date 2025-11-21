@@ -44,6 +44,7 @@ namespace KPIAnalyser
                 cmbStaffMember.Items.Add("Geraint Lee");
                 cmbStaffMember.Items.Add("Aaron Carter");
                 cmbStaffMember.Items.Add("Joseph Hamilton");
+                cmbStaffMember.Items.Add("Nick Thomas");
 
                 cmbStaffMember.Sorted = true;
 
