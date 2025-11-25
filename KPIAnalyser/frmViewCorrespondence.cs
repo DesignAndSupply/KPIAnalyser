@@ -20,9 +20,15 @@ namespace KPIAnalyser
 
             lblTitle.Text = "Correspondence - " + _staff + " - " + _date;
 
-            string sql = "select customer_name as [Customer Name],contact as [Contact],body as [Correspondence Note] FROM [order_database].dbo.quotation_chase_customer c " +
-                         "LEFT JOIN [user_info].dbo.[user] u on c.correspondence_by = u.id " +
-                         "where forename + ' ' + surname = '" + _staff + "' and cast(date_created as date) = '" + Convert.ToDateTime(_date).ToString("yyyyMMdd") + "'";
+            //string sql = "select customer_name as [Customer Name],contact as [Contact],body as [Correspondence Note] FROM [order_database].dbo.quotation_chase_customer c " +
+            //             "LEFT JOIN [user_info].dbo.[user] u on c.correspondence_by = u.id " +
+            //             "where forename + ' ' + surname = '" + _staff + "' and cast(date_created as date) = '" + Convert.ToDateTime(_date).ToString("yyyyMMdd") + "'";
+
+            string sql = "select s.NAME as [Customer Name],snc.name as [Contact],details as [Correspondence Details] FROM dbo.sales_nexus_correspondence c " +
+                         "left join [user_info].dbo.[user] u on c.correspondence_by = u.id " +
+                         "left join dbo.view_SALES_LEDGER_AND_PROSPECT s on c.customer_acc_ref = s.ACCOUNT_REF " +
+                         "left join dbo.sales_nexus_contacts snc on c.contact_id = snc.id " +
+                         "where u.forename + ' ' + u.surname = '" + _staff + "' and cast(date_created as date) = '" + Convert.ToDateTime(_date).ToString("yyyyMMdd") + "'";
 
 
             using (SqlConnection conn = new SqlConnection(ConnectionStrings.ConnectionString))
